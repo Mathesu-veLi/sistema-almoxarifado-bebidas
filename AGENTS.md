@@ -56,18 +56,40 @@ A aplicação segue estritamente o padrão **MVC (Model-View-Controller) + DAO +
 
 ## 5. Índice de Documentação (`docs/`)
 Sempre consulte os documentos específicos para detalhes profundos:
-* [`docs/01_requisitos.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/docs/01_requisitos.md): RFs, RNs e RNFs detalhados com critérios de aceite.
-* [`docs/02_diagrama_de_classes.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/docs/02_diagrama_de_classes.md): Diagrama de classes completo (Mermaid), atributos, métodos e relações.
-* [`docs/03_modelagem_banco_e_revisao.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/docs/03_modelagem_banco_e_revisao.md): Revisão do banco drawdb, análise de inconsistências e script SQL oficial.
-* [`docs/04_arquitetura_e_fluxo_telas.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/docs/04_arquitetura_e_fluxo_telas.md): Wireframes conceituais, fluxo JavaFX e sessão.
-* [`docs/05_plano_de_testes.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/docs/05_plano_de_testes.md): Casos de teste funcionais com entradas, ações e saídas esperadas.
-* [`docs/06_infraestrutura.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/docs/06_infraestrutura.md): Especificação de ambiente e SGBD para a entrega 9 do SENAI.
-* [`docs/07_preparacao_banca.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/docs/07_preparacao_banca.md): Roteiro de perguntas e respostas para a arguição oral.
+* [`docs/01_requisitos.md`](docs/01_requisitos.md): RFs, RNs e RNFs detalhados com critérios de aceite.
+* [`docs/02_diagrama_de_classes.md`](docs/02_diagrama_de_classes.md): Diagrama de classes completo (Mermaid), atributos, métodos e relações.
+* [`docs/03_modelagem_banco_e_revisao.md`](docs/03_modelagem_banco_e_revisao.md): Revisão do banco drawdb, análise de inconsistências e script SQL oficial.
+* [`docs/04_arquitetura_e_fluxo_telas.md`](docs/04_arquitetura_e_fluxo_telas.md): Wireframes conceituais, fluxo JavaFX e sessão.
+* [`docs/05_plano_de_testes.md`](docs/05_plano_de_testes.md): Casos de teste funcionais com entradas, ações e saídas esperadas.
+* [`docs/06_infraestrutura.md`](docs/06_infraestrutura.md): Especificação de ambiente e SGBD para a entrega 9 do SENAI.
+* [`docs/07_preparacao_banca.md`](docs/07_preparacao_banca.md): Roteiro de perguntas e respostas para a arguição oral.
 
 ---
 
-## 6. Habilidades do Agente (`skills/`)
-* [`skills/git-commit/SKILL.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/skills/git-commit/SKILL.md): Procedimento para commits atômicos com perfil `Mathesu-veLi`.
-* [`skills/javafx-desktop/SKILL.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/skills/javafx-desktop/SKILL.md): Padrões de código JavaFX, FXML e NetBeans.
-* [`skills/sorting-algorithms/SKILL.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/skills/sorting-algorithms/SKILL.md): Algoritmo de ordenação e explicação teórica para a banca.
-* [`skills/database-operations/SKILL.md`](file:///c:/Users/aluno.lauro/Downloads/interdisciplinar/skills/database-operations/SKILL.md): Padrão DAO, transações e views de estoque em MySQL.
+## 6. Habilidades do Agente (Skills)
+As habilidades especializadas estão disponíveis de forma sincronizada em `.agents/skills/` (Antigravity), `.opencode/skills/` (OpenCode) e `skills/`:
+* [`skills/git-commit/SKILL.md`](skills/git-commit/SKILL.md): Procedimento para commits atômicos com perfil `Mathesu-veLi`.
+* [`skills/javafx-desktop/SKILL.md`](skills/javafx-desktop/SKILL.md): Padrões de código JavaFX, FXML e NetBeans.
+* [`skills/sorting-algorithms/SKILL.md`](skills/sorting-algorithms/SKILL.md): Algoritmo de ordenação e explicação teórica para a banca.
+* [`skills/database-operations/SKILL.md`](skills/database-operations/SKILL.md): Padrão DAO, transações e views de estoque em MySQL.
+
+---
+
+## 7. Compatibilidade de Ambientes: Antigravity & OpenCode
+
+O repositório foi adaptado para interoperabilidade nativa e transparente em ambos os agentes:
+
+### No Antigravity (Google DeepMind)
+* **Instruções Principais:** Carrega automaticamente as regras corporativas a partir deste arquivo `AGENTS.md`.
+* **Workspace Customizations:** Descoberta automática de skills em `.agents/skills/` e regras adicionais em `.agents/rules/senai-rules.md`.
+* **Subagentes:** Podem ser invocados herdando o contexto completo de arquitetura e guardrails do SENAI.
+
+### No OpenCode
+* **Configuração Central:** `opencode.json` na raiz define as instruções (`AGENTS.md`), comandos e agentes.
+* **Skills:** Reconhecidas em `.opencode/skills/` (e por fallback em `.agents/skills/`).
+* **Comandos Customizados (Slash Commands):**
+  * `/commit`: Executa commits atômicos padronizados com o autor Matheus (`.opencode/commands/commit.md`).
+  * `/banca`: Prepara simulações de perguntas e respostas para a arguição oral da banca (`.opencode/commands/banca.md`).
+  * `/testes`: Valida cenários do sistema contra o plano de testes (`.opencode/commands/testes.md`).
+* **Subagente Especializado:** `commit-agent` configurado em `.opencode/agents/commit-agent.md` e em `opencode.json`.
+
