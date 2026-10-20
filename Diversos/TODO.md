@@ -1,86 +1,104 @@
-# 📋 Guia Passo a Passo do Projeto Integrador (TODO da Equipe)
+# Roteiro de Execucao do Projeto Integrador (TODO da Equipe)
 
-> **Projeto:** Sistema de Almoxarifado e Controle de Estoque — Indústria de Bebidas  
-> **Curso:** Técnico em Desenvolvimento de Sistemas — SENAI / FIEB (Módulo 2)  
-> **Objetivo deste documento:** Este é o roteiro prático e detalhado da equipe. Qualquer integrante do grupo consegue pegar este guia, sentar no computador do laboratório ou de casa e executar cada etapa do zero até a entrega final, **sem depender de inteligência artificial**.
-
----
-
-## 🧭 Como Usar Este Guia
-* As tarefas estão em **ordem lógica de execução** (do que fazer primeiro até a entrega final).
-* Cada tarefa possui uma caixa de marcação `[ ]`. Conforme o grupo for concluindo, marque com um `[X]`.
-* Sempre que uma tarefa tiver um arquivo de apoio já pronto na pasta `docs/` ou `Entregaveis/`, nós indicamos exatamente onde olhar!
+**Projeto:** Sistema de Almoxarifado para Industria de Bebidas  
+**Curso:** Tecnico em Desenvolvimento de Sistemas - SENAI / FIEB (Modulo 2)  
+**Finalidade:** Guia operacional direto e pratico para desenvolvimento manual da equipe sem uso de IA.
 
 ---
 
-## 📌 Checklist Rápido das 9 Entregas Oficiais do SENAI
-Antes de começar, tenha em mente o que o professor vai cobrar no final:
-- [ ] **Entrega 1:** Documento de Requisitos e Funcionalidades (`docs/01_requisitos.md`)
-- [ ] **Entrega 2:** Imagem do Diagrama Entidade-Relacionamento / DER (`.png` ou `.jpeg`)
-- [ ] **Entrega 3:** Script SQL do banco com nome `bebidas_db` e mínimo 3 registros por tabela
-- [ ] **Entrega 4:** Tela de Login funcionando com validação de senha e alertas
-- [ ] **Entrega 5:** Tela Inicial (Home) mostrando nome do usuário logado e navegação
-- [ ] **Entrega 6:** Tela de Gerenciamento de Insumos (tabela, busca, cadastrar, editar, excluir)
-- [ ] **Entrega 7:** Tela de Movimentação (ordenação alfabética via Quicksort e alerta de estoque crítico)
-- [ ] **Entrega 8:** Documento com o Plano e Registro de Testes executados
-- [ ] **Entrega 9:** Documento de Infraestrutura técnica (Java, NetBeans, MySQL, SO)
-- [ ] **Pasta Final Compactada:** `.zip` contendo tudo identificado com o nome do aluno/equipe
+## 1. Quadro Resumo: O que fazer de relance
+
+Use esta tabela para saber o status geral e o caminho de cada etapa apenas batendo o olho:
+
+| Fase | Acao Principal | Ferramenta / Onde Fazer | Arquivo de Apoio | Feito? |
+|---|---|---|---|:---:|
+| **Fase 0** | Validar instalacoes do computador | CMD / NetBeans / MySQL / Scene Builder | - | [ ] |
+| **Fase 1** | Rodar o script do banco de dados | MySQL Workbench ou XAMPP | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
+| **Fase 2** | Criar o projeto JavaFX no NetBeans | Apache NetBeans (Maven) | `pom.xml` | [ ] |
+| **Fase 3** | Programar Conexao, Modelos e DAOs | NetBeans (Pastas `util`, `model`, `dao`) | `docs/02_diagrama_de_classes.md` | [ ] |
+| **Fase 4** | Criar o algoritmo Quicksort | NetBeans (Pasta `service`) | `skills/sorting-algorithms/SKILL.md` | [ ] |
+| **Fase 5** | Desenhar as 4 telas no Scene Builder | Gluon Scene Builder | `docs/04_arquitetura_e_fluxo_telas.md` | [ ] |
+| **Fase 6** | Programar acoes dos botoes e regras | NetBeans (Pasta `controller`) | `docs/04_arquitetura_e_fluxo_telas.md` | [ ] |
+| **Fase 7** | Realizar testes manuais do sistema | Sistema rodando no NetBeans | `docs/05_plano_de_testes.md` | [ ] |
+| **Fase 8** | Montar a pasta compactada (.zip) | Windows Explorer | Instrucoes do Edital (Item 10) | [ ] |
+| **Fase 9** | Treinar respostas da apresentacao oral | Estudo individual e em grupo | `docs/07_preparacao_banca.md` | [ ] |
 
 ---
 
-## 🛠️ ETAPA 0: Preparação do Computador e Ferramentas
+## 2. Checklist das 9 Entregas Oficiais do SENAI
 
-Antes de programar qualquer linha, garanta que os programas necessários estejam instalados e funcionando:
+Marque conforme os arquivos da entrega forem separados:
 
-- [ ] **0.1. Verificar o Java no computador:**
-  * Abra o Prompt de Comando (CMD) ou PowerShell.
-  * Digite: `java -version` e aperte Enter.
-  * *O que deve aparecer:* Java versão 17 ou 21. Se não tiver, baixe e instale o JDK 17 (LTS).
-- [ ] **0.2. Verificar o MySQL:**
-  * Abra o **MySQL Workbench** ou o painel do **XAMPP** (inicie o serviço MySQL).
-  * Certifique-se de que a porta `3306` está ativa e anote sua senha do usuário `root` (geralmente é vazia no XAMPP ou `root` / `admin` no MySQL Workbench).
-- [ ] **0.3. Verificar a IDE (Apache NetBeans):**
-  * Abra o Apache NetBeans (versão 17, 18, 19 ou superior).
-- [ ] **0.4. Verificar o Scene Builder:**
-  * Baixe e instale o **Gluon Scene Builder** (ferramenta visual para arrastar e desenhar as telas JavaFX).
-  * No NetBeans, vá em: `Tools` (Ferramentas) -> `Options` (Opções) -> aba `Java` -> aba `JavaFX` e aponte o caminho onde o Scene Builder foi instalado.
+- [ ] **Entrega 1:** Documento de Requisitos (`docs/01_requisitos.md`)
+- [ ] **Entrega 2:** Imagem do DER (`Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`)
+- [ ] **Entrega 3:** Script SQL (`Entregaveis/Banco de Dados/BancodoProjeto.sql`)
+- [ ] **Entrega 4:** Tela de Login funcional (validacao de usuario, senha e erro amigavel)
+- [ ] **Entrega 5:** Tela Inicial funcional (nome do usuario logado, cargo e navegacao)
+- [ ] **Entrega 6:** Tela de Gerenciamento de Insumos (tabela, pesquisa, insercao, edicao, exclusao)
+- [ ] **Entrega 7:** Tela de Movimentacao (ordenacao por Quicksort e alerta de estoque critico)
+- [ ] **Entrega 8:** Documento de Planejamento e Registro de Testes (`docs/05_plano_de_testes.md`)
+- [ ] **Entrega 9:** Documento de Infraestrutura Tecnica (`docs/06_infraestrutura.md`)
 
 ---
 
-## 🗄️ ETAPA 1: Banco de Dados (`bebidas_db`)
-
-O banco de dados é o coração do sistema. As telas só vão funcionar se o banco estiver criado e com dados dentro.
-
-- [ ] **1.1. Abrir o script SQL do projeto:**
-  * O script completo e corrigido já está na pasta:  
-    `Entregaveis/Banco de Dados/BancodoProjeto.sql`
-- [ ] **1.2. Executar o script no MySQL:**
-  * Abra o MySQL Workbench (ou o phpMyAdmin no navegador `localhost/phpmyadmin`).
-  * Abra o arquivo `BancodoProjeto.sql` e execute tudo (ícone de raio no Workbench).
-- [ ] **1.3. Conferir os requisitos obrigatórios do edital:**
-  * [ ] O nome do banco é exatamente `bebidas_db`? (Obrigatório pelo edital!)
-  * [ ] Todas as 8 tabelas foram criadas? (`cargos`, `tipos_movimentacao`, `tipos_insumos`, `fornecedores`, `setores`, `lotes_insumos`, `funcionarios`, `movimentacoes`).
-  * [ ] Cada tabela tem pelo menos 3 linhas cadastradas? (Rode um `SELECT * FROM funcionarios;`, `SELECT * FROM tipos_insumos;`, etc., para confirmar).
-- [ ] **1.4. Salvar a imagem do DER para a Entrega 2:**
-  * Já temos a imagem gerada em:  
-    `Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`
-  * Dica: confira se a imagem está legível. Ela será enviada diretamente na entrega do SENAI.
+## 3. Passo a Passo Detalhado
 
 ---
 
-## ☕ ETAPA 2: Criação e Configuração do Projeto no NetBeans
+### FASE 0: Validar Ferramentas no Computador
 
-Agora vamos preparar a base do código Java no NetBeans.
+- [ ] **0.1. Validar versao do Java**
+  * **Onde:** Prompt de Comando (CMD).
+  * **Comando:** `java -version`
+  * **Resultado esperado:** Versao 17 ou 21. Se nao tiver, instalar JDK 17 LTS.
 
-- [ ] **2.1. Criar um novo projeto Maven no NetBeans:**
-  * No menu superior: `File` -> `New Project...`
-  * Escolha a categoria: `Java with Maven` -> `FXML JavaFX Application` (ou `Simple JavaFX Application`).
-  * Nome do Projeto: `ControleEstoqueBebidas`.
-  * Grupo (Group Id): `com.senai.bebidas`.
-  * Pacote principal: `com.senai.bebidas`.
-  * Clique em `Finish`.
-- [ ] **2.2. Adicionar as dependências no `pom.xml`:**
-  * Abra o arquivo `pom.xml` do projeto e adicione a dependência do MySQL Connector:
+- [ ] **0.2. Iniciar o Servidor MySQL**
+  * **Onde:** Painel do XAMPP ou servico do MySQL Workbench.
+  * **Resultado esperado:** Servico rodando na porta 3306.
+
+- [ ] **0.3. Integrar NetBeans com Scene Builder**
+  * **Onde:** NetBeans -> `Tools` -> `Options` -> `Java` -> `JavaFX`.
+  * **Acao:** Apontar o caminho do executavel do Gluon Scene Builder.
+  * **Resultado esperado:** Ao dar duplo clique em um arquivo `.fxml`, o Scene Builder deve abrir automaticamente.
+
+---
+
+### FASE 1: Banco de Dados (bebidas_db)
+
+- [ ] **1.1. Executar o Script SQL Oficial**
+  * **Onde:** MySQL Workbench ou phpMyAdmin.
+  * **Acao:** Abrir e executar o arquivo `Entregaveis/Banco de Dados/BancodoProjeto.sql`.
+  * **Resultado esperado:** Banco `bebidas_db` criado com as 8 tabelas e views de estoque.
+
+- [ ] **1.2. Auditar a Regra do Edital (Minimo de 3 registros por tabela)**
+  * **Onde:** MySQL Workbench.
+  * **Comando de teste:**
+    ```sql
+    USE bebidas_db;
+    SELECT COUNT(*) FROM cargos;
+    SELECT COUNT(*) FROM tipos_movimentacao;
+    SELECT COUNT(*) FROM tipos_insumos;
+    SELECT COUNT(*) FROM fornecedores;
+    SELECT COUNT(*) FROM setores;
+    SELECT COUNT(*) FROM lotes_insumos;
+    SELECT COUNT(*) FROM funcionarios;
+    SELECT COUNT(*) FROM movimentacoes;
+    ```
+  * **Resultado esperado:** Todas as tabelas devem retornar contagem igual ou superior a 3.
+
+---
+
+### FASE 2: Criacao do Projeto no NetBeans
+
+- [ ] **2.1. Criar o Projeto Maven**
+  * **Onde:** NetBeans -> `File` -> `New Project...` -> `Java with Maven` -> `FXML JavaFX Application`.
+  * **Nome do Projeto:** `ControleEstoqueBebidas`
+  * **Group Id:** `com.senai.bebidas`
+  * **Package:** `com.senai.bebidas`
+
+- [ ] **2.2. Configurar o driver do MySQL no `pom.xml`**
+  * **Onde:** Arquivo `pom.xml` na raiz do projeto.
+  * **Acao:** Adicionar a dependencia:
     ```xml
     <dependency>
         <groupId>com.mysql</groupId>
@@ -88,216 +106,171 @@ Agora vamos preparar a base do código Java no NetBeans.
         <version>8.3.0</version>
     </dependency>
     ```
-  * Clique com o botão direito no projeto e selecione `Clean and Build` para baixar a biblioteca.
-- [ ] **2.3. Criar os pacotes da arquitetura MVC + DAO:**
-  Dentro de `src/main/java/com/senai/bebidas/`, crie as seguintes pastas (pacotes):
-  * [ ] `com.senai.bebidas.model` *(onde ficam as classes dos dados: Insumo, Funcionario, etc.)*
-  * [ ] `com.senai.bebidas.dao` *(onde ficam as classes que conversam com o MySQL)*
-  * [ ] `com.senai.bebidas.service` *(onde ficam as regras e o algoritmo Quicksort)*
-  * [ ] `com.senai.bebidas.controller` *(onde ficam os controladores das telas)*
-  * [ ] `com.senai.bebidas.util` *(onde fica a conexão com o banco e alertas)*
-- [ ] **2.4. Criar a pasta de telas e estilos:**
-  Dentro de `src/main/resources/`:
-  * [ ] Criar a pasta `fxml` (onde ficarão os arquivos `.fxml` de cada tela).
-  * [ ] Criar a pasta `css` (onde ficará o arquivo `estilo.css` para deixar o sistema bonito).
-  * [ ] Criar a pasta `images` (para colocar a logo da empresa ou ícones).
+  * **Resultado esperado:** Clicar em `Clean and Build` e a compilacao finalizar com `BUILD SUCCESS`.
+
+- [ ] **2.3. Criar a Estrutura de Pacotes**
+  * **Onde:** `src/main/java/com/senai/bebidas/`
+  * **Criar:**
+    * `com.senai.bebidas.model`
+    * `com.senai.bebidas.dao`
+    * `com.senai.bebidas.service`
+    * `com.senai.bebidas.controller`
+    * `com.senai.bebidas.util`
+
+- [ ] **2.4. Criar as Pastas de Recursos**
+  * **Onde:** `src/main/resources/`
+  * **Criar:**
+    * Pasta `fxml` (telas visuais)
+    * Pasta `css` (folha de estilo `estilo.css`)
+    * Pasta `images` (icones e logomarca)
 
 ---
 
-## 🔌 ETAPA 3: Backend — Conexão, Classes de Modelo e DAO
+### FASE 3: Backend (Conexao, Modelos e DAOs)
 
-Nesta etapa, criamos o código que conversa com o banco de dados antes mesmo de desenhar as telas.
+- [ ] **3.1. Criar `DatabaseConnection.java`**
+  * **Onde:** Pacote `com.senai.bebidas.util`.
+  * **Acao:** Criar metodo estatico `getConnection()` com URL:
+    `jdbc:mysql://localhost:3306/bebidas_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC`
+  * **Resultado esperado:** Criar um metodo `main` simples e validar mensagem de conexao bem-sucedida.
 
-### 3.1. Conexão com o Banco (`util`)
-- [ ] **Criar a classe `DatabaseConnection.java` em `com.senai.bebidas.util`:**
-  * Configurar a URL do JDBC: `jdbc:mysql://localhost:3306/bebidas_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC`
-  * Usuário: `root`
-  * Senha: sua senha local do MySQL.
-  * Fazer um método de teste com `main` para rodar e ver se imprime `"Conectado ao bebidas_db com sucesso!"`.
+- [ ] **3.2. Criar `SessaoUsuario.java`**
+  * **Onde:** Pacote `com.senai.bebidas.util`.
+  * **Acao:** Criar classe com atributo estatico `private static Funcionario usuarioLogado;` e metodos `setUsuarioLogado()`, `getUsuarioLogado()` e `limparSessao()`.
+  * **Finalidade:** Manter o nome e cargo do usuario ativos durante a navegacao.
 
-### 3.2. Controle de Sessão (`util`)
-- [ ] **Criar a classe `SessaoUsuario.java`:**
-  * Guardar em uma variável estática o funcionário logado (nome, e-mail e cargo).
-  * Criar métodos: `setUsuarioLogado(Funcionario f)`, `getUsuarioLogado()` e `limparSessao()`.
-  * *Por que isso é importante?* Para a Home saber o nome de quem entrou e para registrar o responsável nas movimentações (exigência do edital!).
+- [ ] **3.3. Criar Classes de Entidade (Model)**
+  * **Onde:** Pacote `com.senai.bebidas.model`.
+  * **Referencia de atributos:** Consultar `docs/02_diagrama_de_classes.md`.
+  * **Classes obrigatorias:**
+    * `Funcionario.java` (id, nome, email, senha, cpf, cargoNome)
+    * `Insumo.java` (id, nome, descricao, volumeEmbalagem, unidadeMedida, quantidadeMinima, saldoAtual)
+    * `LoteInsumo.java` (id, numeroLote, tipoInsumoId, fornecedorId, setorId, dataValidade, saldoAtual)
+    * `Movimentacao.java` (id, loteInsumoId, funcionarioId, tipoMovimentacaoId, setorId, quantidade, dataMovimentacao)
 
-### 3.3. Classes de Modelo (`model`)
-Consultar o arquivo `docs/02_diagrama_de_classes.md` para ver todos os atributos e métodos:
-- [ ] **`Funcionario.java`**: `id`, `nome`, `email`, `senha`, `cpf`, `cargoNome`.
-- [ ] **`Insumo.java`**: `id`, `nome`, `descricao`, `volumeEmbalagem`, `unidadeMedida`, `quantidadeMinima`, `saldoAtual`.
-- [ ] **`LoteInsumo.java`**: `id`, `numeroLote`, `tipoInsumoId`, `fornecedorId`, `setorId`, `dataValidade`, `saldoAtual`.
-- [ ] **`Movimentacao.java`**: `id`, `loteInsumoId`, `funcionarioId`, `tipoMovimentacaoId`, `setorId`, `quantidade`, `dataMovimentacao`.
-
-### 3.4. Camada de Persistência (`dao`)
-Criar as classes que executam os comandos SQL via `PreparedStatement`:
-- [ ] **`FuncionarioDAO.java`:**
-  * Método `autenticar(String email, String senha)`: faz um `SELECT` comparando e-mail e senha. Se achar, retorna o `Funcionario`; se não achar, retorna `null`.
-- [ ] **`InsumoDAO.java`:**
-  * Método `listarTodos()`: busca insumos com saldo atual (usando a view `vw_quantidade_atual`).
-  * Método `inserir(Insumo insumo)`: executa o `INSERT INTO tipos_insumos`.
-  * Método `atualizar(Insumo insumo)`: executa o `UPDATE tipos_insumos`.
-  * Método `excluir(int id)`: tenta inativar ou excluir (com `try/catch` para avisar se tiver vínculos no estoque).
-- [ ] **`MovimentacaoDAO.java`:**
-  * Método `registrarMovimentacao(Movimentacao mov)`: insere um registro na tabela `movimentacoes`.
-  * Método `buscarSaldoAtualPorLote(int loteId)`: consulta o saldo do lote antes de dar baixa.
+- [ ] **3.4. Criar Classes de Acesso a Dados (DAO)**
+  * **Onde:** Pacote `com.senai.bebidas.dao`.
+  * **Classes e metodos minimos:**
+    * `FuncionarioDAO.java` -> Metodo `autenticar(String email, String senha)`
+    * `InsumoDAO.java` -> Metodos `listarTodos()`, `inserir(Insumo i)`, `atualizar(Insumo i)`, `excluir(int id)`
+    * `MovimentacaoDAO.java` -> Metodo `registrar(Movimentacao m)` e `consultarSaldoLote(int loteId)`
 
 ---
 
-## 🧠 ETAPA 4: Algoritmo de Ordenação Próprio (Quicksort)
+### FASE 4: Algoritmo Quicksort de Ordenacao
 
-> ⚠️ **ATENÇÃO:** O edital e os professores exigem um algoritmo de ordenação feito pela equipe, e não apenas o `ORDER BY` do SQL!
-
-- [ ] **4.1. Criar a classe `OrdenacaoService.java` em `com.senai.bebidas.service`:**
-  * Consultar o código pronto e explicado em: `skills/sorting-algorithms/SKILL.md`.
-  * Implementar o método `ordenarInsumosPorNome(List<Insumo> lista)`.
-  * O método deve usar o algoritmo **Quicksort recursivo**, comparando os nomes dos insumos com `compareToIgnoreCase()`.
-- [ ] **4.2. Criar um teste simples para garantir:**
-  * Criar um método `main` rápido, colocar 3 nomes fora de ordem (ex: "Xarope", "Açúcar", "Garrafa PET"), mandar o Quicksort ordenar e conferir se saiu certinho em ordem alfabética.
+- [ ] **4.1. Criar a Classe `OrdenacaoService.java`**
+  * **Onde:** Pacote `com.senai.bebidas.service`.
+  * **Referencia de codigo:** Consultar `skills/sorting-algorithms/SKILL.md`.
+  * **Acao:** Implementar o Quicksort recursivo que recebe `List<Insumo>` e ordena em ordem alfabetica comparando `insumo.getNome().compareToIgnoreCase()`.
+  * **Resultado esperado:** A ordenacao dos insumos na tela de movimentacao DEVE ser feita por este metodo Java, e nao pelo `ORDER BY` do SQL (requisito do edital).
 
 ---
 
-## 🎨 ETAPA 5: Construção das Telas no Scene Builder (Frontend)
+### FASE 5: Desenho das 4 Telas no Scene Builder
 
-Abra o **Scene Builder** para desenhar as 4 telas solicitadas. Salve todas dentro de `src/main/resources/fxml/`.
+Desenhar as telas em `src/main/resources/fxml/` conforme especificado em `docs/04_arquitetura_e_fluxo_telas.md`:
 
-Consulte o arquivo `docs/04_arquitetura_e_fluxo_telas.md` para ver o visual e os nomes exatos de cada botão e campo.
+- [ ] **5.1. Tela de Login (`login.fxml`)**
+  * **Campos:** `TextField txtEmail`, `PasswordField txtSenha`, `Button btnEntrar`, `Label lblMensagemErro`.
+  * **Controller associado:** `com.senai.bebidas.controller.LoginController`.
 
-### 5.1. Tela 1: Login (`login.fxml`)
-- [ ] Campo de texto para e-mail (`txtEmail`).
-- [ ] Campo de senha (`txtSenha` do tipo `PasswordField`).
-- [ ] Botão "Entrar" (`btnEntrar`).
-- [ ] Mensagem de erro ou label para status (`lblMensagemErro`).
-- [ ] No Scene Builder, no menu lateral esquerdo inferior (aba *Controller*), aponte para:  
-  `com.senai.bebidas.controller.LoginController`.
+- [ ] **5.2. Tela Inicial / Menu (`home.fxml`)**
+  * **Campos:** `Label lblBoasVindas`, `Label lblCargo`, `Button btnInsumos`, `Button btnMovimentacao`, `Button btnLogout`.
+  * **Controller associado:** `com.senai.bebidas.controller.HomeController`.
 
-### 5.2. Tela 2: Inicial / Menu (`home.fxml`)
-- [ ] Mensagem de boas-vindas: "Bem-vindo, [Nome do Usuário]!" (`lblBoasVindas`).
-- [ ] Rótulo com o cargo: "Cargo: Operador de Estoque" (`lblCargo`).
-- [ ] Botão grande para ir para: "Gerenciamento de Insumos" (`btnInsumos`).
-- [ ] Botão grande para ir para: "Movimentação de Materiais" (`btnMovimentacao`).
-- [ ] Botão no topo ou canto: "Sair / Logout" (`btnLogout`).
-- [ ] Aponte o controller para: `com.senai.bebidas.controller.HomeController`.
+- [ ] **5.3. Tela de Gerenciamento de Insumos (`insumos.fxml`)**
+  * **Campos de listagem:** `TextField txtPesquisa`, `TableView tblInsumos` (Colunas: ID, Nome, Unidade, Qtd Minima, Saldo).
+  * **Campos de formulario:** `txtNome`, `txtDescricao`, `txtVolume`, `txtUnidade`, `txtQtdMinima`.
+  * **Botoes:** `btnSalvar`, `btnEditar`, `btnExcluir`, `btnLimpar`, `btnVoltar`.
+  * **Controller associado:** `com.senai.bebidas.controller.InsumosController`.
 
-### 5.3. Tela 3: Gerenciamento de Insumos (`insumos.fxml`)
-- [ ] Campo de busca por texto com botão "Buscar" ou filtro ao digitar (`txtPesquisa`).
-- [ ] Tabela (`TableView`) listando: ID, Nome, Unidade, Quantidade Mínima, Saldo Atual.
-- [ ] Campos de formulário para preencher:
-  * Nome do Insumo (`txtNome`)
-  * Descrição (`txtDescricao`)
-  * Volume (`txtVolume`)
-  * Unidade de Medida (`txtUnidade`)
-  * Quantidade Mínima Segura (`txtQtdMinima`)
-- [ ] Botões de ação:
-  * "Salvar / Inserir" (`btnSalvar`)
-  * "Editar" (`btnEditar`)
-  * "Excluir" (`btnExcluir`)
-  * "Limpar Campos" (`btnLimpar`)
-  * "Voltar para o Menu" (`btnVoltar`)
-- [ ] Aponte o controller para: `com.senai.bebidas.controller.InsumosController`.
-
-### 5.4. Tela 4: Movimentação de Materiais (`movimentacao.fxml`)
-- [ ] Lista ou Tabela de Insumos ordenada alfabeticamente pelo Quicksort.
-- [ ] Seleção de Lote (`cmbLote`).
-- [ ] Tipo de Movimentação: Selecionar entre "Entrada (Reposição)" ou "Saída (Retirada para Produção)".
-- [ ] Campo de Quantidade (`txtQuantidade`).
-- [ ] Campo de Data da Operação (`dpData` ou data atual automática).
-- [ ] Setor Solicitante (`cmbSetor`).
-- [ ] Exibição automática do responsável (pega direto do usuário logado na sessão).
-- [ ] Botão "Confirmar Movimentação" (`btnConfirmar`).
-- [ ] Painel / Label de **Alerta Crítico**: deve ficar vermelho e destacar quando o saldo ficar menor ou igual ao mínimo!
-- [ ] Botão "Voltar para o Menu" (`btnVoltar`).
-- [ ] Aponte o controller para: `com.senai.bebidas.controller.MovimentacaoController`.
+- [ ] **5.4. Tela de Movimentacao de Materiais (`movimentacao.fxml`)**
+  * **Campos:** `ComboBox cmbInsumos` (ou tabela com Quicksort), `ComboBox cmbLotes`, `ComboBox cmbTipoMovimentacao`, `TextField txtQuantidade`, `DatePicker dpData`, `ComboBox cmbSetor`, `Label lblResponsavel`.
+  * **Botoes e Alertas:** `btnConfirmar`, `btnVoltar`, Painel ou Label de destaque para Alerta de Estoque Critico.
+  * **Controller associado:** `com.senai.bebidas.controller.MovimentacaoController`.
 
 ---
 
-## ⚡ ETAPA 6: Ligando as Telas aos Controladores (JavaFX Controllers)
+### FASE 6: Programacao dos Controladores (Controllers)
 
-Agora vamos programar as ações dos botões em `com.senai.bebidas.controller`:
+- [ ] **6.1. Programar `LoginController.java`**
+  * Validar campos em branco ao clicar em "Entrar".
+  * Consultar `FuncionarioDAO.autenticar(email, senha)`.
+  * Se login invalido: exibir mensagem clara de erro sem fechar a aplicacao.
+  * Se login valido: salvar usuario em `SessaoUsuario` e abrir `home.fxml`.
 
-- [ ] **6.1. Programar o `LoginController.java`:**
-  * Ao clicar em "Entrar", verificar se os campos estão vazios.
-  * Chamar `FuncionarioDAO.autenticar(email, senha)`.
-  * Se o retorno for nulo: exibir pop-up de alerta `AlertaUtil.mostrarErro("Usuário ou senha inválidos!")`.
-  * Se der certo: guardar na `SessaoUsuario` e abrir a tela `home.fxml`.
-- [ ] **6.2. Programar o `HomeController.java`:**
-  * No método `initialize()`, buscar o usuário da `SessaoUsuario` e preencher os textos `lblBoasVindas` e `lblCargo`.
-  * Configurar o botão "Insumos" para carregar a tela `insumos.fxml`.
-  * Configurar o botão "Movimentação" para carregar a tela `movimentacao.fxml`.
-  * Configurar o botão "Logout" para limpar a sessão e voltar para `login.fxml`.
-- [ ] **6.3. Programar o `InsumosController.java`:**
-  * Carregar a lista inicial de insumos do banco na `TableView`.
-  * Implementar a barra de pesquisa: filtrar a tabela conforme o usuário digita no campo de texto.
-  * Botão "Salvar": validar se os campos obrigatórios foram preenchidos antes de chamar o DAO (não deixar salvar campo vazio ou letras onde deve ser número).
-  * Botão "Editar": carregar os dados da linha selecionada nos campos de texto para poder alterar.
-  * Botão "Excluir": pedir confirmação `Tem certeza que deseja excluir?`. Se tiver vínculos de histórico, avisar amigavelmente que o item não pode ser apagado para manter a rastreabilidade.
-  * Botão "Voltar": fechar a tela atual e reabrir a `home.fxml`.
-- [ ] **6.4. Programar o `MovimentacaoController.java`:**
-  * No método `initialize()`:
-    1. Buscar a lista de insumos do banco de dados.
-    2. Passar a lista pelo `OrdenacaoService.ordenarInsumosPorNome(lista)` (**Quicksort**).
-    3. Exibir a lista já em ordem alfabética na interface!
-  * Preencher o campo do responsável com o nome de quem está logado (sem deixar o usuário mudar manualmente).
-  * Ao clicar em "Confirmar Movimentação":
-    1. Validar se a quantidade é maior que zero.
-    2. Se for **Saída**: verificar se o saldo atual é suficiente. Se o usuário tentar tirar mais do que tem no estoque, bloquear e avisar: `"Saldo insuficiente!"`.
-    3. Gravar a movimentação no banco.
-    4. **Regra de Alerta Crítico:** verificar se o saldo restante ficou menor ou igual à quantidade mínima. Se sim, exibir um pop-up de alerta chamativo:  
-       `⚠️ ATENÇÃO: O insumo [Nome] atingiu o nível crítico de estoque! Quantidade atual: X (Mínimo seguro: Y).`
-  * Botão "Voltar": retorna para a `home.fxml`.
+- [ ] **6.2. Programar `HomeController.java`**
+  * No metodo `initialize()`: ler `SessaoUsuario.getUsuarioLogado()` e exibir nome e cargo nos labels.
+  * Acao do botao "Insumos": carregar `insumos.fxml`.
+  * Acao do botao "Movimentacao": carregar `movimentacao.fxml`.
+  * Acao do botao "Sair": limpar sessao e retornar para `login.fxml`.
+
+- [ ] **6.3. Programar `InsumosController.java`**
+  * No metodo `initialize()`: preencher a `TableView` com os dados de `InsumoDAO.listarTodos()`.
+  * Barra de busca: filtrar a lista da tabela em tempo real conforme digitado em `txtPesquisa`.
+  * Acao de Salvar: validar se campos obrigatorios estao preenchidos antes de chamar o banco.
+  * Acao de Excluir: confirmar acao com dialogo de confirmacao; se houver vinculo historico, impedir exclusao e avisar o usuario.
+  * Acao de Voltar: retornar para `home.fxml`.
+
+- [ ] **6.4. Programar `MovimentacaoController.java`**
+  * No metodo `initialize()`:
+    1. Buscar insumos via DAO.
+    2. Chamar obrigatoriamente `OrdenacaoService.ordenarInsumosPorNome(lista)` para garantir a ordem alfabetica via Quicksort.
+    3. Exibir o nome do funcionario logado no campo de responsavel (bloqueado para edicao).
+  * Acao de Confirmar Movimentacao:
+    1. Validar quantidade maior que zero.
+    2. Se for Saida: conferir se ha saldo suficiente no lote. Se nao houver, bloquear e avisar.
+    3. Persistir a movimentacao no banco via `MovimentacaoDAO`.
+    4. **Regra de Nivel Critico:** verificar se o saldo restante ficou menor ou igual a `quantidadeMinima`. Se sim, disparar alerta visual na tela informando nivel critico atingido.
+  * Acao de Voltar: retornar para `home.fxml`.
 
 ---
 
-## 🧪 ETAPA 7: Testes Manuais (Simulação da Apresentação)
+### FASE 7: Bateria de Testes Praticos
 
-Antes de entregar, a equipe deve abrir o sistema e simular exatamente o que o professor vai fazer.
+Execute os 9 testes abaixo com a aplicacao aberta. Detalhes completos estao em `docs/05_plano_de_testes.md`.
 
-Consulte o arquivo completo de testes: `docs/05_plano_de_testes.md`.
-
-- [ ] **Teste 1 — Login com erro:** Digite um e-mail errado. O sistema deve mostrar aviso amigável sem travar.
-- [ ] **Teste 2 — Login com sucesso:** Digite `carlos.silva@industriabebidas.com` e a senha correta. O sistema deve abrir a Home.
-- [ ] **Teste 3 — Identificação do Usuário:** Olhe para o topo da Home. O nome "Carlos Silva" e o cargo aparecem corretamente?
-- [ ] **Teste 4 — Busca de Insumos:** Na tela de insumos, digite "Açúcar". Apenas o açúcar deve aparecer na tabela.
-- [ ] **Teste 5 — Validação de campos vazios:** Tente salvar um insumo sem digitar o nome. O sistema deve impedir e avisar.
-- [ ] **Teste 6 — Ordem Alfabética na Movimentação:** Abra a tela de movimentação e confira se a lista está em ordem de A a Z.
-- [ ] **Teste 7 — Retirada maior que o estoque:** Tente retirar 99999 unidades. O sistema deve barrar.
-- [ ] **Teste 8 — Alerta de Nível Crítico:** Faça uma saída de material que deixe o saldo abaixo da quantidade mínima. O alerta visual vermelho/pop-up disparou?
-- [ ] **Teste 9 — Logout:** Clique em "Sair" e confira se volta para a tela de login.
+- [ ] **Teste 1:** Digitar login errado -> Deve exibir alerta de erro e manter a tela aberta.
+- [ ] **Teste 2:** Digitar login correto -> Deve abrir a Home com nome e cargo corretos.
+- [ ] **Teste 3:** Clicar em "Insumos" -> Tabela deve listar os registros carregados do banco.
+- [ ] **Teste 4:** Digitar termo no campo de busca -> A lista deve filtrar apenas os insumos correspondentes.
+- [ ] **Teste 5:** Tentar cadastrar insumo com campo vazio -> Sistema deve bloquear e avisar.
+- [ ] **Teste 6:** Abrir tela de Movimentacao -> A lista de insumos deve estar em ordem alfabetica (Quicksort).
+- [ ] **Teste 7:** Tentar retirar quantidade maior que o estoque disponivel -> Sistema deve bloquear.
+- [ ] **Teste 8:** Realizar retirada que deixe o estoque abaixo da quantidade minima -> Sistema deve exibir alerta visual de estoque critico.
+- [ ] **Teste 9:** Clicar em "Sair" na Home -> Sessao deve ser encerrada e sistema deve retornar ao Login.
 
 ---
 
-## 📦 ETAPA 8: Empacotamento Final para Entrega
+### FASE 8: Organizacao da Pasta Final de Entrega
 
-Siga exatamente o que pede a página 5 do edital:
+Conforme especificacao oficial do edital (Item 10):
 
-- [ ] **8.1. Criar uma pasta única para a entrega:**
-  * Nomeie com o nome do aluno ou da equipe (ex: `ProjetoIntegrador_Modulo2_NomeAluno`).
-- [ ] **8.2. Colocar dentro dela:**
-  1. `Documento de Requisitos` (salvar em PDF a partir de `docs/01_requisitos.md`).
-  2. `Modelo Entidade-Relacionamento` (imagem `.png` ou `.jpeg` de `Entregaveis/Banco de Dados/`).
-  3. `Script SQL` (`BancodoProjeto.sql`).
-  4. `Código-fonte do Sistema` (a pasta do projeto Maven com todos os `.java`, `.fxml` e `pom.xml`).
-  5. `Documento de Testes` (salvar em PDF a partir de `docs/05_plano_de_testes.md`).
-  6. `Documento de Infraestrutura` (salvar em PDF a partir de `docs/06_infraestrutura.md`).
-- [ ] **8.3. Compactar a pasta:**
-  * Clique com o botão direito na pasta -> `Enviar para` -> `Pasta compactada (zipada)` (formato `.zip`).
+- [ ] **8.1. Criar pasta com o nome do aluno/equipe** (Exemplo: `ProjetoIntegrador_Modulo2_NomeAluno`).
+- [ ] **8.2. Inserir os 6 itens obrigatorios dentro da pasta:**
+  1. Documento de Requisitos (PDF de `docs/01_requisitos.md`)
+  2. Imagem do DER (`Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`)
+  3. Script SQL (`Entregaveis/Banco de Dados/BancodoProjeto.sql`)
+  4. Codigo-fonte completo do projeto (pasta do projeto NetBeans com `pom.xml`, `src/`)
+  5. Documento de Testes (PDF de `docs/05_plano_de_testes.md`)
+  6. Documento de Infraestrutura (PDF de `docs/06_infraestrutura.md`)
+- [ ] **8.3. Compactar a pasta final no formato `.zip`**.
 
 ---
 
-## 🎤 ETAPA 9: Preparação para a Banca Oral (Perguntas dos Professores)
+### FASE 9: Preparacao para a Arguicao Oral da Banca
 
-O edital possui 11 perguntas obrigatórias que os avaliadores podem fazer para qualquer integrante da equipe. Todas as respostas prontas e explicadas estão no arquivo:  
-`docs/07_preparacao_banca.md`.
+Perguntas fundamentais do edital que a equipe deve dominar. Detalhes completos em `docs/07_preparacao_banca.md`:
 
-**Destaques que você deve saber na ponta da língua:**
-1. **Por que o banco se chama `bebidas_db`?**  
-   *Resposta:* Porque foi uma exigência explícita e obrigatória do edital do SENAI.
-2. **Qual algoritmo de ordenação vocês usaram e por quê?**  
-   *Resposta:* Usamos o **Quicksort**. Ele foi escolhido por ser um algoritmo eficiente de divisão e conquista com complexidade média $O(n \log n)$, ideal para ordenar listas em memória rapidamente.
-3. **Como vocês garantiram a rastreabilidade do estoque?**  
-   *Resposta:* Nenhuma movimentação é apagada do banco (imutabilidade histórica). Toda movimentação salva automaticamente o ID do funcionário logado na sessão, a data/hora exata e o setor de destino.
-4. **Como funciona o alerta de nível crítico?**  
-   *Resposta:* A cada saída de material, o sistema compara o novo saldo com a quantidade mínima de segurança cadastrada. Se o saldo for menor ou igual ao mínimo, o JavaFX dispara imediatamente uma notificação visual para o operador.
+- [ ] **Pergunta 1: Por que o banco se chama `bebidas_db`?**  
+  *Resposta:* Exigencia formal e obrigatoria do edital do SENAI.
 
----
+- [ ] **Pergunta 2: Qual algoritmo de ordenacao foi usado e por que?**  
+  *Resposta:* Algoritmo Quicksort, implementado na classe `OrdenacaoService`. Escolhido por operar por divisao e conquista com complexidade media O(n log n), ideal para ordenacao em memoria.
 
-*Equipe pronta e projeto nos trilhos! Sigam cada passo deste checklist e o sucesso na banca é garantido.* 🚀
+- [ ] **Pergunta 3: Como foi garantida a rastreabilidade das operacoes?**  
+  *Resposta:* Toda movimentacao grava o operador logado na sessao, data/hora exata e setor solicitante. Nao ha delecao fisica no historico contabil.
+
+- [ ] **Pergunta 4: Como o sistema identifica o nivel critico?**  
+  *Resposta:* Compara o saldo remanescente com o atributo `quantidadeMinima` cadastrado no tipo de insumo. Caso o saldo seja menor ou igual, uma notificacao visual e emitida de forma automatica.
