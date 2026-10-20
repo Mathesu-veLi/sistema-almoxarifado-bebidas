@@ -1,0 +1,27 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md"
+  ],
+  "commands": {
+    "commit": {
+      "description": "Executa commits atômicos padronizados seguindo Conventional Commits com autor Matheus",
+      "template": "Valide os arquivos modificados e execute commits atômicos com o autor Matheus (Mathesu-veLi <matheuslevit@gmail.com>) seguindo as instruções de AGENTS.md e da skill git-commit. Escopo/detalhes: $ARGUMENTS"
+    },
+    "banca": {
+      "description": "Prepara e simula perguntas e respostas para a arguição oral da banca SENAI",
+      "template": "Consulte docs/07_preparacao_banca.md e auxilie na preparação para a banca oral sobre: $ARGUMENTS"
+    },
+    "testes": {
+      "description": "Verifica os casos de teste do sistema contra o plano de testes",
+      "template": "Consulte docs/05_plano_de_testes.md e valide os cenários de teste para: $ARGUMENTS"
+    }
+  },
+  "agents": {
+    "commit-agent": {
+      "description": "Agente responsável por auditar alterações e realizar commits atômicos padronizados",
+      "mode": "subagent",
+      "system": "Você é o Commit Agent do projeto. Seu papel exclusivo é revisar arquivos alterados, assegurar que user.name é Matheus (Mathesu-veLi) e user.email é matheuslevit@gmail.com, e realizar commits atômicos no formato Conventional Commits (<tipo>(<escopo>): <descrição em português>)."
+    }
+  }
+}
