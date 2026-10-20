@@ -1,0 +1,828 @@
+{
+  "tables": [
+    {
+      "id": "Lyhq8Ku0WeN3nMml_kzyJ",
+      "name": "tipos_insumos",
+      "x": 799.8313957557679,
+      "y": -1137.0031879652022,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "vOUE92wIZlNBc0d8q048l"
+        },
+        {
+          "id": "QxdDcCyigzEcypN_sLDhB",
+          "name": "nome",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255
+        },
+        {
+          "id": "sbQJx55M-zf3dnEeyM8Ce",
+          "name": "quantidade_minima",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false,
+      "width": 271
+    },
+    {
+      "id": "u2YzAkL8X8V7ea1VBdlKK",
+      "name": "lotes_insumos",
+      "x": 171.95380703124954,
+      "y": -1137.3015507568361,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "M-eexSQ-TkcAYSKjGm-EA"
+        },
+        {
+          "id": "CBHHt4qopKbl4J4hWzK3A",
+          "name": "tipos_insumos_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": [],
+          "unsigned": false
+        },
+        {
+          "id": "AO7wG6AM5Xasbpqmxe57Y",
+          "name": "fornecedor_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "JdQdaEYLUMiKkx64dgj8A",
+          "name": "lote",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": true,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255,
+          "values": []
+        },
+        {
+          "id": "DUfYrFsc0-Q1UN5MpvCT9",
+          "name": "validade",
+          "type": "DATE",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "0Uu7poMGb2IrR4sWr_GOi",
+          "name": "volume",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "z8XUj5MNhnmXsxRHIitfA",
+          "name": "unidade_medida",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255
+        },
+        {
+          "id": "Q1Mu8h63H18W5o3o7v68C",
+          "name": "setor_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false,
+      "width": 280
+    },
+    {
+      "id": "u2McCsOLCaWxm_NYZOFW2",
+      "name": "fornecedores",
+      "x": 783.6166690429685,
+      "y": -961.8331757324219,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "ycq49wshQkqAtGi-ERIjU"
+        },
+        {
+          "id": "SYj23i7NE_hAslLzNGMr4",
+          "name": "nome",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255
+        },
+        {
+          "id": "Pt-ccvNLmhx5cPxsVPKHs",
+          "name": "cnpj",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false,
+      "width": 212
+    },
+    {
+      "id": "MZjWFZN06CaqDrSY7uYdE",
+      "name": "setores",
+      "x": 767.5218368164064,
+      "y": -759.7460087646484,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "1g-2_vKtURoaKDq-i1x4w"
+        },
+        {
+          "id": "g3_F6NySGdawo7kNezEJr",
+          "name": "nome",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255,
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false
+    },
+    {
+      "id": "CdkoInBFBNsr-7wGI1NvG",
+      "name": "funcionarios",
+      "x": -377.01273647079455,
+      "y": -1291.61293040712,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "9YplQ1tz6fcdr-naQF8r7"
+        },
+        {
+          "id": "-it4MD6BKZ7od4qv20Bee",
+          "name": "nome",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255,
+          "values": []
+        },
+        {
+          "id": "SSkZXhXKO4qDXT8xpC1Co",
+          "name": "cpf",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": true,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255,
+          "values": []
+        },
+        {
+          "id": "PhhYiRg4YSZkWtUVMaYHL",
+          "name": "email",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": true,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255,
+          "values": []
+        },
+        {
+          "id": "SuenDWDB_PdUDDezdTy4O",
+          "name": "senha",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255
+        },
+        {
+          "id": "gwDj1cuFHZzQ9l8lTf-hS",
+          "name": "cargo_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false
+    },
+    {
+      "id": "7iaVoGVPnOEiXTyEkDVrS",
+      "name": "cargo",
+      "x": 121.13922287654907,
+      "y": -1284.7915109612948,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "V1n0lktgBtqwrAaSL3G6q"
+        },
+        {
+          "id": "TO3VucM-OGzFEqAlUM218",
+          "name": "nome",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": true,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false
+    },
+    {
+      "id": "Knx0u8LACTF3zorDuTDvX",
+      "name": "movimentacoes",
+      "x": -425.8498220977783,
+      "y": -850.8112454288485,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "I3PggMgaq0v51dz9jDcG9"
+        },
+        {
+          "id": "f2l5GxQPYtyx0GlnGcGwN",
+          "name": "lotes_insumo_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "dprv0yc5b2NY786E5T2MP",
+          "name": "tipo_movimentacao_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "4b7Ug076mUd59G8QRd8DQ",
+          "name": "quantidade",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "oAVJJv_lXx3rMx0rQst0F",
+          "name": "setor_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "emE-05OKv2_UHyZ_zpkvb",
+          "name": "funcionario_id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "ZQ7BI-0ObKV1cbMCsd5vE",
+          "name": "data",
+          "type": "DATETIME",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false,
+      "width": 292
+    },
+    {
+      "id": "aEuxymVvOL5HYBZgSk09X",
+      "name": "tipos_movimentacao",
+      "x": 455.2037750000002,
+      "y": -604.264090625,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "unsigned": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "dZR7o-bxrREqzw7xI97Uv"
+        },
+        {
+          "id": "sM0q_SRPRLYoVdZOGIXqJ",
+          "name": "nome",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 255
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#175e7a",
+      "collapsed": false
+    }
+  ],
+  "relationships": [
+    {
+      "id": "npctdo3fzC76qbl37Nd9h",
+      "name": "fk_insumos_tipos_insumos_id_tipos_insumos",
+      "startTableId": "u2YzAkL8X8V7ea1VBdlKK",
+      "startFieldId": "CBHHt4qopKbl4J4hWzK3A",
+      "endTableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+      "endFieldId": "vOUE92wIZlNBc0d8q048l",
+      "cardinality": "many_to_one",
+      "updateConstraint": "Cascade",
+      "deleteConstraint": "No action",
+      "fields": [
+        {
+          "startFieldId": "CBHHt4qopKbl4J4hWzK3A",
+          "endFieldId": "vOUE92wIZlNBc0d8q048l"
+        }
+      ]
+    },
+    {
+      "id": "kVux0rAUAU9bFWoECliRh",
+      "name": "fk_insumos_fornecedor_id_fornecedores",
+      "startTableId": "u2YzAkL8X8V7ea1VBdlKK",
+      "startFieldId": "AO7wG6AM5Xasbpqmxe57Y",
+      "endTableId": "u2McCsOLCaWxm_NYZOFW2",
+      "endFieldId": "ycq49wshQkqAtGi-ERIjU",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "fields": [
+        {
+          "startFieldId": "AO7wG6AM5Xasbpqmxe57Y",
+          "endFieldId": "ycq49wshQkqAtGi-ERIjU"
+        }
+      ]
+    },
+    {
+      "id": "OwlOrwqMZFW8LY45Dk9HJ",
+      "name": "fk_insumos_setor_id_setores",
+      "startTableId": "u2YzAkL8X8V7ea1VBdlKK",
+      "startFieldId": "Q1Mu8h63H18W5o3o7v68C",
+      "endTableId": "MZjWFZN06CaqDrSY7uYdE",
+      "endFieldId": "1g-2_vKtURoaKDq-i1x4w",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "fields": [
+        {
+          "startFieldId": "Q1Mu8h63H18W5o3o7v68C",
+          "endFieldId": "1g-2_vKtURoaKDq-i1x4w"
+        }
+      ]
+    },
+    {
+      "id": "Bv8822pfl3REuF5iuYdho",
+      "name": "fk_funcionarios_cargo_id_cargo",
+      "startTableId": "CdkoInBFBNsr-7wGI1NvG",
+      "startFieldId": "gwDj1cuFHZzQ9l8lTf-hS",
+      "endTableId": "7iaVoGVPnOEiXTyEkDVrS",
+      "endFieldId": "V1n0lktgBtqwrAaSL3G6q",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "fields": [
+        {
+          "startFieldId": "gwDj1cuFHZzQ9l8lTf-hS",
+          "endFieldId": "V1n0lktgBtqwrAaSL3G6q"
+        }
+      ]
+    },
+    {
+      "id": "_ucy_0L1aMZkSD-rQVtmP",
+      "name": "fk_movimentacoes_setor_id_setores",
+      "startTableId": "Knx0u8LACTF3zorDuTDvX",
+      "startFieldId": "oAVJJv_lXx3rMx0rQst0F",
+      "endTableId": "MZjWFZN06CaqDrSY7uYdE",
+      "endFieldId": "1g-2_vKtURoaKDq-i1x4w",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "fields": [
+        {
+          "startFieldId": "oAVJJv_lXx3rMx0rQst0F",
+          "endFieldId": "1g-2_vKtURoaKDq-i1x4w"
+        }
+      ]
+    },
+    {
+      "id": "xzqXg9SNMdGCRMruNrBoc",
+      "name": "fk_movimentacoes_insumo_id_insumos",
+      "startTableId": "Knx0u8LACTF3zorDuTDvX",
+      "startFieldId": "f2l5GxQPYtyx0GlnGcGwN",
+      "endTableId": "u2YzAkL8X8V7ea1VBdlKK",
+      "endFieldId": "M-eexSQ-TkcAYSKjGm-EA",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "nWDmbs-RLfnV0SbbSKzYP",
+      "name": "fk_movimentacoes_funcionario_id_funcionarios",
+      "startTableId": "Knx0u8LACTF3zorDuTDvX",
+      "startFieldId": "emE-05OKv2_UHyZ_zpkvb",
+      "endTableId": "CdkoInBFBNsr-7wGI1NvG",
+      "endFieldId": "9YplQ1tz6fcdr-naQF8r7",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "mkDDJT_RtsV6bRT8jhz3W",
+      "name": "fk_movimentacoes_tipo_movimentacao_id_tipo_movimentacao",
+      "startTableId": "Knx0u8LACTF3zorDuTDvX",
+      "startFieldId": "dprv0yc5b2NY786E5T2MP",
+      "endTableId": "aEuxymVvOL5HYBZgSk09X",
+      "endFieldId": "dZR7o-bxrREqzw7xI97Uv",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    }
+  ],
+  "notes": [],
+  "subjectAreas": [],
+  "views": [
+    {
+      "id": "HR7UMQY0kmzBGOHqzLgBJ",
+      "name": "vw_quantidade_atual",
+      "x": 405.9199187500007,
+      "y": -1325.7229031250006,
+      "baseTableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+      "joins": [
+        {
+          "id": "te80KpHAcyHwxNxkxO6jl",
+          "type": "LEFT",
+          "tableId": "u2YzAkL8X8V7ea1VBdlKK",
+          "on": {
+            "leftTableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+            "leftFieldId": "vOUE92wIZlNBc0d8q048l",
+            "rightFieldId": "CBHHt4qopKbl4J4hWzK3A"
+          }
+        },
+        {
+          "id": "QhFN7YsSmYYw-BH_5rfKb",
+          "type": "LEFT",
+          "tableId": "Knx0u8LACTF3zorDuTDvX",
+          "on": {
+            "leftTableId": "u2YzAkL8X8V7ea1VBdlKK",
+            "leftFieldId": "M-eexSQ-TkcAYSKjGm-EA",
+            "rightFieldId": "f2l5GxQPYtyx0GlnGcGwN"
+          }
+        }
+      ],
+      "columns": [
+        {
+          "id": "zaMmFzM8-vRWrBM8WanD8",
+          "tableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+          "fieldId": "QxdDcCyigzEcypN_sLDhB",
+          "alias": "nome"
+        },
+        {
+          "id": "LrWacCQ_nFmex7BZivEWE",
+          "tableId": "u2YzAkL8X8V7ea1VBdlKK",
+          "fieldId": "0Uu7poMGb2IrR4sWr_GOi",
+          "alias": "quantidade_disponivel"
+        },
+        {
+          "id": "v58ewkHlVHgF5478r5KO_",
+          "tableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+          "fieldId": "sbQJx55M-zf3dnEeyM8Ce",
+          "alias": ""
+        }
+      ],
+      "conditions": [
+        {
+          "id": "mKiK2mtpwMcJjl4Wo46v3",
+          "connector": "AND",
+          "tableId": "Knx0u8LACTF3zorDuTDvX",
+          "fieldId": "dprv0yc5b2NY786E5T2MP",
+          "operator": "=",
+          "value": "2"
+        }
+      ],
+      "comment": "O \"quantidade_disponivel\" não é o insumos.volume, e sim o resultado do somatorio de insumos.volume (por tipo de insumos) subtraído ao somatorio de movimentacao.quantidade enquanto o tipo_movimentacao é \"retirada\"",
+      "materialized": false,
+      "color": "#175e7a",
+      "locked": false,
+      "width": 273
+    },
+    {
+      "id": "WqaRUFysBn9cmu4r_olyC",
+      "name": "vw_quantidade_atual_por_lote",
+      "x": 718.9686312500002,
+      "y": -1349.3694218750002,
+      "baseTableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+      "joins": [
+        {
+          "id": "bgE47Lx4KUnLinFBcIb_a",
+          "type": "LEFT",
+          "tableId": "u2YzAkL8X8V7ea1VBdlKK",
+          "on": {
+            "leftTableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+            "leftFieldId": "vOUE92wIZlNBc0d8q048l",
+            "rightFieldId": "CBHHt4qopKbl4J4hWzK3A"
+          }
+        },
+        {
+          "id": "708l9g6lFCzLgdoHT30vr",
+          "type": "LEFT",
+          "tableId": "Knx0u8LACTF3zorDuTDvX",
+          "on": {
+            "leftTableId": "u2YzAkL8X8V7ea1VBdlKK",
+            "leftFieldId": "M-eexSQ-TkcAYSKjGm-EA",
+            "rightFieldId": "f2l5GxQPYtyx0GlnGcGwN"
+          }
+        }
+      ],
+      "columns": [
+        {
+          "id": "g1VFFgFtctG8GC-MWgKLZ",
+          "tableId": "Lyhq8Ku0WeN3nMml_kzyJ",
+          "fieldId": "QxdDcCyigzEcypN_sLDhB",
+          "alias": "nome"
+        },
+        {
+          "id": "Xwhe2gDPWpWjuvfQ7bU1D",
+          "tableId": "u2YzAkL8X8V7ea1VBdlKK",
+          "fieldId": "JdQdaEYLUMiKkx64dgj8A",
+          "alias": "lote"
+        },
+        {
+          "id": "3DYHl8PsdVKHPU_JbpqIO",
+          "tableId": "u2YzAkL8X8V7ea1VBdlKK",
+          "fieldId": "DUfYrFsc0-Q1UN5MpvCT9",
+          "alias": "validade"
+        },
+        {
+          "id": "gxJeZojXyyboK1BS2gTuX",
+          "tableId": "Knx0u8LACTF3zorDuTDvX",
+          "fieldId": "4b7Ug076mUd59G8QRd8DQ",
+          "alias": "quantidade_disponivel"
+        }
+      ],
+      "conditions": [
+        {
+          "id": "E_jJa1FUiyD-Dg2vuQxF8",
+          "connector": "AND",
+          "tableId": "Knx0u8LACTF3zorDuTDvX",
+          "fieldId": "dprv0yc5b2NY786E5T2MP",
+          "operator": "=",
+          "value": "2"
+        }
+      ],
+      "comment": "Igualmente como no vw_quantidade_atual, a quantidade_disponivel não é de movimentacao.quantidade, mas dessa vez é o lotes_insumos.volume subtraído com o somatorio de movimentacoes.quantidade quando tipo_movimentacao é 2 (retirada) e lotes_insumo_id é insumo.id",
+      "materialized": false,
+      "color": "#175e7a",
+      "locked": false,
+      "width": 282
+    }
+  ],
+  "database": "mysql",
+  "title": "bebidas_db"
+}
