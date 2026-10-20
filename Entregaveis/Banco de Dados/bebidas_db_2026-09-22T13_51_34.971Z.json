@@ -111,7 +111,7 @@
           "default": "",
           "check": "",
           "primary": false,
-          "unique": true,
+          "unique": false,
           "notNull": true,
           "increment": false,
           "comment": "",
@@ -221,7 +221,7 @@
           "default": "",
           "check": "",
           "primary": false,
-          "unique": false,
+          "unique": true,
           "notNull": true,
           "increment": false,
           "comment": "",
@@ -374,7 +374,7 @@
     },
     {
       "id": "7iaVoGVPnOEiXTyEkDVrS",
-      "name": "cargo",
+      "name": "cargos",
       "x": 121.13922287654907,
       "y": -1284.7915109612948,
       "locked": false,
@@ -504,7 +504,7 @@
         },
         {
           "id": "ZQ7BI-0ObKV1cbMCsd5vE",
-          "name": "data",
+          "name": "data_movimentacao",
           "type": "DATETIME",
           "default": "",
           "check": "",
@@ -556,6 +556,19 @@
           "increment": false,
           "comment": "",
           "size": 255
+        },
+        {
+          "id": "u4OpMvTpoOperacao001",
+          "name": "operacao",
+          "type": "CHAR",
+          "default": "E",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "E para Entrada, S para Saida/Perda",
+          "size": 1
         }
       ],
       "comment": "",
@@ -619,7 +632,7 @@
     },
     {
       "id": "Bv8822pfl3REuF5iuYdho",
-      "name": "fk_funcionarios_cargo_id_cargo",
+      "name": "fk_funcionarios_cargo_id_cargos",
       "startTableId": "CdkoInBFBNsr-7wGI1NvG",
       "startFieldId": "gwDj1cuFHZzQ9l8lTf-hS",
       "endTableId": "7iaVoGVPnOEiXTyEkDVrS",
@@ -746,7 +759,7 @@
           "value": "2"
         }
       ],
-      "comment": "O \"quantidade_disponivel\" não é o insumos.volume, e sim o resultado do somatorio de insumos.volume (por tipo de insumos) subtraído ao somatorio de movimentacao.quantidade enquanto o tipo_movimentacao é \"retirada\"",
+      "comment": "O 'quantidade_disponivel' é calculado via padrão contábil (Ledger): somatório de movimentacoes com tipo 'Entrada' subtraído do somatório de 'Saída' e 'Perda' para cada tipo de insumo, garantindo auditoria e rastreabilidade total.",
       "materialized": false,
       "color": "#175e7a",
       "locked": false,
@@ -816,7 +829,7 @@
           "value": "2"
         }
       ],
-      "comment": "Igualmente como no vw_quantidade_atual, a quantidade_disponivel não é de movimentacao.quantidade, mas dessa vez é o lotes_insumos.volume subtraído com o somatorio de movimentacoes.quantidade quando tipo_movimentacao é 2 (retirada) e lotes_insumo_id é insumo.id",
+      "comment": "Calculado via padrão contábil (Ledger): somatório de movimentacoes com tipo 'Entrada' subtraído das 'Saída' e 'Perda' específicas deste lote. O campo volume do lote representa a capacidade/volume nominal de cadastro, enquanto o saldo reflete as movimentações reais.",
       "materialized": false,
       "color": "#175e7a",
       "locked": false,

@@ -46,8 +46,8 @@ SELECT
     ti.quantidade_minima,
     COALESCE(SUM(
         CASE 
-            WHEN tm.nome LIKE '%Entrada%' THEN m.quantidade
-            WHEN tm.nome LIKE '%Saída%' OR tm.nome LIKE '%Saida%' THEN -m.quantidade
+            WHEN tm.operacao = 'E' THEN m.quantidade
+            WHEN tm.operacao = 'S' THEN -m.quantidade
             ELSE 0 
         END
     ), 0) AS saldo_atual
