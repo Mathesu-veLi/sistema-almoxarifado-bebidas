@@ -52,3 +52,6 @@ out/
 Thumbs.db
 [Dd]esktop.ini
 .DS_Store
+
+# Local temporary helper scripts
+push_privado.bat
