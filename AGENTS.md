@@ -7,9 +7,17 @@ O objetivo deste arquivo é fornecer contexto de alta fidelidade e regras inegoc
 ---
 
 ## 1. Identidade e Regras do Git (Commit Agent)
-* **Autor obrigatório dos commits:**
-  * Nome: `Mathesu-veLi`
-  * E-mail: `matheuslevit@gmail.com`
+* **Autor dos commits:** o projeto é colaborativo e a lista oficial fica em [`docs/08_colaboradores.md`](docs/08_colaboradores.md). Antes de cada commit, o agente **pergunta ao usuário qual colaborador fez as alterações** e usa a identidade escolhida.
+  * Aplique a identidade **somente naquele commit**, via `-c`, sem alterar a configuração do repositório: `git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"`.
+  * **Nunca** rode `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite com identidade não confirmada.
+  * Trabalho em par: o colaborador escolhido é o autor e os demais entram como `Co-authored-by: Nome <email>` no rodapé da mensagem.
+* **Colaboradores:**
+  | Handle | Nome | E-mail |
+  | --- | --- | --- |
+  | `Mathesu-veLi` | Matheus Levi | `matheuslevit@gmail.com` |
+  | `LucasRAJ` | Lucas Rafael | `angelicarosasantos99@gmail.com` |
+  | `israelsouzadev` | `israelsouzadev` | `israelssilva2007@gmail.com` |
+  | `matheus391` | `matheus391` | `theusilva205@gmail.com` |
 * **Padrão de Commit:** Conventional Commits obrigatório.
   * Formato: `<tipo>(<escopo opcional>): <descrição objetiva em português>`
   * Tipos: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
@@ -63,12 +71,13 @@ Sempre consulte os documentos específicos para detalhes profundos:
 * [`docs/05_plano_de_testes.md`](docs/05_plano_de_testes.md): Casos de teste funcionais com entradas, ações e saídas esperadas.
 * [`docs/06_infraestrutura.md`](docs/06_infraestrutura.md): Especificação de ambiente e SGBD para a entrega 9 do SENAI.
 * [`docs/07_preparacao_banca.md`](docs/07_preparacao_banca.md): Roteiro de perguntas e respostas para a arguição oral.
+* [`docs/08_colaboradores.md`](docs/08_colaboradores.md): Lista oficial de colaboradores e regra de autoria dos commits.
 
 ---
 
 ## 6. Habilidades do Agente (Skills)
 As habilidades especializadas estão disponíveis de forma sincronizada em `.agents/skills/` (Antigravity), `.opencode/skills/` (OpenCode) e `skills/`:
-* [`skills/git-commit/SKILL.md`](skills/git-commit/SKILL.md): Procedimento para commits atômicos com perfil `Mathesu-veLi`.
+* [`skills/git-commit/SKILL.md`](skills/git-commit/SKILL.md): Procedimento para commits atômicos com autoria escolhida entre os colaboradores.
 * [`skills/javafx-desktop/SKILL.md`](skills/javafx-desktop/SKILL.md): Padrões de código JavaFX, FXML e NetBeans.
 * [`skills/sorting-algorithms/SKILL.md`](skills/sorting-algorithms/SKILL.md): Algoritmo de ordenação e explicação teórica para a banca.
 * [`skills/database-operations/SKILL.md`](skills/database-operations/SKILL.md): Padrão DAO, transações e views de estoque em MySQL.

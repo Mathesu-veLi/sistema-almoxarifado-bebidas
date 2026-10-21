@@ -1,26 +1,30 @@
 ---
 name: git-commit
-description: Executa commits atômicos padronizados seguindo Conventional Commits com o perfil de autor de Matheus (Mathesu-veLi).
+description: Executa commits atômicos padronizados seguindo Conventional Commits, com autoria escolhida entre os colaboradores do projeto.
 ---
 
 # Git Commit Skill
 
 Use esta skill sempre que qualquer arquivo for criado, modificado ou removido no projeto.
 
-## Perfil Obrigatório do Autor
-* **Git User Name:** `Mathesu-veLi`
-* **Git Email:** `matheuslevit@gmail.com`
+## Identidade do Autor (escolhida por commit)
+O projeto é colaborativo e a lista oficial de autores fica em [`docs/08_colaboradores.md`](../../docs/08_colaboradores.md):
 
-Antes de commitar, valide se o repositório está configurado corretamente com:
+| Handle | Nome | E-mail |
+| --- | --- | --- |
+| `Mathesu-veLi` | Matheus Levi | `matheuslevit@gmail.com` |
+| `LucasRAJ` | Lucas Rafael | `angelicarosasantos99@gmail.com` |
+| `israelsouzadev` | `israelsouzadev` | `israelssilva2007@gmail.com` |
+| `matheus391` | `matheus391` | `theusilva205@gmail.com` |
+
+**Fluxo obrigatório antes de cada commit:**
+1. Pergunte ao usuário (ferramenta de perguntas/`question`) **qual colaborador fez as alterações**, oferecendo a lista acima como opções. Use seleção múltipla quando o trabalho for em par.
+2. Aplique a identidade escolhida **somente naquele commit**, sem alterar a configuração do repositório:
 ```bash
-git config user.name
-git config user.email
+git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"
 ```
-Se não estiverem configurados ou estiverem com outro usuário, execute:
-```bash
-git config user.name "Mathesu-veLi"
-git config user.email "matheuslevit@gmail.com"
-```
+3. Se houver mais de um colaborador, o principal é o autor e os demais entram no rodapé: `Co-authored-by: Nome <email>`.
+4. Nunca rode `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem a autoria confirmada pelo usuário.
 
 ## Formato do Commit (Conventional Commits)
 Siga estritamente a convenção:
