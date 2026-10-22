@@ -1,6 +1,6 @@
 ---
 name: swing-desktop
-description: Diretrizes de desenvolvimento para interfaces Swing/JFrame, GUI Builder do NetBeans, JTable, JOptionPane e integração do frontend desktop com a API REST Spring Boot.
+description: Diretrizes de desenvolvimento para interfaces Swing/JFrame, WindowBuilder (Eclipse), JTable, JOptionPane e integração do frontend desktop com a API REST Spring Boot.
 ---
 
 # Swing Desktop Skill (frontend JFrame)
@@ -40,8 +40,8 @@ Projeto Maven independente em `frontend/`:
 ## 2. Padrão das Telas (JFrame)
 
 ### Regras gerais
-* Cada tela é uma classe que estende `JFrame` e foi desenhada no **GUI Builder do NetBeans** (`GroupLayout`).
-* Não editar manualmente o bloco `initComponents()` gerado pelo NetBeans; a lógica fica nos listeners/controllers.
+* Cada tela é uma classe que estende `JFrame` e foi desenhada no **WindowBuilder (Eclipse)** a partir do protótipo aprovado no Figma, Canva ou Google Stitch.
+* Não editar manualmente o código gerado pelo WindowBuilder; a lógica fica nos listeners/controllers.
 * Centralizar a janela: `setLocationRelativeTo(null)`.
 * `setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)` nas telas secundárias; `EXIT_ON_CLOSE` apenas no `LoginFrame`.
 * Usar `EventQueue.invokeLater(...)` no `main` para iniciar a UI.
@@ -201,11 +201,11 @@ public final class SessaoUsuario {
 }
 ```
 
-## 6. Execução no NetBeans
+## 6. Execução no Eclipse (WindowBuilder)
 
-1. Abrir `frontend/pom.xml` no NetBeans (`File > Open Project`).
+1. Importar o projeto Maven `frontend` no Eclipse (`File > Import > Maven > Existing Maven Projects`).
 2. Confirmar o JDK 17 em `Project Properties > Sources`.
 3. Iniciar o backend antes do frontend (`mvn spring-boot:run` em `backend/`).
 4. Executar a classe `com.senai.bebidas.app.Main`.
 
-> O GUI Builder do NetBeans exige que o formulário seja um `JFrame` com código gerado no `initComponents()`. Não misture `setLayout(null)` manualmente; use `GroupLayout` gerado pela ferramenta.
+> O WindowBuilder gera o código do formulário. Não misture `setLayout(null)` manualmente: ajuste o layout no editor visual e mantenha a lógica fora do código gerado.
