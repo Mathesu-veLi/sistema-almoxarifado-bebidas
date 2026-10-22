@@ -14,11 +14,10 @@ O enunciado completo está em **`Diversos/Projeto Integrador Módulo 2 - Industr
 | --- | --- |
 | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | Script oficial do banco `bebidas_db` (tabelas, views e carga inicial). |
 | `Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg` | Imagem do DER. |
-| `Entregaveis/Modelagem_/requisitos_industria_bebidasv1.md` | Primeira versão dos requisitos levantados pela equipe. |
-| `Entregaveis/Modelagem_/requisitos_industria_bebidasv2.md` | Versão atualizada dos requisitos e regras de negócio. |
+| `Entregaveis/Modelagem/requisitos_industria_bebidas.md` | Requisitos e regras de negócio consolidados pela equipe. |
 | `Diversos/TODO.md` | Roteiro passo a passo de execução do projeto. |
 | `Diversos/TODO.docx` | Versão em Word do mesmo roteiro (histórico). |
-| `docs/08_colaboradores.md` | Lista oficial dos autores, usada para definir a autoria dos commits. |
+| `docs/colaboradores.md` | Lista oficial dos autores, usada para definir a autoria dos commits. |
 
 > **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no script SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.
 
@@ -69,7 +68,7 @@ Dica para a banca: não colem código que vocês não sabem explicar. Se o agent
 
 ## Commits
 
-- O projeto é colaborativo: o commit pertence a quem fez a alteração (lista em `docs/08_colaboradores.md`).
+- O projeto é colaborativo: o commit pertence a quem fez a alteração (lista em `docs/colaboradores.md`).
 - Padrão: `tipo(escopo): descrição em português` — por exemplo, `feat(insumos): cria controller da tela de insumos`.
 - Um commit por assunto. Não misturem banco, tela e documentação no mesmo commit.
 - Se usarem o comando `/commit`, informem qual colaborador fez as alterações. Sem essa confirmação, o commit não deve ser feito.

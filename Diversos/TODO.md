@@ -12,7 +12,7 @@
 | Fase | Ação Principal | Ferramenta / Onde Fazer | Arquivo de Apoio | Feito? |
 |---|---|---|---|---|
 | **Fase 1** | Executar o script do banco de dados | MySQL Workbench ou XAMPP | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
-| **Fase 2** | Modelar classes, arquitetura, contrato REST e regras | Draw.io / Lucidchart / papel + editor de texto | `Entregaveis/Modelagem_/requisitos_industria_bebidasv2.md` | [ ] |
+| **Fase 2** | Modelar classes, arquitetura, contrato REST e regras | Draw.io / Lucidchart / papel + editor de texto | `Entregaveis/Modelagem/requisitos_industria_bebidas.md` | [ ] |
 | **Fase 3** | Criar o projeto backend Spring Boot | Spring Initializr / IntelliJ IDEA (Maven) | `backend/pom.xml` | [ ] |
 | **Fase 4** | Configurar conexão, entidades JPA e repositórios | IntelliJ IDEA (`config`, `model`, `repository`) | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
 | **Fase 5** | Implementar regras de negócio e o Quicksort | IntelliJ IDEA (`service`) | `skills/sorting-algorithms/SKILL.md` | [ ] |
@@ -22,7 +22,7 @@
 | **Fase 9** | Integrar o frontend com a API (HTTP/JSON) | Eclipse (`service`, `controller`) | `skills/swing-desktop/SKILL.md` | [ ] |
 | **Fase 10** | Realizar testes unitários, de API e manuais | Backend + frontend rodando | Roteiro de testes da equipe | [ ] |
 | **Fase 11** | Montar a pasta compactada (.zip) | Windows Explorer | Instruções do Edital (Item 10) | [ ] |
-| **Fase 12** | Treinar respostas da apresentação oral | Estudo individual e em grupo | Requisitos em `Entregaveis/Modelagem_` | [ ] |
+| **Fase 12** | Treinar respostas da apresentação oral | Estudo individual e em grupo | Requisitos em `Entregaveis/Modelagem/` | [ ] |
 
 ---
 
@@ -30,7 +30,7 @@
 
 Marque conforme os arquivos da entrega forem separados:
 
-- [ ] **Entrega 1:** Documento de Requisitos (PDF produzido pela equipe, com base em `Entregaveis/Modelagem_/requisitos_industria_bebidasv2.md`)
+- [ ] **Entrega 1:** Documento de Requisitos (PDF produzido pela equipe, com base em `Entregaveis/Modelagem/requisitos_industria_bebidas.md`)
 - [ ] **Entrega 2:** Imagem do DER (`Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`)
 - [ ] **Entrega 3:** Script SQL (`Entregaveis/Banco de Dados/BancodoProjeto.sql`)
 - [ ] **Entrega 4:** Tela de Login funcional (validação de usuário, senha e erro amigável)
@@ -76,7 +76,7 @@ Marque conforme os arquivos da entrega forem separados:
 Antes de escrever código, fechem o desenho do sistema. Essa fase evita retrabalho e é o que a banca costuma cobrar na arguição.
 
 - [ ] **2.1. Revisar e fechar os requisitos**
-  * **Onde:** `Entregaveis/Modelagem_/requisitos_industria_bebidasv2.md` e o PDF do edital.
+  * **Onde:** `Entregaveis/Modelagem/requisitos_industria_bebidas.md` e o PDF do edital.
   * **Ação:** conferir RFs, RNs e RNFs, resolver dúvidas com a equipe e produzir o documento de requisitos da entrega.
   * **Resultado esperado:** requisitos sem lacunas e acordados entre todos.
 
@@ -366,7 +366,7 @@ Conforme especificação oficial do edital (Item 10):
 
 - [ ] **11.1. Criar pasta com o nome do aluno/equipe** (Exemplo: `ProjetoIntegrador_Modulo2_NomeAluno`).
 - [ ] **11.2. Inserir os 6 itens obrigatórios dentro da pasta:**
-  1. Documento de Requisitos (PDF produzido pela equipe, com base em `Entregaveis/Modelagem_`)
+  1. Documento de Requisitos (PDF produzido pela equipe, com base em `Entregaveis/Modelagem/`)
   2. Imagem do DER (`Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`)
   3. Script SQL (`Entregaveis/Banco de Dados/BancodoProjeto.sql`)
   4. Código-fonte completo do projeto (pastas `backend/` e `frontend/` com seus `pom.xml` e `src/`)
@@ -379,7 +379,7 @@ Conforme especificação oficial do edital (Item 10):
 
 ### FASE 12: Preparação para a Arguição Oral da Banca
 
-Perguntas fundamentais do edital que a equipe deve dominar. Detalhes também nos requisitos em `Entregaveis/Modelagem_`:
+Perguntas fundamentais do edital que a equipe deve dominar. Detalhes também nos requisitos em `Entregaveis/Modelagem/`:
 
 - [ ] **Pergunta 1: Por que o banco se chama `bebidas_db`?**  
   *Resposta:* exigência formal e obrigatória do edital do SENAI.

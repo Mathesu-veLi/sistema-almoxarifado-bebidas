@@ -52,8 +52,8 @@ Regras adicionais:
 
 - `Entregaveis/Banco de Dados/BancodoProjeto.sql` — script oficial do banco.
 - `Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg` — DER.
-- `Entregaveis/Modelagem_/requisitos_industria_bebidasv1.md` e `...v2.md` — requisitos e regras de negócio.
-- `docs/08_colaboradores.md` — autoria oficial dos commits.
+- `Entregaveis/Modelagem/requisitos_industria_bebidas.md` — requisitos e regras de negócio.
+- `docs/colaboradores.md` — autoria oficial dos commits.
 - `Diversos/TODO.md` — roteiro manual de execução da equipe.
 
 Em caso de conflito entre uma sugestão do agente e o material dos autores, **vale o material dos autores**. Não invente requisitos: quando faltar informação, pergunte.
@@ -71,7 +71,7 @@ Em caso de conflito entre uma sugestão do agente e o material dos autores, **va
 
 ## 7. Git (governança)
 
-- O projeto é colaborativo e a lista oficial de autores está em [`docs/08_colaboradores.md`](docs/08_colaboradores.md).
+- O projeto é colaborativo e a lista oficial de autores está em [`docs/colaboradores.md`](docs/colaboradores.md).
 - Antes de cada commit, o agente **pergunta ao usuário qual colaborador fez as alterações** e aplica a identidade **somente naquele commit**:
   `git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"`
 - **Nunca** use `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem autoria confirmada.
@@ -111,7 +111,7 @@ Certo: apontar onde está o problema e explicar a correção; perguntar se pode 
 
 **Exemplo 5 — Entrega documental**
 Usuário: "Escreve o documento de requisitos."
-Certo: perguntar se a ajuda desejada é estruturar, revisar ou formatar o que a equipe já escreveu em `Entregaveis/Modelagem_`. Não redigir a entrega no lugar dos autores.
+Certo: perguntar se a ajuda desejada é estruturar, revisar ou formatar o que a equipe já escreveu em `Entregaveis/Modelagem/`. Não redigir a entrega no lugar dos autores.
 
 **Exemplo 6 — Banca**
 Usuário: "Me explica o Quicksort para a apresentação."
@@ -214,3 +214,8 @@ Se qualquer um desses sinais aparecer, pare o trabalho, avise o usuário e propo
 
 ### Observação sobre permissões
 Bloqueios técnicos ajudam, mas não substituem a regra combinada. Mesmo que uma ferramenta permita escrever em `Entregaveis/`, o agente deve perguntar antes. Se algo for alterado por engano, avise imediatamente e ajude a restaurar a versão anterior.
+
+## 17. Registro de reorganização (22/10/2026)
+
+- A pasta `Entregaveis/Modelagem_` passou a se chamar `Entregaveis/Modelagem` e os requisitos v1/v2 foram consolidados em `requisitos_industria_bebidas.md`.
+- O arquivo `docs/08_colaboradores.md` passou a se chamar `docs/colaboradores.md`.

@@ -8,7 +8,7 @@ description: Executa commits atômicos padronizados seguindo Conventional Commit
 Use esta skill sempre que qualquer arquivo for criado, modificado ou removido no projeto.
 
 ## Identidade do Autor (escolhida por commit)
-O projeto é colaborativo e a lista oficial de autores fica em [`docs/08_colaboradores.md`](../../docs/08_colaboradores.md):
+O projeto é colaborativo e a lista oficial de autores fica em [`docs/colaboradores.md`](../../docs/colaboradores.md):
 
 | Handle | Nome | E-mail |
 | --- | --- | --- |
