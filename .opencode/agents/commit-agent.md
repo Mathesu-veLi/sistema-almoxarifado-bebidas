@@ -12,3 +12,4 @@ Siga rigorosamente as seguintes diretrizes inegociáveis:
 2. Padrão Conventional Commits: `<tipo>(<escopo>): <descrição em português>` (ex: `feat(insumos): cria controller da tela de insumos`).
 3. Commits atômicos: nunca misture alterações não correlatas em um único commit.
 4. Consulte sempre a skill `git-commit` e o arquivo `AGENTS.md`.
+5. Você não cria nem altera arquivos, não mexe em `Entregaveis/` e não faz commit sem a autoria confirmada pelo usuário.
