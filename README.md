@@ -4,6 +4,8 @@
 
 Sistema desktop de **almoxarifado e controle de estoque** para uma indústria de bebidas, com frontend em **Swing/JFrame**, backend em **Spring Boot REST** e banco **MySQL** (`bebidas_db`).
 
+Ferramentas combinadas: backend no **IntelliJ IDEA**; frontend no **Eclipse com WindowBuilder**, depois de prototipar as telas no **Figma, Canva ou Google Stitch**.
+
 O enunciado completo está em **`Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf`**. Leiam o PDF antes de começar: ele define as entregas, as telas obrigatórias e as regras da banca.
 
 ## Arquivos do projeto
@@ -24,13 +26,15 @@ O enunciado completo está em **`Diversos/Projeto Integrador Módulo 2 - Industr
 
 O `TODO.md` é o **roteiro de trabalho**, não uma entrega. Ele organiza o desenvolvimento em fases, da preparação do ambiente até o treino para a banca:
 
-- **Fase 0:** conferir JDK, Maven, MySQL e NetBeans.
 - **Fase 1:** executar e validar o script do banco.
-- **Fases 2 a 5:** criar o backend (projeto Maven, entidades, repositórios, regras de negócio, Quicksort e endpoints REST).
-- **Fases 6 a 8:** criar o frontend Swing e integrar com a API.
-- **Fase 9:** executar a bateria de testes.
-- **Fase 10:** montar a pasta final de entrega.
-- **Fase 11:** treinar as respostas da arguição oral.
+- **Fase 2:** fechar a modelagem antes do código (diagrama de classes, DER, arquitetura, contrato REST e cenários de teste).
+- **Fases 3 a 6:** criar o backend (projeto Maven, entidades, repositórios, regras de negócio, Quicksort e endpoints REST).
+- **Fase 7:** criar o projeto frontend Swing.
+- **Fase 8:** prototipar as telas (Figma, Canva ou Google Stitch) e só depois desenhar no WindowBuilder.
+- **Fase 9:** integrar o frontend com a API.
+- **Fase 10:** executar a bateria de testes.
+- **Fase 11:** montar a pasta final de entrega.
+- **Fase 12:** treinar as respostas da arguição oral.
 
 Cada item tem uma caixa `[ ]`. Marquem conforme concluírem, e leiam a fase inteira antes de começar: ela indica onde fazer, o que conferir e qual é o resultado esperado. Se algo no roteiro não bater com o PDF do edital, vale o PDF.
 

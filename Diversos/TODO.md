@@ -11,18 +11,18 @@
 
 | Fase | Ação Principal | Ferramenta / Onde Fazer | Arquivo de Apoio | Feito? |
 |---|---|---|---|---|
-| **Fase 0** | Validar instalações (JDK, Maven, MySQL, NetBeans) | CMD / NetBeans / MySQL | - | [ ] |
 | **Fase 1** | Executar o script do banco de dados | MySQL Workbench ou XAMPP | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
-| **Fase 2** | Criar o projeto backend Spring Boot | Spring Initializr / NetBeans (Maven) | `backend/pom.xml` | [ ] |
-| **Fase 3** | Configurar conexão, entidades JPA e repositórios | NetBeans (`config`, `model`, `repository`) | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
-| **Fase 4** | Implementar regras de negócio e o Quicksort | NetBeans (`service`) | `skills/sorting-algorithms/SKILL.md` | [ ] |
-| **Fase 5** | Criar os endpoints REST e testar com Postman | NetBeans (`controller`, `dto`, `exception`) | Contrato REST definido pela equipe | [ ] |
-| **Fase 6** | Criar o projeto frontend Swing | NetBeans (Maven) | `frontend/pom.xml` | [ ] |
-| **Fase 7** | Desenhar as 4 telas com JFrame no GUI Builder | NetBeans / GUI Builder | `skills/swing-desktop/SKILL.md` | [ ] |
-| **Fase 8** | Integrar o frontend com a API (HTTP/JSON) | NetBeans (`service`, `controller`) | `skills/swing-desktop/SKILL.md` | [ ] |
-| **Fase 9** | Realizar testes unitários, de API e manuais | Backend + frontend rodando | Roteiro de testes da equipe | [ ] |
-| **Fase 10** | Montar a pasta compactada (.zip) | Windows Explorer | Instruções do Edital (Item 10) | [ ] |
-| **Fase 11** | Treinar respostas da apresentação oral | Estudo individual e em grupo | Requisitos em `Entregaveis/Modelagem_` | [ ] |
+| **Fase 2** | Modelar classes, arquitetura, contrato REST e regras | Draw.io / Lucidchart / papel + editor de texto | `Entregaveis/Modelagem_/requisitos_industria_bebidasv2.md` | [ ] |
+| **Fase 3** | Criar o projeto backend Spring Boot | Spring Initializr / IntelliJ IDEA (Maven) | `backend/pom.xml` | [ ] |
+| **Fase 4** | Configurar conexão, entidades JPA e repositórios | IntelliJ IDEA (`config`, `model`, `repository`) | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
+| **Fase 5** | Implementar regras de negócio e o Quicksort | IntelliJ IDEA (`service`) | `skills/sorting-algorithms/SKILL.md` | [ ] |
+| **Fase 6** | Criar os endpoints REST e testar com Postman | IntelliJ IDEA (`controller`, `dto`, `exception`) | Contrato REST definido na Fase 2 | [ ] |
+| **Fase 7** | Criar o projeto frontend Swing | Eclipse (Maven) | `frontend/pom.xml` | [ ] |
+| **Fase 8** | Prototipar as telas e desenhar no WindowBuilder | Figma / Canva / Google Stitch + WindowBuilder (Eclipse) | `skills/swing-desktop/SKILL.md` | [ ] |
+| **Fase 9** | Integrar o frontend com a API (HTTP/JSON) | Eclipse (`service`, `controller`) | `skills/swing-desktop/SKILL.md` | [ ] |
+| **Fase 10** | Realizar testes unitários, de API e manuais | Backend + frontend rodando | Roteiro de testes da equipe | [ ] |
+| **Fase 11** | Montar a pasta compactada (.zip) | Windows Explorer | Instruções do Edital (Item 10) | [ ] |
+| **Fase 12** | Treinar respostas da apresentação oral | Estudo individual e em grupo | Requisitos em `Entregaveis/Modelagem_` | [ ] |
 
 ---
 
@@ -43,27 +43,6 @@ Marque conforme os arquivos da entrega forem separados:
 ---
 
 ## 3. Passo a Passo Detalhado
-
----
-
-### FASE 0: Validar Ferramentas no Computador
-
-- [ ] **0.1. Validar a versão do Java**
-  * **Onde:** Prompt de Comando (CMD).
-  * **Comando:** `java -version`
-  * **Resultado esperado:** Versão 17 ou 21. Se não tiver, instalar JDK 17 LTS.
-
-- [ ] **0.2. Validar o Maven**
-  * **Comando:** `mvn -version`
-  * **Resultado esperado:** Apache Maven 3.9+ apontando para o JDK 17. Se não tiver, usar o Maven embutido do NetBeans.
-
-- [ ] **0.3. Iniciar o servidor MySQL**
-  * **Onde:** Painel do XAMPP ou serviço do MySQL Workbench.
-  * **Resultado esperado:** Serviço rodando na porta 3306.
-
-- [ ] **0.4. Validar o NetBeans**
-  * **Onde:** Apache NetBeans 19+ com suporte a projetos Maven e ao GUI Builder (Swing).
-  * **Resultado esperado:** Consegue criar um projeto `Java with Maven > Java Application` e abrir um `JFrame` no editor visual.
 
 ---
 
@@ -92,21 +71,55 @@ Marque conforme os arquivos da entrega forem separados:
 
 ---
 
-### FASE 2: Criação do Backend Spring Boot
+### FASE 2: Modelagem e Documentação Técnica
 
-- [ ] **2.1. Gerar o projeto**
-  * **Onde:** [start.spring.io](https://start.spring.io) ou NetBeans (`File > New Project > Java with Maven > Spring Boot`).
+Antes de escrever código, fechem o desenho do sistema. Essa fase evita retrabalho e é o que a banca costuma cobrar na arguição.
+
+- [ ] **2.1. Revisar e fechar os requisitos**
+  * **Onde:** `Entregaveis/Modelagem_/requisitos_industria_bebidasv2.md` e o PDF do edital.
+  * **Ação:** conferir RFs, RNs e RNFs, resolver dúvidas com a equipe e produzir o documento de requisitos da entrega.
+  * **Resultado esperado:** requisitos sem lacunas e acordados entre todos.
+
+- [ ] **2.2. Validar a modelagem do banco**
+  * **Onde:** DER em `Entregaveis/Banco de Dados/` e script `BancodoProjeto.sql`.
+  * **Ação:** revisar tabelas, chaves primárias, chaves estrangeiras e cardinalidades (1:1, 1:N, N:N) contra as regras de negócio.
+  * **Resultado esperado:** cada regra de negócio tem tabela/coluna que a representa.
+
+- [ ] **2.3. Desenhar o diagrama de classes**
+  * **Onde:** draw.io, Lucidchart, StarUML ou papel.
+  * **Ação:** representar entidades, atributos, métodos principais e relacionamentos; incluir as camadas do backend e os DTOs.
+  * **Resultado esperado:** diagrama salvo no material da equipe e usado como guia na implementação.
+
+- [ ] **2.4. Definir a arquitetura e o contrato REST**
+  * **Ação:** acordar o fluxo `view → controller → service → repository` no backend e `view → controller → service HTTP` no frontend.
+  * **Ação:** listar endpoints, DTOs de entrada/saída e códigos de resposta esperados (200, 400, 404, 409).
+  * **Resultado esperado:** contrato documentado antes de criar os controllers.
+
+- [ ] **2.5. Definir os cenários de teste**
+  * **Ação:** escrever os casos de teste principais (login inválido, cadastro incompleto, retirada acima do saldo, alerta de nível crítico, logout).
+  * **Resultado esperado:** roteiro de testes pronto para ser executado na Fase 10.
+
+- [ ] **2.6. Revisar a modelagem com a equipe**
+  * **Ação:** apresentar diagrama, DER e contrato para o grupo e ajustar o que não fechar.
+  * **Resultado esperado:** todos entendem o desenho e conseguem explicá-lo na banca.
+
+---
+
+### FASE 3: Criação do Backend Spring Boot
+
+- [ ] **3.1. Gerar o projeto**
+  * **Onde:** [start.spring.io](https://start.spring.io) ou IntelliJ IDEA (`File > New > Project > Spring Initializr`; na versão Community, importar o Maven gerado).
   * **Nome/Artifact:** `backend`
   * **Group:** `com.senai.bebidas`
   * **Package:** `com.senai.bebidas`
   * **Java:** 17
   * **Dependências:** `Spring Web`, `Spring Data JPA`, `Validation`, `MySQL Driver`.
 
-- [ ] **2.2. Conferir o `pom.xml`**
+- [ ] **3.2. Conferir o `pom.xml`**
   * Deve conter `spring-boot-starter-parent` 3.x, `spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `spring-boot-starter-validation`, `mysql-connector-j` e `spring-boot-starter-test`.
   * **Resultado esperado:** `mvn clean package -DskipTests` termina com `BUILD SUCCESS`.
 
-- [ ] **2.3. Configurar `application.properties`**
+- [ ] **3.3. Configurar `application.properties`**
   * **Onde:** `backend/src/main/resources/application.properties`.
   * **Conteúdo mínimo:**
     ```properties
@@ -119,7 +132,7 @@ Marque conforme os arquivos da entrega forem separados:
     ```
   * **Resultado esperado:** Aplicação sobe sem erro de conexão (`mvn spring-boot:run`).
 
-- [ ] **2.4. Criar a estrutura de pacotes**
+- [ ] **3.4. Criar a estrutura de pacotes**
   * **Onde:** `backend/src/main/java/com/senai/bebidas/`
   * **Criar:**
     * `model`
@@ -132,9 +145,9 @@ Marque conforme os arquivos da entrega forem separados:
 
 ---
 
-### FASE 3: Entidades JPA e Repositórios
+### FASE 4: Entidades JPA e Repositórios
 
-- [ ] **3.1. Criar as entidades em `model`**
+- [ ] **4.1. Criar as entidades em `model`**
   * **Referência:** script SQL oficial em `Entregaveis/Banco de Dados/BancodoProjeto.sql`.
   * **Classes obrigatórias:**
     * `Cargo.java` (`id`, `nome`)
@@ -147,7 +160,7 @@ Marque conforme os arquivos da entrega forem separados:
     * `Movimentacao.java` (`id`, `loteInsumo`, `tipoMovimentacao`, `quantidade`, `setor`, `funcionario`, `dataMovimentacao`)
   * **Atenção:** usar `@Table(name = "...")` com o nome exato da tabela e `@JoinColumn` com o nome exato da FK (ex.: `tipos_insumos_id`, `lotes_insumo_id`).
 
-- [ ] **3.2. Criar os repositórios em `repository`**
+- [ ] **4.2. Criar os repositórios em `repository`**
   * Interfaces que estendem `JpaRepository<Entidade, Integer>`:
     * `FuncionarioRepository` → `findByEmailAndSenha(...)`
     * `TipoInsumoRepository` → `findByNomeContainingIgnoreCase(...)`, `existsByNomeIgnoreCase(...)`
@@ -155,7 +168,7 @@ Marque conforme os arquivos da entrega forem separados:
     * `MovimentacaoRepository` → `findAllByOrderByDataMovimentacaoDesc()`
     * `SetorRepository` e `TipoMovimentacaoRepository`
 
-- [ ] **3.3. Criar os DTOs em `dto`**
+- [ ] **4.3. Criar os DTOs em `dto`**
   * `LoginRequest`, `FuncionarioDTO`
   * `InsumoRequest`, `InsumoDTO`, `EstoqueDTO`
   * `LoteInsumoDTO`, `SetorDTO`, `TipoMovimentacaoDTO`
@@ -164,30 +177,30 @@ Marque conforme os arquivos da entrega forem separados:
 
 ---
 
-### FASE 4: Regras de Negócio e Quicksort
+### FASE 5: Regras de Negócio e Quicksort
 
-- [ ] **4.1. Criar `AuthService`**
+- [ ] **5.1. Criar `AuthService`**
   * Consulta `FuncionarioRepository.findByEmailAndSenha(...)`.
   * Se não encontrar, lançar `RegraNegocioException("E-mail ou senha inválidos.")`.
   * Retornar `FuncionarioDTO` (sem senha).
 
-- [ ] **4.2. Criar `InsumoService`**
+- [ ] **5.2. Criar `InsumoService`**
   * Validar nome (mínimo 3 caracteres) e `quantidadeMinima >= 0`.
   * Impedir nome duplicado.
   * Implementar `listar(termo)`, `cadastrar`, `atualizar` e `excluir`.
   * Na exclusão, verificar se existe lote/movimentação vinculado e lançar `RegraNegocioException`.
 
-- [ ] **4.3. Criar `OrdenacaoService`**
+- [ ] **5.3. Criar `OrdenacaoService`**
   * **Onde:** Pacote `com.senai.bebidas.service`.
   * **Referência de código:** `skills/sorting-algorithms/SKILL.md`.
   * **Ação:** Implementar o Quicksort recursivo que recebe `List<TipoInsumo>` e ordena com `insumo.getNome().compareToIgnoreCase(...)`.
   * **Resultado esperado:** A ordenação da tela de movimentação DEVE ser feita por este método, e não por `ORDER BY`, `Collections.sort()` ou `List.sort()`.
 
-- [ ] **4.4. Criar `MovimentacaoService`**
+- [ ] **5.4. Criar `MovimentacaoService`**
   * `listarInsumosOrdenados()`: buscar com `findAll()` (sem `ORDER BY`) e aplicar `OrdenacaoService`.
   * `registrar(...)`: método `@Transactional` que valida o tipo, verifica saldo em saídas, grava a movimentação e calcula `alertaCritico`.
 
-- [ ] **4.5. Criar as exceções e o `GlobalExceptionHandler`**
+- [ ] **5.5. Criar as exceções e o `GlobalExceptionHandler`**
   * `RegraNegocioException` → HTTP 400.
   * `EstoqueInsuficienteException` → HTTP 409.
   * `RecursoNaoEncontradoException` → HTTP 404.
@@ -195,28 +208,28 @@ Marque conforme os arquivos da entrega forem separados:
 
 ---
 
-### FASE 5: Endpoints REST
+### FASE 6: Endpoints REST
 
-- [ ] **5.1. `AuthController`**
+- [ ] **6.1. `AuthController`**
   * `POST /api/auth/login` recebendo `LoginRequest` com `@Valid`.
 
-- [ ] **5.2. `InsumoController`**
+- [ ] **6.2. `InsumoController`**
   * `GET /api/insumos?termo=`
   * `GET /api/insumos/ordenados`
   * `POST /api/insumos`
   * `PUT /api/insumos/{id}`
   * `DELETE /api/insumos/{id}`
 
-- [ ] **5.3. `MovimentacaoController`**
+- [ ] **6.3. `MovimentacaoController`**
   * `POST /api/movimentacoes`
   * `GET /api/movimentacoes`
 
-- [ ] **5.4. `CatalogoController`**
+- [ ] **6.4. `CatalogoController`**
   * `GET /api/setores`
   * `GET /api/tipos-movimentacao`
   * `GET /api/lotes?tipoInsumoId=`
 
-- [ ] **5.5. Testar a API com Postman/curl**
+- [ ] **6.5. Testar a API com Postman/curl**
   * Login: `POST http://localhost:8080/api/auth/login`
   * Listagem: `GET http://localhost:8080/api/insumos`
   * Ordenação: `GET http://localhost:8080/api/insumos/ordenados`
@@ -224,20 +237,20 @@ Marque conforme os arquivos da entrega forem separados:
 
 ---
 
-### FASE 6: Criação do Frontend Swing
+### FASE 7: Criação do Frontend Swing
 
-- [ ] **6.1. Criar o projeto Maven**
-  * **Onde:** NetBeans → `File > New Project > Java with Maven > Java Application`.
+- [ ] **7.1. Criar o projeto Maven**
+  * **Onde:** Eclipse → `File > New > Maven Project`.
   * **Nome do Projeto:** `frontend`
   * **Group Id:** `com.senai.bebidas`
   * **Package:** `com.senai.bebidas`
   * **Classe principal:** `com.senai.bebidas.app.Main`
 
-- [ ] **6.2. Adicionar as dependências do `pom.xml`**
+- [ ] **7.2. Adicionar as dependências do `pom.xml`**
   * `jackson-databind` (serialização JSON).
   * `exec-maven-plugin` (executar a classe `Main` via Maven).
 
-- [ ] **6.3. Criar a estrutura de pacotes**
+- [ ] **7.3. Criar a estrutura de pacotes**
   * `com.senai.bebidas.app`
   * `com.senai.bebidas.view`
   * `com.senai.bebidas.controller`
@@ -245,72 +258,82 @@ Marque conforme os arquivos da entrega forem separados:
   * `com.senai.bebidas.model`
   * `com.senai.bebidas.util`
 
-- [ ] **6.4. Criar as pastas de recursos**
+- [ ] **7.4. Criar as pastas de recursos**
   * `frontend/src/main/resources/images` (ícones e logomarca).
 
 ---
 
-### FASE 7: Desenho das 4 Telas com JFrame
+### FASE 8: Prototipação e Desenho das 4 Telas com WindowBuilder
 
-Desenhar as telas no GUI Builder do NetBeans conforme o desenho definido pela equipe:
+Antes de abrir o WindowBuilder, desenhem as telas no **Figma**, **Canva** ou **Google Stitch** para validar layout e fluxo com a equipe. Só depois levem o protótipo aprovado para o WindowBuilder.
 
-- [ ] **7.1. Login (`LoginFrame`)**
+- [ ] **8.1. Prototipar as 4 telas**
+  * **Onde:** Figma, Canva ou Google Stitch.
+  * **Ação:** montar o wireframe de Login, Home, Insumos e Movimentação, incluindo a navegação entre elas.
+  * **Resultado esperado:** protótipo validado pela equipe e imagens salvas no material do projeto.
+
+- [ ] **8.2. Configurar o WindowBuilder**
+  * **Onde:** Eclipse com o plugin **WindowBuilder** instalado.
+  * **Ação:** importar o projeto Maven `frontend` e conferir se o editor visual de `JFrame` abre.
+  * **Resultado esperado:** projeto importado e editor do WindowBuilder funcionando.
+
+- [ ] **8.3. Login (`LoginFrame`)**
   * **Campos:** `txtEmail`, `txtSenha`, `btnEntrar`, `lblMensagemErro`.
   * **Controller associado:** `com.senai.bebidas.controller.LoginController`.
 
-- [ ] **7.2. Home (`HomeFrame`)**
+- [ ] **8.4. Home (`HomeFrame`)**
   * **Campos:** `lblBoasVindas`, `lblCargo`, `btnInsumos`, `btnMovimentacao`, `btnSair`.
   * **Controller associado:** `com.senai.bebidas.controller.HomeController`.
 
-- [ ] **7.3. Gerenciamento de Insumos (`InsumosFrame`)**
+- [ ] **8.5. Gerenciamento de Insumos (`InsumosFrame`)**
   * **Listagem:** `txtPesquisa`, `JTable tblInsumos` (ID, Nome, Unidade, Qtd. Mínima, Saldo, Situação).
   * **Formulário:** `txtNome`, `txtDescricao`, `txtVolume`, `txtUnidade`, `txtQtdMinima`.
   * **Botões:** `btnSalvar`, `btnEditar`, `btnExcluir`, `btnLimpar`, `btnVoltar`.
   * **Controller associado:** `com.senai.bebidas.controller.InsumosController`.
 
-- [ ] **7.4. Movimentação de Materiais (`MovimentacaoFrame`)**
+- [ ] **8.6. Movimentação de Materiais (`MovimentacaoFrame`)**
   * **Campos:** `cbInsumos` (ordem vinda da API), `cbLotes`, `cbTipoMovimentacao`, `cbSetor`, `txtQuantidade` (`JSpinner`), `lblResponsavel`, `lblData`.
   * **Botões e alertas:** `btnConfirmar`, `btnVoltar` e `JOptionPane`/label para alerta de estoque crítico.
   * **Controller associado:** `com.senai.bebidas.controller.MovimentacaoController`.
 
 ---
 
-### FASE 8: Integração frontend ↔ API
+### FASE 9: Integração frontend ↔ API
 
-- [ ] **8.1. Criar `ApiConfig`**
+- [ ] **9.1. Criar `ApiConfig`**
   * **Onde:** `com.senai.bebidas.util`.
   * **Conteúdo:** `BASE_URL = "http://localhost:8080/api"` e timeout.
 
-- [ ] **8.2. Criar `SessaoUsuario`**
+- [ ] **9.2. Criar `SessaoUsuario`**
   * **Onde:** `com.senai.bebidas.util`.
   * **Ação:** atributo estático `FuncionarioDTO usuarioLogado` e métodos `iniciarSessao`, `getUsuarioLogado`, `encerrarSessao`, `isAutenticado`.
 
-- [ ] **8.3. Criar `AlertaUtil`**
+- [ ] **9.3. Criar `AlertaUtil`**
   * **Onde:** `com.senai.bebidas.util`.
   * **Ação:** métodos com `JOptionPane` para informação, erro, aviso e confirmação.
 
-- [ ] **8.4. Criar `ApiClient` e os serviços HTTP**
+- [ ] **9.4. Criar `ApiClient` e os serviços HTTP**
   * `ApiClient` com `HttpClient` + Jackson (GET, POST, PUT, DELETE).
   * `AuthApiService`, `InsumoApiService`, `MovimentacaoApiService`.
   * **Atenção:** tratar `status >= 400` lendo o campo `mensagem` do JSON.
 
-- [ ] **8.5. Programar `LoginController`**
+- [ ] **9.5. Programar `LoginController`**
   * Validar campos em branco.
   * Chamar `POST /api/auth/login`.
   * Em sucesso: `SessaoUsuario.iniciarSessao(...)` e abrir `HomeFrame`.
   * Em falha: exibir erro e manter a tela aberta.
 
-- [ ] **8.6. Programar `HomeController`**
+- [ ] **9.6. Programar `HomeController`**
   * Exibir nome e cargo da `SessaoUsuario`.
   * Abrir `InsumosFrame` e `MovimentacaoFrame`.
   * Logout: limpar sessão e reabrir `LoginFrame`.
 
-- [ ] **8.7. Programar `InsumosController`**
+- [ ] **9.7. Programar `InsumosController`**
   * Carregar a tabela com `GET /api/insumos`.
   * Buscar com `?termo=`.
   * Salvar (`POST`/`PUT`), excluir (`DELETE`) e exibir erros amigáveis.
 
-- [ ] **8.8. Programar `MovimentacaoController`**
+- [ ] **9.8. Programar `MovimentacaoController`**
   * Carregar insumos com `GET /api/insumos/ordenados` (sem reordenar no frontend).
   * Carregar lotes, setores e tipos.
   * Preencher o responsável com a sessão.
@@ -319,7 +342,7 @@ Desenhar as telas no GUI Builder do NetBeans conforme o desenho definido pela eq
 
 ---
 
-### FASE 9: Bateria de Testes Práticos
+### FASE 10: Bateria de Testes Práticos
 
 Execute os testes do roteiro da equipe com backend e frontend rodando. Resumo:
 
@@ -337,24 +360,24 @@ Execute os testes do roteiro da equipe com backend e frontend rodando. Resumo:
 
 ---
 
-### FASE 10: Organização da Pasta Final de Entrega
+### FASE 11: Organização da Pasta Final de Entrega
 
 Conforme especificação oficial do edital (Item 10):
 
-- [ ] **10.1. Criar pasta com o nome do aluno/equipe** (Exemplo: `ProjetoIntegrador_Modulo2_NomeAluno`).
-- [ ] **10.2. Inserir os 6 itens obrigatórios dentro da pasta:**
+- [ ] **11.1. Criar pasta com o nome do aluno/equipe** (Exemplo: `ProjetoIntegrador_Modulo2_NomeAluno`).
+- [ ] **11.2. Inserir os 6 itens obrigatórios dentro da pasta:**
   1. Documento de Requisitos (PDF produzido pela equipe, com base em `Entregaveis/Modelagem_`)
   2. Imagem do DER (`Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`)
   3. Script SQL (`Entregaveis/Banco de Dados/BancodoProjeto.sql`)
   4. Código-fonte completo do projeto (pastas `backend/` e `frontend/` com seus `pom.xml` e `src/`)
   5. Documento de Testes (PDF produzido pela equipe)
   6. Documento de Infraestrutura (PDF produzido pela equipe)
-- [ ] **10.3. Remover `target/`, `.zip` antigos e credenciais locais antes de compactar.**
-- [ ] **10.4. Compactar a pasta final no formato `.zip`.**
+- [ ] **11.3. Remover `target/`, `.zip` antigos e credenciais locais antes de compactar.**
+- [ ] **11.4. Compactar a pasta final no formato `.zip`.**
 
 ---
 
-### FASE 11: Preparação para a Arguição Oral da Banca
+### FASE 12: Preparação para a Arguição Oral da Banca
 
 Perguntas fundamentais do edital que a equipe deve dominar. Detalhes também nos requisitos em `Entregaveis/Modelagem_`:
 
