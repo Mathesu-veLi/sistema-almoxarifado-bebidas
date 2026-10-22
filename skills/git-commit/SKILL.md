@@ -31,7 +31,7 @@ Siga estritamente a convenção:
 `<tipo>(<escopo>): <descrição em português>`
 
 ### Tipos Permitidos:
-* `feat`: Nova funcionalidade (telas JavaFX, novas entidades, novos serviços).
+* `feat`: Nova funcionalidade (telas Swing/JFrame, endpoints REST, novas entidades, novos serviços).
 * `fix`: Correção de bug em código, query SQL ou regra de negócio.
 * `docs`: Adição ou alteração de documentação (arquivos em `docs/`, `AGENTS.md`, README).
 * `style`: Formatação, identação ou CSS sem alteração lógica.
