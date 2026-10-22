@@ -66,6 +66,41 @@ Nesses casos o agente deve perguntar antes e devolver orientação, porque essas
 
 Dica para a banca: não colem código que vocês não sabem explicar. Se o agente sugerir algo, peçam o "porquê" antes de usar.
 
+## Agentes de IA gratuitos
+
+O agente não substitui o estudo da equipe, mas ajuda a tirar dúvidas, revisar código e destravar erros. Para este projeto, a recomendação é o **OpenCode**.
+
+### Por que o OpenCode
+
+- **Gratuito e de código aberto** ([opencode.ai](https://opencode.ai/), versão em português em [opencode.ai/br](https://opencode.ai/br)).
+- **Traz LLMs gratuitas** e também aceita modelos de vários provedores (Gemini, Groq, OpenRouter, Ollama local etc.).
+- Funciona no **terminal, na IDE ou no desktop**, sem prender a equipe a um único editor.
+- É o ambiente que já está configurado neste repositório (`AGENTS.md`, `opencode.json` e as skills em `.opencode/`).
+
+> Modelos gratuitos costumam ter **limite de uso, fila e menor qualidade** que os pagos, e alguns provedores podem usar o conteúdo enviado para treino. Não colem senhas, tokens, dados de clientes ou informações pessoais no chat.
+
+### Outras opções gratuitas
+
+| Ferramenta | Onde roda | Observação |
+| --- | --- | --- |
+| [Cline](https://cline.bot) | VS Code | Extensão gratuita; usa sua própria chave de API ou modelo local. |
+| [Roo Code](https://roocode.com) | VS Code | Fork do Cline, com modos de agente e suporte a vários provedores. |
+| [Aider](https://aider.chat) | Terminal | Agente de código aberto que edita arquivos via Git; aceita modelos locais. |
+| [Continue](https://continue.dev) | VS Code e JetBrains | Autocomplete e chat gratuitos, com modelos locais ou em nuvem. |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | Terminal | Agente do Google com cota gratuita da conta Google. |
+| [Qwen Code](https://github.com/QwenLM/qwen-code) | Terminal | Agente de código aberto com modelos Qwen gratuitos. |
+
+Para rodar modelos **totalmente offline**, dá para usar o [Ollama](https://ollama.com) junto do OpenCode ou do Aider — o custo passa a ser só o do computador.
+
+### Material de apoio em vídeo
+
+- **O que é um agente de IA:** [O que são AGENTES de IA: APRENDA do ZERO!](https://www.youtube.com/watch?v=xSHqm8JsqkI)
+- **Instalar e usar o OpenCode (em português):** [Curso OpenCode Completo — Use IAs GRATUITAMENTE!](https://www.youtube.com/watch?v=Q9bH393Bq64)
+- **OpenCode Desktop do zero (em português):** [OpenCode Desktop: Tutorial Completo do Zero](https://www.youtube.com/watch?v=Ato5qq80XtM)
+- **Instalação no Windows (em inglês, com legendas):** [OpenCode: Free AI Coding Agent Setup Guide](https://www.youtube.com/watch?v=20vcJmqAr4M)
+
+A documentação oficial em [opencode.ai/docs](https://opencode.ai/docs) é a fonte mais confiável quando o vídeo estiver desatualizado.
+
 ## Commits
 
 - O projeto é colaborativo: o commit pertence a quem fez a alteração (lista em `docs/colaboradores.md`).
