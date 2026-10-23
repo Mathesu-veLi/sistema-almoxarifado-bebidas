@@ -55,7 +55,7 @@ node --version
 
 ### 2. Baixe e instale o OpenCode
 
-No Windows há dois caminhos:
+No Windows há dois caminhos. Escolha um e lembre qual usou: o passo 4 é diferente para cada um.
 
 - **OpenCode Desktop (mais simples):** baixe o instalador em [opencode-desktop-win-x64.exe](https://opencode.ai/update/api/latest/desktop/opencode/opencode-desktop-win-x64.exe) e execute.
 - **OpenCode CLI (terminal):** baixe o [opencode-windows-x64.zip](https://opencode.ai/update/api/latest/cli/opencode/opencode-windows-x64.zip), extraia e adicione a pasta à lista de programas do Windows (`PATH`), para poder digitar `opencode` em qualquer terminal; ou instale pelo npm (o npm é o instalador de programas que vem junto com o Node.js):
@@ -66,35 +66,48 @@ npm install -g @opencode/cli
 
 > Instaladores automáticos do Windows, como winget, Chocolatey e Scoop, não são suportados oficialmente; use o instalador do Desktop ou o arquivo `.zip`.
 
-Confirme a instalação:
+Se você instalou a versão CLI, confirme que ela funciona:
 
 ```powershell
 opencode --version
 ```
 
+No Desktop, não precisa desse comando: o programa abre pelo atalho.
+
 Documentação oficial: [opencode.ai/v2/docs](https://opencode.ai/v2/docs/).
 
-### 3. Clone o repositório
+### 3. Clone o repositório em uma pasta sua
 
-Clonar é baixar uma cópia completa do projeto para o seu computador, já ligada ao GitHub (o site onde o projeto fica guardado).
+Clonar é baixar uma cópia completa do projeto para o seu computador, já ligada ao GitHub (o site onde o projeto fica guardado). Vamos colocá-la em uma pasta de projetos dentro da sua pasta pessoal, para não misturar com outros arquivos.
+
+No Windows, o `~` significa a **sua pasta pessoal** (algo como `C:\Users\seu-usuario`) e funciona no **PowerShell** como no Linux. O `mkdir` cria uma pasta e o `cd` entra nela.
 
 ```powershell
+cd ~
+mkdir Projetos -Force
+cd Projetos
 git clone https://github.com/Mathesu-veLi/sistema-almoxarifado-bebidas.git
 cd sistema-almoxarifado-bebidas
 ```
 
+Ao final, o projeto estará em `C:\Users\seu-usuario\Projetos\sistema-almoxarifado-bebidas` (troque `seu-usuario` pelo seu nome de usuário). O `-Force` só evita erro se a pasta `Projetos` já existir; ele não apaga nada.
+
 ### 4. Abra a pasta no OpenCode
 
-Sempre abra o OpenCode **de dentro da pasta do repositório** — é assim que ele encontra as instruções do projeto (`AGENTS.md`), a configuração (`opencode.json`) e os comandos prontos.
+Sempre abra o OpenCode **de dentro da pasta do repositório** — é assim que ele encontra as instruções do projeto (`AGENTS.md`), a configuração (`opencode.json`) e os comandos prontos. A pasta é a que você acabou de clonar: `C:\Users\seu-usuario\Projetos\sistema-almoxarifado-bebidas`.
+
+**Se você instalou o OpenCode Desktop:** abra o aplicativo, use a opção de abrir/selecionar uma pasta e escolha `C:\Users\seu-usuario\Projetos\sistema-almoxarifado-bebidas`. No Desktop, use a interface do aplicativo — o comando `opencode` no terminal pertence à versão CLI.
+
+**Se você instalou o OpenCode CLI (terminal):** entre na pasta e abra:
 
 ```powershell
-cd caminho\para\sistema-almoxarifado-bebidas
+cd ~\Projetos\sistema-almoxarifado-bebidas
 opencode
 ```
 
-Também funciona passando a pasta direto: `opencode "C:\caminho\para\sistema-almoxarifado-bebidas"`.
+Também funciona passando a pasta direto: `opencode "$HOME\Projetos\sistema-almoxarifado-bebidas"`.
 
-Na primeira execução:
+Na primeira execução (nos dois casos):
 
 1. Rode `/connect` e escolha um provedor (o serviço que fornece a IA, como Google ou OpenRouter; alguns oferecem modelos gratuitos).
 2. Rode `/models` (ou `Ctrl+X` e depois `M`) para escolher o modelo (a IA que vai responder).
