@@ -10,6 +10,7 @@ Fonte única de verdade para a autoria dos commits do Projeto Integrador (Indús
 | `LucasRAJ` | Lucas Rafael | `angelicarosasantos99@gmail.com` |
 | `israelsouzadev` | `israelsouzadev` | `israelssilva2007@gmail.com` |
 | `matheus391` | `matheus391` | `theusilva205@gmail.com` |
+| `Gabr1el-MS` | Gabriel | `gabrielmoreira0827@gmail.com@gmail.com` |
 
 > Os colaboradores `israelsouzadev` e `matheus391` ainda não informaram um nome de exibição.
 > Enquanto isso, o handle é usado como nome no commit. Ao definir o nome, atualize esta tabela.
