@@ -151,6 +151,7 @@ Antes de mexer no projeto, entenda as palavras que vão aparecer:
 | **Commit** | Um ponto de salvamento das suas alterações, com o nome de quem fez. |
 | **Push** | Enviar seus commits do computador para o GitHub. |
 | **Pull Request (PR)** | Um pedido para juntar a sua branch à versão oficial do projeto. |
+| **Merge** | Juntar a sua branch à `main` depois que o Pull Request for aprovado. |
 | **main** | A versão oficial e estável do projeto. |
 
 Passo a passo:
@@ -176,17 +177,25 @@ Passo a passo:
 
 4. **Salve com um commit.** No OpenCode, rode `/commit` e informe qual colaborador de `docs/colaboradores.md` fez o trabalho. O agente escreve a mensagem e registra o nome de quem fez.
 
-5. **Envie para o GitHub:**
+5. **Envie a branch para o GitHub:**
 
    ```powershell
    git push -u origin feat/minha-contribuicao
    ```
 
-   Isso manda seus commits para o GitHub, ainda em uma branch separada.
+   Na primeira vez, o Git pode abrir uma janela do navegador para você entrar na sua conta do GitHub. Entre com a conta que usa no projeto.
 
-6. **Peça revisão.** No site do GitHub, entre no repositório e clique em **Compare & pull request** na branch que você enviou. O Pull Request avisa a equipe que seu trabalho está pronto para ser revisado e depois juntado à `main`.
+6. **Abra o Pull Request.** Depois do push, entre na página do repositório no GitHub. Vai aparecer uma faixa amarela com o botão **Compare & pull request**; clique nele. Escreva um título curto (ex.: "Tela de insumos"), confira se a branch de destino é a `main` e clique em **Create pull request**.
 
-Evite mexer direto na `main`: assim ninguém sobrescreve o trabalho de outra pessoa.
+   Se a faixa não aparecer, clique em **Pull requests** → **New pull request** e escolha a sua branch.
+
+   O Pull Request é um pedido para juntar sua branch à `main`. Ele permite que outra pessoa revise antes e evita que a versão oficial fique quebrada.
+
+7. **Peça revisão e faça o merge.** Avise um colega no grupo (ou marque-o como revisor). Depois que ele aprovar, clique em **Merge pull request** e em **Confirm merge**. Sua alteração entra na `main`.
+
+   Se o GitHub avisar que há conflitos, não tente resolver sozinho: peça ajuda no grupo ou ao agente.
+
+> **Regra da equipe:** pode criar branch e enviar (`push`) a sua branch à vontade. O que não pode é enviar alteração direto para a `main`: todo trabalho passa por um Pull Request e pela revisão de outra pessoa. Assim um erro não apaga o trabalho do colega e a `main` continua funcionando.
 
 ## Como pedir ajuda ao agente
 
