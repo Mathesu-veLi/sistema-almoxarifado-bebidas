@@ -13,7 +13,7 @@ O front-end vai consumir exatamente as URLs, os métodos HTTP e os formatos JSON
 - As fontes de verdade atuais são os dois arquivos `.docx` da pasta `Diversos/`:
   - `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` — contexto, tecnologias, módulos, regras de negócio e entregáveis.
   - `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` — contrato de integração com as **26 operações**, JSON, status HTTP, filtros e erros.
-- `Diversos/TODO.md` é o **roteiro operacional atual** da equipe (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 6 entregáveis. Ele organiza a execução, mas **não é fonte de verdade**: em caso de dúvida, valem o Contrato e o Enunciado.
+- `Diversos/TODO.md` é o **roteiro operacional atual** da equipe (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os **10 entregáveis** (6 do Enunciado + 4 de modelagem/requisitos). Ele organiza a execução, mas **não é fonte de verdade**: em caso de dúvida, valem o Contrato e o Enunciado.
 - `Diversos/TODO.docx` e o material de `Entregaveis/` foram produzidos para o escopo antigo (desktop). Eles são **históricos** e não devem ser usados como roteiro ou contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco.
 
 ## O que o projeto é
@@ -40,13 +40,14 @@ O front-end é externo. A equipe **não** desenvolve telas, HTML, CSS, JavaScrip
 5. Documento técnico: ferramentas, versões, banco utilizado, configurações necessárias (sem senhas reais) e arquitetura resumida.
 6. Demonstração prática, com explicação das decisões técnicas e das principais regras de negócio.
 
-### Entregáveis adicionais de modelagem e requisitos (3)
+### Entregáveis adicionais de modelagem e requisitos (4)
 
-7. **Diagrama de tabelas SQL (MySQL)**: tabelas, colunas, tipos, PKs, FKs, unicidade, nulabilidade, índices e cardinalidades, compatível com o script SQL.
-8. **Diagrama de classes (UML)**: classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades, compatível com o diagrama de tabelas e com o contrato.
-9. **Documento de requisitos**: requisitos funcionais (RF) rastreáveis às 26 operações, requisitos não funcionais (RNF) e regras de negócio (RN-01 a RN-16), com matriz de rastreabilidade.
+7. **Documento de regras de negócio, requisitos funcionais e não funcionais**: RF rastreáveis às 26 operações, RNF e RN-01 a RN-16, com matriz de rastreabilidade.
+8. **Documento e diagrama de casos de uso**: atores, casos de uso, pré-condições, fluxos principal/alternativos e rastreabilidade para os RF e endpoints.
+9. **Diagrama de banco de dados (MySQL)**: tabelas, colunas, tipos, PKs, FKs, unicidade, nulabilidade, índices e cardinalidades, compatível com o script SQL.
+10. **Diagrama de classes (UML)**: classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades, compatível com o diagrama de banco e com o contrato.
 
-> As entregas 7 a 9 são **adicionais** às 6 do Enunciado. Confirmem com o professor o formato e o local de entrega.
+> As entregas 7 a 10 são **adicionais** às 6 do Enunciado. A ordem de produção é: documento de RN/RF/RNF → documento e diagrama de casos de uso → diagrama de banco → diagrama de classes → código. Confirmem com o professor o formato e o local de entrega.
 
 ## Arquivos e documentos do projeto
 

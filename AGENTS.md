@@ -189,13 +189,14 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 5. Documento técnico: ferramentas, versões, banco, configurações necessárias (sem senhas reais) e arquitetura resumida.
 6. Demonstração prática com explicação das decisões técnicas e das principais regras de negócio.
 
-**Adicionais de modelagem e requisitos (3):**
+**Adicionais de modelagem e requisitos (4):**
 
-7. Diagrama de tabelas SQL (MySQL), com PKs, FKs, tipos, restrições, índices e cardinalidades.
-8. Diagrama de classes UML, com classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades.
-9. Documento de requisitos com RF rastreáveis às 26 operações, RNF e RN-01 a RN-16, incluindo matriz de rastreabilidade.
+7. Documento com regras de negócio (RN-01 a RN-16), requisitos funcionais (RF) rastreáveis às 26 operações e requisitos não funcionais (RNF), incluindo matriz de rastreabilidade.
+8. Documento e diagrama de casos de uso, com atores, pré-condições, fluxos principal/alternativos e rastreabilidade para os RF e endpoints.
+9. Diagrama de banco de dados (MySQL), com PKs, FKs, tipos, restrições, índices e cardinalidades.
+10. Diagrama de classes UML, com classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades.
 
-> Os entregáveis 7 a 9 são adicionais aos 6 do Enunciado. A equipe deve confirmar o formato e o local de entrega com o professor.
+> Os entregáveis 7 a 10 são adicionais aos 6 do Enunciado. A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. A equipe deve confirmar o formato e o local de entrega com o professor.
 
 ## 8. Git (governança)
 
@@ -305,7 +306,7 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 
 - **22/10/2026 — Reformulação da estrutura de IA.** O agente passa a atuar como assistente dos autores. Ficam protegidos `Entregaveis/` (somente leitura) e os documentos da equipe. Documentos de entrega e a modelagem do sistema voltam a ser produzidos pelos autores.
 - **03/11/2026 — Mudança de escopo para API REST.** O projeto deixa de ser desktop (Swing) e passa a ser somente backend Spring Boot, com JWT e o contrato de 26 operações. O PDF antigo vira `.OLD` e os dois `.docx` passam a ser a fonte de verdade. O agente continua como apoio, sem construir o projeto nem produzir as entregas.
-- **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases de execução e os 6 entregáveis. O `Diversos/TODO.docx` passa a ser histórico.
+- **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 10 entregáveis (6 do Enunciado + 4 de modelagem/requisitos). A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. O `Diversos/TODO.docx` passa a ser histórico.
 
 ## 16. Ambientes suportados: Antigravity e OpenCode
 
