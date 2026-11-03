@@ -63,7 +63,7 @@ Regras adicionais:
 
 ## 5. O que o agente não faz sem pedido explícito
 
-- Criar ou editar documentos de entrega (diagrama de tabelas, diagrama de classes, documento de RF/RNF/RN, relatório de testes, documento técnico, coleção Postman, roteiro de banca).
+- Criar ou editar documentos de entrega (diagrama de banco de dados, diagrama de classes, documento de RN/RF/RNF, documento e diagrama de casos de uso, relatório de testes, documento técnico, coleção Postman, roteiro de banca).
 - Criar a estrutura de `backend/`, gerar entidades, controllers, services, repositórios ou a API inteira em massa.
 - Alterar o DER, o script SQL ou a modelagem decidida pela equipe.
 - Mudar rotas, nomes de campos, formatos JSON ou códigos HTTP do contrato para "facilitar" a implementação.
