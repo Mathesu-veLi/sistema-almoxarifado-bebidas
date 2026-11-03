@@ -38,7 +38,8 @@ O agente deve lembrar a equipe de que:
 | `docs/` | Documentos da equipe. Não alterar sem pedido explícito. |
 | `backend/` | Código escrito pelos autores. Alterar apenas no escopo exato que foi solicitado. |
 | `Diversos/*.docx` | Documentos-base atuais do projeto. **Somente leitura.** |
-| `Diversos/*.pdf.OLD`, `Diversos/TODO.*` | Material histórico da versão anterior. Não usar como requisito nem como roteiro atual. |
+| `Diversos/*.pdf.OLD`, `Diversos/TODO.docx` | Material histórico da versão anterior. Não usar como requisito nem como roteiro atual. |
+| `Diversos/TODO.md` | Roteiro operacional **atual** da equipe (API REST + MySQL). Pode ser atualizado pela equipe; não substitui o Contrato nem o Enunciado. |
 | `AGENTS.md`, `opencode.json`, `skills/`, `.agents/`, `.opencode/` | Configuração do agente. Alterar apenas quando o usuário pedir mudança de comportamento do agente. |
 
 Regras adicionais:
@@ -84,7 +85,9 @@ Em caso de conflito:
 - **Enunciado** prevalece em regras de negócio, tecnologias e escopo.
 - Se os dois documentos não resolverem, **pergunte à equipe/professor**; não invente requisito.
 
-> `Entregaveis/` e `Diversos/TODO.*` são material da versão anterior (desktop). Não use o SQL, o DER ou os requisitos antigos como contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco — sempre com autorização dos autores.
+> `Entregaveis/` e `Diversos/TODO.docx` são material da versão anterior (desktop). Não use o SQL, o DER ou os requisitos antigos como contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco — sempre com autorização dos autores.
+>
+> `Diversos/TODO.md` é o roteiro operacional **atual** (API REST + MySQL). Ele organiza a execução e os checklists da equipe, mas **não substitui** o Contrato Técnico nem o Enunciado.
 >
 > Se a ferramenta não abrir `.docx` diretamente, extraia o texto com `python-docx` (ou peça ao usuário) antes de responder. Não presuma o conteúdo dos documentos sem lê-los.
 
@@ -292,6 +295,7 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 
 - **22/10/2026 — Reformulação da estrutura de IA.** O agente passa a atuar como assistente dos autores. Ficam protegidos `Entregaveis/` (somente leitura) e os documentos da equipe. Documentos de entrega e a modelagem do sistema voltam a ser produzidos pelos autores.
 - **03/11/2026 — Mudança de escopo para API REST.** O projeto deixa de ser desktop (Swing) e passa a ser somente backend Spring Boot, com JWT e o contrato de 26 operações. O PDF antigo vira `.OLD` e os dois `.docx` passam a ser a fonte de verdade. O agente continua como apoio, sem construir o projeto nem produzir as entregas.
+- **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases de execução e os 6 entregáveis. O `Diversos/TODO.docx` passa a ser histórico.
 
 ## 16. Ambientes suportados: Antigravity e OpenCode
 

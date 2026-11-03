@@ -13,7 +13,8 @@ O front-end vai consumir exatamente as URLs, os métodos HTTP e os formatos JSON
 - As fontes de verdade atuais são os dois arquivos `.docx` da pasta `Diversos/`:
   - `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` — contexto, tecnologias, módulos, regras de negócio e entregáveis.
   - `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` — contrato de integração com as **26 operações**, JSON, status HTTP, filtros e erros.
-- `Diversos/TODO.md`, `Diversos/TODO.docx` e o material de `Entregaveis/` foram produzidos para o escopo antigo (desktop). Eles são **históricos** e não devem ser usados como roteiro ou contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco.
+- `Diversos/TODO.md` é o **roteiro operacional atual** da equipe (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 6 entregáveis. Ele organiza a execução, mas **não é fonte de verdade**: em caso de dúvida, valem o Contrato e o Enunciado.
+- `Diversos/TODO.docx` e o material de `Entregaveis/` foram produzidos para o escopo antigo (desktop). Eles são **históricos** e não devem ser usados como roteiro ou contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco.
 
 ## O que o projeto é
 
@@ -44,7 +45,8 @@ O front-end é externo. A equipe **não** desenvolve telas, HTML, CSS, JavaScrip
 | `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` | Enunciado atual: contexto, tecnologias, módulos, RN-01 a RN-16 e entregáveis. |
 | `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` | Contrato atual: as 26 operações, JSON, status HTTP, filtros, ordenação e erros. |
 | `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` | PDF antigo, **obsoleto**. Não usar. |
-| `Diversos/TODO.md` e `Diversos/TODO.docx` | Roteiro da versão anterior (desktop). **Histórico**, não é o roteiro atual. |
+| `Diversos/TODO.md` | Roteiro **atual** da equipe: fases, 26 operações, CT01 a CT22, MySQL e entregáveis. |
+| `Diversos/TODO.docx` | Roteiro da versão anterior (desktop). **Histórico**. |
 | `Entregaveis/` | Material da versão anterior (SQL, DER e requisitos desktop). **Somente leitura** e não é fonte de verdade do escopo atual. |
 | `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
 | `skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |

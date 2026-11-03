@@ -8,7 +8,7 @@ Este projeto possui exigências do enunciado e do contrato técnico que a **equi
 2. `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` — contexto, tecnologias, módulos, RN-01 a RN-16, entregáveis e avaliação.
 3. `docs/colaboradores.md` — autoria oficial dos commits.
 
-O PDF antigo (`*.pdf.OLD`), o `Diversos/TODO.*` e o material de `Entregaveis/` pertencem ao escopo anterior (desktop) e **não** são fonte de verdade do projeto atual.
+O PDF antigo (`*.pdf.OLD`), o `Diversos/TODO.docx` e o material de `Entregaveis/` pertencem ao escopo anterior (desktop) e **não** são fonte de verdade do projeto atual. O `Diversos/TODO.md` é o roteiro operacional **atual** (API REST + MySQL), mas não substitui o Contrato nem o Enunciado.
 
 ## Escopo e exigências
 
