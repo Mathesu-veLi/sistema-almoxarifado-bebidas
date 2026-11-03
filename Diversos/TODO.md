@@ -65,20 +65,24 @@ O projeto só está pronto para entrega quando:
 | Fase | Ação principal | Onde fazer | Apoio | Feito? |
 | --- | --- | --- | --- | --- |
 | **0** | Ler os documentos e preparar o ambiente | `Diversos/` + máquina local | `README.md`, `AGENTS.md` | [ ] |
-| **1** | Documentos (RN/RF/RNF e casos de uso), diagramas (banco e classes) e script MySQL | Editor de texto + Draw.io/Lucidchart + MySQL Workbench/CLI | `skills/database-operations/SKILL.md` | [ ] |
-| **2** | Criar o projeto Spring Boot | Spring Initializr / IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
-| **3** | Criar entidades JPA, enums, DTOs e repositórios | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
-| **4** | Implementar JWT, BCrypt e proteção das rotas | IntelliJ IDEA | `skills/jwt-security/SKILL.md` | [ ] |
-| **5** | Implementar usuários, setores e fornecedores | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
-| **6** | Implementar insumos e alertas de estoque | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
-| **7** | Implementar movimentações, transação e concorrência | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
-| **8** | Padronizar validações e erros | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
-| **9** | Executar testes e montar a coleção Postman | Postman + Maven | Contrato, seção 7 | [ ] |
-| **10** | Escrever o documento técnico e as instruções | Editor de texto / `README` do backend | `README.md` | [ ] |
-| **11** | Ensaiar a demonstração e a banca | Equipe | Enunciado, seção 9 | [ ] |
-| **12** | Conferir e entregar | Equipe | Este TODO | [ ] |
+| **1** | Documento de regras de negócio, RF e RNF | Editor de texto | Contrato e Enunciado | [ ] |
+| **2** | Documento e diagrama de casos de uso | Editor de texto + Draw.io/Lucidchart | Contrato | [ ] |
+| **3** | Diagrama de banco de dados | MySQL Workbench / Draw.io | `skills/database-operations/SKILL.md` | [ ] |
+| **4** | Diagrama de classes | Draw.io/Lucidchart | `skills/database-operations/SKILL.md` | [ ] |
+| **5** | Script SQL e validação do banco MySQL | MySQL Workbench / CLI | `skills/database-operations/SKILL.md` | [ ] |
+| **6** | Criar o projeto Spring Boot | Spring Initializr / IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **7** | Criar entidades JPA, enums, DTOs e repositórios | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
+| **8** | Implementar JWT, BCrypt e proteção das rotas | IntelliJ IDEA | `skills/jwt-security/SKILL.md` | [ ] |
+| **9** | Implementar usuários, setores e fornecedores | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **10** | Implementar insumos e alertas de estoque | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **11** | Implementar movimentações, transação e concorrência | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
+| **12** | Padronizar validações e erros | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **13** | Executar testes e montar a coleção Postman | Postman + Maven | Contrato, seção 7 | [ ] |
+| **14** | Escrever o documento técnico e as instruções | Editor de texto / `README` do backend | `README.md` | [ ] |
+| **15** | Ensaiar a demonstração e a banca | Equipe | Enunciado, seção 9 | [ ] |
+| **16** | Conferir e entregar | Equipe | Este TODO | [ ] |
 
-> As entregas 7 a 10 (documentos, casos de uso e diagramas) são produzidas na **Fase 1**, nesta ordem: RN/RF/RNF → casos de uso → banco → classes. O **documento técnico** da Entrega 5 é outro documento, produzido na **Fase 10**.
+> As entregas 7 a 10 são produzidas nas **Fases 1 a 4**, nesta ordem: RN/RF/RNF → casos de uso → banco → classes. O script SQL fica na **Fase 5** e o **documento técnico** da Entrega 5 é produzido na **Fase 14**.
 
 ---
 
@@ -227,22 +231,14 @@ Marque cada regra quando ela estiver implementada **e** comprovada por teste ou 
 
 ---
 
-### FASE 1 — Documentos, diagramas e banco MySQL
+### FASE 1 — Documento de RN/RF/RNF (Entrega 7)
 
-Esta fase é **dos autores**. O agente pode explicar, tirar dúvidas e revisar, mas **não produz** os documentos nem os diagramas.
-
-A ordem é obrigatória:
-
-1. Documento de regras de negócio, requisitos funcionais e não funcionais (Entrega 7).
-2. Documento e diagrama de casos de uso (Entrega 8).
-3. Diagrama de banco de dados (Entrega 9).
-4. Diagrama de classes (Entrega 10).
-5. Script SQL do MySQL.
-6. Só depois começa o código Java/Spring Boot (Fase 2).
+Esta fase é **dos autores**. O agente pode explicar, tirar dúvidas e revisar, mas **não produz** o documento.
 
 - [ ] **1.1. Revisar os objetos do contrato**
   - Usuário, setor, fornecedor, insumo, movimentação e alerta.
   - Conferir os campos de cada JSON no contrato, seção 3.
+  - **Resultado esperado:** a equipe entende o que a API precisa entregar.
 
 - [ ] **1.2. Levantar os requisitos funcionais (RF)**
   - Derivar um RF para cada uma das 26 operações do contrato.
@@ -259,37 +255,93 @@ A ordem é obrigatória:
   - Usar a tabela da seção 4.1 como base de conferência.
   - **Resultado esperado:** as 16 regras documentadas e rastreáveis.
 
-- [ ] **1.5. Montar o documento de RN/RF/RNF (Entrega 7)**
+- [ ] **1.5. Montar e revisar o documento (Entrega 7)**
   - Estrutura sugerida: introdução, escopo, atores, RF, RNF, RN e matriz de rastreabilidade.
   - A matriz deve ligar RF → endpoint → caso de teste (CT01 a CT22).
   - **Resultado esperado:** documento revisado pela equipe, sem requisito inventado.
 
-- [ ] **1.6. Produzir o documento e o diagrama de casos de uso (Entrega 8)**
+---
+
+### FASE 2 — Documento e diagrama de casos de uso (Entrega 8)
+
+Só começar depois que o documento de RN/RF/RNF estiver aprovado.
+
+- [ ] **2.1. Identificar atores e casos de uso**
   - Atores: visitante (cadastro e login), usuário autenticado (demais operações) e, se a equipe preferir, o front-end como ator externo.
   - Casos de uso principais: autenticar, gerenciar usuários, setores, fornecedores e insumos, registrar movimentação, consultar histórico e consultar alertas.
+  - **Resultado esperado:** lista de casos de uso cobrindo as 26 operações.
+
+- [ ] **2.2. Detalhar cada caso de uso**
   - Para cada caso: objetivo, ator, pré-condições, fluxo principal, fluxos alternativos/exceções e resposta esperada.
+  - **Resultado esperado:** documento de casos de uso revisado.
+
+- [ ] **2.3. Desenhar o diagrama de casos de uso**
   - Diagrama UML com atores, casos de uso, associações e `<<include>>`/`<<extend>>` quando fizer sentido.
+  - **Resultado esperado:** diagrama legível e compatível com o documento.
+
+- [ ] **2.4. Rastrear e revisar os casos de uso (Entrega 8)**
   - Rastrear cada caso de uso para os RF e endpoints correspondentes.
-  - **Resultado esperado:** documento e diagrama revisados, sem funcionalidade fora do contrato.
+  - Conferir que não há funcionalidade fora do contrato.
+  - **Resultado esperado:** documento e diagrama aprovados.
 
-- [ ] **1.7. Desenhar o diagrama de banco de dados (Entrega 9)**
-  - Tabelas, colunas, tipos, chaves primárias e estrangeiras, restrições de unicidade, nulabilidade, índices e cardinalidades.
+---
+
+### FASE 3 — Diagrama de banco de dados (Entrega 9)
+
+Só começar depois dos casos de uso aprovados.
+
+- [ ] **3.1. Revisar entidades e relacionamentos**
+  - Usuário, setor, fornecedor, insumo e movimentação.
   - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
-  - **Resultado esperado:** diagrama compatível com o documento de RN/RF/RNF e com o script MySQL.
+  - **Resultado esperado:** entidades e relacionamentos definidos.
 
-- [ ] **1.8. Desenhar o diagrama de classes (Entrega 10)**
-  - Classes do domínio: `Usuario`, `Setor`, `Fornecedor`, `Insumo` e `Movimentacao`.
+- [ ] **3.2. Definir tabelas, colunas, tipos e restrições**
+  - Chaves primárias e estrangeiras, unicidade, nulabilidade, índices e cardinalidades.
+  - **Resultado esperado:** modelo físico pronto para virar script.
+
+- [ ] **3.3. Desenhar o diagrama de banco de dados**
+  - Tabelas, colunas, tipos, PKs, FKs, restrições, índices e cardinalidades.
+  - **Resultado esperado:** diagrama legível e exportável.
+
+- [ ] **3.4. Revisar o diagrama (Entrega 9)**
+  - Conferir compatibilidade com o documento de RN/RF/RNF e com o futuro script MySQL.
+  - **Resultado esperado:** diagrama aprovado pela equipe.
+
+---
+
+### FASE 4 — Diagrama de classes (Entrega 10)
+
+Só começar depois do diagrama de banco aprovado.
+
+- [ ] **4.1. Identificar as classes do domínio e enums**
+  - Classes: `Usuario`, `Setor`, `Fornecedor`, `Insumo` e `Movimentacao`.
   - Enums `TipoMovimentacao` (`ENTRADA`/`SAIDA`) e `UnidadeMedida` (`UN`/`KG`/`L`), se a equipe optar por enum.
-  - Atributos, métodos relevantes, relacionamentos e multiplicidades.
-  - O diagrama deve refletir o contrato e o diagrama de banco; não incluir front-end.
-  - **Resultado esperado:** diagrama revisado e compatível com o banco.
+  - **Resultado esperado:** classes e enums definidos.
 
-- [ ] **1.9. Escrever o script SQL no MySQL**
+- [ ] **4.2. Definir atributos, métodos e relacionamentos**
+  - Atributos, métodos relevantes, relacionamentos e multiplicidades.
+  - **Resultado esperado:** modelo de classes coerente com o contrato.
+
+- [ ] **4.3. Desenhar o diagrama de classes**
+  - O diagrama deve refletir o contrato e o diagrama de banco; não incluir front-end.
+  - **Resultado esperado:** diagrama legível e exportável.
+
+- [ ] **4.4. Revisar o diagrama (Entrega 10)**
+  - Conferir compatibilidade com o diagrama de banco e com os DTOs/contrato.
+  - **Resultado esperado:** diagrama aprovado pela equipe.
+
+---
+
+### FASE 5 — Script SQL e validação do MySQL
+
+Só começar depois do diagrama de banco e do diagrama de classes aprovados.
+
+- [ ] **5.1. Escrever o script de estrutura (schema.sql)**
   - Criar um script **novo**, em arquivo separado; não sobrescrever o `BancodoProjeto.sql` antigo sem autorização dos autores.
   - Sugestão de organização: `db/schema.sql` (estrutura) e `db/seed.sql` (dados de demonstração).
   - Usar `InnoDB` e `utf8mb4`.
 
-- [ ] **1.10. Modelo mínimo esperado**
+- [ ] **5.2. Modelo mínimo esperado**
 
 | Tabela | Campos mínimos | Observações para MySQL |
 | --- | --- | --- |
@@ -299,7 +351,7 @@ A ordem é obrigatória:
 | `insumos` | `id`, `nome`, `unidade_medida`, `quantidade_atual`, `estoque_minimo`, `fornecedor_id`, `ativo` | `quantidade_atual` e `estoque_minimo` em `DECIMAL(15,3)`; `unidade_medida` em `UN`/`KG`/`L`; FK para fornecedor |
 | `movimentacoes` | `id`, `insumo_id`, `tipo`, `quantidade`, `setor_id`, `usuario_id`, `data_movimentacao`, `data_registro`, `lote`, `validade`, `saldo_anterior`, `saldo_atual` | `tipo` `ENTRADA`/`SAIDA`; `setor_id` NULL permitido; `lote`/`validade` NULL permitidos; quantidades em `DECIMAL(15,3)`; `data_movimentacao DATE`; `data_registro DATETIME(6)` ou `TIMESTAMP`; FKs sem cascade no histórico |
 
-- [ ] **1.11. Definir tipos e restrições**
+- [ ] **5.3. Definir tipos e restrições**
   - `DECIMAL(15,3)` para quantidades (KG/L com até 3 casas).
   - `DATE` para `data_movimentacao`; `DATETIME(6)` ou `TIMESTAMP` para `data_registro`.
   - `TINYINT(1)`/`BOOLEAN` para `ativo`.
@@ -309,14 +361,14 @@ A ordem é obrigatória:
   - FKs de `insumos.fornecedor_id`, `movimentacoes.insumo_id`, `movimentacoes.usuario_id` e `movimentacoes.setor_id`.
   - **Não** usar `ON DELETE CASCADE` em movimentações: o histórico deve ser preservado.
 
-- [ ] **1.12. Preparar os dados de demonstração**
+- [ ] **5.4. Preparar os dados de demonstração (seed.sql)**
   - Usuários com senha em **hash BCrypt** (nunca senha em texto puro).
   - Setores, fornecedores e insumos ativos.
   - Insumos começam com saldo zero; criar entradas e saídas para gerar saldo e histórico.
   - Incluir pelo menos um insumo abaixo ou no estoque mínimo para demonstrar o alerta.
   - **Resultado esperado:** script reproduzível, sem credenciais reais.
 
-- [ ] **1.13. Executar e validar o script**
+- [ ] **5.5. Executar e validar o script**
   - Rodar o script do zero em um banco limpo.
   - Conferir com `SHOW TABLES;`, `DESCRIBE tabela;` e `SELECT COUNT(*) FROM tabela;`.
   - Testar as restrições de unicidade e as FKs.
@@ -324,26 +376,26 @@ A ordem é obrigatória:
     `SELECT ... FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;`
   - **Resultado esperado:** banco criado sem erro e dados de demonstração coerentes.
 
-- [ ] **1.14. Revisar os artefatos com a equipe**
+- [ ] **5.6. Revisar os artefatos com a equipe**
   - Todos entendem as regras, os casos de uso, as tabelas, os relacionamentos e por que não há saldo por lote.
   - Conferir se o documento de RN/RF/RNF, os casos de uso, o diagrama de banco, o diagrama de classes e o script contam a mesma história.
-  - **Resultado esperado:** entregas 7, 8, 9 e 10, diagramas e script aprovados antes de codar.
+  - **Resultado esperado:** entregas 7, 8, 9 e 10, diagramas e script aprovados antes de começar o código (Fase 6).
 
 ---
 
-### FASE 2 — Esqueleto do backend Spring Boot
+### FASE 6 — Esqueleto do backend Spring Boot
 
-- [ ] **2.1. Criar o projeto**
+- [ ] **6.1. Criar o projeto**
   - Spring Initializr ou IntelliJ IDEA; Maven; Java 17+.
   - Nome/artefato: `backend`; pacote base: `com.senai.bebidas` (ou o que a equipe definir).
   - **Resultado esperado:** projeto importado e compilando.
 
-- [ ] **2.2. Adicionar as dependências**
+- [ ] **6.2. Adicionar as dependências**
   - `Spring Web`, `Spring Data JPA`, `Validation`, `Spring Security`, `MySQL Driver`, `Spring Boot Test`.
   - Biblioteca JWT escolhida pela equipe (ex.: JJWT `api`, `impl`, `jackson`).
   - **Resultado esperado:** `pom.xml` coerente e `mvn clean package -DskipTests` com sucesso.
 
-- [ ] **2.3. Configurar o `application.properties`**
+- [ ] **6.3. Configurar o `application.properties`**
   - URL do MySQL com `serverTimezone=America/Sao_Paulo`.
   - Usuário e senha por variável de ambiente.
   - `spring.jpa.hibernate.ddl-auto=validate` (o schema vem do script).
@@ -352,28 +404,28 @@ A ordem é obrigatória:
   - Segredo JWT e expiração de 3600 segundos por configuração.
   - **Resultado esperado:** aplicação sobe e conecta no MySQL.
 
-- [ ] **2.4. Criar a estrutura de pacotes**
+- [ ] **6.4. Criar a estrutura de pacotes**
   - `controller`, `service`, `repository`, `model`, `dto`, `exception`, `security`, `config`.
   - **Resultado esperado:** organização em camadas visível no projeto.
 
-- [ ] **2.5. Criar o `README` do backend**
+- [ ] **6.5. Criar o `README` do backend**
   - Pré-requisitos, como criar o banco, rodar o script, configurar variáveis, subir a API e importar o Postman.
   - **Resultado esperado:** outra pessoa consegue executar o projeto seguindo o README.
 
-- [ ] **2.6. Proteger o repositório**
+- [ ] **6.6. Proteger o repositório**
   - `.gitignore` para `target/`, `.idea/`, `.env`, credenciais e arquivos locais.
   - **Resultado esperado:** nenhum segredo no Git.
 
 ---
 
-### FASE 3 — Entidades JPA, enums, DTOs e repositórios
+### FASE 7 — Entidades JPA, enums, DTOs e repositórios
 
-- [ ] **3.1. Criar as entidades**
+- [ ] **7.1. Criar as entidades**
   - `Usuario`, `Setor`, `Fornecedor`, `Insumo`, `Movimentacao`.
   - Enums `TipoMovimentacao` (`ENTRADA`, `SAIDA`) e `UnidadeMedida` (`UN`, `KG`, `L`), se a equipe optar por enum.
   - **Resultado esperado:** classes mapeadas para as tabelas do DER.
 
-- [ ] **3.2. Mapear corretamente**
+- [ ] **7.2. Mapear corretamente**
   - `@Entity`, `@Table`, `@Id`, `@GeneratedValue`.
   - `@Column` com nomes do DER, `@ManyToOne` + `@JoinColumn`.
   - `@Enumerated(EnumType.STRING)` para enums.
@@ -381,65 +433,65 @@ A ordem é obrigatória:
   - `ativo` nas entidades de cadastro.
   - **Resultado esperado:** o Hibernate valida o schema sem criar tabelas por conta própria.
 
-- [ ] **3.3. Criar os DTOs**
+- [ ] **7.3. Criar os DTOs**
   - Requests e responses separados; nunca devolver entidade com senha/hash.
   - DTOs de erro padronizados.
   - **Resultado esperado:** o JSON da API bate com o contrato.
 
-- [ ] **3.4. Criar os repositórios**
+- [ ] **7.4. Criar os repositórios**
   - `UsuarioRepository`: busca por login, unicidade, ativos.
   - `SetorRepository` e `FornecedorRepository`: listagens por ativo e id.
   - `InsumoRepository`: busca parcial por nome, ordenação, filtro de ativo e consulta de alerta.
   - `MovimentacaoRepository`: filtros e ordenação por `dataRegistro` desc + `id` desc.
   - **Resultado esperado:** consultas necessárias sem `findAll()` sem critério.
 
-- [ ] **3.5. Testar a persistência**
+- [ ] **7.5. Testar a persistência**
   - `@DataJpaTest` para as consultas principais.
   - **Resultado esperado:** repositórios funcionando contra o MySQL (ou banco de teste).
 
 ---
 
-### FASE 4 — Segurança: JWT, BCrypt e rotas protegidas
+### FASE 8 — Segurança: JWT, BCrypt e rotas protegidas
 
-- [ ] **4.1. Configurar o `PasswordEncoder`**
+- [ ] **8.1. Configurar o `PasswordEncoder`**
   - Usar BCrypt.
   - **Resultado esperado:** cadastro grava hash e login compara com `matches`.
 
-- [ ] **4.2. Liberar somente as rotas públicas**
+- [ ] **8.2. Liberar somente as rotas públicas**
   - `POST /api/usuarios` e `POST /api/auth/login`.
   - Todas as demais exigem `Authorization: Bearer <JWT>`.
   - **Resultado esperado:** GET sem token retorna 401.
 
-- [ ] **4.3. Implementar o login**
+- [ ] **8.3. Implementar o login**
   - Buscar por `login`, verificar `ativo`, comparar senha e gerar token.
   - Resposta: `{ "token": "...", "tipo": "Bearer", "expiraEm": 3600 }`.
   - Credenciais inválidas ou usuário inativo: 401.
   - **Resultado esperado:** login válido retorna token utilizável.
 
-- [ ] **4.4. Implementar o serviço de JWT**
+- [ ] **8.4. Implementar o serviço de JWT**
   - Segredo em variável de ambiente, assinatura validada, expiração de 3600 segundos.
   - O token deve identificar o usuário autenticado.
   - **Resultado esperado:** token inválido/expirado é rejeitado.
 
-- [ ] **4.5. Implementar o filtro JWT**
+- [ ] **8.5. Implementar o filtro JWT**
   - Ler `Authorization: Bearer`, validar, carregar o usuário e preencher o `SecurityContext`.
   - Token ausente/inválido/expirado: 401 com JSON `{status, mensagem, timestamp}`.
   - Não devolver HTML de login do Spring Security.
   - **Resultado esperado:** rotas protegidas acessíveis somente com token válido.
 
-- [ ] **4.6. Implementar `GET /api/usuarios/me`**
+- [ ] **8.6. Implementar `GET /api/usuarios/me`**
   - Identidade vem do token, nunca de um ID enviado pelo cliente.
   - **Resultado esperado:** retorna o usuário autenticado sem senha.
 
-- [ ] **4.7. Testar a segurança**
+- [ ] **8.7. Testar a segurança**
   - Login correto, login errado, usuário inativo, sem token, token inválido, token expirado.
   - **Resultado esperado:** CT03, CT04 e CT05 cobertos.
 
 ---
 
-### FASE 5 — Usuários, setores e fornecedores
+### FASE 9 — Usuários, setores e fornecedores
 
-- [ ] **5.1. Usuários (7 operações)**
+- [ ] **9.1. Usuários (7 operações)**
   - `POST`: nome, login e senha obrigatórios; senha ≥ 8; login único; retorno 201 sem senha.
   - `GET /me`: usuário do token.
   - `GET`: ativos por padrão; `?ativo=todos` e `?ativo=false`; ordem por id.
@@ -448,7 +500,7 @@ A ordem é obrigatória:
   - `DELETE /{id}`: inativação lógica; 204 sem corpo.
   - **Resultado esperado:** CT01, CT02, CT17 e CT18 cobertos.
 
-- [ ] **5.2. Setores (5 operações)**
+- [ ] **9.2. Setores (5 operações)**
   - `POST`: nome obrigatório e único entre ativos; `descricao`.
   - `GET`: ativos por padrão; filtros `?ativo=todos` e `?ativo=false`; ordem por id.
   - `GET /{id}`: inclui inativo; 404 se não existir.
@@ -456,7 +508,7 @@ A ordem é obrigatória:
   - `DELETE /{id}`: excluir se sem vínculos; senão inativar; 204.
   - **Resultado esperado:** CRUD completo e regras de inativação.
 
-- [ ] **5.3. Fornecedores (5 operações)**
+- [ ] **9.3. Fornecedores (5 operações)**
   - `POST`: nome e CNPJ obrigatórios; CNPJ com 14 dígitos e único; telefone opcional.
   - `GET`: ativos por padrão; filtros; ordem por id.
   - `GET /{id}`: inclui inativo; 404.
@@ -464,50 +516,50 @@ A ordem é obrigatória:
   - `DELETE /{id}`: se associado a insumos, preservar referência e inativar; 204.
   - **Resultado esperado:** CT06 coberto.
 
-- [ ] **5.4. Revisar os erros**
+- [ ] **9.4. Revisar os erros**
   - 400 para validação, 404 para ID inexistente, 409 para duplicidade.
   - **Resultado esperado:** mensagens amigáveis e JSON padronizado.
 
 ---
 
-### FASE 6 — Insumos e alertas
+### FASE 10 — Insumos e alertas
 
-- [ ] **6.1. `POST /api/insumos`**
+- [ ] **10.1. `POST /api/insumos`**
   - Campos: nome, unidade de medida, estoque mínimo e fornecedor.
   - Saldo inicial sempre zero; **não** aceitar `quantidadeAtual` no request.
   - Fornecedor deve estar ativo.
   - Unidade `UN` inteira; `KG`/`L` com até 3 casas.
   - **Resultado esperado:** CT07 coberto.
 
-- [ ] **6.2. Listagem, consulta e atualização**
+- [ ] **10.2. Listagem, consulta e atualização**
   - `GET /api/insumos`: busca parcial por nome, sem diferenciar maiúsculas/minúsculas; `?ativo=todos` e `?ativo=false`; ordem alfabética.
   - `GET /api/insumos/{id}`: inclui inativo; 404 se não existir.
   - `PUT /api/insumos/{id}`: não altera saldo; unidade imutável depois de existir movimentação; fornecedor ativo quando alterado; `ativo` obrigatório.
   - `DELETE /api/insumos/{id}`: excluir se sem movimentações; com histórico, inativar e preservar.
   - **Resultado esperado:** CT08, CT13, CT16 e CT17 cobertos.
 
-- [ ] **6.3. Alertas**
+- [ ] **10.3. Alertas**
   - `GET /api/alertas/estoque`: somente insumos ativos com `quantidadeAtual <= estoqueMinimo`.
   - Ordem por nome; `situacao` sempre `"CRITICO"`; array `[]` se não houver.
   - **Resultado esperado:** CT15 coberto.
 
-- [ ] **6.4. Conferir o modelo**
+- [ ] **10.4. Conferir o modelo**
   - Não criar saldo por lote; lote e validade são informações da movimentação.
   - **Resultado esperado:** nenhuma tabela/view de saldo por lote no fluxo da API.
 
 ---
 
-### FASE 7 — Movimentações, transação e concorrência
+### FASE 11 — Movimentações, transação e concorrência
 
 Esta é a fase de maior peso nas regras de negócio. Não pule os testes de concorrência.
 
-- [ ] **7.1. `POST /api/movimentacoes`**
+- [ ] **11.1. `POST /api/movimentacoes`**
   - Endpoint único para `ENTRADA` e `SAIDA`.
   - Não criar `PUT` nem `DELETE` de movimentação.
   - `usuarioId` vem do JWT; não aceitar do corpo.
   - **Resultado esperado:** endpoint 201 com o JSON do contrato.
 
-- [ ] **7.2. Validar a entrada**
+- [ ] **11.2. Validar a entrada**
   - `tipo` obrigatório (`ENTRADA`/`SAIDA`).
   - `quantidade` estritamente positiva e compatível com a unidade.
   - `dataMovimentacao` não pode ser futura.
@@ -516,7 +568,7 @@ Esta é a fase de maior peso nas regras de negócio. Não pule os testes de conc
   - Insumo inativo: 409.
   - **Resultado esperado:** CT12, CT13 e CT21 cobertos.
 
-- [ ] **7.3. Garantir a transação**
+- [ ] **11.3. Garantir a transação**
   - Buscar o insumo com lock pessimista **ou** fazer atualização atômica condicional.
   - Calcular `saldoAnterior` e `saldoAtual`.
   - Atualizar o saldo e gravar a movimentação na mesma transação.
@@ -524,79 +576,79 @@ Esta é a fase de maior peso nas regras de negócio. Não pule os testes de conc
   - Em falha, rollback integral (sem saldo alterado e sem histórico).
   - **Resultado esperado:** CT09, CT10, CT11 e CT19 cobertos.
 
-- [ ] **7.4. Testar concorrência**
+- [ ] **11.4. Testar concorrência**
   - Simular duas saídas simultâneas com saldo insuficiente para as duas.
   - Uma deve falhar com 409; o saldo não pode ficar negativo e não pode haver histórico parcial.
   - **Resultado esperado:** CT20 coberto.
 
-- [ ] **7.5. Histórico**
+- [ ] **11.5. Histórico**
   - `GET /api/movimentacoes`: filtros `insumoId`, `setorId`, `usuarioId`, `tipo`, `dataInicio` e `dataFim`.
   - Ordenação: `dataRegistro` desc e `id` desc no empate.
   - `GET /api/movimentacoes/{id}`: 404 se não existir.
   - **Resultado esperado:** CT14 e CT22 cobertos.
 
-- [ ] **7.6. Documentar a decisão**
+- [ ] **11.6. Documentar a decisão**
   - Explicar no documento técnico se usaram lock pessimista, atualização atômica ou lock otimista.
   - **Resultado esperado:** a equipe consegue defender a escolha na banca.
 
 ---
 
-### FASE 8 — Validações e tratamento padronizado de erros
+### FASE 12 — Validações e tratamento padronizado de erros
 
-- [ ] **8.1. Criar o `@RestControllerAdvice`**
+- [ ] **12.1. Criar o `@RestControllerAdvice`**
   - Centralizar as exceções de validação, autenticação, recurso não encontrado, regra de negócio e erro inesperado.
 
-- [ ] **8.2. Mapear os status**
+- [ ] **12.2. Mapear os status**
   - 400: campo obrigatório, quantidade inválida, data futura, `ativo` inválido, `dataInicio > dataFim`.
   - 401: credenciais inválidas, token ausente/inválido/expirado.
   - 404: recurso não encontrado.
   - 409: duplicidade, estoque insuficiente, insumo inativo, vínculo que impede exclusão.
   - 500: falha inesperada.
 
-- [ ] **8.3. Padronizar o JSON**
+- [ ] **12.3. Padronizar o JSON**
   - `{ "status": ..., "mensagem": "...", "timestamp": "..." }`.
   - `timestamp` real do momento da falha.
   - Nunca devolver stack trace, SQL ou detalhes internos.
 
-- [ ] **8.4. Testar os erros**
+- [ ] **12.4. Testar os erros**
   - Cada status com pelo menos um caso positivo e um negativo.
   - **Resultado esperado:** contrato de erro respeitado em todos os endpoints.
 
 ---
 
-### FASE 9 — Testes e coleção Postman
+### FASE 13 — Testes e coleção Postman
 
-- [ ] **9.1. Montar a coleção Postman**
+- [ ] **13.1. Montar a coleção Postman**
   - Uma pasta por grupo: usuários/auth, setores, fornecedores, insumos, movimentações, alertas.
   - 26 requisições no total.
   - Ambiente com `baseUrl` e `token`.
   - No login, salvar o token na variável; nas rotas protegidas, usar `Bearer {{token}}`.
 
-- [ ] **9.2. Executar os casos CT01 a CT22**
+- [ ] **13.2. Executar os casos CT01 a CT22**
   - Registrar resultado esperado, resultado observado e evidência.
   - Incluir também testes de erro: sem token, token inválido, estoque insuficiente, data futura, duplicidade e insumo inativo.
 
-- [ ] **9.3. Testes automatizados**
+- [ ] **13.3. Testes automatizados**
   - Testes de service e controller.
   - `@DataJpaTest` para repositórios.
   - `@SpringBootTest` + `MockMvc` para endpoints.
   - `mvn test` com `BUILD SUCCESS`.
 
-- [ ] **9.4. Testar o banco do zero**
+- [ ] **13.4. Testar o banco do zero**
   - Apagar o schema de teste, rodar o script e subir a API.
   - Executar os fluxos principais novamente.
   - **Resultado esperado:** o projeto não depende de dados “mágicos” da máquina de alguém.
 
-- [ ] **9.5. Exportar as evidências**
+- [ ] **13.5. Exportar as evidências**
   - Exportar a coleção Postman.
   - Salvar prints/logs do relatório de testes.
   - **Resultado esperado:** entrega 3 e entrega 4 prontas.
 
 ---
 
-### FASE 10 — Documento técnico e instruções
+### FASE 14 — Documento técnico e instruções
 
-- [ ] **10.1. Escrever o documento técnico (Entrega 5)**
+- [ ] **14.1. Escrever o documento técnico (Entrega 5)**
   - Ferramentas e versões: Java, Spring Boot, Maven, MySQL, Postman, IDE.
   - Banco utilizado, nome do schema e como criar/carregar.
   - Configurações necessárias (sem senhas reais).
@@ -604,43 +656,43 @@ Esta é a fase de maior peso nas regras de negócio. Não pule os testes de conc
   - Decisões: inativação lógica, transação/concorrência, ordenação, data operacional × data de registro.
   - **Não confundir** com o documento de RN/RF/RNF (Entrega 7): lá ficam requisitos e regras; aqui ficam ferramentas, banco, configuração e arquitetura.
 
-- [ ] **10.2. Revisar o `README` do backend**
+- [ ] **14.2. Revisar o `README` do backend**
   - Pré-requisitos, criação do banco, script, variáveis de ambiente, `mvn spring-boot:run`, importação do Postman e `mvn test`.
   - **Resultado esperado:** instruções reproduzíveis.
 
-- [ ] **10.3. Revisar segurança**
+- [ ] **14.3. Revisar segurança**
   - Nenhuma senha, token, chave JWT ou credencial real no repositório.
   - `.env.example` apenas com nomes de variáveis, se usarem.
   - **Resultado esperado:** repositório seguro para entrega.
 
 ---
 
-### FASE 11 — Demonstração e banca
+### FASE 15 — Demonstração e banca
 
 Use o checklist do Enunciado, seção 9.
 
-- [ ] **11.1. Cadastro de usuário e login retornando JWT.**
-- [ ] **11.2. Bloqueio de endpoint sem autenticação.**
-- [ ] **11.3. Cadastros e consultas de setores, fornecedores e insumos.**
-- [ ] **11.4. Pesquisa ordenada e consulta de registros inativos.**
-- [ ] **11.5. Entrada, saída e conferência do saldo após cada operação.**
-- [ ] **11.6. Rejeição de retirada superior ao estoque e de entrada inválida.**
-- [ ] **11.7. Consulta do histórico e dos alertas de estoque.**
-- [ ] **11.8. Preservação do histórico após inativação e teste de consistência.**
-- [ ] **11.9. Ensaiar a explicação de cada decisão técnica.**
-- [ ] **11.10. Dividir quem apresenta cada parte e cronometrar a demonstração.**
+- [ ] **15.1. Cadastro de usuário e login retornando JWT.**
+- [ ] **15.2. Bloqueio de endpoint sem autenticação.**
+- [ ] **15.3. Cadastros e consultas de setores, fornecedores e insumos.**
+- [ ] **15.4. Pesquisa ordenada e consulta de registros inativos.**
+- [ ] **15.5. Entrada, saída e conferência do saldo após cada operação.**
+- [ ] **15.6. Rejeição de retirada superior ao estoque e de entrada inválida.**
+- [ ] **15.7. Consulta do histórico e dos alertas de estoque.**
+- [ ] **15.8. Preservação do histórico após inativação e teste de consistência.**
+- [ ] **15.9. Ensaiar a explicação de cada decisão técnica.**
+- [ ] **15.10. Dividir quem apresenta cada parte e cronometrar a demonstração.**
 
 ---
 
-### FASE 12 — Conferência final e entrega
+### FASE 16 — Conferência final e entrega
 
-- [ ] **12.1. Conferir as 10 entregas da seção 1** (6 do Enunciado + 4 adicionais).
-- [ ] **12.2. Conferir o documento de RN/RF/RNF, o documento e o diagrama de casos de uso, o diagrama de banco e o diagrama de classes.**
-- [ ] **12.3. Conferir as 26 operações e os 22 casos CT01 a CT22.**
-- [ ] **12.4. Rodar `mvn clean test` e subir a API em uma máquina limpa.**
-- [ ] **12.5. Conferir `git status`, remover `target/` e confirmar que não há segredos.**
-- [ ] **12.6. Confirmar com o professor o formato final de envio.**
-- [ ] **12.7. Fazer o commit/tag final e avisar a equipe.**
+- [ ] **16.1. Conferir as 10 entregas da seção 1** (6 do Enunciado + 4 adicionais).
+- [ ] **16.2. Conferir o documento de RN/RF/RNF, o documento e o diagrama de casos de uso, o diagrama de banco e o diagrama de classes.**
+- [ ] **16.3. Conferir as 26 operações e os 22 casos CT01 a CT22.**
+- [ ] **16.4. Rodar `mvn clean test` e subir a API em uma máquina limpa.**
+- [ ] **16.5. Conferir `git status`, remover `target/` e confirmar que não há segredos.**
+- [ ] **16.6. Confirmar com o professor o formato final de envio.**
+- [ ] **16.7. Fazer o commit/tag final e avisar a equipe.**
 
 ---
 
