@@ -15,11 +15,11 @@
     },
     "banca": {
       "description": "Ajuda a equipe a se preparar para a arguição oral da banca SENAI",
-      "template": "Auxilie os autores a se prepararem para a arguição oral sobre: $ARGUMENTS. Use como referência os requisitos em Entregaveis/Modelagem/ e o código que a equipe escreveu. Explique com fundamentação técnica e faça perguntas de treino, sem gerar documentos de entrega nem alterar arquivos."
+      "template": "Auxilie os autores a se prepararem para a arguição oral sobre: $ARGUMENTS. Use como referência o Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx, o Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx e o código que a equipe escreveu. Explique com fundamentação técnica e faça perguntas de treino, priorizando JWT, Controller/Service/Repository, transações, concorrência, inativação lógica, ordenação e fidelidade às 26 operações, sem gerar documentos de entrega nem alterar arquivos."
     },
     "testes": {
       "description": "Ajuda a revisar os cenários de teste da equipe",
-      "template": "Ajude a revisar o que a equipe implementou em relação aos requisitos de Entregaveis/Modelagem/requisitos_industria_bebidas.md para: $ARGUMENTS. Aponte problemas, explique os cenários de teste e sugira correções; não altere arquivos sem pedido explícito."
+      "template": "Ajude a revisar o que a equipe implementou em relação ao Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx e ao Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx para: $ARGUMENTS. Use os casos CT01 a CT22 do contrato e as RN-01 a RN-16. Aponte problemas, explique os cenários de teste e sugira correções; não altere arquivos sem pedido explícito."
     }
   },
   "agents": {
