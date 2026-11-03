@@ -1,414 +1,719 @@
-# Roteiro de Execução do Projeto Integrador (TODO da Equipe)
+# TODO — Roteiro de Execução do Projeto Integrador (API REST + MySQL)
 
-**Projeto:** Sistema de Almoxarifado para Indústria de Bebidas  
-**Curso:** Técnico em Desenvolvimento de Sistemas - SENAI / FIEB (Módulo 2)  
-**Arquitetura:** Frontend desktop Swing/JFrame + Backend Spring Boot (REST) + MySQL  
-**Finalidade:** Guia operacional direto e prático para a equipe desenvolver o projeto, com apoio pontual do agente assistente.
+- **Projeto:** Sistema de Almoxarifado para Indústria de Bebidas
+- **Curso:** Técnico em Desenvolvimento de Sistemas — SENAI / FIEB (Módulo 2)
+- **Arquitetura:** API REST em Java + Spring Boot + MySQL; front-end web fornecido por outra empresa
+- **Banco:** MySQL (8.x recomendado; registrar a versão usada no documento técnico)
+- **Fontes de verdade:** `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` e `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx`
+- **Finalidade:** roteiro operacional para a equipe executar o projeto com apoio pontual do agente.
 
----
+> **Este TODO substitui o roteiro antigo.** O PDF `*.pdf.OLD`, o `Diversos/TODO.docx` e o material de `Entregaveis/` pertencem ao escopo anterior (desktop) e são **históricos**. O contrato atual é a fonte de verdade da API.
 
-## 1. Quadro Resumo: O que fazer de relance
-
-| Fase | Ação Principal | Ferramenta / Onde Fazer | Arquivo de Apoio | Feito? |
-|---|---|---|---|---|
-| **Fase 1** | Executar o script do banco de dados | MySQL Workbench ou XAMPP | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
-| **Fase 2** | Modelar classes, arquitetura, contrato REST e regras | Draw.io / Lucidchart / papel + editor de texto | `Entregaveis/Modelagem/requisitos_industria_bebidas.md` | [ ] |
-| **Fase 3** | Criar o projeto backend Spring Boot | Spring Initializr / IntelliJ IDEA (Maven) | `backend/pom.xml` | [ ] |
-| **Fase 4** | Configurar conexão, entidades JPA e repositórios | IntelliJ IDEA (`config`, `model`, `repository`) | `Entregaveis/Banco de Dados/BancodoProjeto.sql` | [ ] |
-| **Fase 5** | Implementar regras de negócio e o Quicksort | IntelliJ IDEA (`service`) | `skills/sorting-algorithms/SKILL.md` | [ ] |
-| **Fase 6** | Criar os endpoints REST e testar com Postman | IntelliJ IDEA (`controller`, `dto`, `exception`) | Contrato REST definido na Fase 2 | [ ] |
-| **Fase 7** | Criar o projeto frontend Swing | Eclipse (Maven) | `frontend/pom.xml` | [ ] |
-| **Fase 8** | Prototipar as telas e desenhar no WindowBuilder | Figma / Canva / Google Stitch + WindowBuilder (Eclipse) | `skills/swing-desktop/SKILL.md` | [ ] |
-| **Fase 9** | Integrar o frontend com a API (HTTP/JSON) | Eclipse (`service`, `controller`) | `skills/swing-desktop/SKILL.md` | [ ] |
-| **Fase 10** | Realizar testes unitários, de API e manuais | Backend + frontend rodando | Roteiro de testes da equipe | [ ] |
-| **Fase 11** | Montar a pasta compactada (.zip) | Windows Explorer | Instruções do Edital (Item 10) | [ ] |
-| **Fase 12** | Treinar respostas da apresentação oral | Estudo individual e em grupo | Requisitos em `Entregaveis/Modelagem/` | [ ] |
+> **Regra de ouro:** o front-end externo já espera as rotas, os campos JSON e os códigos HTTP do contrato. Não altere o contrato para “facilitar” a implementação.
 
 ---
 
-## 2. Checklist das 9 Entregas Oficiais do SENAI
+## 1. O que precisa ser entregue
 
-Marque conforme os arquivos da entrega forem separados:
+Marque cada entrega somente quando ela estiver completa e revisada.
 
-- [ ] **Entrega 1:** Documento de Requisitos (PDF produzido pela equipe, com base em `Entregaveis/Modelagem/requisitos_industria_bebidas.md`)
-- [ ] **Entrega 2:** Imagem do DER (`Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`)
-- [ ] **Entrega 3:** Script SQL (`Entregaveis/Banco de Dados/BancodoProjeto.sql`)
-- [ ] **Entrega 4:** Tela de Login funcional (validação de usuário, senha e erro amigável)
-- [ ] **Entrega 5:** Tela Inicial funcional (nome do usuário logado, cargo e navegação)
-- [ ] **Entrega 6:** Tela de Gerenciamento de Insumos (tabela, pesquisa, inserção, edição, exclusão)
-- [ ] **Entrega 7:** Tela de Movimentação (ordenação por Quicksort e alerta de estoque crítico)
-- [ ] **Entrega 8:** Documento de Planejamento e Registro de Testes (produzido pela equipe)
-- [ ] **Entrega 9:** Documento de Infraestrutura Técnica (produzido pela equipe)
+- [ ] **Entrega 1 — Código-fonte completo do projeto Spring Boot**, com `pom.xml`, código organizado em camadas, arquivo de configuração e instruções reproduzíveis de execução.
+- [ ] **Entrega 2 — API integrada ao MySQL**, preparada para execução local, com script de criação/carga do banco e dados de demonstração.
+- [ ] **Entrega 3 — Coleção Postman (ou equivalente)** com as requisições das **26 operações** do contrato.
+- [ ] **Entrega 4 — Relatório curto de testes**, com resultado esperado, resultado observado e evidência para os casos **CT01 a CT22**.
+- [ ] **Entrega 5 — Documento técnico**, com ferramentas, versões, banco utilizado, configurações necessárias (sem senhas reais), arquitetura resumida e decisões técnicas.
+- [ ] **Entrega 6 — Demonstração prática**, com explicação das decisões técnicas e das principais regras de negócio.
 
----
+### Definição de pronto
 
-## 3. Passo a Passo Detalhado
+O projeto só está pronto para entrega quando:
 
----
-
-### FASE 1: Banco de Dados (bebidas_db)
-
-- [ ] **1.1. Executar o script SQL oficial**
-  * **Onde:** MySQL Workbench ou phpMyAdmin.
-  * **Ação:** Abrir e executar o arquivo `Entregaveis/Banco de Dados/BancodoProjeto.sql`.
-  * **Resultado esperado:** Banco `bebidas_db` criado com as 8 tabelas e as views de estoque.
-
-- [ ] **1.2. Auditar a regra do edital (mínimo de 3 registros por tabela)**
-  * **Onde:** MySQL Workbench.
-  * **Comando de teste:**
-    ```sql
-    USE bebidas_db;
-    SELECT COUNT(*) FROM cargos;
-    SELECT COUNT(*) FROM tipos_movimentacao;
-    SELECT COUNT(*) FROM tipos_insumos;
-    SELECT COUNT(*) FROM fornecedores;
-    SELECT COUNT(*) FROM setores;
-    SELECT COUNT(*) FROM lotes_insumos;
-    SELECT COUNT(*) FROM funcionarios;
-    SELECT COUNT(*) FROM movimentacoes;
-    ```
-  * **Resultado esperado:** Todas as tabelas devem retornar contagem igual ou superior a 3.
+- [ ] As **26 operações** existem e respondem conforme o contrato.
+- [ ] Os **22 casos mínimos (CT01 a CT22)** foram executados com evidência.
+- [ ] `mvn test` termina com sucesso.
+- [ ] O banco é criado do zero pelo script e a API sobe sem erro.
+- [ ] Nenhuma senha, token, chave JWT ou credencial real está versionada.
+- [ ] A coleção Postman e o relatório de testes estão atualizados.
+- [ ] A equipe consegue explicar o código e as regras na banca.
 
 ---
 
-### FASE 2: Modelagem e Documentação Técnica
+## 2. Quadro resumo das fases
 
-Antes de escrever código, fechem o desenho do sistema. Essa fase evita retrabalho e é o que a banca costuma cobrar na arguição.
-
-- [ ] **2.1. Revisar e fechar os requisitos**
-  * **Onde:** `Entregaveis/Modelagem/requisitos_industria_bebidas.md` e o PDF do edital.
-  * **Ação:** conferir RFs, RNs e RNFs, resolver dúvidas com a equipe e produzir o documento de requisitos da entrega.
-  * **Resultado esperado:** requisitos sem lacunas e acordados entre todos.
-
-- [ ] **2.2. Validar a modelagem do banco**
-  * **Onde:** DER em `Entregaveis/Banco de Dados/` e script `BancodoProjeto.sql`.
-  * **Ação:** revisar tabelas, chaves primárias, chaves estrangeiras e cardinalidades (1:1, 1:N, N:N) contra as regras de negócio.
-  * **Resultado esperado:** cada regra de negócio tem tabela/coluna que a representa.
-
-- [ ] **2.3. Desenhar o diagrama de classes**
-  * **Onde:** draw.io, Lucidchart, StarUML ou papel.
-  * **Ação:** representar entidades, atributos, métodos principais e relacionamentos; incluir as camadas do backend e os DTOs.
-  * **Resultado esperado:** diagrama salvo no material da equipe e usado como guia na implementação.
-
-- [ ] **2.4. Definir a arquitetura e o contrato REST**
-  * **Ação:** acordar o fluxo `view → controller → service → repository` no backend e `view → controller → service HTTP` no frontend.
-  * **Ação:** listar endpoints, DTOs de entrada/saída e códigos de resposta esperados (200, 400, 404, 409).
-  * **Resultado esperado:** contrato documentado antes de criar os controllers.
-
-- [ ] **2.5. Definir os cenários de teste**
-  * **Ação:** escrever os casos de teste principais (login inválido, cadastro incompleto, retirada acima do saldo, alerta de nível crítico, logout).
-  * **Resultado esperado:** roteiro de testes pronto para ser executado na Fase 10.
-
-- [ ] **2.6. Revisar a modelagem com a equipe**
-  * **Ação:** apresentar diagrama, DER e contrato para o grupo e ajustar o que não fechar.
-  * **Resultado esperado:** todos entendem o desenho e conseguem explicá-lo na banca.
+| Fase | Ação principal | Onde fazer | Apoio | Feito? |
+| --- | --- | --- | --- | --- |
+| **0** | Ler os documentos e preparar o ambiente | `Diversos/` + máquina local | `README.md`, `AGENTS.md` | [ ] |
+| **1** | Modelar o banco e escrever o SQL MySQL | MySQL Workbench / CLI + DER | `skills/database-operations/SKILL.md` | [ ] |
+| **2** | Criar o projeto Spring Boot | Spring Initializr / IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **3** | Criar entidades JPA, enums, DTOs e repositórios | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
+| **4** | Implementar JWT, BCrypt e proteção das rotas | IntelliJ IDEA | `skills/jwt-security/SKILL.md` | [ ] |
+| **5** | Implementar usuários, setores e fornecedores | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **6** | Implementar insumos e alertas de estoque | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **7** | Implementar movimentações, transação e concorrência | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
+| **8** | Padronizar validações e erros | IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
+| **9** | Executar testes e montar a coleção Postman | Postman + Maven | Contrato, seção 7 | [ ] |
+| **10** | Escrever o documento técnico e as instruções | Editor de texto / `README` do backend | `README.md` | [ ] |
+| **11** | Ensaiar a demonstração e a banca | Equipe | Enunciado, seção 9 | [ ] |
+| **12** | Conferir e entregar | Equipe | Este TODO | [ ] |
 
 ---
 
-### FASE 3: Criação do Backend Spring Boot
+## 3. Controle das 26 operações
 
-- [ ] **3.1. Gerar o projeto**
-  * **Onde:** [start.spring.io](https://start.spring.io) ou IntelliJ IDEA (`File > New > Project > Spring Initializr`; na versão Community, importar o Maven gerado).
-  * **Nome/Artifact:** `backend`
-  * **Group:** `com.senai.bebidas`
-  * **Package:** `com.senai.bebidas`
-  * **Java:** 17
-  * **Dependências:** `Spring Web`, `Spring Data JPA`, `Validation`, `MySQL Driver`.
+Marque **Código** quando o endpoint estiver implementado e **Postman** quando estiver testado com evidência.
 
-- [ ] **3.2. Conferir o `pom.xml`**
-  * Deve conter `spring-boot-starter-parent` 3.x, `spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `spring-boot-starter-validation`, `mysql-connector-j` e `spring-boot-starter-test`.
-  * **Resultado esperado:** `mvn clean package -DskipTests` termina com `BUILD SUCCESS`.
+### Usuários e autenticação (7)
 
-- [ ] **3.3. Configurar `application.properties`**
-  * **Onde:** `backend/src/main/resources/application.properties`.
-  * **Conteúdo mínimo:**
-    ```properties
-    spring.datasource.url=jdbc:mysql://localhost:3306/bebidas_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo
-    spring.datasource.username=root
-    spring.datasource.password=
-    spring.jpa.hibernate.ddl-auto=validate
-    spring.jpa.open-in-view=false
-    server.port=8080
-    ```
-  * **Resultado esperado:** Aplicação sobe sem erro de conexão (`mvn spring-boot:run`).
+| # | Método e rota | Código | Postman |
+| --- | --- | --- | --- |
+| 1 | `POST /api/usuarios` | [ ] | [ ] |
+| 2 | `POST /api/auth/login` | [ ] | [ ] |
+| 3 | `GET /api/usuarios/me` | [ ] | [ ] |
+| 4 | `GET /api/usuarios` | [ ] | [ ] |
+| 5 | `GET /api/usuarios/{id}` | [ ] | [ ] |
+| 6 | `PUT /api/usuarios/{id}` | [ ] | [ ] |
+| 7 | `DELETE /api/usuarios/{id}` | [ ] | [ ] |
 
-- [ ] **3.4. Criar a estrutura de pacotes**
-  * **Onde:** `backend/src/main/java/com/senai/bebidas/`
-  * **Criar:**
-    * `model`
-    * `repository`
-    * `service`
-    * `controller`
-    * `dto`
-    * `exception`
-    * `config`
+### Setores (5)
 
----
+| # | Método e rota | Código | Postman |
+| --- | --- | --- | --- |
+| 8 | `POST /api/setores` | [ ] | [ ] |
+| 9 | `GET /api/setores` | [ ] | [ ] |
+| 10 | `GET /api/setores/{id}` | [ ] | [ ] |
+| 11 | `PUT /api/setores/{id}` | [ ] | [ ] |
+| 12 | `DELETE /api/setores/{id}` | [ ] | [ ] |
 
-### FASE 4: Entidades JPA e Repositórios
+### Fornecedores (5)
 
-- [ ] **4.1. Criar as entidades em `model`**
-  * **Referência:** script SQL oficial em `Entregaveis/Banco de Dados/BancodoProjeto.sql`.
-  * **Classes obrigatórias:**
-    * `Cargo.java` (`id`, `nome`)
-    * `Funcionario.java` (`id`, `nome`, `cpf`, `email`, `senha`, `cargo`)
-    * `Fornecedor.java` (`id`, `nome`, `cnpj`)
-    * `Setor.java` (`id`, `nome`)
-    * `TipoInsumo.java` (`id`, `nome`, `quantidadeMinima`)
-    * `LoteInsumo.java` (`id`, `tipoInsumo`, `fornecedor`, `lote`, `validade`, `volume`, `unidadeMedida`, `setor`)
-    * `TipoMovimentacao.java` (`id`, `nome`, `operacao`)
-    * `Movimentacao.java` (`id`, `loteInsumo`, `tipoMovimentacao`, `quantidade`, `setor`, `funcionario`, `dataMovimentacao`)
-  * **Atenção:** usar `@Table(name = "...")` com o nome exato da tabela e `@JoinColumn` com o nome exato da FK (ex.: `tipos_insumos_id`, `lotes_insumo_id`).
+| # | Método e rota | Código | Postman |
+| --- | --- | --- | --- |
+| 13 | `POST /api/fornecedores` | [ ] | [ ] |
+| 14 | `GET /api/fornecedores` | [ ] | [ ] |
+| 15 | `GET /api/fornecedores/{id}` | [ ] | [ ] |
+| 16 | `PUT /api/fornecedores/{id}` | [ ] | [ ] |
+| 17 | `DELETE /api/fornecedores/{id}` | [ ] | [ ] |
 
-- [ ] **4.2. Criar os repositórios em `repository`**
-  * Interfaces que estendem `JpaRepository<Entidade, Integer>`:
-    * `FuncionarioRepository` → `findByEmailAndSenha(...)`
-    * `TipoInsumoRepository` → `findByNomeContainingIgnoreCase(...)`, `existsByNomeIgnoreCase(...)`
-    * `LoteInsumoRepository` → `findByTipoInsumoId(...)`
-    * `MovimentacaoRepository` → `findAllByOrderByDataMovimentacaoDesc()`
-    * `SetorRepository` e `TipoMovimentacaoRepository`
+### Insumos (5)
 
-- [ ] **4.3. Criar os DTOs em `dto`**
-  * `LoginRequest`, `FuncionarioDTO`
-  * `InsumoRequest`, `InsumoDTO`, `EstoqueDTO`
-  * `LoteInsumoDTO`, `SetorDTO`, `TipoMovimentacaoDTO`
-  * `MovimentacaoRequest`, `MovimentacaoResponse`, `MovimentacaoDTO`
-  * `ErroResponse`
+| # | Método e rota | Código | Postman |
+| --- | --- | --- | --- |
+| 18 | `POST /api/insumos` | [ ] | [ ] |
+| 19 | `GET /api/insumos` | [ ] | [ ] |
+| 20 | `GET /api/insumos/{id}` | [ ] | [ ] |
+| 21 | `PUT /api/insumos/{id}` | [ ] | [ ] |
+| 22 | `DELETE /api/insumos/{id}` | [ ] | [ ] |
+
+### Movimentações (3)
+
+| # | Método e rota | Código | Postman |
+| --- | --- | --- | --- |
+| 23 | `POST /api/movimentacoes` | [ ] | [ ] |
+| 24 | `GET /api/movimentacoes` | [ ] | [ ] |
+| 25 | `GET /api/movimentacoes/{id}` | [ ] | [ ] |
+
+### Alertas (1)
+
+| # | Método e rota | Código | Postman |
+| --- | --- | --- | --- |
+| 26 | `GET /api/alertas/estoque` | [ ] | [ ] |
 
 ---
 
-### FASE 5: Regras de Negócio e Quicksort
+## 4. Casos mínimos de aceitação (CT01 a CT22)
 
-- [ ] **5.1. Criar `AuthService`**
-  * Consulta `FuncionarioRepository.findByEmailAndSenha(...)`.
-  * Se não encontrar, lançar `RegraNegocioException("E-mail ou senha inválidos.")`.
-  * Retornar `FuncionarioDTO` (sem senha).
+Execute todos com o backend e o MySQL rodando. Guarde a evidência (print, log ou export do Postman) para o relatório.
 
-- [ ] **5.2. Criar `InsumoService`**
-  * Validar nome (mínimo 3 caracteres) e `quantidadeMinima >= 0`.
-  * Impedir nome duplicado.
-  * Implementar `listar(termo)`, `cadastrar`, `atualizar` e `excluir`.
-  * Na exclusão, verificar se existe lote/movimentação vinculado e lançar `RegraNegocioException`.
+| Caso | Situação | Resultado esperado | Evidência | Feito? |
+| --- | --- | --- | --- | --- |
+| **CT01** | Cadastrar usuário válido | 201; senha ausente na resposta |  | [ ] |
+| **CT02** | Login duplicado | 409 |  | [ ] |
+| **CT03** | Login correto | 200 e JWT válido por 3600 segundos |  | [ ] |
+| **CT04** | Login incorreto ou usuário inativo | 401 |  | [ ] |
+| **CT05** | GET protegido sem token | 401 |  | [ ] |
+| **CT06** | Criar setor/fornecedor | 201 e persistência |  | [ ] |
+| **CT07** | Criar insumo | 201; saldo zero |  | [ ] |
+| **CT08** | Listar e pesquisar insumos | 200; pesquisa parcial e ordem alfabética |  | [ ] |
+| **CT09** | Entrada de 100 | saldo +100; histórico criado |  | [ ] |
+| **CT10** | Saída de 30 | saldo -30; histórico criado |  | [ ] |
+| **CT11** | Saída maior que saldo | 409; sem efeitos parciais |  | [ ] |
+| **CT12** | Quantidade zero/negativa | 400 |  | [ ] |
+| **CT13** | Insumo inativo em movimentação | 409 |  | [ ] |
+| **CT14** | Filtrar histórico | registros correspondentes aos filtros |  | [ ] |
+| **CT15** | Alertas de estoque | apenas ativos abaixo ou no mínimo |  | [ ] |
+| **CT16** | Excluir insumo com histórico | 204; ativo=false; histórico preservado |  | [ ] |
+| **CT17** | Reativar cadastro por PUT | 200; ativo=true |  | [ ] |
+| **CT18** | Listagem `?ativo=todos` | inclui registros inativos |  | [ ] |
+| **CT19** | Falha durante registro de movimentação | rollback integral |  | [ ] |
+| **CT20** | Duas saídas concorrentes com saldo insuficiente | não gera estoque negativo |  | [ ] |
+| **CT21** | Data operacional futura | 400 |  | [ ] |
+| **CT22** | Entrada com lote e validade opcionais | 201; histórico preserva os valores |  | [ ] |
 
-- [ ] **5.3. Criar `OrdenacaoService`**
-  * **Onde:** Pacote `com.senai.bebidas.service`.
-  * **Referência de código:** `skills/sorting-algorithms/SKILL.md`.
-  * **Ação:** Implementar o Quicksort recursivo que recebe `List<TipoInsumo>` e ordena com `insumo.getNome().compareToIgnoreCase(...)`.
-  * **Resultado esperado:** A ordenação da tela de movimentação DEVE ser feita por este método, e não por `ORDER BY`, `Collections.sort()` ou `List.sort()`.
+### 4.1. Controle das regras de negócio (RN-01 a RN-16)
 
-- [ ] **5.4. Criar `MovimentacaoService`**
-  * `listarInsumosOrdenados()`: buscar com `findAll()` (sem `ORDER BY`) e aplicar `OrdenacaoService`.
-  * `registrar(...)`: método `@Transactional` que valida o tipo, verifica saldo em saídas, grava a movimentação e calcula `alertaCritico`.
+Marque cada regra quando ela estiver implementada **e** comprovada por teste ou evidência.
 
-- [ ] **5.5. Criar as exceções e o `GlobalExceptionHandler`**
-  * `RegraNegocioException` → HTTP 400.
-  * `EstoqueInsuficienteException` → HTTP 409.
-  * `RecursoNaoEncontradoException` → HTTP 404.
-  * Resposta JSON padrão: `{ "mensagem": "...", "status": 400, "timestamp": "..." }`.
-
----
-
-### FASE 6: Endpoints REST
-
-- [ ] **6.1. `AuthController`**
-  * `POST /api/auth/login` recebendo `LoginRequest` com `@Valid`.
-
-- [ ] **6.2. `InsumoController`**
-  * `GET /api/insumos?termo=`
-  * `GET /api/insumos/ordenados`
-  * `POST /api/insumos`
-  * `PUT /api/insumos/{id}`
-  * `DELETE /api/insumos/{id}`
-
-- [ ] **6.3. `MovimentacaoController`**
-  * `POST /api/movimentacoes`
-  * `GET /api/movimentacoes`
-
-- [ ] **6.4. `CatalogoController`**
-  * `GET /api/setores`
-  * `GET /api/tipos-movimentacao`
-  * `GET /api/lotes?tipoInsumoId=`
-
-- [ ] **6.5. Testar a API com Postman/curl**
-  * Login: `POST http://localhost:8080/api/auth/login`
-  * Listagem: `GET http://localhost:8080/api/insumos`
-  * Ordenação: `GET http://localhost:8080/api/insumos/ordenados`
-  * **Resultado esperado:** JSON válido e status HTTP coerente.
+| Regra | O que precisa ser verdadeiro | Onde validar | Feito? |
+| --- | --- | --- | --- |
+| **RN-01** | Insumo nasce com `quantidadeAtual = 0`; o saldo só muda por `ENTRADA` ou `SAIDA`, nunca pelo `PUT` do cadastro | `POST/PUT /api/insumos`, `POST /api/movimentacoes` | [ ] |
+| **RN-02** | `ENTRADA` soma e `SAIDA` subtrai; quantidade positiva e compatível com `UN`/`KG`/`L` | Service de movimentação, DTOs, testes de unidade | [ ] |
+| **RN-03** | Saldo nunca fica negativo, inclusive com retiradas simultâneas | Teste de concorrência (CT20) | [ ] |
+| **RN-04** | Saldo e histórico são gravados na mesma transação; falha faz rollback integral | `@Transactional`, CT19 | [ ] |
+| **RN-05** | A movimentação registra usuário do JWT, `dataMovimentacao`, `dataRegistro`, `saldoAnterior` e `saldoAtual` | `POST/GET /api/movimentacoes` | [ ] |
+| **RN-06** | `SAIDA` exige setor ativo e não aceita lote/validade; `ENTRADA` aceita lote/validade opcionais; não há saldo por lote | Service de movimentação, schema MySQL | [ ] |
+| **RN-07** | Movimentações são imutáveis: não existem `PUT`/`DELETE` de histórico | Mapa das 26 operações | [ ] |
+| **RN-08** | Insumo com histórico é inativado e mantém as referências; nada de `ON DELETE CASCADE` no histórico | `DELETE /api/insumos/{id}`, FKs do MySQL | [ ] |
+| **RN-09** | Inativos continuam acessíveis por ID; listagens mostram ativos por padrão e aceitam `?ativo=todos` e `?ativo=false` | Todos os `GET` de cadastros | [ ] |
+| **RN-10** | `PUT` com `ativo=true` reativa setores, fornecedores, insumos e usuários | `PUT` dos quatro cadastros, CT17 | [ ] |
+| **RN-11** | Cada insumo tem um único fornecedor principal; fornecedor inativo não entra em novo vínculo | `POST/PUT /api/insumos`, CT06 | [ ] |
+| **RN-12** | Alerta somente para insumos ativos com `quantidadeAtual <= estoqueMinimo` | `GET /api/alertas/estoque`, CT15 | [ ] |
+| **RN-13** | `dataMovimentacao` é informada pelo cliente, não pode ser futura e não reordena saldos retroativamente | Validação do DTO, CT21 | [ ] |
+| **RN-14** | Somente `POST /api/usuarios` e `POST /api/auth/login` são públicos; o resto exige JWT | `SecurityFilterChain`, CT05 | [ ] |
+| **RN-15** | Todos os autenticados têm as mesmas permissões; senha e hash nunca aparecem no JSON | DTOs de resposta, CT01 | [ ] |
+| **RN-16** | Pesquisa de insumos é parcial e ignora caixa; ordenação pode usar banco ou Java | `GET /api/insumos`, CT08 | [ ] |
 
 ---
 
-### FASE 7: Criação do Frontend Swing
+## 5. Passo a passo detalhado
 
-- [ ] **7.1. Criar o projeto Maven**
-  * **Onde:** Eclipse → `File > New > Maven Project`.
-  * **Nome do Projeto:** `frontend`
-  * **Group Id:** `com.senai.bebidas`
-  * **Package:** `com.senai.bebidas`
-  * **Classe principal:** `com.senai.bebidas.app.Main`
+### FASE 0 — Preparação
 
-- [ ] **7.2. Adicionar as dependências do `pom.xml`**
-  * `jackson-databind` (serialização JSON).
-  * `exec-maven-plugin` (executar a classe `Main` via Maven).
+- [ ] **0.1. Ler os dois documentos-base**
+  - `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx`
+  - `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx`
+  - **Resultado esperado:** a equipe entende que o projeto é só backend e que o contrato tem 26 operações.
 
-- [ ] **7.3. Criar a estrutura de pacotes**
-  * `com.senai.bebidas.app`
-  * `com.senai.bebidas.view`
-  * `com.senai.bebidas.controller`
-  * `com.senai.bebidas.service`
-  * `com.senai.bebidas.model`
-  * `com.senai.bebidas.util`
+- [ ] **0.2. Conferir o ambiente**
+  - Java 17 ou superior, Maven, MySQL, Postman (ou equivalente), IDE Java e Git.
+  - **Resultado esperado:** `java -version`, `mvn -version` e `mysql --version` funcionam.
 
-- [ ] **7.4. Criar as pastas de recursos**
-  * `frontend/src/main/resources/images` (ícones e logomarca).
+- [ ] **0.3. Criar o banco local**
+  - Criar o schema no MySQL e um usuário de aplicação.
+  - Não usar a senha real do MySQL no Git; usar variável de ambiente.
+  - **Resultado esperado:** conexão local funcionando.
 
----
+- [ ] **0.4. Combinar o formato de entrega com o professor**
+  - Repositório Git, ZIP ou outro formato; onde entregar a coleção Postman e os PDFs.
+  - **Resultado esperado:** formato acordado e registrado no grupo.
 
-### FASE 8: Prototipação e Desenho das 4 Telas com WindowBuilder
-
-Antes de abrir o WindowBuilder, desenhem as telas no **Figma**, **Canva** ou **Google Stitch** para validar layout e fluxo com a equipe. Só depois levem o protótipo aprovado para o WindowBuilder.
-
-- [ ] **8.1. Prototipar as 4 telas**
-  * **Onde:** Figma, Canva ou Google Stitch.
-  * **Ação:** montar o wireframe de Login, Home, Insumos e Movimentação, incluindo a navegação entre elas.
-  * **Resultado esperado:** protótipo validado pela equipe e imagens salvas no material do projeto.
-
-- [ ] **8.2. Configurar o WindowBuilder**
-  * **Onde:** Eclipse com o plugin **WindowBuilder** instalado.
-  * **Ação:** importar o projeto Maven `frontend` e conferir se o editor visual de `JFrame` abre.
-  * **Resultado esperado:** projeto importado e editor do WindowBuilder funcionando.
-
-- [ ] **8.3. Login (`LoginFrame`)**
-  * **Campos:** `txtEmail`, `txtSenha`, `btnEntrar`, `lblMensagemErro`.
-  * **Controller associado:** `com.senai.bebidas.controller.LoginController`.
-
-- [ ] **8.4. Home (`HomeFrame`)**
-  * **Campos:** `lblBoasVindas`, `lblCargo`, `btnInsumos`, `btnMovimentacao`, `btnSair`.
-  * **Controller associado:** `com.senai.bebidas.controller.HomeController`.
-
-- [ ] **8.5. Gerenciamento de Insumos (`InsumosFrame`)**
-  * **Listagem:** `txtPesquisa`, `JTable tblInsumos` (ID, Nome, Unidade, Qtd. Mínima, Saldo, Situação).
-  * **Formulário:** `txtNome`, `txtDescricao`, `txtVolume`, `txtUnidade`, `txtQtdMinima`.
-  * **Botões:** `btnSalvar`, `btnEditar`, `btnExcluir`, `btnLimpar`, `btnVoltar`.
-  * **Controller associado:** `com.senai.bebidas.controller.InsumosController`.
-
-- [ ] **8.6. Movimentação de Materiais (`MovimentacaoFrame`)**
-  * **Campos:** `cbInsumos` (ordem vinda da API), `cbLotes`, `cbTipoMovimentacao`, `cbSetor`, `txtQuantidade` (`JSpinner`), `lblResponsavel`, `lblData`.
-  * **Botões e alertas:** `btnConfirmar`, `btnVoltar` e `JOptionPane`/label para alerta de estoque crítico.
-  * **Controller associado:** `com.senai.bebidas.controller.MovimentacaoController`.
+- [ ] **0.5. Revisar o fluxo de Git**
+  - Branch por assunto, Pull Request e revisão.
+  - Commits com autoria de quem fez a alteração (`docs/colaboradores.md`).
+  - **Resultado esperado:** todos sabem como contribuir sem mexer direto na `main`.
 
 ---
 
-### FASE 9: Integração frontend ↔ API
+### FASE 1 — Modelagem e banco MySQL
 
-- [ ] **9.1. Criar `ApiConfig`**
-  * **Onde:** `com.senai.bebidas.util`.
-  * **Conteúdo:** `BASE_URL = "http://localhost:8080/api"` e timeout.
+O DER e o script SQL são produtos da disciplina de **Modelagem e Banco de Dados**. Esta fase organiza o que a API precisa.
 
-- [ ] **9.2. Criar `SessaoUsuario`**
-  * **Onde:** `com.senai.bebidas.util`.
-  * **Ação:** atributo estático `FuncionarioDTO usuarioLogado` e métodos `iniciarSessao`, `getUsuarioLogado`, `encerrarSessao`, `isAutenticado`.
+- [ ] **1.1. Revisar os objetos do contrato**
+  - Usuário, setor, fornecedor, insumo, movimentação e alerta.
+  - Conferir os campos de cada JSON no contrato, seção 3.
 
-- [ ] **9.3. Criar `AlertaUtil`**
-  * **Onde:** `com.senai.bebidas.util`.
-  * **Ação:** métodos com `JOptionPane` para informação, erro, aviso e confirmação.
+- [ ] **1.2. Desenhar o DER novo**
+  - Entidades, chaves primárias, chaves estrangeiras, cardinalidades e campos obrigatórios/opcionais.
+  - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
 
-- [ ] **9.4. Criar `ApiClient` e os serviços HTTP**
-  * `ApiClient` com `HttpClient` + Jackson (GET, POST, PUT, DELETE).
-  * `AuthApiService`, `InsumoApiService`, `MovimentacaoApiService`.
-  * **Atenção:** tratar `status >= 400` lendo o campo `mensagem` do JSON.
+- [ ] **1.3. Escrever o script SQL no MySQL**
+  - Criar um script **novo**, em arquivo separado; não sobrescrever o `BancodoProjeto.sql` antigo sem autorização dos autores.
+  - Sugestão de organização: `db/schema.sql` (estrutura) e `db/seed.sql` (dados de demonstração).
+  - Usar `InnoDB` e `utf8mb4`.
 
-- [ ] **9.5. Programar `LoginController`**
-  * Validar campos em branco.
-  * Chamar `POST /api/auth/login`.
-  * Em sucesso: `SessaoUsuario.iniciarSessao(...)` e abrir `HomeFrame`.
-  * Em falha: exibir erro e manter a tela aberta.
+- [ ] **1.4. Modelo mínimo esperado**
 
-- [ ] **9.6. Programar `HomeController`**
-  * Exibir nome e cargo da `SessaoUsuario`.
-  * Abrir `InsumosFrame` e `MovimentacaoFrame`.
-  * Logout: limpar sessão e reabrir `LoginFrame`.
+| Tabela | Campos mínimos | Observações para MySQL |
+| --- | --- | --- |
+| `usuarios` | `id`, `nome`, `login`, `senha_hash`, `ativo` | `login` único; `senha_hash VARCHAR(255)`; `ativo TINYINT(1) DEFAULT 1` |
+| `setores` | `id`, `nome`, `descricao`, `ativo` | nome único entre ativos (validar no service; MySQL não tem índice parcial simples) |
+| `fornecedores` | `id`, `nome`, `cnpj`, `telefone`, `ativo` | `cnpj CHAR(14)` único, somente dígitos; `telefone` opcional |
+| `insumos` | `id`, `nome`, `unidade_medida`, `quantidade_atual`, `estoque_minimo`, `fornecedor_id`, `ativo` | `quantidade_atual` e `estoque_minimo` em `DECIMAL(15,3)`; `unidade_medida` em `UN`/`KG`/`L`; FK para fornecedor |
+| `movimentacoes` | `id`, `insumo_id`, `tipo`, `quantidade`, `setor_id`, `usuario_id`, `data_movimentacao`, `data_registro`, `lote`, `validade`, `saldo_anterior`, `saldo_atual` | `tipo` `ENTRADA`/`SAIDA`; `setor_id` NULL permitido; `lote`/`validade` NULL permitidos; quantidades em `DECIMAL(15,3)`; `data_movimentacao DATE`; `data_registro DATETIME(6)` ou `TIMESTAMP`; FKs sem cascade no histórico |
 
-- [ ] **9.7. Programar `InsumosController`**
-  * Carregar a tabela com `GET /api/insumos`.
-  * Buscar com `?termo=`.
-  * Salvar (`POST`/`PUT`), excluir (`DELETE`) e exibir erros amigáveis.
+- [ ] **1.5. Definir tipos e restrições**
+  - `DECIMAL(15,3)` para quantidades (KG/L com até 3 casas).
+  - `DATE` para `data_movimentacao`; `DATETIME(6)` ou `TIMESTAMP` para `data_registro`.
+  - `TINYINT(1)`/`BOOLEAN` para `ativo`.
+  - `ENUM('ENTRADA','SAIDA')` ou `VARCHAR(7)` com validação para `tipo`.
+  - `ENUM('UN','KG','L')` ou `VARCHAR(2)` com validação para `unidade_medida`.
+  - `login` único; `cnpj` único.
+  - FKs de `insumos.fornecedor_id`, `movimentacoes.insumo_id`, `movimentacoes.usuario_id` e `movimentacoes.setor_id`.
+  - **Não** usar `ON DELETE CASCADE` em movimentações: o histórico deve ser preservado.
 
-- [ ] **9.8. Programar `MovimentacaoController`**
-  * Carregar insumos com `GET /api/insumos/ordenados` (sem reordenar no frontend).
-  * Carregar lotes, setores e tipos.
-  * Preencher o responsável com a sessão.
-  * Enviar `POST /api/movimentacoes` e tratar `alertaCritico`.
-  * Usar `SwingWorker` para não travar a interface.
+- [ ] **1.6. Preparar os dados de demonstração**
+  - Usuários com senha em **hash BCrypt** (nunca senha em texto puro).
+  - Setores, fornecedores e insumos ativos.
+  - Insumos começam com saldo zero; criar entradas e saídas para gerar saldo e histórico.
+  - Incluir pelo menos um insumo abaixo ou no estoque mínimo para demonstrar o alerta.
+  - **Resultado esperado:** script reproduzível, sem credenciais reais.
 
----
+- [ ] **1.7. Executar e validar o script**
+  - Rodar o script do zero em um banco limpo.
+  - Conferir com `SHOW TABLES;`, `DESCRIBE tabela;` e `SELECT COUNT(*) FROM tabela;`.
+  - Testar as restrições de unicidade e as FKs.
+  - Testar a consulta de alerta:
+    `SELECT ... FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;`
+  - **Resultado esperado:** banco criado sem erro e dados de demonstração coerentes.
 
-### FASE 10: Bateria de Testes Práticos
-
-Execute os testes do roteiro da equipe com backend e frontend rodando. Resumo:
-
-- [ ] **Teste 1:** Login errado → alerta de erro e tela aberta.
-- [ ] **Teste 2:** Login correto → Home com nome e cargo.
-- [ ] **Teste 3:** Abrir Insumos → `JTable` lista os registros da API.
-- [ ] **Teste 4:** Pesquisar termo → tabela filtra corretamente.
-- [ ] **Teste 5:** Cadastrar com campo vazio → bloqueio e aviso.
-- [ ] **Teste 6:** Abrir Movimentação → insumos em ordem alfabética (Quicksort).
-- [ ] **Teste 7:** Retirar mais que o estoque → bloqueio com HTTP 409.
-- [ ] **Teste 8:** Retirada que cruza o mínimo → alerta visual de estoque crítico.
-- [ ] **Teste 9:** Logout → sessão encerrada e retorno ao Login.
-- [ ] **Teste 10:** Parar o backend e tentar logar → mensagem "Backend indisponível" sem travar.
-- [ ] **Testes automatizados:** `cd backend && mvn test` com `BUILD SUCCESS`.
+- [ ] **1.8. Revisar o modelo com a equipe**
+  - Todos entendem as tabelas, os relacionamentos e por que não há saldo por lote.
+  - **Resultado esperado:** DER e script aprovados antes de codar.
 
 ---
 
-### FASE 11: Organização da Pasta Final de Entrega
+### FASE 2 — Esqueleto do backend Spring Boot
 
-Conforme especificação oficial do edital (Item 10):
+- [ ] **2.1. Criar o projeto**
+  - Spring Initializr ou IntelliJ IDEA; Maven; Java 17+.
+  - Nome/artefato: `backend`; pacote base: `com.senai.bebidas` (ou o que a equipe definir).
+  - **Resultado esperado:** projeto importado e compilando.
 
-- [ ] **11.1. Criar pasta com o nome do aluno/equipe** (Exemplo: `ProjetoIntegrador_Modulo2_NomeAluno`).
-- [ ] **11.2. Inserir os 6 itens obrigatórios dentro da pasta:**
-  1. Documento de Requisitos (PDF produzido pela equipe, com base em `Entregaveis/Modelagem/`)
-  2. Imagem do DER (`Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg`)
-  3. Script SQL (`Entregaveis/Banco de Dados/BancodoProjeto.sql`)
-  4. Código-fonte completo do projeto (pastas `backend/` e `frontend/` com seus `pom.xml` e `src/`)
-  5. Documento de Testes (PDF produzido pela equipe)
-  6. Documento de Infraestrutura (PDF produzido pela equipe)
-- [ ] **11.3. Remover `target/`, `.zip` antigos e credenciais locais antes de compactar.**
-- [ ] **11.4. Compactar a pasta final no formato `.zip`.**
+- [ ] **2.2. Adicionar as dependências**
+  - `Spring Web`, `Spring Data JPA`, `Validation`, `Spring Security`, `MySQL Driver`, `Spring Boot Test`.
+  - Biblioteca JWT escolhida pela equipe (ex.: JJWT `api`, `impl`, `jackson`).
+  - **Resultado esperado:** `pom.xml` coerente e `mvn clean package -DskipTests` com sucesso.
+
+- [ ] **2.3. Configurar o `application.properties`**
+  - URL do MySQL com `serverTimezone=America/Sao_Paulo`.
+  - Usuário e senha por variável de ambiente.
+  - `spring.jpa.hibernate.ddl-auto=validate` (o schema vem do script).
+  - `spring.jpa.open-in-view=false`.
+  - `server.port=8080`.
+  - Segredo JWT e expiração de 3600 segundos por configuração.
+  - **Resultado esperado:** aplicação sobe e conecta no MySQL.
+
+- [ ] **2.4. Criar a estrutura de pacotes**
+  - `controller`, `service`, `repository`, `model`, `dto`, `exception`, `security`, `config`.
+  - **Resultado esperado:** organização em camadas visível no projeto.
+
+- [ ] **2.5. Criar o `README` do backend**
+  - Pré-requisitos, como criar o banco, rodar o script, configurar variáveis, subir a API e importar o Postman.
+  - **Resultado esperado:** outra pessoa consegue executar o projeto seguindo o README.
+
+- [ ] **2.6. Proteger o repositório**
+  - `.gitignore` para `target/`, `.idea/`, `.env`, credenciais e arquivos locais.
+  - **Resultado esperado:** nenhum segredo no Git.
 
 ---
 
-### FASE 12: Preparação para a Arguição Oral da Banca
+### FASE 3 — Entidades JPA, enums, DTOs e repositórios
 
-Perguntas fundamentais do edital que a equipe deve dominar. Detalhes também nos requisitos em `Entregaveis/Modelagem/`:
+- [ ] **3.1. Criar as entidades**
+  - `Usuario`, `Setor`, `Fornecedor`, `Insumo`, `Movimentacao`.
+  - Enums `TipoMovimentacao` (`ENTRADA`, `SAIDA`) e `UnidadeMedida` (`UN`, `KG`, `L`), se a equipe optar por enum.
+  - **Resultado esperado:** classes mapeadas para as tabelas do DER.
 
-- [ ] **Pergunta 1: Por que o banco se chama `bebidas_db`?**  
-  *Resposta:* exigência formal e obrigatória do edital do SENAI.
+- [ ] **3.2. Mapear corretamente**
+  - `@Entity`, `@Table`, `@Id`, `@GeneratedValue`.
+  - `@Column` com nomes do DER, `@ManyToOne` + `@JoinColumn`.
+  - `@Enumerated(EnumType.STRING)` para enums.
+  - `BigDecimal` para quantidades; `LocalDate` para data operacional/validade; `OffsetDateTime` ou `Instant` para `dataRegistro`.
+  - `ativo` nas entidades de cadastro.
+  - **Resultado esperado:** o Hibernate valida o schema sem criar tabelas por conta própria.
 
-- [ ] **Pergunta 2: Qual algoritmo de ordenação foi usado e por que?**  
-  *Resposta:* Quicksort, implementado no backend em `OrdenacaoService` e exposto por `/api/insumos/ordenados`. Escolhido por divisão e conquista, complexidade média O(n log n) e ordenação in-place.
+- [ ] **3.3. Criar os DTOs**
+  - Requests e responses separados; nunca devolver entidade com senha/hash.
+  - DTOs de erro padronizados.
+  - **Resultado esperado:** o JSON da API bate com o contrato.
 
-- [ ] **Pergunta 3: Por que separar frontend e backend?**  
-  *Resposta:* o Swing cuida da interface; o Spring Boot concentra regras de negócio e persistência. Isso permite testar a API isoladamente, evoluir a interface sem alterar regras e evita acesso direto ao banco pelo desktop.
+- [ ] **3.4. Criar os repositórios**
+  - `UsuarioRepository`: busca por login, unicidade, ativos.
+  - `SetorRepository` e `FornecedorRepository`: listagens por ativo e id.
+  - `InsumoRepository`: busca parcial por nome, ordenação, filtro de ativo e consulta de alerta.
+  - `MovimentacaoRepository`: filtros e ordenação por `dataRegistro` desc + `id` desc.
+  - **Resultado esperado:** consultas necessárias sem `findAll()` sem critério.
 
-- [ ] **Pergunta 4: Como foi garantida a rastreabilidade das operações?**  
-  *Resposta:* toda movimentação grava o operador logado na sessão, data/hora exata e setor solicitante. Não há deleção física no histórico contábil.
+- [ ] **3.5. Testar a persistência**
+  - `@DataJpaTest` para as consultas principais.
+  - **Resultado esperado:** repositórios funcionando contra o MySQL (ou banco de teste).
 
-- [ ] **Pergunta 5: Como o sistema identifica o nível crítico?**  
-  *Resposta:* compara o saldo remanescente com o atributo `quantidade_minima` do tipo de insumo. Se o saldo for menor ou igual, a API retorna `alertaCritico = true` e o frontend emite a notificação visual.
-isual.
+---
 
-ual.
-isual.
+### FASE 4 — Segurança: JWT, BCrypt e rotas protegidas
 
-isual.
+- [ ] **4.1. Configurar o `PasswordEncoder`**
+  - Usar BCrypt.
+  - **Resultado esperado:** cadastro grava hash e login compara com `matches`.
 
-ual.
+- [ ] **4.2. Liberar somente as rotas públicas**
+  - `POST /api/usuarios` e `POST /api/auth/login`.
+  - Todas as demais exigem `Authorization: Bearer <JWT>`.
+  - **Resultado esperado:** GET sem token retorna 401.
 
-isual.
+- [ ] **4.3. Implementar o login**
+  - Buscar por `login`, verificar `ativo`, comparar senha e gerar token.
+  - Resposta: `{ "token": "...", "tipo": "Bearer", "expiraEm": 3600 }`.
+  - Credenciais inválidas ou usuário inativo: 401.
+  - **Resultado esperado:** login válido retorna token utilizável.
 
-al.
+- [ ] **4.4. Implementar o serviço de JWT**
+  - Segredo em variável de ambiente, assinatura validada, expiração de 3600 segundos.
+  - O token deve identificar o usuário autenticado.
+  - **Resultado esperado:** token inválido/expirado é rejeitado.
 
-ual.
+- [ ] **4.5. Implementar o filtro JWT**
+  - Ler `Authorization: Bearer`, validar, carregar o usuário e preencher o `SecurityContext`.
+  - Token ausente/inválido/expirado: 401 com JSON `{status, mensagem, timestamp}`.
+  - Não devolver HTML de login do Spring Security.
+  - **Resultado esperado:** rotas protegidas acessíveis somente com token válido.
 
-isual.
+- [ ] **4.6. Implementar `GET /api/usuarios/me`**
+  - Identidade vem do token, nunca de um ID enviado pelo cliente.
+  - **Resultado esperado:** retorna o usuário autenticado sem senha.
 
+- [ ] **4.7. Testar a segurança**
+  - Login correto, login errado, usuário inativo, sem token, token inválido, token expirado.
+  - **Resultado esperado:** CT03, CT04 e CT05 cobertos.
+
+---
+
+### FASE 5 — Usuários, setores e fornecedores
+
+- [ ] **5.1. Usuários (7 operações)**
+  - `POST`: nome, login e senha obrigatórios; senha ≥ 8; login único; retorno 201 sem senha.
+  - `GET /me`: usuário do token.
+  - `GET`: ativos por padrão; `?ativo=todos` e `?ativo=false`; ordem por id.
+  - `GET /{id}`: inclui inativo; 404 se não existir.
+  - `PUT /{id}`: nome, login e `ativo`; não altera senha; login único; reativação.
+  - `DELETE /{id}`: inativação lógica; 204 sem corpo.
+  - **Resultado esperado:** CT01, CT02, CT17 e CT18 cobertos.
+
+- [ ] **5.2. Setores (5 operações)**
+  - `POST`: nome obrigatório e único entre ativos; `descricao`.
+  - `GET`: ativos por padrão; filtros `?ativo=todos` e `?ativo=false`; ordem por id.
+  - `GET /{id}`: inclui inativo; 404 se não existir.
+  - `PUT /{id}`: nome, descrição e `ativo` obrigatório; nome único entre ativos.
+  - `DELETE /{id}`: excluir se sem vínculos; senão inativar; 204.
+  - **Resultado esperado:** CRUD completo e regras de inativação.
+
+- [ ] **5.3. Fornecedores (5 operações)**
+  - `POST`: nome e CNPJ obrigatórios; CNPJ com 14 dígitos e único; telefone opcional.
+  - `GET`: ativos por padrão; filtros; ordem por id.
+  - `GET /{id}`: inclui inativo; 404.
+  - `PUT /{id}`: nome, CNPJ, telefone e `ativo`; CNPJ único; fornecedor inativo não pode ser vinculado a novo insumo.
+  - `DELETE /{id}`: se associado a insumos, preservar referência e inativar; 204.
+  - **Resultado esperado:** CT06 coberto.
+
+- [ ] **5.4. Revisar os erros**
+  - 400 para validação, 404 para ID inexistente, 409 para duplicidade.
+  - **Resultado esperado:** mensagens amigáveis e JSON padronizado.
+
+---
+
+### FASE 6 — Insumos e alertas
+
+- [ ] **6.1. `POST /api/insumos`**
+  - Campos: nome, unidade de medida, estoque mínimo e fornecedor.
+  - Saldo inicial sempre zero; **não** aceitar `quantidadeAtual` no request.
+  - Fornecedor deve estar ativo.
+  - Unidade `UN` inteira; `KG`/`L` com até 3 casas.
+  - **Resultado esperado:** CT07 coberto.
+
+- [ ] **6.2. Listagem, consulta e atualização**
+  - `GET /api/insumos`: busca parcial por nome, sem diferenciar maiúsculas/minúsculas; `?ativo=todos` e `?ativo=false`; ordem alfabética.
+  - `GET /api/insumos/{id}`: inclui inativo; 404 se não existir.
+  - `PUT /api/insumos/{id}`: não altera saldo; unidade imutável depois de existir movimentação; fornecedor ativo quando alterado; `ativo` obrigatório.
+  - `DELETE /api/insumos/{id}`: excluir se sem movimentações; com histórico, inativar e preservar.
+  - **Resultado esperado:** CT08, CT13, CT16 e CT17 cobertos.
+
+- [ ] **6.3. Alertas**
+  - `GET /api/alertas/estoque`: somente insumos ativos com `quantidadeAtual <= estoqueMinimo`.
+  - Ordem por nome; `situacao` sempre `"CRITICO"`; array `[]` se não houver.
+  - **Resultado esperado:** CT15 coberto.
+
+- [ ] **6.4. Conferir o modelo**
+  - Não criar saldo por lote; lote e validade são informações da movimentação.
+  - **Resultado esperado:** nenhuma tabela/view de saldo por lote no fluxo da API.
+
+---
+
+### FASE 7 — Movimentações, transação e concorrência
+
+Esta é a fase de maior peso nas regras de negócio. Não pule os testes de concorrência.
+
+- [ ] **7.1. `POST /api/movimentacoes`**
+  - Endpoint único para `ENTRADA` e `SAIDA`.
+  - Não criar `PUT` nem `DELETE` de movimentação.
+  - `usuarioId` vem do JWT; não aceitar do corpo.
+  - **Resultado esperado:** endpoint 201 com o JSON do contrato.
+
+- [ ] **7.2. Validar a entrada**
+  - `tipo` obrigatório (`ENTRADA`/`SAIDA`).
+  - `quantidade` estritamente positiva e compatível com a unidade.
+  - `dataMovimentacao` não pode ser futura.
+  - `SAIDA` exige setor ativo e não recebe lote/validade.
+  - `ENTRADA` pode omitir lote/validade; se validade vier, não pode ser anterior à data operacional.
+  - Insumo inativo: 409.
+  - **Resultado esperado:** CT12, CT13 e CT21 cobertos.
+
+- [ ] **7.3. Garantir a transação**
+  - Buscar o insumo com lock pessimista **ou** fazer atualização atômica condicional.
+  - Calcular `saldoAnterior` e `saldoAtual`.
+  - Atualizar o saldo e gravar a movimentação na mesma transação.
+  - `dataRegistro` gerada pelo servidor no momento do lançamento.
+  - Em falha, rollback integral (sem saldo alterado e sem histórico).
+  - **Resultado esperado:** CT09, CT10, CT11 e CT19 cobertos.
+
+- [ ] **7.4. Testar concorrência**
+  - Simular duas saídas simultâneas com saldo insuficiente para as duas.
+  - Uma deve falhar com 409; o saldo não pode ficar negativo e não pode haver histórico parcial.
+  - **Resultado esperado:** CT20 coberto.
+
+- [ ] **7.5. Histórico**
+  - `GET /api/movimentacoes`: filtros `insumoId`, `setorId`, `usuarioId`, `tipo`, `dataInicio` e `dataFim`.
+  - Ordenação: `dataRegistro` desc e `id` desc no empate.
+  - `GET /api/movimentacoes/{id}`: 404 se não existir.
+  - **Resultado esperado:** CT14 e CT22 cobertos.
+
+- [ ] **7.6. Documentar a decisão**
+  - Explicar no documento técnico se usaram lock pessimista, atualização atômica ou lock otimista.
+  - **Resultado esperado:** a equipe consegue defender a escolha na banca.
+
+---
+
+### FASE 8 — Validações e tratamento padronizado de erros
+
+- [ ] **8.1. Criar o `@RestControllerAdvice`**
+  - Centralizar as exceções de validação, autenticação, recurso não encontrado, regra de negócio e erro inesperado.
+
+- [ ] **8.2. Mapear os status**
+  - 400: campo obrigatório, quantidade inválida, data futura, `ativo` inválido, `dataInicio > dataFim`.
+  - 401: credenciais inválidas, token ausente/inválido/expirado.
+  - 404: recurso não encontrado.
+  - 409: duplicidade, estoque insuficiente, insumo inativo, vínculo que impede exclusão.
+  - 500: falha inesperada.
+
+- [ ] **8.3. Padronizar o JSON**
+  - `{ "status": ..., "mensagem": "...", "timestamp": "..." }`.
+  - `timestamp` real do momento da falha.
+  - Nunca devolver stack trace, SQL ou detalhes internos.
+
+- [ ] **8.4. Testar os erros**
+  - Cada status com pelo menos um caso positivo e um negativo.
+  - **Resultado esperado:** contrato de erro respeitado em todos os endpoints.
+
+---
+
+### FASE 9 — Testes e coleção Postman
+
+- [ ] **9.1. Montar a coleção Postman**
+  - Uma pasta por grupo: usuários/auth, setores, fornecedores, insumos, movimentações, alertas.
+  - 26 requisições no total.
+  - Ambiente com `baseUrl` e `token`.
+  - No login, salvar o token na variável; nas rotas protegidas, usar `Bearer {{token}}`.
+
+- [ ] **9.2. Executar os casos CT01 a CT22**
+  - Registrar resultado esperado, resultado observado e evidência.
+  - Incluir também testes de erro: sem token, token inválido, estoque insuficiente, data futura, duplicidade e insumo inativo.
+
+- [ ] **9.3. Testes automatizados**
+  - Testes de service e controller.
+  - `@DataJpaTest` para repositórios.
+  - `@SpringBootTest` + `MockMvc` para endpoints.
+  - `mvn test` com `BUILD SUCCESS`.
+
+- [ ] **9.4. Testar o banco do zero**
+  - Apagar o schema de teste, rodar o script e subir a API.
+  - Executar os fluxos principais novamente.
+  - **Resultado esperado:** o projeto não depende de dados “mágicos” da máquina de alguém.
+
+- [ ] **9.5. Exportar as evidências**
+  - Exportar a coleção Postman.
+  - Salvar prints/logs do relatório de testes.
+  - **Resultado esperado:** entrega 3 e entrega 4 prontas.
+
+---
+
+### FASE 10 — Documento técnico e instruções
+
+- [ ] **10.1. Escrever o documento técnico**
+  - Ferramentas e versões: Java, Spring Boot, Maven, MySQL, Postman, IDE.
+  - Banco utilizado, nome do schema e como criar/carregar.
+  - Configurações necessárias (sem senhas reais).
+  - Arquitetura resumida: Controller → Service → Repository; JWT; tratamento de erros.
+  - Decisões: inativação lógica, transação/concorrência, ordenação, data operacional × data de registro.
+
+- [ ] **10.2. Revisar o `README` do backend**
+  - Pré-requisitos, criação do banco, script, variáveis de ambiente, `mvn spring-boot:run`, importação do Postman e `mvn test`.
+  - **Resultado esperado:** instruções reproduzíveis.
+
+- [ ] **10.3. Revisar segurança**
+  - Nenhuma senha, token, chave JWT ou credencial real no repositório.
+  - `.env.example` apenas com nomes de variáveis, se usarem.
+  - **Resultado esperado:** repositório seguro para entrega.
+
+---
+
+### FASE 11 — Demonstração e banca
+
+Use o checklist do Enunciado, seção 9.
+
+- [ ] **11.1. Cadastro de usuário e login retornando JWT.**
+- [ ] **11.2. Bloqueio de endpoint sem autenticação.**
+- [ ] **11.3. Cadastros e consultas de setores, fornecedores e insumos.**
+- [ ] **11.4. Pesquisa ordenada e consulta de registros inativos.**
+- [ ] **11.5. Entrada, saída e conferência do saldo após cada operação.**
+- [ ] **11.6. Rejeição de retirada superior ao estoque e de entrada inválida.**
+- [ ] **11.7. Consulta do histórico e dos alertas de estoque.**
+- [ ] **11.8. Preservação do histórico após inativação e teste de consistência.**
+- [ ] **11.9. Ensaiar a explicação de cada decisão técnica.**
+- [ ] **11.10. Dividir quem apresenta cada parte e cronometrar a demonstração.**
+
+---
+
+### FASE 12 — Conferência final e entrega
+
+- [ ] **12.1. Conferir as 6 entregas da seção 1.**
+- [ ] **12.2. Conferir as 26 operações e os 22 casos CT01 a CT22.**
+- [ ] **12.3. Rodar `mvn clean test` e subir a API em uma máquina limpa.**
+- [ ] **12.4. Conferir `git status`, remover `target/` e confirmar que não há segredos.**
+- [ ] **12.5. Confirmar com o professor o formato final de envio.**
+- [ ] **12.6. Fazer o commit/tag final e avisar a equipe.**
+
+---
+
+## 6. Comandos úteis
+
+### MySQL
+
+```bash
+# Entrar no MySQL
+mysql -u root -p
+
+# Criar o banco (use o nome que a disciplina definir)
+CREATE DATABASE nome_do_banco
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE nome_do_banco;
+
+# Executar os scripts da equipe
+SOURCE db/schema.sql;
+SOURCE db/seed.sql;
+
+# Conferir
+SHOW TABLES;
+DESCRIBE insumos;
+SELECT COUNT(*) FROM usuarios;
+SELECT * FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;
+```
+
+### Maven / Spring Boot
+
+```bash
+cd backend
+
+# Compilar sem testes
+mvn clean package -DskipTests
+
+# Rodar a API
+mvn spring-boot:run
+
+# Rodar os testes
+mvn test
+```
+
+### Git
+
+```bash
+git status
+git diff
+git switch -c feat/minha-contribuicao
+```
+
+> Commits: usar o fluxo de `docs/colaboradores.md` e a skill `git-commit`. A identidade é aplicada somente no commit, com `git -c user.name=... -c user.email=... commit`.
+
+---
+
+## 7. Perguntas prováveis da banca
+
+Prepare respostas curtas e técnicas para:
+
+1. **Por que a API segue o contrato?**
+
+   Porque o front-end é de outra empresa e já consome as rotas, os campos e os status definidos. Alterar o contrato quebraria a integração.
+
+2. **Como o JWT funciona neste projeto?**
+
+   O login valida `login` + senha (BCrypt), gera um token assinado com expiração de 3600 segundos e o front-end envia esse token no cabeçalho `Authorization: Bearer`. O filtro valida a assinatura e a expiração antes de liberar a rota.
+
+3. **Por que usar BCrypt e não guardar a senha?**
+
+   Porque o hash é irreversível e protege as senhas em caso de vazamento. A API nunca devolve senha nem hash.
+
+4. **Como vocês impedem saldo negativo com duas saídas simultâneas?**
+
+   Com transação e controle de concorrência: lock pessimista, atualização atômica condicional ou lock otimista. Se o saldo não comportar, a operação falha com 409 e não gera histórico parcial.
+
+5. **Por que 409 e não 400 em estoque insuficiente?**
+
+   Porque o JSON está válido; o problema é de estado/regra de negócio, não de formato. O contrato define 409 para conflitos de regra.
+
+6. **Como funciona a inativação?**
+
+   `ativo=false` preserva o registro e o histórico. Usuários são sempre inativados; setores, fornecedores e insumos podem ser excluídos se não tiverem vínculos. Consultas por ID mostram inativos; listagens mostram ativos por padrão.
+
+7. **Por que não há saldo por lote?**
+
+   Porque o contrato define que lote e validade são informações da movimentação; o saldo é único por insumo. O controle por lote está fora do escopo.
+
+8. **Qual a diferença entre `dataMovimentacao` e `dataRegistro`?**
+
+   `dataMovimentacao` é a data operacional informada pelo usuário, não pode ser futura e serve para filtros. `dataRegistro` é o instante real em que o servidor gravou a movimentação.
+
+9. **Como o projeto está organizado?**
+
+   Em camadas Controller → Service → Repository, com DTOs, tratamento centralizado de erros e segurança JWT. O Controller cuida do HTTP; o Service, das regras e transações; o Repository, do banco.
+
+10. **Como vocês testaram?**
+
+    Com a coleção Postman cobrindo as 26 operações, os casos CT01 a CT22, testes automatizados com `mvn test` e evidências de resultado esperado/observado.
+
+11. **Por que não há front-end no projeto?**
+
+    Porque a solução foi dividida entre duas empresas; a outra fornecedora já fez o front-end web. Nossa responsabilidade é a API, as regras e a integração com o banco.
+
+12. **Como garantem que a pesquisa e a ordenação estão corretas?**
+
+    A pesquisa é parcial e `IgnoreCase`; a ordenação de insumos/alertas é por nome crescente e a do histórico é por `dataRegistro` desc + `id` desc. Pode ser feita no banco ou em Java, conforme a decisão da equipe.
+
+---
+
+## 8. Critérios de avaliação
+
+| Critério | Peso |
+| --- | --- |
+| Fidelidade ao contrato REST e funcionalidades | 35% |
+| Regras de negócio, validações e concorrência | 25% |
+| Arquitetura Controller/Service/Repository | 15% |
+| Integração com banco e JPA | 10% |
+| JWT e tratamento de erros | 10% |
+| Testes, documentação e demonstração | 5% |
+
+**Prioridade prática:** contrato → regras de negócio → transação/concorrência → testes/documentação.
+
+---
+
+## 9. O que não faz parte do escopo
+
+- Front-end, interfaces desktop, tela de login, HTML, CSS, JavaScript.
+- Notificações por e-mail ou push.
+- Compras e pedidos de fornecedores.
+- Autorização por perfis (todos os autenticados têm as mesmas permissões).
+- Troca/renovação de JWT.
+- Estornos.
+- Controle de saldo por lote.
+- Vencimento automático e bloqueio de uso por lote.
+- Integrações externas.
+- Relatórios PDF ou Excel.
+
+---
+
+## 10. Observações sobre os documentos antigos
+
+- `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` — PDF antigo, **obsoleto**.
+- `Diversos/TODO.docx` — versão antiga do roteiro, **histórica**. Este `TODO.md` é o roteiro atual.
+- `Entregaveis/` — SQL, DER e requisitos da versão desktop. **Não são a fonte de verdade** do escopo atual e não devem ser alterados sem autorização dos autores.
+- Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco. O contrato continua sendo a fonte de verdade da API.
+
+> Em caso de dúvida, vale o **Contrato Técnico** para rotas, campos, JSON, status, filtros e ordenação; e o **Enunciado** para regras de negócio, tecnologias e escopo. Se os dois não resolverem, perguntem ao professor.
