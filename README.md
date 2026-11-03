@@ -106,6 +106,8 @@ Regras gerais do contrato:
 - `GET` nunca altera estado.
 - A API não expõe senhas nem hashes.
 
+> Os IDs, datas e valores dos exemplos do contrato são ilustrativos. Não trate `id=1` ou `insumoId=10` como dados fixos; criem seus próprios registros de demonstração.
+
 ## Regras de negócio que não podem falhar
 
 - **RN-01** — O saldo começa em zero e só muda por `ENTRADA` ou `SAIDA`; nunca por edição direta do cadastro.
@@ -336,9 +338,9 @@ Passo a passo:
 
 > **Regra da equipe:** pode criar branch e enviar (`push`) a sua branch à vontade. O que não pode é enviar alteração direto para a `main`: todo trabalho passa por um Pull Request e pela revisão de outra pessoa. Assim um erro não apaga o trabalho do colega e a `main` continua funcionando.
 
-## Como rodar a API (quando o backend existir)
+## Como rodar a API
 
-O projeto ainda não tem a pasta `backend/` criada pela equipe. Quando ela existir, o fluxo esperado é:
+Quando a equipe criar a pasta `backend/`, o fluxo esperado é:
 
 1. **Crie o banco** com o script SQL novo, produzido pela equipe na disciplina de Modelagem e Banco de Dados. Não use o script antigo de `Entregaveis/` como se fosse o modelo atual.
 2. **Configure a conexão** em `backend/src/main/resources/application.properties` ou por variáveis de ambiente. Não versione senha real.
