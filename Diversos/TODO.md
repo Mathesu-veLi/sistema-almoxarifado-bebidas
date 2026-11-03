@@ -26,17 +26,20 @@ Marque cada entrega somente quando ela estiver completa e revisada.
 - [ ] **Entrega 5 — Documento técnico**, com ferramentas, versões, banco utilizado, configurações necessárias (sem senhas reais), arquitetura resumida e decisões técnicas.
 - [ ] **Entrega 6 — Demonstração prática**, com explicação das decisões técnicas e das principais regras de negócio.
 
-### 1.2 Entregáveis adicionais de modelagem e requisitos (3)
+### 1.2 Entregáveis adicionais de modelagem e requisitos (4)
 
-- [ ] **Entrega 7 — Diagrama de tabelas SQL (MySQL)**, com tabelas, colunas, tipos de dados, chaves primárias e estrangeiras, restrições de unicidade, nulabilidade, índices e cardinalidades. Deve representar exatamente o schema criado pelo script SQL.
-- [ ] **Entrega 8 — Diagrama de classes (UML)**, com as classes do domínio (`Usuario`, `Setor`, `Fornecedor`, `Insumo`, `Movimentacao`), enums, atributos, métodos e relacionamentos com multiplicidades. Deve ser compatível com o diagrama de tabelas e com o contrato da API.
-- [ ] **Entrega 9 — Documento de requisitos**, contendo:
+> **Ordem obrigatória:** primeiro os documentos, depois os diagramas, e só então o código. O agente pode orientar e revisar, mas a produção é dos autores.
+
+- [ ] **Entrega 7 — Documento de regras de negócio, requisitos funcionais e não funcionais**, contendo:
   - **Requisitos funcionais (RF)** rastreáveis às **26 operações** do contrato;
   - **Requisitos não funcionais (RNF)** aplicáveis à API (segurança, desempenho, portabilidade, manutenibilidade, tratamento de erros etc.);
   - **Regras de negócio (RN-01 a RN-16)** com descrição, impacto e forma de verificação;
   - **Matriz de rastreabilidade** ligando RF → endpoint → caso de teste (CT01 a CT22).
+- [ ] **Entrega 8 — Documento e diagrama de casos de uso**, com atores, casos de uso, pré-condições, fluxo principal, fluxos alternativos/exceções e rastreabilidade para os RF e endpoints.
+- [ ] **Entrega 9 — Diagrama de banco de dados (MySQL)**, com tabelas, colunas, tipos de dados, chaves primárias e estrangeiras, restrições de unicidade, nulabilidade, índices e cardinalidades. Deve representar exatamente o schema criado pelo script SQL.
+- [ ] **Entrega 10 — Diagrama de classes (UML)**, com as classes do domínio (`Usuario`, `Setor`, `Fornecedor`, `Insumo`, `Movimentacao`), enums, atributos, métodos e relacionamentos com multiplicidades. Deve ser compatível com o diagrama de banco e com o contrato da API.
 
-> As entregas 7 a 9 são **adicionais** às 6 do Enunciado. Confirmem com o professor o formato (PDF, imagem ou documento editável) e o local de entrega. Elas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
+> As entregas 7 a 10 são **adicionais** às 6 do Enunciado. Confirmem com o professor o formato (PDF, imagem ou documento editável) e o local de entrega. Elas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
 
 ### Definição de pronto
 
@@ -48,11 +51,12 @@ O projeto só está pronto para entrega quando:
 - [ ] O banco é criado do zero pelo script e a API sobe sem erro.
 - [ ] Nenhuma senha, token, chave JWT ou credencial real está versionada.
 - [ ] A coleção Postman e o relatório de testes estão atualizados.
-- [ ] O **diagrama de tabelas SQL** representa o schema MySQL criado pelo script.
-- [ ] O **diagrama de classes** está compatível com o diagrama de tabelas e com os DTOs/contrato.
-- [ ] O **documento de RF/RNF/RN** está revisado, com rastreabilidade para as 26 operações e os CT01 a CT22.
-- [ ] As entregas 7 a 9 estão no formato combinado com o professor.
-- [ ] A equipe consegue explicar o código, os diagramas e as regras na banca.
+- [ ] O **documento de RN/RF/RNF** está revisado, com rastreabilidade para as 26 operações e os CT01 a CT22.
+- [ ] O **documento e o diagrama de casos de uso** cobrem as 26 operações e não incluem funcionalidade fora do contrato.
+- [ ] O **diagrama de banco de dados** representa o schema MySQL criado pelo script.
+- [ ] O **diagrama de classes** está compatível com o diagrama de banco e com os DTOs/contrato.
+- [ ] As entregas 7 a 10 estão no formato combinado com o professor.
+- [ ] A equipe consegue explicar o código, os documentos, os diagramas e as regras na banca.
 
 ---
 
@@ -61,7 +65,7 @@ O projeto só está pronto para entrega quando:
 | Fase | Ação principal | Onde fazer | Apoio | Feito? |
 | --- | --- | --- | --- | --- |
 | **0** | Ler os documentos e preparar o ambiente | `Diversos/` + máquina local | `README.md`, `AGENTS.md` | [ ] |
-| **1** | Levantar RF/RNF/RN, desenhar diagramas e criar o banco MySQL | Editor de texto + Draw.io/Lucidchart + MySQL Workbench/CLI | `skills/database-operations/SKILL.md` | [ ] |
+| **1** | Documentos (RN/RF/RNF e casos de uso), diagramas (banco e classes) e script MySQL | Editor de texto + Draw.io/Lucidchart + MySQL Workbench/CLI | `skills/database-operations/SKILL.md` | [ ] |
 | **2** | Criar o projeto Spring Boot | Spring Initializr / IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
 | **3** | Criar entidades JPA, enums, DTOs e repositórios | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
 | **4** | Implementar JWT, BCrypt e proteção das rotas | IntelliJ IDEA | `skills/jwt-security/SKILL.md` | [ ] |
@@ -74,7 +78,7 @@ O projeto só está pronto para entrega quando:
 | **11** | Ensaiar a demonstração e a banca | Equipe | Enunciado, seção 9 | [ ] |
 | **12** | Conferir e entregar | Equipe | Este TODO | [ ] |
 
-> As entregas 7 a 9 (diagramas e documento de requisitos) são produzidas principalmente na **Fase 1**. O **documento técnico** da Entrega 5 é outro documento, produzido na **Fase 10**.
+> As entregas 7 a 10 (documentos, casos de uso e diagramas) são produzidas na **Fase 1**, nesta ordem: RN/RF/RNF → casos de uso → banco → classes. O **documento técnico** da Entrega 5 é outro documento, produzido na **Fase 10**.
 
 ---
 
@@ -223,9 +227,18 @@ Marque cada regra quando ela estiver implementada **e** comprovada por teste ou 
 
 ---
 
-### FASE 1 — Requisitos, diagramas e banco MySQL
+### FASE 1 — Documentos, diagramas e banco MySQL
 
-O documento de requisitos, o diagrama de classes, o diagrama de tabelas e o script SQL são produtos articulados à disciplina de **Modelagem e Banco de Dados**. Esta fase organiza o que a API precisa.
+Esta fase é **dos autores**. O agente pode explicar, tirar dúvidas e revisar, mas **não produz** os documentos nem os diagramas.
+
+A ordem é obrigatória:
+
+1. Documento de regras de negócio, requisitos funcionais e não funcionais (Entrega 7).
+2. Documento e diagrama de casos de uso (Entrega 8).
+3. Diagrama de banco de dados (Entrega 9).
+4. Diagrama de classes (Entrega 10).
+5. Script SQL do MySQL.
+6. Só depois começa o código Java/Spring Boot (Fase 2).
 
 - [ ] **1.1. Revisar os objetos do contrato**
   - Usuário, setor, fornecedor, insumo, movimentação e alerta.
@@ -246,29 +259,37 @@ O documento de requisitos, o diagrama de classes, o diagrama de tabelas e o scri
   - Usar a tabela da seção 4.1 como base de conferência.
   - **Resultado esperado:** as 16 regras documentadas e rastreáveis.
 
-- [ ] **1.5. Montar o documento de requisitos (Entrega 9)**
+- [ ] **1.5. Montar o documento de RN/RF/RNF (Entrega 7)**
   - Estrutura sugerida: introdução, escopo, atores, RF, RNF, RN e matriz de rastreabilidade.
   - A matriz deve ligar RF → endpoint → caso de teste (CT01 a CT22).
   - **Resultado esperado:** documento revisado pela equipe, sem requisito inventado.
 
-- [ ] **1.6. Desenhar o diagrama de classes (Entrega 8)**
+- [ ] **1.6. Produzir o documento e o diagrama de casos de uso (Entrega 8)**
+  - Atores: visitante (cadastro e login), usuário autenticado (demais operações) e, se a equipe preferir, o front-end como ator externo.
+  - Casos de uso principais: autenticar, gerenciar usuários, setores, fornecedores e insumos, registrar movimentação, consultar histórico e consultar alertas.
+  - Para cada caso: objetivo, ator, pré-condições, fluxo principal, fluxos alternativos/exceções e resposta esperada.
+  - Diagrama UML com atores, casos de uso, associações e `<<include>>`/`<<extend>>` quando fizer sentido.
+  - Rastrear cada caso de uso para os RF e endpoints correspondentes.
+  - **Resultado esperado:** documento e diagrama revisados, sem funcionalidade fora do contrato.
+
+- [ ] **1.7. Desenhar o diagrama de banco de dados (Entrega 9)**
+  - Tabelas, colunas, tipos, chaves primárias e estrangeiras, restrições de unicidade, nulabilidade, índices e cardinalidades.
+  - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
+  - **Resultado esperado:** diagrama compatível com o documento de RN/RF/RNF e com o script MySQL.
+
+- [ ] **1.8. Desenhar o diagrama de classes (Entrega 10)**
   - Classes do domínio: `Usuario`, `Setor`, `Fornecedor`, `Insumo` e `Movimentacao`.
   - Enums `TipoMovimentacao` (`ENTRADA`/`SAIDA`) e `UnidadeMedida` (`UN`/`KG`/`L`), se a equipe optar por enum.
   - Atributos, métodos relevantes, relacionamentos e multiplicidades.
-  - O diagrama deve refletir o contrato e o modelo do banco; não incluir front-end.
-  - **Resultado esperado:** diagrama revisado e compatível com o DER.
+  - O diagrama deve refletir o contrato e o diagrama de banco; não incluir front-end.
+  - **Resultado esperado:** diagrama revisado e compatível com o banco.
 
-- [ ] **1.7. Desenhar o diagrama de tabelas SQL (Entrega 7)**
-  - Tabelas, colunas, tipos, chaves primárias e estrangeiras, restrições de unicidade, nulabilidade, índices e cardinalidades.
-  - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
-  - **Resultado esperado:** diagrama compatível com o script MySQL.
-
-- [ ] **1.8. Escrever o script SQL no MySQL**
+- [ ] **1.9. Escrever o script SQL no MySQL**
   - Criar um script **novo**, em arquivo separado; não sobrescrever o `BancodoProjeto.sql` antigo sem autorização dos autores.
   - Sugestão de organização: `db/schema.sql` (estrutura) e `db/seed.sql` (dados de demonstração).
   - Usar `InnoDB` e `utf8mb4`.
 
-- [ ] **1.9. Modelo mínimo esperado**
+- [ ] **1.10. Modelo mínimo esperado**
 
 | Tabela | Campos mínimos | Observações para MySQL |
 | --- | --- | --- |
@@ -278,7 +299,7 @@ O documento de requisitos, o diagrama de classes, o diagrama de tabelas e o scri
 | `insumos` | `id`, `nome`, `unidade_medida`, `quantidade_atual`, `estoque_minimo`, `fornecedor_id`, `ativo` | `quantidade_atual` e `estoque_minimo` em `DECIMAL(15,3)`; `unidade_medida` em `UN`/`KG`/`L`; FK para fornecedor |
 | `movimentacoes` | `id`, `insumo_id`, `tipo`, `quantidade`, `setor_id`, `usuario_id`, `data_movimentacao`, `data_registro`, `lote`, `validade`, `saldo_anterior`, `saldo_atual` | `tipo` `ENTRADA`/`SAIDA`; `setor_id` NULL permitido; `lote`/`validade` NULL permitidos; quantidades em `DECIMAL(15,3)`; `data_movimentacao DATE`; `data_registro DATETIME(6)` ou `TIMESTAMP`; FKs sem cascade no histórico |
 
-- [ ] **1.10. Definir tipos e restrições**
+- [ ] **1.11. Definir tipos e restrições**
   - `DECIMAL(15,3)` para quantidades (KG/L com até 3 casas).
   - `DATE` para `data_movimentacao`; `DATETIME(6)` ou `TIMESTAMP` para `data_registro`.
   - `TINYINT(1)`/`BOOLEAN` para `ativo`.
@@ -288,14 +309,14 @@ O documento de requisitos, o diagrama de classes, o diagrama de tabelas e o scri
   - FKs de `insumos.fornecedor_id`, `movimentacoes.insumo_id`, `movimentacoes.usuario_id` e `movimentacoes.setor_id`.
   - **Não** usar `ON DELETE CASCADE` em movimentações: o histórico deve ser preservado.
 
-- [ ] **1.11. Preparar os dados de demonstração**
+- [ ] **1.12. Preparar os dados de demonstração**
   - Usuários com senha em **hash BCrypt** (nunca senha em texto puro).
   - Setores, fornecedores e insumos ativos.
   - Insumos começam com saldo zero; criar entradas e saídas para gerar saldo e histórico.
   - Incluir pelo menos um insumo abaixo ou no estoque mínimo para demonstrar o alerta.
   - **Resultado esperado:** script reproduzível, sem credenciais reais.
 
-- [ ] **1.12. Executar e validar o script**
+- [ ] **1.13. Executar e validar o script**
   - Rodar o script do zero em um banco limpo.
   - Conferir com `SHOW TABLES;`, `DESCRIBE tabela;` e `SELECT COUNT(*) FROM tabela;`.
   - Testar as restrições de unicidade e as FKs.
@@ -303,10 +324,10 @@ O documento de requisitos, o diagrama de classes, o diagrama de tabelas e o scri
     `SELECT ... FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;`
   - **Resultado esperado:** banco criado sem erro e dados de demonstração coerentes.
 
-- [ ] **1.13. Revisar os artefatos com a equipe**
-  - Todos entendem as tabelas, os relacionamentos, o diagrama de classes e por que não há saldo por lote.
-  - Conferir se o documento de requisitos, os diagramas e o script contam a mesma história.
-  - **Resultado esperado:** entregas 7, 8, 9 e script aprovados antes de codar.
+- [ ] **1.14. Revisar os artefatos com a equipe**
+  - Todos entendem as regras, os casos de uso, as tabelas, os relacionamentos e por que não há saldo por lote.
+  - Conferir se o documento de RN/RF/RNF, os casos de uso, o diagrama de banco, o diagrama de classes e o script contam a mesma história.
+  - **Resultado esperado:** entregas 7, 8, 9 e 10, diagramas e script aprovados antes de codar.
 
 ---
 
@@ -581,7 +602,7 @@ Esta é a fase de maior peso nas regras de negócio. Não pule os testes de conc
   - Configurações necessárias (sem senhas reais).
   - Arquitetura resumida: Controller → Service → Repository; JWT; tratamento de erros.
   - Decisões: inativação lógica, transação/concorrência, ordenação, data operacional × data de registro.
-  - **Não confundir** com o documento de requisitos (Entrega 9): lá ficam RF, RNF e RN; aqui ficam ferramentas, banco, configuração e arquitetura.
+  - **Não confundir** com o documento de RN/RF/RNF (Entrega 7): lá ficam requisitos e regras; aqui ficam ferramentas, banco, configuração e arquitetura.
 
 - [ ] **10.2. Revisar o `README` do backend**
   - Pré-requisitos, criação do banco, script, variáveis de ambiente, `mvn spring-boot:run`, importação do Postman e `mvn test`.
@@ -613,8 +634,8 @@ Use o checklist do Enunciado, seção 9.
 
 ### FASE 12 — Conferência final e entrega
 
-- [ ] **12.1. Conferir as 9 entregas da seção 1** (6 do Enunciado + 3 adicionais).
-- [ ] **12.2. Conferir o diagrama de tabelas SQL, o diagrama de classes e o documento de RF/RNF/RN.**
+- [ ] **12.1. Conferir as 10 entregas da seção 1** (6 do Enunciado + 4 adicionais).
+- [ ] **12.2. Conferir o documento de RN/RF/RNF, o documento e o diagrama de casos de uso, o diagrama de banco e o diagrama de classes.**
 - [ ] **12.3. Conferir as 26 operações e os 22 casos CT01 a CT22.**
 - [ ] **12.4. Rodar `mvn clean test` e subir a API em uma máquina limpa.**
 - [ ] **12.5. Conferir `git status`, remover `target/` e confirmar que não há segredos.**
