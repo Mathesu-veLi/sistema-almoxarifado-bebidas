@@ -17,12 +17,26 @@
 
 Marque cada entrega somente quando ela estiver completa e revisada.
 
+### 1.1 Entregáveis do Enunciado (6)
+
 - [ ] **Entrega 1 — Código-fonte completo do projeto Spring Boot**, com `pom.xml`, código organizado em camadas, arquivo de configuração e instruções reproduzíveis de execução.
 - [ ] **Entrega 2 — API integrada ao MySQL**, preparada para execução local, com script de criação/carga do banco e dados de demonstração.
 - [ ] **Entrega 3 — Coleção Postman (ou equivalente)** com as requisições das **26 operações** do contrato.
 - [ ] **Entrega 4 — Relatório curto de testes**, com resultado esperado, resultado observado e evidência para os casos **CT01 a CT22**.
 - [ ] **Entrega 5 — Documento técnico**, com ferramentas, versões, banco utilizado, configurações necessárias (sem senhas reais), arquitetura resumida e decisões técnicas.
 - [ ] **Entrega 6 — Demonstração prática**, com explicação das decisões técnicas e das principais regras de negócio.
+
+### 1.2 Entregáveis adicionais de modelagem e requisitos (3)
+
+- [ ] **Entrega 7 — Diagrama de tabelas SQL (MySQL)**, com tabelas, colunas, tipos de dados, chaves primárias e estrangeiras, restrições de unicidade, nulabilidade, índices e cardinalidades. Deve representar exatamente o schema criado pelo script SQL.
+- [ ] **Entrega 8 — Diagrama de classes (UML)**, com as classes do domínio (`Usuario`, `Setor`, `Fornecedor`, `Insumo`, `Movimentacao`), enums, atributos, métodos e relacionamentos com multiplicidades. Deve ser compatível com o diagrama de tabelas e com o contrato da API.
+- [ ] **Entrega 9 — Documento de requisitos**, contendo:
+  - **Requisitos funcionais (RF)** rastreáveis às **26 operações** do contrato;
+  - **Requisitos não funcionais (RNF)** aplicáveis à API (segurança, desempenho, portabilidade, manutenibilidade, tratamento de erros etc.);
+  - **Regras de negócio (RN-01 a RN-16)** com descrição, impacto e forma de verificação;
+  - **Matriz de rastreabilidade** ligando RF → endpoint → caso de teste (CT01 a CT22).
+
+> As entregas 7 a 9 são **adicionais** às 6 do Enunciado. Confirmem com o professor o formato (PDF, imagem ou documento editável) e o local de entrega. Elas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
 
 ### Definição de pronto
 
@@ -34,7 +48,11 @@ O projeto só está pronto para entrega quando:
 - [ ] O banco é criado do zero pelo script e a API sobe sem erro.
 - [ ] Nenhuma senha, token, chave JWT ou credencial real está versionada.
 - [ ] A coleção Postman e o relatório de testes estão atualizados.
-- [ ] A equipe consegue explicar o código e as regras na banca.
+- [ ] O **diagrama de tabelas SQL** representa o schema MySQL criado pelo script.
+- [ ] O **diagrama de classes** está compatível com o diagrama de tabelas e com os DTOs/contrato.
+- [ ] O **documento de RF/RNF/RN** está revisado, com rastreabilidade para as 26 operações e os CT01 a CT22.
+- [ ] As entregas 7 a 9 estão no formato combinado com o professor.
+- [ ] A equipe consegue explicar o código, os diagramas e as regras na banca.
 
 ---
 
@@ -43,7 +61,7 @@ O projeto só está pronto para entrega quando:
 | Fase | Ação principal | Onde fazer | Apoio | Feito? |
 | --- | --- | --- | --- | --- |
 | **0** | Ler os documentos e preparar o ambiente | `Diversos/` + máquina local | `README.md`, `AGENTS.md` | [ ] |
-| **1** | Modelar o banco e escrever o SQL MySQL | MySQL Workbench / CLI + DER | `skills/database-operations/SKILL.md` | [ ] |
+| **1** | Levantar RF/RNF/RN, desenhar diagramas e criar o banco MySQL | Editor de texto + Draw.io/Lucidchart + MySQL Workbench/CLI | `skills/database-operations/SKILL.md` | [ ] |
 | **2** | Criar o projeto Spring Boot | Spring Initializr / IntelliJ IDEA | `skills/api-rest/SKILL.md` | [ ] |
 | **3** | Criar entidades JPA, enums, DTOs e repositórios | IntelliJ IDEA | `skills/database-operations/SKILL.md` | [ ] |
 | **4** | Implementar JWT, BCrypt e proteção das rotas | IntelliJ IDEA | `skills/jwt-security/SKILL.md` | [ ] |
@@ -55,6 +73,8 @@ O projeto só está pronto para entrega quando:
 | **10** | Escrever o documento técnico e as instruções | Editor de texto / `README` do backend | `README.md` | [ ] |
 | **11** | Ensaiar a demonstração e a banca | Equipe | Enunciado, seção 9 | [ ] |
 | **12** | Conferir e entregar | Equipe | Este TODO | [ ] |
+
+> As entregas 7 a 9 (diagramas e documento de requisitos) são produzidas principalmente na **Fase 1**. O **documento técnico** da Entrega 5 é outro documento, produzido na **Fase 10**.
 
 ---
 
@@ -203,24 +223,52 @@ Marque cada regra quando ela estiver implementada **e** comprovada por teste ou 
 
 ---
 
-### FASE 1 — Modelagem e banco MySQL
+### FASE 1 — Requisitos, diagramas e banco MySQL
 
-O DER e o script SQL são produtos da disciplina de **Modelagem e Banco de Dados**. Esta fase organiza o que a API precisa.
+O documento de requisitos, o diagrama de classes, o diagrama de tabelas e o script SQL são produtos articulados à disciplina de **Modelagem e Banco de Dados**. Esta fase organiza o que a API precisa.
 
 - [ ] **1.1. Revisar os objetos do contrato**
   - Usuário, setor, fornecedor, insumo, movimentação e alerta.
   - Conferir os campos de cada JSON no contrato, seção 3.
 
-- [ ] **1.2. Desenhar o DER novo**
-  - Entidades, chaves primárias, chaves estrangeiras, cardinalidades e campos obrigatórios/opcionais.
-  - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
+- [ ] **1.2. Levantar os requisitos funcionais (RF)**
+  - Derivar um RF para cada uma das 26 operações do contrato.
+  - Para cada RF, registrar: identificador, descrição, ator, endpoint, entrada, saída e status HTTP.
+  - **Resultado esperado:** todos os 26 endpoints cobertos por RF.
 
-- [ ] **1.3. Escrever o script SQL no MySQL**
+- [ ] **1.3. Levantar os requisitos não funcionais (RNF)**
+  - Registrar exigências de segurança (JWT e hash de senha), desempenho, portabilidade, manutenibilidade, tratamento de erros e consistência transacional.
+  - Cada RNF deve ser verificável: a equipe precisa saber como comprovar que ele foi atendido.
+  - **Resultado esperado:** RNFs coerentes com o Enunciado e o Contrato.
+
+- [ ] **1.4. Documentar as regras de negócio (RN-01 a RN-16)**
+  - Descrever cada RN, seu impacto na API e a forma de verificação (teste ou evidência).
+  - Usar a tabela da seção 4.1 como base de conferência.
+  - **Resultado esperado:** as 16 regras documentadas e rastreáveis.
+
+- [ ] **1.5. Montar o documento de requisitos (Entrega 9)**
+  - Estrutura sugerida: introdução, escopo, atores, RF, RNF, RN e matriz de rastreabilidade.
+  - A matriz deve ligar RF → endpoint → caso de teste (CT01 a CT22).
+  - **Resultado esperado:** documento revisado pela equipe, sem requisito inventado.
+
+- [ ] **1.6. Desenhar o diagrama de classes (Entrega 8)**
+  - Classes do domínio: `Usuario`, `Setor`, `Fornecedor`, `Insumo` e `Movimentacao`.
+  - Enums `TipoMovimentacao` (`ENTRADA`/`SAIDA`) e `UnidadeMedida` (`UN`/`KG`/`L`), se a equipe optar por enum.
+  - Atributos, métodos relevantes, relacionamentos e multiplicidades.
+  - O diagrama deve refletir o contrato e o modelo do banco; não incluir front-end.
+  - **Resultado esperado:** diagrama revisado e compatível com o DER.
+
+- [ ] **1.7. Desenhar o diagrama de tabelas SQL (Entrega 7)**
+  - Tabelas, colunas, tipos, chaves primárias e estrangeiras, restrições de unicidade, nulabilidade, índices e cardinalidades.
+  - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
+  - **Resultado esperado:** diagrama compatível com o script MySQL.
+
+- [ ] **1.8. Escrever o script SQL no MySQL**
   - Criar um script **novo**, em arquivo separado; não sobrescrever o `BancodoProjeto.sql` antigo sem autorização dos autores.
   - Sugestão de organização: `db/schema.sql` (estrutura) e `db/seed.sql` (dados de demonstração).
   - Usar `InnoDB` e `utf8mb4`.
 
-- [ ] **1.4. Modelo mínimo esperado**
+- [ ] **1.9. Modelo mínimo esperado**
 
 | Tabela | Campos mínimos | Observações para MySQL |
 | --- | --- | --- |
@@ -230,7 +278,7 @@ O DER e o script SQL são produtos da disciplina de **Modelagem e Banco de Dados
 | `insumos` | `id`, `nome`, `unidade_medida`, `quantidade_atual`, `estoque_minimo`, `fornecedor_id`, `ativo` | `quantidade_atual` e `estoque_minimo` em `DECIMAL(15,3)`; `unidade_medida` em `UN`/`KG`/`L`; FK para fornecedor |
 | `movimentacoes` | `id`, `insumo_id`, `tipo`, `quantidade`, `setor_id`, `usuario_id`, `data_movimentacao`, `data_registro`, `lote`, `validade`, `saldo_anterior`, `saldo_atual` | `tipo` `ENTRADA`/`SAIDA`; `setor_id` NULL permitido; `lote`/`validade` NULL permitidos; quantidades em `DECIMAL(15,3)`; `data_movimentacao DATE`; `data_registro DATETIME(6)` ou `TIMESTAMP`; FKs sem cascade no histórico |
 
-- [ ] **1.5. Definir tipos e restrições**
+- [ ] **1.10. Definir tipos e restrições**
   - `DECIMAL(15,3)` para quantidades (KG/L com até 3 casas).
   - `DATE` para `data_movimentacao`; `DATETIME(6)` ou `TIMESTAMP` para `data_registro`.
   - `TINYINT(1)`/`BOOLEAN` para `ativo`.
@@ -240,14 +288,14 @@ O DER e o script SQL são produtos da disciplina de **Modelagem e Banco de Dados
   - FKs de `insumos.fornecedor_id`, `movimentacoes.insumo_id`, `movimentacoes.usuario_id` e `movimentacoes.setor_id`.
   - **Não** usar `ON DELETE CASCADE` em movimentações: o histórico deve ser preservado.
 
-- [ ] **1.6. Preparar os dados de demonstração**
+- [ ] **1.11. Preparar os dados de demonstração**
   - Usuários com senha em **hash BCrypt** (nunca senha em texto puro).
   - Setores, fornecedores e insumos ativos.
   - Insumos começam com saldo zero; criar entradas e saídas para gerar saldo e histórico.
   - Incluir pelo menos um insumo abaixo ou no estoque mínimo para demonstrar o alerta.
   - **Resultado esperado:** script reproduzível, sem credenciais reais.
 
-- [ ] **1.7. Executar e validar o script**
+- [ ] **1.12. Executar e validar o script**
   - Rodar o script do zero em um banco limpo.
   - Conferir com `SHOW TABLES;`, `DESCRIBE tabela;` e `SELECT COUNT(*) FROM tabela;`.
   - Testar as restrições de unicidade e as FKs.
@@ -255,9 +303,10 @@ O DER e o script SQL são produtos da disciplina de **Modelagem e Banco de Dados
     `SELECT ... FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;`
   - **Resultado esperado:** banco criado sem erro e dados de demonstração coerentes.
 
-- [ ] **1.8. Revisar o modelo com a equipe**
-  - Todos entendem as tabelas, os relacionamentos e por que não há saldo por lote.
-  - **Resultado esperado:** DER e script aprovados antes de codar.
+- [ ] **1.13. Revisar os artefatos com a equipe**
+  - Todos entendem as tabelas, os relacionamentos, o diagrama de classes e por que não há saldo por lote.
+  - Conferir se o documento de requisitos, os diagramas e o script contam a mesma história.
+  - **Resultado esperado:** entregas 7, 8, 9 e script aprovados antes de codar.
 
 ---
 
@@ -526,12 +575,13 @@ Esta é a fase de maior peso nas regras de negócio. Não pule os testes de conc
 
 ### FASE 10 — Documento técnico e instruções
 
-- [ ] **10.1. Escrever o documento técnico**
+- [ ] **10.1. Escrever o documento técnico (Entrega 5)**
   - Ferramentas e versões: Java, Spring Boot, Maven, MySQL, Postman, IDE.
   - Banco utilizado, nome do schema e como criar/carregar.
   - Configurações necessárias (sem senhas reais).
   - Arquitetura resumida: Controller → Service → Repository; JWT; tratamento de erros.
   - Decisões: inativação lógica, transação/concorrência, ordenação, data operacional × data de registro.
+  - **Não confundir** com o documento de requisitos (Entrega 9): lá ficam RF, RNF e RN; aqui ficam ferramentas, banco, configuração e arquitetura.
 
 - [ ] **10.2. Revisar o `README` do backend**
   - Pré-requisitos, criação do banco, script, variáveis de ambiente, `mvn spring-boot:run`, importação do Postman e `mvn test`.
@@ -563,12 +613,13 @@ Use o checklist do Enunciado, seção 9.
 
 ### FASE 12 — Conferência final e entrega
 
-- [ ] **12.1. Conferir as 6 entregas da seção 1.**
-- [ ] **12.2. Conferir as 26 operações e os 22 casos CT01 a CT22.**
-- [ ] **12.3. Rodar `mvn clean test` e subir a API em uma máquina limpa.**
-- [ ] **12.4. Conferir `git status`, remover `target/` e confirmar que não há segredos.**
-- [ ] **12.5. Confirmar com o professor o formato final de envio.**
-- [ ] **12.6. Fazer o commit/tag final e avisar a equipe.**
+- [ ] **12.1. Conferir as 9 entregas da seção 1** (6 do Enunciado + 3 adicionais).
+- [ ] **12.2. Conferir o diagrama de tabelas SQL, o diagrama de classes e o documento de RF/RNF/RN.**
+- [ ] **12.3. Conferir as 26 operações e os 22 casos CT01 a CT22.**
+- [ ] **12.4. Rodar `mvn clean test` e subir a API em uma máquina limpa.**
+- [ ] **12.5. Conferir `git status`, remover `target/` e confirmar que não há segredos.**
+- [ ] **12.6. Confirmar com o professor o formato final de envio.**
+- [ ] **12.7. Fazer o commit/tag final e avisar a equipe.**
 
 ---
 
