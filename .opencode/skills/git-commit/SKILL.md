@@ -8,6 +8,7 @@ description: Executa commits atômicos padronizados seguindo Conventional Commit
 Use esta skill sempre que qualquer arquivo for criado, modificado ou removido no projeto.
 
 ## Identidade do Autor (escolhida por commit)
+
 O projeto é colaborativo e a lista oficial de autores fica em [`docs/colaboradores.md`](../../docs/colaboradores.md):
 
 | Handle | Nome | E-mail |
@@ -18,29 +19,70 @@ O projeto é colaborativo e a lista oficial de autores fica em [`docs/colaborado
 | `matheus391` | `matheus391` | `theusilva205@gmail.com` |
 
 **Fluxo obrigatório antes de cada commit:**
+
 1. Pergunte ao usuário (ferramenta de perguntas/`question`) **qual colaborador fez as alterações**, oferecendo a lista acima como opções. Use seleção múltipla quando o trabalho for em par.
 2. Aplique a identidade escolhida **somente naquele commit**, sem alterar a configuração do repositório:
+
 ```bash
 git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"
 ```
+
 3. Se houver mais de um colaborador, o principal é o autor e os demais entram no rodapé: `Co-authored-by: Nome <email>`.
 4. Nunca rode `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem a autoria confirmada pelo usuário.
 
 ## Formato do Commit (Conventional Commits)
+
 Siga estritamente a convenção:
-`<tipo>(<escopo>): <descrição em português>`
 
-### Tipos Permitidos:
-* `feat`: Nova funcionalidade (telas Swing/JFrame, endpoints REST, novas entidades, novos serviços).
-* `fix`: Correção de bug em código, query SQL ou regra de negócio.
-* `docs`: Adição ou alteração de documentação (arquivos em `docs/`, `AGENTS.md`, README).
-* `style`: Formatação, identação ou CSS sem alteração lógica.
-* `refactor`: Refatoração de código sem alterar comportamento.
-* `test`: Adição ou atualização de testes (JUnit, casos de teste).
-* `chore`: Configurações de ambiente, Maven `pom.xml`, `.gitignore`, rotinas auxiliares.
+```text
+<tipo>(<escopo>): <descrição em português>
+```
 
-### Regras de Atomicidade:
-1. Nunca faça um único commit gigante misturando documentação, banco de dados e telas.
-2. Faça commits pequenos e bem delimitados (ex: primeiro cria a documentação de classes -> commita; depois cria o banco -> commita).
+### Tipos Permitidos
+
+- `feat`: nova funcionalidade (endpoint, entidade, service, filtro JWT, regra de negócio).
+- `fix`: correção de bug em código, consulta SQL ou regra de negócio.
+- `docs`: documentação (`docs/`, `AGENTS.md`, `README.md`, skills, coleção Postman).
+- `style`: formatação/identação sem alteração lógica.
+- `refactor`: refatoração sem alterar comportamento.
+- `test`: testes automatizados (JUnit, MockMvc, `@DataJpaTest`).
+- `chore`: configuração de ambiente, Maven `pom.xml`, `.gitignore`, rotinas auxiliares.
+
+### Exemplos adequados ao escopo atual
+
+```text
+feat(usuarios): implementa cadastro e login com JWT
+feat(security): adiciona filtro de autenticação Bearer
+feat(insumos): cria listagem com pesquisa e ordenação
+feat(movimentacoes): registra entrada e saída com transação
+feat(alertas): consulta insumos no estoque mínimo
+fix(movimentacoes): impede saldo negativo em retiradas concorrentes
+test(movimentacoes): cobre estoque insuficiente e rollback
+docs(api): registra instruções de execução local
+chore(maven): adiciona dependências do Spring Security
+```
+
+### Regras de Atomicidade
+
+1. Nunca faça um único commit gigante misturando documentação, banco de dados, segurança e endpoints.
+2. Faça commits pequenos e bem delimitados: primeiro a entidade/repositório, depois o service, depois o controller, depois o teste.
 3. Sempre execute `git status` e selecione apenas os arquivos pertinentes com `git add <caminho>`.
-4. A mensagem de commit deve ser clara, em português brasileiro e em minúsculas (ex: `feat: implementa tela de login com validação`).
+4. A mensagem deve ser clara, em português brasileiro e em minúsculas (ex.: `feat(insumos): cria endpoint de listagem`).
+5. Não commite `target/`, senhas, tokens, chaves JWT, arquivos locais de IDE ou configurações com credenciais.
+6. Se o commit for de documentação, não inclua código; se for de código, não inclua documentos de entrega não relacionados.
+
+## Antes de Commitar
+
+```bash
+git status
+git diff
+git diff --staged
+```
+
+Confirme:
+
+- os arquivos são os esperados;
+- não há segredo/credencial;
+- o contrato REST não foi alterado sem autorização;
+- o projeto compila/testa (`mvn test`) quando houver código;
+- a autoria foi confirmada pelo usuário.
