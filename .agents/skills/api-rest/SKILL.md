@@ -102,7 +102,7 @@ Use esta tabela para conferir a coleção Postman e o código. O detalhe de requ
 | Método e rota | Sucesso | Pontos de atenção |
 | --- | --- | --- |
 | `POST /api/insumos` | 201 | saldo inicial sempre 0; não aceitar `quantidadeAtual`; fornecedor ativo |
-| `GET /api/insumos` | 200 | `?nome=` parcial e sem caixa; `?ativo=todos`; ordem alfabética |
+| `GET /api/insumos` | 200 | `?nome=` parcial e sem caixa; `?ativo=todos` ou `?ativo=false`; ordem alfabética |
 | `GET /api/insumos/{id}` | 200 | inclui inativo; 404 se não existir |
 | `PUT /api/insumos/{id}` | 200 | não altera saldo; unidade imutável após movimentação; fornecedor ativo; `ativo` obrigatório |
 | `DELETE /api/insumos/{id}` | 204 | exclui sem movimentações; com histórico, inativa e preserva |

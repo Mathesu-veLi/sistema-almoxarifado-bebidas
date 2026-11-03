@@ -85,6 +85,8 @@ Em caso de conflito:
 - Se os dois documentos não resolverem, **pergunte à equipe/professor**; não invente requisito.
 
 > `Entregaveis/` e `Diversos/TODO.*` são material da versão anterior (desktop). Não use o SQL, o DER ou os requisitos antigos como contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco — sempre com autorização dos autores.
+>
+> Se a ferramenta não abrir `.docx` diretamente, extraia o texto com `python-docx` (ou peça ao usuário) antes de responder. Não presuma o conteúdo dos documentos sem lê-los.
 
 ## 7. Requisitos que a equipe deve cumprir (contexto para orientar, não para executar)
 
@@ -175,8 +177,8 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 
 ### 7.8 Entregáveis da equipe
 
-1. Código-fonte completo do projeto Spring Boot, com arquivo de dependências e instruções de execução.
-2. API integrada ao banco relacional e preparada para execução local.
+1. Código-fonte completo do projeto Spring Boot, com arquivo de dependências e instruções reproduzíveis de execução e teste.
+2. API integrada ao banco relacional, com dados de demonstração, e preparada para execução local.
 3. Coleção Postman (ou equivalente) com as requisições dos **26 métodos**.
 4. Relatório curto de testes com resultado esperado, resultado observado e evidência.
 5. Documento técnico: ferramentas, versões, banco, configurações necessárias (sem senhas reais) e arquitetura resumida.

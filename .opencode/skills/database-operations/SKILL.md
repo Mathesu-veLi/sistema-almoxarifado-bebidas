@@ -153,6 +153,8 @@ public interface InsumoRepository extends JpaRepository<Insumo, Integer> {
 
     List<Insumo> findByAtivoTrueAndNomeContainingIgnoreCaseOrderByNomeAsc(String nome);
 
+    // Útil quando o limite é um valor fixo. Para o alerta por insumo,
+    // use a @Query da seção 7, que compara quantidadeAtual com estoqueMinimo.
     List<Insumo> findByAtivoTrueAndQuantidadeAtualLessThanEqualOrderByNomeAsc(BigDecimal limite);
 }
 ```
