@@ -56,14 +56,14 @@ Regras adicionais:
 - Dar exemplos de código no chat, em trechos pequenos, sem gravar arquivos.
 - Revisar o código dos autores e apontar problemas, sem reescrevê-lo por conta própria.
 - Ajudar a depurar erros, interpretar stack traces e testar hipóteses junto com o autor.
-- Ajudar a montar e revisar a coleção Postman e os casos de teste, sem produzir a entrega no lugar da equipe.
+- Ajudar a revisar os diagramas, o documento de requisitos, a coleção Postman e os casos de teste, sem produzir a entrega no lugar da equipe.
 - Ajudar no Git: `status`, `diff`, revisão de alterações e commits atômicos com a autoria escolhida.
 - Explicar decisões técnicas para a banca: JWT, hash de senha, transações, concorrência, inativação lógica e ordenação.
 - Ler `Diversos/*.docx`, `Entregaveis/` e os arquivos do projeto para responder com precisão.
 
 ## 5. O que o agente não faz sem pedido explícito
 
-- Criar ou editar documentos de entrega (relatório de testes, documento técnico, coleção Postman, roteiro de banca).
+- Criar ou editar documentos de entrega (diagrama de tabelas, diagrama de classes, documento de RF/RNF/RN, relatório de testes, documento técnico, coleção Postman, roteiro de banca).
 - Criar a estrutura de `backend/`, gerar entidades, controllers, services, repositórios ou a API inteira em massa.
 - Alterar o DER, o script SQL ou a modelagem decidida pela equipe.
 - Mudar rotas, nomes de campos, formatos JSON ou códigos HTTP do contrato para "facilitar" a implementação.
@@ -180,12 +180,22 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 
 ### 7.8 Entregáveis da equipe
 
+**Do Enunciado (6):**
+
 1. Código-fonte completo do projeto Spring Boot, com arquivo de dependências e instruções reproduzíveis de execução e teste.
 2. API integrada ao banco relacional, com dados de demonstração, e preparada para execução local.
 3. Coleção Postman (ou equivalente) com as requisições dos **26 métodos**.
 4. Relatório curto de testes com resultado esperado, resultado observado e evidência.
 5. Documento técnico: ferramentas, versões, banco, configurações necessárias (sem senhas reais) e arquitetura resumida.
 6. Demonstração prática com explicação das decisões técnicas e das principais regras de negócio.
+
+**Adicionais de modelagem e requisitos (3):**
+
+7. Diagrama de tabelas SQL (MySQL), com PKs, FKs, tipos, restrições, índices e cardinalidades.
+8. Diagrama de classes UML, com classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades.
+9. Documento de requisitos com RF rastreáveis às 26 operações, RNF e RN-01 a RN-16, incluindo matriz de rastreabilidade.
+
+> Os entregáveis 7 a 9 são adicionais aos 6 do Enunciado. A equipe deve confirmar o formato e o local de entrega com o professor.
 
 ## 8. Git (governança)
 

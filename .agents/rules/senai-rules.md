@@ -26,4 +26,5 @@ O PDF antigo (`*.pdf.OLD`), o `Diversos/TODO.docx` e o material de `Entregaveis/
 12. **Git:** projeto colaborativo — lista em `docs/colaboradores.md`. Antes de commitar, pergunte qual colaborador fez as alterações e aplique a identidade só naquele commit (`git -c user.name=... -c user.email=... commit`). Nunca sobrescreva a configuração local.
 13. **Commits atômicos:** padrão Conventional Commits em português (`<tipo>(<escopo>): <descrição em português>`).
 14. **Segredos:** nunca versionar senha, token, chave JWT, `target/` ou configuração local.
-15. **Fora do escopo:** front-end/desktop, e-mail/push, compras, perfis, refresh token, estornos, saldo por lote, vencimento automático, integrações e relatórios PDF/Excel.
+15. **Entregáveis:** os 6 do Enunciado mais 3 adicionais — diagrama de tabelas SQL (MySQL), diagrama de classes UML e documento com RF, RNF e RN-01 a RN-16, incluindo matriz de rastreabilidade.
+16. **Fora do escopo:** front-end/desktop, e-mail/push, compras, perfis, refresh token, estornos, saldo por lote, vencimento automático, integrações e relatórios PDF/Excel.

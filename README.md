@@ -31,12 +31,22 @@ O front-end é externo. A equipe **não** desenvolve telas, HTML, CSS, JavaScrip
 
 ## O que a equipe entrega
 
+### Entregáveis do Enunciado (6)
+
 1. Código-fonte completo do projeto Spring Boot, com arquivo de dependências e instruções reproduzíveis de execução e teste.
 2. API integrada ao banco relacional, com dados de demonstração, e preparada para execução local.
 3. Coleção Postman (ou equivalente) com as requisições dos **26 métodos**.
 4. Relatório curto de testes com resultado esperado, resultado observado e evidência.
 5. Documento técnico: ferramentas, versões, banco utilizado, configurações necessárias (sem senhas reais) e arquitetura resumida.
 6. Demonstração prática, com explicação das decisões técnicas e das principais regras de negócio.
+
+### Entregáveis adicionais de modelagem e requisitos (3)
+
+7. **Diagrama de tabelas SQL (MySQL)**: tabelas, colunas, tipos, PKs, FKs, unicidade, nulabilidade, índices e cardinalidades, compatível com o script SQL.
+8. **Diagrama de classes (UML)**: classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades, compatível com o diagrama de tabelas e com o contrato.
+9. **Documento de requisitos**: requisitos funcionais (RF) rastreáveis às 26 operações, requisitos não funcionais (RNF) e regras de negócio (RN-01 a RN-16), com matriz de rastreabilidade.
+
+> As entregas 7 a 9 são **adicionais** às 6 do Enunciado. Confirmem com o professor o formato e o local de entrega.
 
 ## Arquivos e documentos do projeto
 
