@@ -1,41 +1,179 @@
-# Projeto Integrador — Indústria de Bebidas
+# Projeto Integrador — Indústria de Bebidas (API REST)
 
 > Documento temporário, para orientar a equipe durante o desenvolvimento. Pode ser atualizado ou removido quando não for mais útil.
 
-Sistema desktop (programa que roda no computador) de **almoxarifado e controle de estoque** para uma indústria de bebidas. Ele tem três partes: o **frontend** (as telas, feitas em **Swing/JFrame**), o **backend** (a parte que roda no servidor, feita em **Spring Boot REST**) e o **banco de dados** (**MySQL**, com o nome `bebidas_db`).
+Sistema de **almoxarifado e controle de estoque** para uma indústria de bebidas. A solução foi dividida entre duas empresas: a primeira já desenvolveu o **front-end web**; a nossa equipe é responsável por implementar **somente a API REST**, as regras de negócio e a integração com o banco de dados.
 
-Ferramentas que combinamos: o backend será feito no **IntelliJ IDEA**; o frontend no **Eclipse com WindowBuilder**. Antes de programar as telas, desenhamos um rascunho no **Figma, Canva ou Google Stitch**.
+O front-end vai consumir exatamente as URLs, os métodos HTTP e os formatos JSON definidos no **Contrato Técnico da API**. Por isso, a regra mais importante do projeto é: **não alterar rotas, nomes de campos, formatos JSON ou códigos HTTP para "facilitar" a implementação**.
 
-O enunciado completo está em **`Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf`**. Leiam o PDF antes de começar: ele define as entregas, as telas obrigatórias e as regras da banca.
+## Aviso importante: o escopo mudou
 
-## Arquivos do projeto
+- O projeto **não é mais** um sistema desktop com telas Swing/JFrame.
+- O PDF antigo, `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD`, está **obsoleto**. Não use esse PDF como requisito.
+- As fontes de verdade atuais são os dois arquivos `.docx` da pasta `Diversos/`:
+  - `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` — contexto, tecnologias, módulos, regras de negócio e entregáveis.
+  - `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` — contrato de integração com as **26 operações**, JSON, status HTTP, filtros e erros.
+- `Diversos/TODO.md`, `Diversos/TODO.docx` e o material de `Entregaveis/` foram produzidos para o escopo antigo (desktop). Eles são **históricos** e não devem ser usados como roteiro ou contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco.
+
+## O que o projeto é
+
+Uma **API REST** feita em **Java + Spring Boot**, integrada a um banco relacional, que permite:
+
+- cadastrar e autenticar usuários com **JWT**;
+- cadastrar setores, fornecedores e insumos;
+- registrar **entradas** e **saídas** de estoque;
+- manter o **histórico imutável** de movimentações;
+- consultar **alertas** de estoque crítico;
+- inativar cadastros sem perder o histórico.
+
+O front-end é externo. A equipe **não** desenvolve telas, HTML, CSS, JavaScript, Swing, WindowBuilder ou aplicativo desktop.
+
+## O que a equipe entrega
+
+1. Código-fonte completo do projeto Spring Boot, com arquivo de dependências e instruções reproduzíveis de execução e teste.
+2. API integrada ao banco relacional, com dados de demonstração, e preparada para execução local.
+3. Coleção Postman (ou equivalente) com as requisições dos **26 métodos**.
+4. Relatório curto de testes com resultado esperado, resultado observado e evidência.
+5. Documento técnico: ferramentas, versões, banco utilizado, configurações necessárias (sem senhas reais) e arquitetura resumida.
+6. Demonstração prática, com explicação das decisões técnicas e das principais regras de negócio.
+
+## Arquivos e documentos do projeto
 
 | Caminho | O que é |
 | --- | --- |
-| `Entregaveis/Banco de Dados/BancodoProjeto.sql` | Arquivo com os comandos que criam o banco `bebidas_db` (tabelas, consultas prontas e dados de exemplo). |
-| `Entregaveis/Banco de Dados/bebidas_db_2026-10-13T14_02_26.535Z.jpeg` | Imagem do DER (diagrama que mostra as tabelas e como elas se relacionam). |
-| `Entregaveis/Modelagem/requisitos_industria_bebidas.md` | O que o sistema precisa fazer e as regras que deve seguir, reunidos pela equipe. |
-| `Diversos/TODO.md` | Roteiro passo a passo de execução do projeto. |
-| `Diversos/TODO.docx` | Versão em Word do mesmo roteiro (histórico). |
+| `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` | Enunciado atual: contexto, tecnologias, módulos, RN-01 a RN-16 e entregáveis. |
+| `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` | Contrato atual: as 26 operações, JSON, status HTTP, filtros, ordenação e erros. |
+| `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` | PDF antigo, **obsoleto**. Não usar. |
+| `Diversos/TODO.md` e `Diversos/TODO.docx` | Roteiro da versão anterior (desktop). **Histórico**, não é o roteiro atual. |
+| `Entregaveis/` | Material da versão anterior (SQL, DER e requisitos desktop). **Somente leitura** e não é fonte de verdade do escopo atual. |
 | `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
+| `skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |
+| `AGENTS.md` | Regras de comportamento do agente neste repositório. |
 
-> **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no arquivo SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.
+> **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.
 
-## Como usar o `Diversos/TODO.md`
+## Tecnologias obrigatórias
 
-O `TODO.md` é o **roteiro de trabalho**, não uma entrega. Ele organiza o desenvolvimento em fases, da preparação do computador até o treino para a banca:
+| Área | Tecnologia / responsabilidade |
+| --- | --- |
+| Linguagem e framework | Java + Spring Boot |
+| Camada HTTP | Spring Web; endpoints REST; JSON |
+| Persistência | Spring Data JPA + Hibernate; banco relacional |
+| Organização | Camadas Controller, Service e Repository |
+| Segurança | Autenticação JWT; senha armazenada com hash seguro |
+| Validação | Regras de negócio e tratamento padronizado de erros |
+| Verificação | Postman ou ferramenta equivalente; evidências de testes |
 
-- **Fase 1:** rodar o arquivo SQL e conferir se o banco foi criado certinho.
-- **Fase 2:** definir o desenho do sistema antes de programar (diagrama de classes, DER, arquitetura, o que cada endereço da API — o canal entre as telas e o servidor — recebe e devolve, e os casos de teste).
-- **Fases 3 a 6:** montar o backend — projeto Maven, classes que representam as tabelas, acesso ao banco, regras de negócio (o que pode e o que não pode), o Quicksort e os endereços da API.
-- **Fase 7:** criar o projeto das telas em Swing.
-- **Fase 8:** desenhar rascunhos das telas (Figma, Canva ou Google Stitch) e só depois montar no WindowBuilder.
-- **Fase 9:** ligar as telas à API, para mostrar e gravar os dados de verdade.
-- **Fase 10:** executar a bateria de testes.
-- **Fase 11:** montar a pasta final de entrega.
-- **Fase 12:** treinar as respostas da arguição oral (a conversa com a banca no final).
+Ferramentas sugeridas: **IntelliJ IDEA** (ou outra IDE Java), **MySQL** (ou o banco relacional definido na disciplina de Modelagem), **Maven** e **Postman**.
 
-Cada item tem uma caixa `[ ]`. Marquem conforme concluírem, e leiam a fase inteira antes de começar: ela indica onde fazer, o que conferir e qual é o resultado esperado. Se algo no roteiro não bater com o PDF do edital, vale o PDF.
+## Arquitetura esperada
+
+```text
+Front-end externo
+      │  HTTP/JSON + Bearer <JWT>
+      ▼
+Controller  →  Service  →  Repository  →  Banco relacional
+      │             │
+      │             └─ regras de negócio, transações, concorrência
+      └─ recebe a requisição, valida o DTO e devolve o status HTTP
+```
+
+- **Controller:** expõe a rota, recebe o JSON, usa `@Valid` e devolve a resposta com o status correto.
+- **Service:** aplica as regras de negócio, controla transações e converte entidades em DTOs.
+- **Repository:** consulta e grava no banco com Spring Data JPA.
+- **DTO:** objeto de entrada/saída; nunca devolva a entidade com senha ou hash.
+- **Exception Handler:** centraliza os erros no formato `{status, mensagem, timestamp}`.
+- **Security:** valida o JWT antes de liberar os endpoints protegidos.
+
+## As 26 operações (mapa rápido)
+
+| Grupo | Operações | Total |
+| --- | --- | --- |
+| Usuários e autenticação | `POST /api/usuarios`, `POST /api/auth/login`, `GET /api/usuarios/me`, `GET /api/usuarios`, `GET /api/usuarios/{id}`, `PUT /api/usuarios/{id}`, `DELETE /api/usuarios/{id}` | 7 |
+| Setores | `POST /api/setores`, `GET /api/setores`, `GET /api/setores/{id}`, `PUT /api/setores/{id}`, `DELETE /api/setores/{id}` | 5 |
+| Fornecedores | `POST /api/fornecedores`, `GET /api/fornecedores`, `GET /api/fornecedores/{id}`, `PUT /api/fornecedores/{id}`, `DELETE /api/fornecedores/{id}` | 5 |
+| Insumos | `POST /api/insumos`, `GET /api/insumos`, `GET /api/insumos/{id}`, `PUT /api/insumos/{id}`, `DELETE /api/insumos/{id}` | 5 |
+| Movimentações | `POST /api/movimentacoes`, `GET /api/movimentacoes`, `GET /api/movimentacoes/{id}` | 3 |
+| Alertas | `GET /api/alertas/estoque` | 1 |
+
+Regras gerais do contrato:
+
+- Base URL `/api`; `Content-Type` e `Accept: application/json`.
+- IDs inteiros positivos; datas operacionais `YYYY-MM-DD`; timestamps ISO 8601 com fuso.
+- Listas retornam arrays JSON, inclusive vazios.
+- Todas as rotas exigem `Authorization: Bearer <JWT>`, **exceto** `POST /api/usuarios` e `POST /api/auth/login`.
+- O token expira em **3600 segundos**.
+- `GET` nunca altera estado.
+- A API não expõe senhas nem hashes.
+
+## Regras de negócio que não podem falhar
+
+- **RN-01** — O saldo começa em zero e só muda por `ENTRADA` ou `SAIDA`; nunca por edição direta do cadastro.
+- **RN-02** — Entradas aumentam e saídas diminuem o saldo; quantidades positivas e compatíveis com a unidade (`UN` inteira; `KG`/`L` até 3 casas).
+- **RN-03** — Não permitir saldo negativo, inclusive com duas retiradas simultâneas.
+- **RN-04** — Histórico e atualização de saldo são uma única operação transacional; falha não pode gerar atualização parcial.
+- **RN-05** — Toda movimentação registra usuário autenticado, data operacional, data/hora real do registro e saldos anterior/posterior.
+- **RN-06** — `SAIDA` exige setor ativo; `ENTRADA` pode ter lote e validade opcionais; não há saldo separado por lote.
+- **RN-07** — Movimentações são imutáveis: não existem endpoints de edição ou exclusão do histórico.
+- **RN-08** — Insumos com histórico e cadastros relacionados preservam referências e são inativados quando necessário.
+- **RN-09** — Cadastros inativos continuam consultáveis por ID; listagens mostram ativos por padrão e aceitam `?ativo=todos` ou `?ativo=false`.
+- **RN-10** — Setores, fornecedores, insumos e usuários podem ser reativados pela atualização de `ativo`.
+- **RN-11** — Cada insumo tem um único fornecedor principal; alterações respeitam vínculos e situação ativa.
+- **RN-12** — Alerta quando `quantidadeAtual <= estoqueMinimo`, considerando somente insumos ativos.
+- **RN-13** — A data operacional é informada pelo cliente, não pode ser futura e não altera a ordem contábil dos saldos.
+- **RN-14** — Cadastro de usuário e login são públicos; todos os demais endpoints exigem JWT.
+- **RN-15** — Todos os usuários autenticados têm as mesmas permissões; a senha nunca é devolvida.
+- **RN-16** — Pesquisa de insumos por nome é parcial e ignora caixa; a ordenação alfabética pode usar recursos do banco ou de Java.
+
+O detalhe de cada regra está no **Enunciado**, seção 5. O detalhe de cada endpoint está no **Contrato Técnico**.
+
+## Exclusão, reativação e ordenação
+
+- `DELETE /api/usuarios/{id}`: sempre inativação lógica.
+- `DELETE` de setores, fornecedores e insumos: exclusão definitiva quando não houver vínculos; caso contrário, inativação lógica.
+- Em ambos os casos, responder **204 sem corpo**.
+- `GET` por ID retorna também inativos, com `ativo=false`.
+- Listagens mostram ativos por padrão e aceitam `?ativo=todos` ou `?ativo=false`.
+- Nos `PUT` de cadastros, o campo `ativo` é obrigatório e permite reativação.
+- Insumos e alertas: ordem alfabética por **nome crescente**.
+- Histórico de movimentações: **dataRegistro decrescente** e, no empate, **id decrescente**.
+- Outros cadastros: **id crescente**.
+- A ordenação pode ser feita com recursos do banco ou de Java. **Quicksort não é obrigatório** no escopo atual.
+
+## Erros e códigos HTTP
+
+| HTTP | Situação | Exemplo de mensagem |
+| --- | --- | --- |
+| 400 | Validação de entrada | `O campo nome é obrigatório` |
+| 401 | Credenciais inválidas ou token ausente/inválido/expirado | `Credenciais inválidas` / `Autenticação necessária` |
+| 404 | Recurso não encontrado | `Insumo não encontrado` |
+| 409 | Violação de regra/estado (duplicidade, estoque insuficiente, insumo inativo) | `Quantidade solicitada superior ao estoque disponível` |
+| 500 | Falha inesperada | `Erro interno do servidor` |
+
+O corpo de erro deve seguir:
+
+```json
+{
+  "status": 409,
+  "mensagem": "Quantidade solicitada superior ao estoque disponível",
+  "timestamp": "2026-11-05T15:20:00-03:00"
+}
+```
+
+Nunca devolva stack trace ou detalhes internos ao cliente.
+
+## Critérios de avaliação (para priorizar o esforço)
+
+| Critério | Peso |
+| --- | --- |
+| Fidelidade ao contrato REST e funcionalidades | 35% |
+| Regras de negócio, validações e concorrência | 25% |
+| Arquitetura Controller/Service/Repository | 15% |
+| Integração com banco e JPA | 10% |
+| JWT e tratamento de erros | 10% |
+| Testes, documentação e demonstração | 5% |
+
+Na prática: comecem pelo contrato (as 26 operações), depois garantam as regras de negócio (saldo, transação, concorrência e inativação), e só então refinem testes e documentação. Um endpoint bonito que não respeita o contrato vale menos do que um endpoint simples que respeita.
 
 ## Como começar a contribuir
 
@@ -117,20 +255,21 @@ Na primeira execução (nos dois casos):
 
 ### 5. Comece a pedir ajuda
 
-Digite sua dúvida na caixa de mensagem e pressione **Enter**. Vale perguntar qualquer coisa: requisito do edital, erro de compilação, conceito, revisão de código, Git, Quicksort, Swing, JPA...
+Digite sua dúvida na caixa de mensagem e pressione **Enter**. Vale perguntar qualquer coisa: contrato da API, erro de compilação, Spring Boot, JPA, JWT, transações, Postman, Git...
 
 Exemplos de primeiras mensagens:
 
 - "Leia o `AGENTS.md` e me explique em poucas palavras qual é o seu papel neste projeto."
-- "Estou começando agora. Me ajude a entender a Fase 1 do `Diversos/TODO.md`."
+- "Leia o `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` e me resuma as regras de negócio."
+- "Me explica a diferença entre `POST /api/usuarios` e `POST /api/auth/login` no contrato."
 - "Deu este erro ao subir o backend: `<cole o erro completo>`. O que pode ser?"
-- "Explica como montar um `JTable` (a tabela da tela) que recebe a lista de `GET /api/insumos` (o endereço da API que devolve os insumos)."
+- "Como implemento o `POST /api/movimentacoes` sem deixar o saldo negativo?"
 
 Atalhos úteis:
 
 | Atalho | Para quê |
 | --- | --- |
-| `@` | Anexar um arquivo da pasta ao pedido (ex.: `@Diversos/TODO.md`). |
+| `@` | Anexar um arquivo da pasta ao pedido (ex.: `@Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx`). |
 | `!` no início | Rodar um comando no terminal (ex.: `!git status`). |
 | `/` | Listar os comandos disponíveis. |
 | `/new` | Começar uma conversa nova. |
@@ -138,7 +277,7 @@ Atalhos úteis:
 
 O repositório já traz comandos próprios: `/commit` (salva suas alterações e registra quem fez), `/banca` (treino para a arguição) e `/testes` (revisão de cenários).
 
-**Combine com o agente:** ele explica, revisa e orienta, mas não decide o projeto por vocês. Peça em partes pequenas, leia a resposta e só aceite o que a equipe entende. Nunca cole senhas, chaves de acesso ou dados pessoais no chat.
+**Combine com o agente:** ele explica, revisa e orienta, mas não decide o projeto por vocês. Peça em partes pequenas, leia a resposta e só aceite o que a equipe entende. Nunca cole senhas, chaves JWT ou dados pessoais no chat.
 
 ### 6. Faça sua primeira contribuição
 
@@ -162,9 +301,9 @@ Passo a passo:
    git switch -c feat/minha-contribuicao
    ```
 
-   O comando cria a branch e já entra nela. Troque `minha-contribuicao` pelo assunto (por exemplo, `feat/tela-insumos`). O prefixo `feat` é o padrão do projeto para coisas novas.
+   O comando cria a branch e já entra nela. Troque `minha-contribuicao` pelo assunto (por exemplo, `feat/endpoint-insumos`). O prefixo `feat` é o padrão do projeto para coisas novas.
 
-2. **Faça a alteração e teste.** Pode pedir ajuda ao agente durante o processo, mas confira se o sistema continua funcionando.
+2. **Faça a alteração e teste.** Pode pedir ajuda ao agente durante o processo, mas confira se a API continua funcionando e se o contrato foi respeitado.
 
 3. **Veja o que mudou:**
 
@@ -185,7 +324,7 @@ Passo a passo:
 
    Na primeira vez, o Git pode abrir uma janela do navegador para você entrar na sua conta do GitHub. Entre com a conta que usa no projeto.
 
-6. **Abra o Pull Request.** Depois do push, entre na página do repositório no GitHub. Vai aparecer uma faixa amarela com o botão **Compare & pull request**; clique nele. Escreva um título curto (ex.: "Tela de insumos"), confira se a branch de destino é a `main` e clique em **Create pull request**.
+6. **Abra o Pull Request.** Depois do push, entre na página do repositório no GitHub. Vai aparecer uma faixa amarela com o botão **Compare & pull request**; clique nele. Escreva um título curto (ex.: "Endpoint de insumos"), confira se a branch de destino é a `main` e clique em **Create pull request**.
 
    Se a faixa não aparecer, clique em **Pull requests** → **New pull request** e escolha a sua branch.
 
@@ -197,34 +336,74 @@ Passo a passo:
 
 > **Regra da equipe:** pode criar branch e enviar (`push`) a sua branch à vontade. O que não pode é enviar alteração direto para a `main`: todo trabalho passa por um Pull Request e pela revisão de outra pessoa. Assim um erro não apaga o trabalho do colega e a `main` continua funcionando.
 
+## Como rodar a API (quando o backend existir)
+
+O projeto ainda não tem a pasta `backend/` criada pela equipe. Quando ela existir, o fluxo esperado é:
+
+1. **Crie o banco** com o script SQL novo, produzido pela equipe na disciplina de Modelagem e Banco de Dados. Não use o script antigo de `Entregaveis/` como se fosse o modelo atual.
+2. **Configure a conexão** em `backend/src/main/resources/application.properties` ou por variáveis de ambiente. Não versione senha real.
+3. **Confira as dependências** no `pom.xml`: Spring Web, Spring Data JPA, Validation, driver do banco, Spring Security e a biblioteca JWT escolhida pela equipe.
+4. **Suba a aplicação:**
+
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
+
+5. **Teste no Postman:** comece por `POST /api/usuarios`, depois `POST /api/auth/login`, guarde o token e use `Authorization: Bearer <token>` nas demais rotas.
+
+> O agente pode ajudar a diagnosticar erros de execução e de conexão, mas a configuração e as credenciais locais são responsabilidade de cada colaborador.
+
+## Como testar no Postman
+
+1. Crie uma coleção com as **26 operações** do contrato.
+2. Crie um ambiente com `baseUrl` (ex.: `http://localhost:8080/api`) e `token`.
+3. No login, copie o token da resposta e salve na variável `token`.
+4. Nas rotas protegidas, use `Authorization: Bearer {{token}}`.
+5. Rode os casos mínimos **CT01 a CT22** do contrato (seção 7) e registre:
+   - resultado esperado;
+   - resultado observado;
+   - evidência (print, log ou export da coleção).
+6. Teste também os erros: sem token, token inválido, estoque insuficiente, data futura, cadastro duplicado e insumo inativo.
+
 ## Como pedir ajuda ao agente
 
 O agente é um **apoio**, não o autor do projeto. Ele pode explicar conceitos, revisar código, ajudar a interpretar erros e sugerir caminhos. Quem decide, escreve e defende o projeto é a equipe.
 
 **Pedidos que funcionam bem:**
 
-- "Explica como preencher um `JTable` (a tabela que aparece na tela) com a lista que vem de `GET /api/insumos` (o endereço da API que devolve os insumos)."
-- "Deu este erro ao subir o Spring Boot (o backend): `<cole o erro>`. O que pode ser?"
-- "Revisa esta consulta do `MovimentacaoRepository` (a classe que busca as movimentações no banco) e aponta problemas."
-- "Como justificar o uso do Quicksort (o algoritmo de ordenação que implementamos) na banca?"
-- "O que falta no nosso documento de requisitos para atender ao edital?"
+- "Me explica como o filtro JWT deve liberar `POST /api/auth/login` e bloquear as demais rotas."
+- "Deu este erro ao subir o Spring Boot: `<cole o erro>`. O que pode ser?"
+- "Revisa este `MovimentacaoService` e aponta se ele garante a RN-04 e a RN-03."
+- "Como justificar o uso de transação e lock na banca?"
+- "O que falta na nossa coleção Postman para cobrir os 26 endpoints?"
+- "Confere se este DTO devolve algum campo que o contrato não permite."
 
 **Pedidos que atrapalham:**
 
 - "Faz o projeto inteiro."
-- "Monta o diagrama de classes."
-- "Escreve a documentação da entrega."
+- "Monta o banco e o DER."
+- "Escreve o relatório de testes e o documento técnico."
+- "Cria o frontend."
 
 Nesses casos o agente deve perguntar antes e devolver orientação, porque essas decisões e a autoria precisam ser de vocês.
 
 **Fluxo sugerido:**
 
-1. A equipe decide o que fazer (consultando o PDF e o `TODO.md`).
+1. A equipe decide o que fazer (consultando o Enunciado e o Contrato).
 2. A equipe implementa ou pede um apoio pontual ao agente.
 3. A equipe revisa e entende o que foi sugerido.
 4. Só então o código entra no projeto, com um commit que registra quem fez a alteração.
 
 Dica para a banca: não colem código que vocês não sabem explicar. Se o agente sugerir algo, peçam o "porquê" antes de usar.
+
+## Commits
+
+- O projeto é colaborativo: cada commit registra quem fez a alteração (lista em `docs/colaboradores.md`).
+- Padrão: `tipo(escopo): descrição em português`. O **tipo** diz a natureza da mudança (`feat` = funcionalidade nova, `fix` = correção, `docs` = documentação) e o **escopo**, a parte do projeto — por exemplo, `feat(insumos): cria endpoint de listagem`.
+- Um commit por assunto. Não misture banco, API e documentação no mesmo commit.
+- Se usarem o comando `/commit`, informem qual colaborador fez as alterações. Sem essa confirmação, o commit não deve ser feito.
+- Nunca versione senhas, tokens, chaves JWT, arquivos `target/` ou configurações locais.
 
 ## Agentes de IA gratuitos
 
@@ -261,9 +440,26 @@ Para usar uma IA **sem internet**, dá para rodar o [Ollama](https://ollama.com)
 
 A documentação oficial em [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) é a fonte mais confiável quando o vídeo estiver desatualizado.
 
-## Commits
+## Glossário rápido
 
-- O projeto é colaborativo: cada commit registra quem fez a alteração (lista em `docs/colaboradores.md`).
-- Padrão: `tipo(escopo): descrição em português`. O **tipo** diz a natureza da mudança (`feat` = funcionalidade nova, `fix` = correção, `docs` = documentação) e o **escopo**, a parte do projeto — por exemplo, `feat(insumos): cria a tela de insumos`.
-- Um commit por assunto. Não misturem banco, tela e documentação no mesmo commit.
-- Se usarem o comando `/commit`, informem qual colaborador fez as alterações. Sem essa confirmação, o commit não deve ser feito.
+| Palavra | O que significa na prática |
+| --- | --- |
+| **API REST** | Conjunto de endpoints HTTP que o front-end usa para ler e gravar dados. |
+| **Endpoint** | Rota HTTP exposta pela API (ex.: `POST /api/auth/login`). |
+| **JWT** | Token assinado que identifica o usuário autenticado e expira em 3600 segundos. |
+| **Bearer** | Formato do cabeçalho `Authorization: Bearer <token>`. |
+| **Hash** | Transformação irreversível usada para guardar a senha com segurança (ex.: BCrypt). |
+| **DTO** | Objeto simples de transporte de dados entre camadas ou pela API. |
+| **Controller** | Camada que recebe a requisição HTTP e devolve a resposta. |
+| **Service** | Camada que aplica as regras de negócio e controla transações. |
+| **Repository** | Interface Spring Data usada para consultar e gravar no banco. |
+| **Entidade JPA** | Classe Java anotada com `@Entity` que representa uma tabela. |
+| **Transação** | Conjunto de operações que só é confirmado se tudo der certo; em falha, há rollback. |
+| **Lock** | Mecanismo para evitar que duas operações concorrentes deixem o saldo negativo. |
+| **Inativação lógica** | Marcar `ativo=false` sem apagar o registro nem quebrar o histórico. |
+| **Saldo** | `quantidadeAtual` do insumo, alterada somente por movimentações. |
+| **Data operacional** | `dataMovimentacao` informada pelo cliente; não pode ser futura. |
+| **Data de registro** | `dataRegistro` gerada pelo servidor no momento do lançamento. |
+| **Alerta crítico** | Insumo ativo com `quantidadeAtual <= estoqueMinimo`. |
+| **Postman** | Ferramenta para enviar requisições à API e guardar as evidências de teste. |
+| **Contrato** | O documento `Contrato_Tecnico_API_Industria_Bebidas.docx`, que define as 26 operações. |
