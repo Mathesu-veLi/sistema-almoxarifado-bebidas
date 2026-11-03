@@ -1,65 +1,120 @@
 ---
 name: sorting-algorithms
-description: Implementação e fundamentação teórica do algoritmo de ordenação (Quicksort) no backend Spring Boot, exigido na tela de movimentação e para a banca oral do SENAI.
+description: Ordenação e consultas exigidas pelo Contrato Técnico da API, com opções de implementação no banco (ORDER BY) ou em Java, incluindo Quicksort opcional e fundamentação para a banca.
 ---
 
-# Sorting Algorithms Skill (Algoritmo de Ordenação)
+# Sorting Algorithms Skill (ordenação e consultas)
 
-## 1. Contexto do Requisito no Edital SENAI
-* **Item 7.1.1:** Apresentar os insumos cadastrados em ordem alfabética.
-* **Item 7.1.2:** Aplicar algum algoritmo de ordenação escolhido pelo estudante.
-* **Pergunta da Banca (Item 9):** *"Qual algoritmo de ordenação foi utilizado para listar os insumos em ordem alfabética? Por que a equipe escolheu esse algoritmo?"*
+## 1. O que o contrato atual exige
 
-## 2. Onde o algoritmo vive na nova arquitetura
+O Contrato Técnico **não exige um algoritmo específico**. Ele exige que as listagens saiam na ordem correta:
 
-* **Backend:** `backend/src/main/java/com/senai/bebidas/service/OrdenacaoService.java`.
-* **Uso:** `MovimentacaoService.listarInsumosOrdenados()` busca os insumos no repositório (sem `ORDER BY`) e aplica o Quicksort antes de devolver.
-* **Exposição:** `GET /api/insumos/ordenados` retorna a lista já ordenada.
-* **Frontend Swing:** apenas exibe a ordem recebida da API. **Não** usa `Collections.sort()`, `List.sort()` ou `ORDER BY` para esse fim.
+| Listagem | Ordem obrigatória |
+| --- | --- |
+| Insumos | nome crescente |
+| Alertas de estoque | nome crescente |
+| Histórico de movimentações | `dataRegistro` decrescente e, no empate, `id` decrescente |
+| Demais cadastros (usuários, setores, fornecedores) | id crescente |
 
-## 3. Algoritmo Selecionado: Quicksort (Divisão e Conquista)
+Além disso:
 
-### Por que escolher o Quicksort? (Justificativa para a Banca)
-1. **Eficiência Temporal:** complexidade média de tempo de $O(n \log n)$, significativamente superior a algoritmos simples como Bubble Sort ($O(n^2)$) ou Selection Sort ($O(n^2)$), especialmente quando o almoxarifado lida com centenas de lotes e matérias-primas.
-2. **Eficiência Espacial (In-place):** opera diretamente sobre a lista em memória com consumo adicional mínimo ($O(\log n)$ de pilha de recursão).
-3. **Divisão e Conquista:** demonstra domínio de estruturas de dados e algoritmos clássicos exigidos pelo perfil técnico do SENAI.
-4. **Independência do SGBD:** a ordenação é feita em Java, não delegada ao `ORDER BY`, comprovando a implementação própria.
+- A pesquisa de insumos por nome é **parcial** e **ignora maiúsculas/minúsculas**.
+- A ordenação pode ser implementada com recursos do banco ou de Java (RN-16).
+- **Quicksort não é obrigatório** no escopo atual. A skill antiga que exigia Quicksort foi substituída por esta.
 
-## 4. Implementação Canônica no Backend (Java 17)
+> Se a equipe escolher Quicksort, ótimo: é uma decisão técnica válida e pode ser explicada na banca. Mas não apresente isso como exigência do contrato.
+
+## 2. Opção 1: ordenar no banco (mais simples)
+
+Use método derivado do Spring Data:
 
 ```java
-package com.senai.bebidas.service;
+public interface InsumoRepository extends JpaRepository<Insumo, Integer> {
 
-import com.senai.bebidas.model.TipoInsumo;
+    List<Insumo> findByAtivoTrueOrderByNomeAsc();
 
-import java.util.List;
+    List<Insumo> findByAtivoTrueAndNomeContainingIgnoreCaseOrderByNomeAsc(String nome);
+}
+```
 
+Ou `@Query` com `ORDER BY`:
+
+```java
+@Query("""
+    select i from Insumo i
+     where i.ativo = true
+     order by i.nome asc
+    """)
+List<Insumo> listarAtivosOrdenados();
+```
+
+Histórico:
+
+```java
+List<Movimentacao> findAllByOrderByDataRegistroDescIdDesc();
+```
+
+Vantagens:
+
+- Menos código e menos chance de erro.
+- O banco usa índices e otimiza a ordenação.
+- O contrato permite explicitamente.
+
+Cuidados:
+
+- Use `IgnoreCase` ou `lower(...)` para pesquisa sem caixa.
+- Inclua o desempate `id desc` no histórico.
+- Não esqueça o filtro de `ativo` quando a listagem padrão for de ativos.
+- Não ordene no controller; deixe a consulta/service responsável.
+
+## 3. Opção 2: ordenar em Java
+
+Use quando a regra de ordenação for mais complexa, quando a lista já estiver em memória ou quando a equipe quiser demonstrar o algoritmo.
+
+### Comparator
+
+```java
+List<Insumo> ordenados = insumos.stream()
+        .sorted(Comparator.comparing(Insumo::getNome, String.CASE_INSENSITIVE_ORDER))
+        .toList();
+```
+
+Histórico com desempate:
+
+```java
+historico.sort(
+    Comparator.comparing(Movimentacao::getDataRegistro).reversed()
+              .thenComparing(Movimentacao::getId, Comparator.reverseOrder())
+);
+```
+
+### Quicksort (opcional)
+
+Se a equipe quiser implementar Quicksort para fins de aprendizado:
+
+```java
 public final class OrdenacaoService {
 
     private OrdenacaoService() { }
 
-    public static void ordenarInsumosPorNome(List<TipoInsumo> lista) {
-        if (lista == null || lista.size() <= 1) {
-            return;
-        }
+    public static void ordenarPorNome(List<Insumo> lista) {
+        if (lista == null || lista.size() <= 1) return;
         quickSort(lista, 0, lista.size() - 1);
     }
 
-    private static void quickSort(List<TipoInsumo> lista, int inicio, int fim) {
+    private static void quickSort(List<Insumo> lista, int inicio, int fim) {
         if (inicio < fim) {
-            int indicePivo = particionar(lista, inicio, fim);
-            quickSort(lista, inicio, indicePivo - 1);
-            quickSort(lista, indicePivo + 1, fim);
+            int pivo = particionar(lista, inicio, fim);
+            quickSort(lista, inicio, pivo - 1);
+            quickSort(lista, pivo + 1, fim);
         }
     }
 
-    private static int particionar(List<TipoInsumo> lista, int inicio, int fim) {
-        // Escolha do pivô (último elemento)
-        TipoInsumo pivo = lista.get(fim);
+    private static int particionar(List<Insumo> lista, int inicio, int fim) {
+        Insumo pivo = lista.get(fim);
         int i = inicio - 1;
 
         for (int j = inicio; j < fim; j++) {
-            // Comparação alfabética ignorando maiúsculas/minúsculas
             if (lista.get(j).getNome().compareToIgnoreCase(pivo.getNome()) <= 0) {
                 i++;
                 trocar(lista, i, j);
@@ -69,54 +124,62 @@ public final class OrdenacaoService {
         return i + 1;
     }
 
-    private static void trocar(List<TipoInsumo> lista, int i, int j) {
-        TipoInsumo temp = lista.get(i);
+    private static void trocar(List<Insumo> lista, int i, int j) {
+        Insumo temp = lista.get(i);
         lista.set(i, lista.get(j));
         lista.set(j, temp);
     }
 }
 ```
 
-### Uso no serviço
+Complexidade:
 
-```java
-@Service
-public class MovimentacaoService {
+- Melhor caso/média: **O(n log n)**.
+- Pior caso: **O(n²)** (pivô ruim, lista já ordenada com pivô no fim).
+- Espaço: **O(log n)** de pilha de recursão.
+- Não é estável; se precisar de estabilidade, use `Comparator`/`TimSort` ou inclua critério de desempate.
 
-    private final TipoInsumoRepository tipoInsumoRepository;
+## 4. Como escolher e justificar
 
-    public MovimentacaoService(TipoInsumoRepository tipoInsumoRepository) {
-        this.tipoInsumoRepository = tipoInsumoRepository;
-    }
+| Situação | Escolha razoável |
+| --- | --- |
+| Listagem simples por nome | `ORDER BY` no banco ou método derivado |
+| Histórico com dois critérios | `ORDER BY dataRegistro DESC, id DESC` |
+| Regra de ordenação dinâmica/complexa | `Comparator` em Java |
+| Aula/banca sobre algoritmos | Quicksort implementado pela equipe, se o grupo souber explicar |
+| Lista pequena já carregada | `Comparator` é suficiente |
 
-    public List<TipoInsumo> listarInsumosOrdenados() {
-        List<TipoInsumo> insumos = tipoInsumoRepository.findAll(); // sem ORDER BY
-        OrdenacaoService.ordenarInsumosPorNome(insumos);
-        return insumos;
-    }
-}
-```
+Se a equipe optar por Quicksort, prepare a justificativa:
 
-## 5. Cuidados e Anti-padrões
+- divisão e conquista;
+- média O(n log n);
+- in-place (pouco espaço extra);
+- escolha do pivô e risco do pior caso;
+- por que não usou `ORDER BY` (decisão didática, não exigência do contrato).
 
-* Evitar: `SELECT ... ORDER BY nome` para a tela de movimentação.
-* Evitar: `Collections.sort(lista)`, `lista.sort(...)` ou `Stream.sorted()` nesse fluxo.
-* Evitar: ordenar no frontend Swing depois de receber a lista (a ordem correta já vem do backend).
-* Preferir: Quicksort puro, recursivo, com particionamento de Lomuto e troca in-place.
-* Preferir: tratar nomes nulos antes (cadastro valida `@NotBlank`).
+Se optar por `ORDER BY`, a justificativa também é válida:
 
-## 6. Testes Unitários de Ordenação
+- o contrato permite recursos do banco (RN-16);
+- menos código e melhor uso de índices;
+- a equipe concentra o esforço nas regras de negócio e na segurança.
 
-Criar `backend/src/test/java/com/senai/bebidas/service/OrdenacaoServiceTest.java` com JUnit 5 e validar:
-* Lista vazia e lista com 1 elemento (não deve lançar exceção).
-* Nomes fora de ordem (ex: `["Xarope", "Concentrado", "Açúcar", "Garrafa"]`).
-* Diferenças de caixa alta/baixa (`compareToIgnoreCase`).
-* Nomes duplicados (ordem estável não é exigida, mas todos devem permanecer).
-* Lista já ordenada e lista em ordem inversa (pior caso do pivô no último elemento).
+## 5. Testes
 
-Execução:
+- Lista vazia e com um elemento.
+- Nomes fora de ordem, com maiúsculas/minúsculas diferentes.
+- Nomes duplicados.
+- Lista já ordenada e ordem inversa.
+- Histórico com mesma `dataRegistro` (desempate por id).
+- Pesquisa parcial (`"garrafa"` encontra `"Garrafa PET 2L"`).
+- Listagem de inativos (`?ativo=todos` e `?ativo=false`).
 
-```bash
-cd backend
-mvn test -Dtest=OrdenacaoServiceTest
-```
+## 6. Anti-padrões
+
+- Dizer que Quicksort é obrigatório (não é no contrato atual).
+- Ordenar no controller ou no DTO.
+- Esquecer o desempate `id desc` no histórico.
+- Ordenar apenas por `dataRegistro` e deixar a ordem instável.
+- Usar `ORDER BY` com nome de coluna errado ou SQL injection (não concatene entrada do usuário).
+- Reordenar a lista depois de já ter vindo ordenada do banco, sem necessidade.
+- Misturar ordem de insumos e ordem de alertas de forma diferente.
+- Ignorar `ativo` nas listagens padrão.
