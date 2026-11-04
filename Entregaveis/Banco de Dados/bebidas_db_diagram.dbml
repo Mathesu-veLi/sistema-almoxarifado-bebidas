@@ -1,0 +1,74 @@
+Table insumo {
+  id integer [primary key, increment]
+  nome varchar [not null]
+  quantidade_minima DECIMAL(15,3) [not null]
+  quantidade_atual DECIMAL(15,3) [note: 'Calculado por trigger (soma de todas as entradas menos soma de todas as saidas)']
+  unidade_medida enum("UN", "KG", "L") [not null]
+  id_fornecedor int [not null]
+  ativo bool [not null, default: true]
+}
+
+Ref: insumo.id_fornecedor > fornecedores.id
+
+Table fornecedores {
+  id integer [primary key, increment]
+  nome varchar [not null]
+  cnpj varchar [not null, unique]
+  telefone varchar [not null]
+  ativo bool [not null, default: true]
+}
+
+Table movimentacoes {
+  id integer [primary key, increment]
+  id_tipo_insumo integer [not null]
+  quantidade DECIMAL(15,3) [not null]
+  tipo_movimentacao enum("ENTRADA", "SAIDA") [not null, note: 'Se ENTRADA, lote_id obrigatorio. Se SAIDA, setor_id obrigatorio']
+  user_id int [not null]
+  setor_id int
+  lote_id int
+  saldo_anterior DECIMAL(15,3) [note: 'Criado com trigger']
+  saldo_posterior DECIMAL(15,3)
+  data date
+  created_at timestamp
+}
+
+Ref: movimentacoes.id_tipo_insumo > insumo.id
+Ref: movimentacoes.lote_id >? lotes.id
+Ref: movimentacoes.user_id > users.id
+Ref: movimentacoes.setor_id >? setores.id
+
+Table lotes {
+  id integer [PK, increment]
+  cod varchar [not null]
+  tipo_insumo_id integer [not null]
+  volume integer [not null]
+  unidade_medida enum("kg", "g", "mg") [default: "kg"]
+  validade date
+}
+
+Table users {
+  id integer [PK, increment]
+  nome varchar [not null]
+  login varchar [not null, unique]
+  email varchar [not null]
+  senha varchar [not null]
+  cpf varchar [not null]
+  setor_id integer [not null]
+  cargo_id integer [not null]
+  ativo bool [not null, default: true]
+}
+
+Ref: users.setor_id > setores.id
+Ref: users.cargo_id > cargo.id
+
+Table setores {
+  id integer [primary key, increment]
+  nome varchar [not null, unique]
+  descricao text
+  ativo bool [not null, default: true]
+}
+
+Table cargo {
+  id integer [primary key, increment]
+  nome varchar [not null]
+}
