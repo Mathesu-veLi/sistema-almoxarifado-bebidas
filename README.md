@@ -49,147 +49,6 @@ O front-end é externo. A equipe **não** desenvolve telas, HTML, CSS, JavaScrip
 
 > As entregas 7 a 10 são **adicionais** às 6 do Enunciado. A ordem de produção é: documento de RN/RF/RNF → documento e diagrama de casos de uso → diagrama de banco → diagrama de classes → código. Confirmem com o professor o formato e o local de entrega.
 
-## Arquivos e documentos do projeto
-
-| Caminho | O que é |
-| --- | --- |
-| `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` | Enunciado atual: contexto, tecnologias, módulos, RN-01 a RN-16 e entregáveis. |
-| `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` | Contrato atual: as 26 operações, JSON, status HTTP, filtros, ordenação e erros. |
-| `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` | PDF antigo, **obsoleto**. Não usar. |
-| `Diversos/TODO.md` | Roteiro **atual** da equipe: fases, 26 operações, CT01 a CT22, MySQL e entregáveis. |
-| `Diversos/TODO.docx` | Roteiro da versão anterior (desktop). **Histórico**. |
-| `Entregaveis/` | Material da versão anterior (SQL, DER e requisitos desktop). **Somente leitura** e não é fonte de verdade do escopo atual. |
-| `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
-| `skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |
-| `AGENTS.md` | Regras de comportamento do agente neste repositório. |
-
-> **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.
-
-## Tecnologias obrigatórias
-
-| Área | Tecnologia / responsabilidade |
-| --- | --- |
-| Linguagem e framework | Java + Spring Boot |
-| Camada HTTP | Spring Web; endpoints REST; JSON |
-| Persistência | Spring Data JPA + Hibernate; banco relacional |
-| Organização | Camadas Controller, Service e Repository |
-| Segurança | Autenticação JWT; senha armazenada com hash seguro |
-| Validação | Regras de negócio e tratamento padronizado de erros |
-| Verificação | Postman ou ferramenta equivalente; evidências de testes |
-
-Ferramentas sugeridas: **IntelliJ IDEA** (ou outra IDE Java), **MySQL** (ou o banco relacional definido na disciplina de Modelagem), **Maven** e **Postman**.
-
-## Arquitetura esperada
-
-```text
-Front-end externo
-      │  HTTP/JSON + Bearer <JWT>
-      ▼
-Controller  →  Service  →  Repository  →  Banco relacional
-      │             │
-      │             └─ regras de negócio, transações, concorrência
-      └─ recebe a requisição, valida o DTO e devolve o status HTTP
-```
-
-- **Controller:** expõe a rota, recebe o JSON, usa `@Valid` e devolve a resposta com o status correto.
-- **Service:** aplica as regras de negócio, controla transações e converte entidades em DTOs.
-- **Repository:** consulta e grava no banco com Spring Data JPA.
-- **DTO:** objeto de entrada/saída; nunca devolva a entidade com senha ou hash.
-- **Exception Handler:** centraliza os erros no formato `{status, mensagem, timestamp}`.
-- **Security:** valida o JWT antes de liberar os endpoints protegidos.
-
-## As 26 operações (mapa rápido)
-
-| Grupo | Operações | Total |
-| --- | --- | --- |
-| Usuários e autenticação | `POST /api/usuarios`, `POST /api/auth/login`, `GET /api/usuarios/me`, `GET /api/usuarios`, `GET /api/usuarios/{id}`, `PUT /api/usuarios/{id}`, `DELETE /api/usuarios/{id}` | 7 |
-| Setores | `POST /api/setores`, `GET /api/setores`, `GET /api/setores/{id}`, `PUT /api/setores/{id}`, `DELETE /api/setores/{id}` | 5 |
-| Fornecedores | `POST /api/fornecedores`, `GET /api/fornecedores`, `GET /api/fornecedores/{id}`, `PUT /api/fornecedores/{id}`, `DELETE /api/fornecedores/{id}` | 5 |
-| Insumos | `POST /api/insumos`, `GET /api/insumos`, `GET /api/insumos/{id}`, `PUT /api/insumos/{id}`, `DELETE /api/insumos/{id}` | 5 |
-| Movimentações | `POST /api/movimentacoes`, `GET /api/movimentacoes`, `GET /api/movimentacoes/{id}` | 3 |
-| Alertas | `GET /api/alertas/estoque` | 1 |
-
-Regras gerais do contrato:
-
-- Base URL `/api`; `Content-Type` e `Accept: application/json`.
-- IDs inteiros positivos; datas operacionais `YYYY-MM-DD`; timestamps ISO 8601 com fuso.
-- Listas retornam arrays JSON, inclusive vazios.
-- Todas as rotas exigem `Authorization: Bearer <JWT>`, **exceto** `POST /api/usuarios` e `POST /api/auth/login`.
-- O token expira em **3600 segundos**.
-- `GET` nunca altera estado.
-- A API não expõe senhas nem hashes.
-
-> Os IDs, datas e valores dos exemplos do contrato são ilustrativos. Não trate `id=1` ou `insumoId=10` como dados fixos; criem seus próprios registros de demonstração.
-
-## Regras de negócio que não podem falhar
-
-- **RN-01** — O saldo começa em zero e só muda por `ENTRADA` ou `SAIDA`; nunca por edição direta do cadastro.
-- **RN-02** — Entradas aumentam e saídas diminuem o saldo; quantidades positivas e compatíveis com a unidade (`UN` inteira; `KG`/`L` até 3 casas).
-- **RN-03** — Não permitir saldo negativo, inclusive com duas retiradas simultâneas.
-- **RN-04** — Histórico e atualização de saldo são uma única operação transacional; falha não pode gerar atualização parcial.
-- **RN-05** — Toda movimentação registra usuário autenticado, data operacional, data/hora real do registro e saldos anterior/posterior.
-- **RN-06** — `SAIDA` exige setor ativo; `ENTRADA` pode ter lote e validade opcionais; não há saldo separado por lote.
-- **RN-07** — Movimentações são imutáveis: não existem endpoints de edição ou exclusão do histórico.
-- **RN-08** — Insumos com histórico e cadastros relacionados preservam referências e são inativados quando necessário.
-- **RN-09** — Cadastros inativos continuam consultáveis por ID; listagens mostram ativos por padrão e aceitam `?ativo=todos` ou `?ativo=false`.
-- **RN-10** — Setores, fornecedores, insumos e usuários podem ser reativados pela atualização de `ativo`.
-- **RN-11** — Cada insumo tem um único fornecedor principal; alterações respeitam vínculos e situação ativa.
-- **RN-12** — Alerta quando `quantidadeAtual <= estoqueMinimo`, considerando somente insumos ativos.
-- **RN-13** — A data operacional é informada pelo cliente, não pode ser futura e não altera a ordem contábil dos saldos.
-- **RN-14** — Cadastro de usuário e login são públicos; todos os demais endpoints exigem JWT.
-- **RN-15** — Todos os usuários autenticados têm as mesmas permissões; a senha nunca é devolvida.
-- **RN-16** — Pesquisa de insumos por nome é parcial e ignora caixa; a ordenação alfabética pode usar recursos do banco ou de Java.
-
-O detalhe de cada regra está no **Enunciado**, seção 5. O detalhe de cada endpoint está no **Contrato Técnico**.
-
-## Exclusão, reativação e ordenação
-
-- `DELETE /api/usuarios/{id}`: sempre inativação lógica.
-- `DELETE` de setores, fornecedores e insumos: exclusão definitiva quando não houver vínculos; caso contrário, inativação lógica.
-- Em ambos os casos, responder **204 sem corpo**.
-- `GET` por ID retorna também inativos, com `ativo=false`.
-- Listagens mostram ativos por padrão e aceitam `?ativo=todos` ou `?ativo=false`.
-- Nos `PUT` de cadastros, o campo `ativo` é obrigatório e permite reativação.
-- Insumos e alertas: ordem alfabética por **nome crescente**.
-- Histórico de movimentações: **dataRegistro decrescente** e, no empate, **id decrescente**.
-- Outros cadastros: **id crescente**.
-- A ordenação pode ser feita com recursos do banco ou de Java. **Quicksort não é obrigatório** no escopo atual.
-
-## Erros e códigos HTTP
-
-| HTTP | Situação | Exemplo de mensagem |
-| --- | --- | --- |
-| 400 | Validação de entrada | `O campo nome é obrigatório` |
-| 401 | Credenciais inválidas ou token ausente/inválido/expirado | `Credenciais inválidas` / `Autenticação necessária` |
-| 404 | Recurso não encontrado | `Insumo não encontrado` |
-| 409 | Violação de regra/estado (duplicidade, estoque insuficiente, insumo inativo) | `Quantidade solicitada superior ao estoque disponível` |
-| 500 | Falha inesperada | `Erro interno do servidor` |
-
-O corpo de erro deve seguir:
-
-```json
-{
-  "status": 409,
-  "mensagem": "Quantidade solicitada superior ao estoque disponível",
-  "timestamp": "2026-11-05T15:20:00-03:00"
-}
-```
-
-Nunca devolva stack trace ou detalhes internos ao cliente.
-
-## Critérios de avaliação (para priorizar o esforço)
-
-| Critério | Peso |
-| --- | --- |
-| Fidelidade ao contrato REST e funcionalidades | 35% |
-| Regras de negócio, validações e concorrência | 25% |
-| Arquitetura Controller/Service/Repository | 15% |
-| Integração com banco e JPA | 10% |
-| JWT e tratamento de erros | 10% |
-| Testes, documentação e demonstração | 5% |
-
-Na prática: comecem pelo contrato (as 26 operações), depois garantam as regras de negócio (saldo, transação, concorrência e inativação), e só então refinem testes e documentação. Um endpoint bonito que não respeita o contrato vale menos do que um endpoint simples que respeita.
-
 ## Como começar a contribuir
 
 Passo a passo para quem está entrando no projeto agora: instalar o OpenCode, clonar o repositório, abrir a pasta e usar o agente para tirar dúvidas.
@@ -351,7 +210,6 @@ Passo a passo:
 
 > **Regra da equipe:** pode criar branch e enviar (`push`) a sua branch à vontade. O que não pode é enviar alteração direto para a `main`: todo trabalho passa por um Pull Request e pela revisão de outra pessoa. Assim um erro não apaga o trabalho do colega e a `main` continua funcionando.
 
-## Como rodar a API
 
 Quando a equipe criar a pasta `backend/`, o fluxo esperado é:
 
@@ -369,7 +227,6 @@ Quando a equipe criar a pasta `backend/`, o fluxo esperado é:
 
 > O agente pode ajudar a diagnosticar erros de execução e de conexão, mas a configuração e as credenciais locais são responsabilidade de cada colaborador.
 
-## Como testar no Postman
 
 1. Crie uma coleção com as **26 operações** do contrato.
 2. Crie um ambiente com `baseUrl` (ex.: `http://localhost:8080/api`) e `token`.
@@ -478,3 +335,144 @@ A documentação oficial em [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) 
 | **Alerta crítico** | Insumo ativo com `quantidadeAtual <= estoqueMinimo`. |
 | **Postman** | Ferramenta para enviar requisições à API e guardar as evidências de teste. |
 | **Contrato** | O documento `Contrato_Tecnico_API_Industria_Bebidas.docx`, que define as 26 operações. |
+
+## Arquivos e documentos do projeto
+
+| Caminho | O que é |
+| --- | --- |
+| `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` | Enunciado atual: contexto, tecnologias, módulos, RN-01 a RN-16 e entregáveis. |
+| `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` | Contrato atual: as 26 operações, JSON, status HTTP, filtros, ordenação e erros. |
+| `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` | PDF antigo, **obsoleto**. Não usar. |
+| `Diversos/TODO.md` | Roteiro **atual** da equipe: fases, 26 operações, CT01 a CT22, MySQL e entregáveis. |
+| `Diversos/TODO.docx` | Roteiro da versão anterior (desktop). **Histórico**. |
+| `Entregaveis/` | Material da versão anterior (SQL, DER e requisitos desktop). **Somente leitura** e não é fonte de verdade do escopo atual. |
+| `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
+| `skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |
+| `AGENTS.md` | Regras de comportamento do agente neste repositório. |
+
+> **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.
+
+## Tecnologias obrigatórias
+
+| Área | Tecnologia / responsabilidade |
+| --- | --- |
+| Linguagem e framework | Java + Spring Boot |
+| Camada HTTP | Spring Web; endpoints REST; JSON |
+| Persistência | Spring Data JPA + Hibernate; banco relacional |
+| Organização | Camadas Controller, Service e Repository |
+| Segurança | Autenticação JWT; senha armazenada com hash seguro |
+| Validação | Regras de negócio e tratamento padronizado de erros |
+| Verificação | Postman ou ferramenta equivalente; evidências de testes |
+
+Ferramentas sugeridas: **IntelliJ IDEA** (ou outra IDE Java), **MySQL** (ou o banco relacional definido na disciplina de Modelagem), **Maven** e **Postman**.
+
+## Arquitetura esperada
+
+```text
+Front-end externo
+      │  HTTP/JSON + Bearer <JWT>
+      ▼
+Controller  →  Service  →  Repository  →  Banco relacional
+      │             │
+      │             └─ regras de negócio, transações, concorrência
+      └─ recebe a requisição, valida o DTO e devolve o status HTTP
+```
+
+- **Controller:** expõe a rota, recebe o JSON, usa `@Valid` e devolve a resposta com o status correto.
+- **Service:** aplica as regras de negócio, controla transações e converte entidades em DTOs.
+- **Repository:** consulta e grava no banco com Spring Data JPA.
+- **DTO:** objeto de entrada/saída; nunca devolva a entidade com senha ou hash.
+- **Exception Handler:** centraliza os erros no formato `{status, mensagem, timestamp}`.
+- **Security:** valida o JWT antes de liberar os endpoints protegidos.
+
+## As 26 operações (mapa rápido)
+
+| Grupo | Operações | Total |
+| --- | --- | --- |
+| Usuários e autenticação | `POST /api/usuarios`, `POST /api/auth/login`, `GET /api/usuarios/me`, `GET /api/usuarios`, `GET /api/usuarios/{id}`, `PUT /api/usuarios/{id}`, `DELETE /api/usuarios/{id}` | 7 |
+| Setores | `POST /api/setores`, `GET /api/setores`, `GET /api/setores/{id}`, `PUT /api/setores/{id}`, `DELETE /api/setores/{id}` | 5 |
+| Fornecedores | `POST /api/fornecedores`, `GET /api/fornecedores`, `GET /api/fornecedores/{id}`, `PUT /api/fornecedores/{id}`, `DELETE /api/fornecedores/{id}` | 5 |
+| Insumos | `POST /api/insumos`, `GET /api/insumos`, `GET /api/insumos/{id}`, `PUT /api/insumos/{id}`, `DELETE /api/insumos/{id}` | 5 |
+| Movimentações | `POST /api/movimentacoes`, `GET /api/movimentacoes`, `GET /api/movimentacoes/{id}` | 3 |
+| Alertas | `GET /api/alertas/estoque` | 1 |
+
+Regras gerais do contrato:
+
+- Base URL `/api`; `Content-Type` e `Accept: application/json`.
+- IDs inteiros positivos; datas operacionais `YYYY-MM-DD`; timestamps ISO 8601 com fuso.
+- Listas retornam arrays JSON, inclusive vazios.
+- Todas as rotas exigem `Authorization: Bearer <JWT>`, **exceto** `POST /api/usuarios` e `POST /api/auth/login`.
+- O token expira em **3600 segundos**.
+- `GET` nunca altera estado.
+- A API não expõe senhas nem hashes.
+
+> Os IDs, datas e valores dos exemplos do contrato são ilustrativos. Não trate `id=1` ou `insumoId=10` como dados fixos; criem seus próprios registros de demonstração.
+
+## Regras de negócio que não podem falhar
+
+- **RN-01** — O saldo começa em zero e só muda por `ENTRADA` ou `SAIDA`; nunca por edição direta do cadastro.
+- **RN-02** — Entradas aumentam e saídas diminuem o saldo; quantidades positivas e compatíveis com a unidade (`UN` inteira; `KG`/`L` até 3 casas).
+- **RN-03** — Não permitir saldo negativo, inclusive com duas retiradas simultâneas.
+- **RN-04** — Histórico e atualização de saldo são uma única operação transacional; falha não pode gerar atualização parcial.
+- **RN-05** — Toda movimentação registra usuário autenticado, data operacional, data/hora real do registro e saldos anterior/posterior.
+- **RN-06** — `SAIDA` exige setor ativo; `ENTRADA` pode ter lote e validade opcionais; não há saldo separado por lote.
+- **RN-07** — Movimentações são imutáveis: não existem endpoints de edição ou exclusão do histórico.
+- **RN-08** — Insumos com histórico e cadastros relacionados preservam referências e são inativados quando necessário.
+- **RN-09** — Cadastros inativos continuam consultáveis por ID; listagens mostram ativos por padrão e aceitam `?ativo=todos` ou `?ativo=false`.
+- **RN-10** — Setores, fornecedores, insumos e usuários podem ser reativados pela atualização de `ativo`.
+- **RN-11** — Cada insumo tem um único fornecedor principal; alterações respeitam vínculos e situação ativa.
+- **RN-12** — Alerta quando `quantidadeAtual <= estoqueMinimo`, considerando somente insumos ativos.
+- **RN-13** — A data operacional é informada pelo cliente, não pode ser futura e não altera a ordem contábil dos saldos.
+- **RN-14** — Cadastro de usuário e login são públicos; todos os demais endpoints exigem JWT.
+- **RN-15** — Todos os usuários autenticados têm as mesmas permissões; a senha nunca é devolvida.
+- **RN-16** — Pesquisa de insumos por nome é parcial e ignora caixa; a ordenação alfabética pode usar recursos do banco ou de Java.
+
+O detalhe de cada regra está no **Enunciado**, seção 5. O detalhe de cada endpoint está no **Contrato Técnico**.
+
+## Exclusão, reativação e ordenação
+
+- `DELETE /api/usuarios/{id}`: sempre inativação lógica.
+- `DELETE` de setores, fornecedores e insumos: exclusão definitiva quando não houver vínculos; caso contrário, inativação lógica.
+- Em ambos os casos, responder **204 sem corpo**.
+- `GET` por ID retorna também inativos, com `ativo=false`.
+- Listagens mostram ativos por padrão e aceitam `?ativo=todos` ou `?ativo=false`.
+- Nos `PUT` de cadastros, o campo `ativo` é obrigatório e permite reativação.
+- Insumos e alertas: ordem alfabética por **nome crescente**.
+- Histórico de movimentações: **dataRegistro decrescente** e, no empate, **id decrescente**.
+- Outros cadastros: **id crescente**.
+- A ordenação pode ser feita com recursos do banco ou de Java. **Quicksort não é obrigatório** no escopo atual.
+
+## Erros e códigos HTTP
+
+| HTTP | Situação | Exemplo de mensagem |
+| --- | --- | --- |
+| 400 | Validação de entrada | `O campo nome é obrigatório` |
+| 401 | Credenciais inválidas ou token ausente/inválido/expirado | `Credenciais inválidas` / `Autenticação necessária` |
+| 404 | Recurso não encontrado | `Insumo não encontrado` |
+| 409 | Violação de regra/estado (duplicidade, estoque insuficiente, insumo inativo) | `Quantidade solicitada superior ao estoque disponível` |
+| 500 | Falha inesperada | `Erro interno do servidor` |
+
+O corpo de erro deve seguir:
+
+```json
+{
+  "status": 409,
+  "mensagem": "Quantidade solicitada superior ao estoque disponível",
+  "timestamp": "2026-11-05T15:20:00-03:00"
+}
+```
+
+Nunca devolva stack trace ou detalhes internos ao cliente.
+
+## Critérios de avaliação (para priorizar o esforço)
+
+| Critério | Peso |
+| --- | --- |
+| Fidelidade ao contrato REST e funcionalidades | 35% |
+| Regras de negócio, validações e concorrência | 25% |
+| Arquitetura Controller/Service/Repository | 15% |
+| Integração com banco e JPA | 10% |
+| JWT e tratamento de erros | 10% |
+| Testes, documentação e demonstração | 5% |
+
+Na prática: comecem pelo contrato (as 26 operações), depois garantam as regras de negócio (saldo, transação, concorrência e inativação), e só então refinem testes e documentação. Um endpoint bonito que não respeita o contrato vale menos do que um endpoint simples que respeita.
