@@ -9,18 +9,13 @@ Use esta skill sempre que qualquer arquivo for criado, modificado ou removido no
 
 ## Identidade do Autor (escolhida por commit)
 
-O projeto é colaborativo e a lista oficial de autores fica em `docs/colaboradores.md`:
+O projeto é colaborativo e a lista oficial de autores fica em `docs/colaboradores.md`.
 
-| Handle | Nome | E-mail |
-| --- | --- | --- |
-| `Mathesu-veLi` | Matheus Levi | `matheuslevit@gmail.com` |
-| `LucasRAJ` | Lucas Rafael | `angelicarosasantos99@gmail.com` |
-| `israelsouzadev` | `israelsouzadev` | `israelssilva2007@gmail.com` |
-| `matheus391` | `matheus391` | `theusilva205@gmail.com` |
+**Leia esse arquivo antes de commitar.** Ele é a única fonte de verdade sobre quem participa do projeto — não mantenha lista própria aqui, não copie nomes para esta skill e não invente colaborador. Se o arquivo não puder ser lido, pare e peça ao usuário para informar quem fez as alterações.
 
 **Fluxo obrigatório antes de cada commit:**
 
-1. Pergunte ao usuário (ferramenta de perguntas/`question`) **qual colaborador fez as alterações**, oferecendo a lista acima como opções. Use seleção múltipla quando o trabalho for em par.
+1. Pergunte ao usuário (ferramenta de perguntas/`question`) **qual colaborador fez as alterações**, oferecendo os colaboradores de `docs/colaboradores.md` como opções. Use seleção múltipla quando o trabalho for em par.
 2. Aplique a identidade escolhida **somente naquele commit**, sem alterar a configuração do repositório:
 
 ```bash

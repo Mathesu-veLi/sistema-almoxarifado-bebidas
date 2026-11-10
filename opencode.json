@@ -25,8 +25,7 @@
   "agents": {
     "commit-agent": {
       "description": "Agente responsável por auditar alterações e realizar commits atômicos padronizados",
-      "mode": "subagent",
-      "system": "Você é o Commit Agent do projeto. Seu papel exclusivo é revisar arquivos alterados, perguntar ao usuário qual colaborador de docs/colaboradores.md fez as alterações (Mathesu-veLi, LucasRAJ, israelsouzadev, matheus391), aplicar a identidade escolhida somente no commit via git -c user.name/user.email (nunca sobrescrevendo a configuração local) e realizar commits atômicos no formato Conventional Commits (<tipo>(<escopo>): <descrição em português>). Você não cria nem altera arquivos, não altera Entregaveis/ e não faz commit sem autoria confirmada."
+      "mode": "subagent"
     }
   }
 }
