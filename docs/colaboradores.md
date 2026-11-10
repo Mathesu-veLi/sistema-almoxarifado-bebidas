@@ -7,13 +7,9 @@ Fonte única de verdade para a autoria dos commits do Projeto Integrador (Indús
 | Handle (GitHub) | Nome de exibição no Git | E-mail |
 | --- | --- | --- |
 | `Mathesu-veLi` | Matheus Levi | `matheuslevit@gmail.com` |
-| `LucasRAJ` | Lucas Rafael | `angelicarosasantos99@gmail.com` |
-| `israelsouzadev` | `israelsouzadev` | `israelssilva2007@gmail.com` |
-| `matheus391` | `matheus391` | `theusilva205@gmail.com` |
+| `israelsouzadev` | Israel Souza | `israelssilva2007@gmail.com` |
+| `matheus391` | Matheus de Jesus | `theusilva205@gmail.com` |
 | `JK201-thw` | Breno Santana | `brenosantana20202@gmail.com` |
-
-> Os colaboradores `israelsouzadev` e `matheus391` ainda não informaram um nome de exibição.
-> Enquanto isso, o handle é usado como nome no commit. Ao definir o nome, atualize esta tabela.
 
 ## Regra de Autoria
 
@@ -30,7 +26,7 @@ git -c user.name="Matheus Levi" -c user.email="matheuslevit@gmail.com" commit -m
 4. Trabalho em par: o colaborador principal é o autor e os demais entram no rodapé da mensagem:
 
 ```text
-Co-authored-by: Lucas Rafael <angelicarosasantos99@gmail.com>
+Co-authored-by: Israel Souza <israelssilva2007@gmail.com>
 ```
 
 5. Se o usuário não confirmar a autoria, **não commite**.
