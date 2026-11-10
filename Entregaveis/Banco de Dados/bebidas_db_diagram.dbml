@@ -8,7 +8,7 @@ Table usuarios {
 
 Table setores {
   id integer [primary key, increment]
-  nome varchar(150) [not null, unique]
+  nome varchar(150) [not null]
   descricao varchar(255)
   ativo boolean [not null, default: true]
 
