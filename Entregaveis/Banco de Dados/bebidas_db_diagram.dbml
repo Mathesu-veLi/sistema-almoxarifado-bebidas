@@ -10,7 +10,7 @@ Table setores {
   id integer [primary key, increment]
   nome varchar(150) [not null, unique]
   descricao varchar(255)
-  ativo boolean [not null, default: true, note: 'Setor inativo não pode ser usado em SAIDA (RN-06).']
+  ativo boolean [not null, default: true]
 
   indexes {
     nome [name: 'idx_setores_nome']
@@ -32,11 +32,11 @@ Table fornecedores {
 Table insumos {
   id integer [primary key, increment]
   nome varchar(150) [not null]
-  unidade_medida enum("UN", "KG", "L") [not null, note: 'UN aceita quantidade inteira; KG e L aceitam até 3 casas decimais (RN-02). Imutável após existir movimentação.']
-  quantidade_atual decimal(15,3) [not null, default: 0, note: 'Saldo. Começa em 0 no cadastro e só muda por ENTRADA/SAIDA (RN-01). CHECK (quantidade_atual >= 0) — RN-03.']
-  estoque_minimo decimal(15,3) [not null, note: 'CHECK (estoque_minimo >= 0). Dispara alerta quando quantidade_atual <= estoque_minimo (RN-12).']
-  fornecedor_id integer [not null, note: 'Fornecedor principal único; deve estar ativo ao ser vinculado (RN-11).']
-  ativo boolean [not null, default: true, note: 'Insumo inativo gera 409 em movimentação (CT13) e não entra no alerta (RN-12).']
+  unidade_medida enum("UN", "KG", "L") [not null]
+  quantidade_atual decimal(15,3) [not null, default: 0]
+  estoque_minimo decimal(15,3) [not null, note: 'alerta quando quantidade_atual <= estoque_minimo (e insumo ativo).']
+  fornecedor_id integer [not null]
+  ativo boolean [not null, default: true]
 
   indexes {
     (nome, ativo) [name: 'idx_insumos_nome_ativo']
@@ -47,18 +47,18 @@ Table insumos {
 Table movimentacoes {
   id integer [primary key, increment]
   insumo_id integer [not null]
-  tipo enum("ENTRADA", "SAIDA") [not null, note: 'SAIDA exige setor_id de setor ativo e não recebe lote/validade; ENTRADA pode omitir lote/validade (RN-06, CT22).']
-  quantidade decimal(15,3) [not null, note: 'Sempre positiva (RN-02). Inteira quando a unidade do insumo é UN. CHECK (quantidade > 0).']
-  setor_id integer [note: 'Obrigatório em SAIDA; nulo em ENTRADA.']
-  usuario_id integer [not null, note: 'Obtido do JWT, nunca do corpo da requisição (RN-05).']
-  data_movimentacao date [not null, note: 'Data operacional informada pelo cliente; não pode ser futura e não reordena os saldos (RN-13, CT21).']
-  data_registro timestamp [not null, note: 'Gerada pelo servidor no lançamento (DATETIME(6)/TIMESTAMP). Define a ordem do histórico: data_registro DESC, id DESC.']
-  lote varchar(50) [note: 'Informativo. Não há saldo independente por lote (RN-06).']
-  validade date [note: 'Informativa. Se informada, não pode ser anterior à data_movimentacao.']
-  saldo_anterior decimal(15,3) [not null, note: 'Saldo do insumo imediatamente antes desta movimentação (RN-05).']
-  saldo_atual decimal(15,3) [not null, note: 'Saldo posterior = saldo_anterior ± quantidade, gravado na mesma transação (RN-04, RN-05).']
+  tipo enum("ENTRADA", "SAIDA") [not null, note: 'SAIDA exige setor_id de setor ativo e não recebe lote/validade equanto ENTRADA tem lote/validade como opcional']
+  quantidade decimal(15,3) [not null]
+  setor_id integer [note: 'obrigatorio em SAIDA e nulo em ENTRADA.']
+  usuario_id integer [not null]
+  data_movimentacao date [not null, note: 'data operacional informada pelo cliente']
+  data_registro timestamp [not null, note: 'gerado pelo servidor']
+  lote varchar(50)
+  validade date
+  saldo_anterior decimal(15,3) [not null]
+  saldo_atual decimal(15,3) [not null, note: 'saldo_anterior +- quantidade']
 
-  Note: 'Histórico imutável: não existem endpoints de edição ou exclusão (RN-07). Não há coluna ativo: o campo ativo não existe em movimentações.'
+  Note: 'sem edição ou exclusão'
 
   indexes {
     (insumo_id, data_registro) [name: 'idx_mov_insumo_registro']
