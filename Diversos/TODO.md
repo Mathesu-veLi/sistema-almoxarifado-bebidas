@@ -16,51 +16,56 @@
 
 ## 1. Como o trabalho está organizado
 
-São duas coisas diferentes:
+As entregas estão numeradas **na ordem em que devem ser executadas**:
 
-- **As 10 entregas** têm números definidos pelo Enunciado (1 a 6) e pela equipe (7 a 10). O número é só um **rótulo** — não indica ordem.
-- **A execução** segue as fases abaixo: primeiro documentação e modelagem, depois o código.
+- **1 a 4:** documentação e modelagem (RN/RF/RNF → casos de uso → banco → classes)
+- **5 e 6:** banco no MySQL e código da API
+- **7 a 10:** testes, documento técnico e demonstração
+
+Quatro entregas (1 a 4) são **adicionais** de modelagem; as outras seis correspondem aos itens do Enunciado — a coluna “Item do Enunciado” da tabela 1.2 mostra a correspondência.
+
+As **fases** (0 a 16) são as etapas de trabalho que produzem cada entrega.
 
 ### 1.1 Ordem de execução
 
 | Fase | O que se faz | Apoio | Entrega gerada |
 | --- | --- | --- | --- |
 | **0** | Ler os documentos-base e preparar o ambiente | `README.md`, `AGENTS.md` | — |
-| **1** | Documento de regras de negócio, RF e RNF | Contrato + Enunciado | **Entrega 7** |
-| **2** | Documento e diagrama de casos de uso | Contrato | **Entrega 8** |
-| **3** | Diagrama de banco de dados (MySQL) | `skills/database-operations` | **Entrega 9** |
-| **4** | Diagrama de classes (UML) | `skills/database-operations` | **Entrega 10** |
-| **5** | Script SQL (`schema.sql` + `seed.sql`) e validação | `skills/database-operations` | parte da **Entrega 2** |
-| **6** | Esqueleto do backend Spring Boot | `skills/api-rest` | parte da **Entrega 1** |
-| **7** | Entidades JPA, enums, DTOs e repositórios | `skills/database-operations` | parte da **Entrega 1** |
-| **8** | JWT, BCrypt e rotas protegidas | `skills/jwt-security` | parte da **Entrega 1** |
-| **9** | Usuários, setores e fornecedores | `skills/api-rest` | parte da **Entrega 1** |
-| **10** | Insumos e alertas de estoque | `skills/api-rest` | parte da **Entrega 1** |
-| **11** | Movimentações, transação e concorrência | `skills/database-operations` | parte da **Entrega 1** |
-| **12** | Validações e erros padronizados | `skills/api-rest` | parte da **Entrega 1** |
-| **13** | Testes, coleção Postman e evidências | Postman + Maven | **Entregas 3 e 4** |
-| **14** | Documento técnico e instruções de execução | `README.md` | **Entrega 5** |
-| **15** | Ensaio da demonstração e da banca | Enunciado, seção 9 | **Entrega 6** |
-| **16** | Conferência final e envio | Este TODO | fecha **Entregas 1 e 2** |
+| **1** | Documento de regras de negócio, RF e RNF | Contrato + Enunciado | **Entrega 1** |
+| **2** | Documento e diagrama de casos de uso | Contrato | **Entrega 2** |
+| **3** | Diagrama de banco de dados (MySQL) | `skills/database-operations` | **Entrega 3** |
+| **4** | Diagrama de classes (UML) | `skills/database-operations` | **Entrega 4** |
+| **5** | Script SQL (`schema.sql` + `seed.sql`) e validação | `skills/database-operations` | **Entrega 5** |
+| **6** | Esqueleto do backend Spring Boot | `skills/api-rest` | **Entrega 6** |
+| **7** | Entidades JPA, enums, DTOs e repositórios | `skills/database-operations` | **Entrega 6** |
+| **8** | JWT, BCrypt e rotas protegidas | `skills/jwt-security` | **Entrega 6** |
+| **9** | Usuários, setores e fornecedores | `skills/api-rest` | **Entrega 6** |
+| **10** | Insumos e alertas de estoque | `skills/api-rest` | **Entrega 6** |
+| **11** | Movimentações, transação e concorrência | `skills/database-operations` | **Entrega 6** |
+| **12** | Validações e erros padronizados | `skills/api-rest` | **Entrega 6** |
+| **13** | Testes, coleção Postman e evidências | Postman + Maven | **Entregas 7 e 8** |
+| **14** | Documento técnico e instruções de execução | `README.md` | **Entrega 9** |
+| **15** | Ensaio da demonstração e da banca | Enunciado, seção 9 | **Entrega 10** |
+| **16** | Conferência final e envio | Este TODO | fecha **Entregas 5 e 6** |
 
 ### 1.2 As 10 entregas
 
 Marque cada entrega somente quando estiver completa e revisada.
 
-| Entrega | Nome | Fase | Feito? |
-| --- | --- | --- | --- |
-| **1** | Código-fonte completo do Spring Boot (`pom.xml`, camadas, configuração, instruções de execução) | 6–12 | [ ] |
-| **2** | API integrada ao MySQL, com script de criação/carga e dados de demonstração | 5 | [ ] |
-| **3** | Coleção Postman com as **26 operações** do contrato | 13 | [ ] |
-| **4** | Relatório curto de testes (esperado × observado × evidência, CT01 a CT22) | 13 | [ ] |
-| **5** | Documento técnico (ferramentas, versões, banco, configurações sem senhas reais, arquitetura) | 14 | [ ] |
-| **6** | Demonstração prática, com decisões técnicas e regras de negócio | 15 | [ ] |
-| **7** | Documento de **RN-01 a RN-16 + RF (26 operações) + RNF + matriz de rastreabilidade** | 1 | [ ] |
-| **8** | Documento e diagrama de **casos de uso** (atores, fluxos, rastreabilidade) | 2 | [ ] |
-| **9** | Diagrama de **banco de dados (MySQL)** — tabelas, tipos, PKs, FKs, restrições, índices, cardinalidades | 3 | [X] |
-| **10** | Diagrama de **classes (UML)** — classes, enums, atributos, métodos, relacionamentos | 4 | [ ] |
+| Entrega | Nome | Fase | Item do Enunciado | Feito? |
+| --- | --- | --- | --- | --- |
+| **1** | Documento de **RN-01 a RN-16 + RF (26 operações) + RNF + matriz de rastreabilidade** | 1 | adicional | [ ] |
+| **2** | Documento e diagrama de **casos de uso** (atores, fluxos, rastreabilidade) | 2 | adicional | [ ] |
+| **3** | Diagrama de **banco de dados (MySQL)** — tabelas, tipos, PKs, FKs, restrições, índices, cardinalidades | 3 | adicional | [X] |
+| **4** | Diagrama de **classes (UML)** — classes, enums, atributos, métodos, relacionamentos | 4 | adicional | [ ] |
+| **5** | **Banco MySQL integrado**, com script de criação/carga e dados de demonstração | 5 | item 2 | [ ] |
+| **6** | **Código-fonte completo** do Spring Boot (`pom.xml`, camadas, configuração, instruções de execução) | 6–12 | item 1 | [ ] |
+| **7** | **Coleção Postman** com as **26 operações** do contrato | 13 | item 3 | [ ] |
+| **8** | **Relatório curto de testes** (esperado × observado × evidência, CT01 a CT22) | 13 | item 4 | [ ] |
+| **9** | **Documento técnico** (ferramentas, versões, banco, configurações sem senhas reais, arquitetura) | 14 | item 5 | [ ] |
+| **10** | **Demonstração prática**, com decisões técnicas e regras de negócio | 15 | item 6 | [ ] |
 
-> As entregas 1 a 6 vêm do Enunciado; as entregas 7 a 10 são **adicionais** de modelagem e requisitos. Confirmem com o professor o formato (PDF, imagem ou editável) e o local de entrega. Todas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
+> As entregas 1 a 4 são **adicionais** de modelagem e requisitos, criadas pela equipe. As entregas 5 a 10 correspondem aos seis itens do Enunciado, na ordem em que são executados. Confirmem com o professor o formato (PDF, imagem ou editável) e o local de entrega. Todas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
 
 ### 1.3 Definição de pronto
 
@@ -70,7 +75,7 @@ Marque cada entrega somente quando estiver completa e revisada.
 - [ ] O banco é criado do zero pelo script e a API sobe sem erro.
 - [ ] Nenhuma senha, token, chave JWT ou credencial real está versionada.
 - [ ] Coleção Postman e relatório de testes atualizados.
-- [ ] Entregas 7 a 10 revisadas, coerentes entre si e no formato combinado com o professor.
+- [ ] Entregas 1 a 4 (documentação e modelagem) revisadas, coerentes entre si e no formato combinado com o professor.
 - [ ] A equipe consegue explicar o código, os documentos, os diagramas e as regras na banca.
 
 ---
@@ -88,7 +93,7 @@ Marque cada entrega somente quando estiver completa e revisada.
 - [ ] **0.4. Combinar com o professor o formato de entrega:** repositório/ZIP e onde entregar Postman e PDFs.
 - [ ] **0.5. Revisar o fluxo de Git:** branch por assunto, Pull Request, commits com a autoria de `docs/colaboradores.md`.
 
-### FASE 1 — Documento de RN/RF/RNF (Entrega 7)
+### FASE 1 — Documento de RN/RF/RNF (Entrega 1)
 
 Esta fase é **dos autores**. O agente pode explicar e revisar, mas **não produz** o documento.
 
@@ -98,7 +103,7 @@ Esta fase é **dos autores**. O agente pode explicar e revisar, mas **não produ
 - [ ] **1.4. Documentar as RN-01 a RN-16:** descrição, impacto na API e forma de verificação (usar a tabela da seção 4 como conferência).
 - [ ] **1.5. Montar e revisar o documento:** introdução, escopo, atores, RF, RNF, RN e matriz de rastreabilidade RF → endpoint → CT01 a CT22.
 
-### FASE 2 — Documento e diagrama de casos de uso (Entrega 8)
+### FASE 2 — Documento e diagrama de casos de uso (Entrega 2)
 
 Só começar depois que o documento de RN/RF/RNF estiver aprovado.
 
@@ -107,7 +112,7 @@ Só começar depois que o documento de RN/RF/RNF estiver aprovado.
 - [ ] **2.3. Desenhar o diagrama UML:** atores, casos de uso, associações e `<<include>>`/`<<extend>>` quando fizer sentido.
 - [ ] **2.4. Rastrear e revisar:** cada caso de uso ligado aos RF e endpoints; nenhuma funcionalidade fora do contrato.
 
-### FASE 3 — Diagrama de banco de dados (Entrega 9)
+### FASE 3 — Diagrama de banco de dados (Entrega 3)
 
 Só começar depois dos casos de uso aprovados.
 
@@ -115,18 +120,18 @@ Só começar depois dos casos de uso aprovados.
   - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
 - [ ] **3.2. Definir tabelas, colunas, tipos e restrições:** PKs, FKs, unicidade, nulabilidade, índices e cardinalidades.
 - [ ] **3.3. Desenhar o diagrama** (MySQL Workbench ou Draw.io), legível e exportável.
-- [ ] **3.4. Revisar:** compatível com o documento de RN/RF/RNF e com o futuro script MySQL. → **Entrega 9 aprovada.**
+- [ ] **3.4. Revisar:** compatível com o documento de RN/RF/RNF e com o futuro script MySQL. → **Entrega 3 aprovada.**
 
-### FASE 4 — Diagrama de classes (Entrega 10)
+### FASE 4 — Diagrama de classes (Entrega 4)
 
 Só começar depois do diagrama de banco aprovado.
 
 - [ ] **4.1. Identificar classes e enums:** `Usuario`, `Setor`, `Fornecedor`, `Insumo`, `Movimentacao`; enums `TipoMovimentacao` (`ENTRADA`/`SAIDA`) e `UnidadeMedida` (`UN`/`KG`/`L`), se a equipe optar por enum.
 - [ ] **4.2. Definir atributos, métodos, relacionamentos e multiplicidades.**
 - [ ] **4.3. Desenhar o diagrama** refletindo o contrato e o diagrama de banco; sem front-end.
-- [ ] **4.4. Revisar:** compatível com o diagrama de banco e com os DTOs/contrato. → **Entrega 10 aprovada.**
+- [ ] **4.4. Revisar:** compatível com o diagrama de banco e com os DTOs/contrato. → **Entrega 4 aprovada.**
 
-### FASE 5 — Script SQL e validação do MySQL
+### FASE 5 — Script SQL e validação do MySQL (Entrega 5)
 
 Só começar depois dos diagramas de banco e de classes aprovados.
 
@@ -279,19 +284,19 @@ Fase de maior peso nas regras de negócio. Não pule os testes de concorrência.
   - Incluir os testes de erro: sem token, token inválido, estoque insuficiente, data futura, duplicidade e insumo inativo.
 - [ ] **13.3. Testes automatizados:** service e controller, `@DataJpaTest` para repositórios, `@SpringBootTest` + `MockMvc` para endpoints; `mvn test` com `BUILD SUCCESS`.
 - [ ] **13.4. Testar o banco do zero:** apagar o schema de teste, rodar o script, subir a API e repetir os fluxos principais.
-- [ ] **13.5. Exportar as evidências:** coleção Postman e prints/logs do relatório → **Entregas 3 e 4 prontas.**
+- [ ] **13.5. Exportar as evidências:** coleção Postman e prints/logs do relatório → **Entregas 7 e 8 prontas.**
 
-### FASE 14 — Documento técnico e instruções (Entrega 5)
+### FASE 14 — Documento técnico e instruções (Entrega 9)
 
 - [ ] **14.1. Escrever o documento técnico**
   - Ferramentas e versões (Java, Spring Boot, Maven, MySQL, Postman, IDE), banco e schema, como criar/carregar.
   - Configurações necessárias, sem senhas reais; arquitetura resumida (Controller → Service → Repository, JWT, tratamento de erros).
   - Decisões: inativação lógica, transação/concorrência, ordenação, data operacional × data de registro.
-  - **Não confundir** com o documento de RN/RF/RNF (Entrega 7): lá ficam requisitos e regras; aqui ficam ferramentas, banco, configuração e arquitetura.
+  - **Não confundir** com o documento de RN/RF/RNF (Entrega 1): lá ficam requisitos e regras; aqui ficam ferramentas, banco, configuração e arquitetura.
 - [ ] **14.2. Revisar o `README` do backend:** pré-requisitos, banco, script, variáveis, `mvn spring-boot:run`, Postman e `mvn test`.
 - [ ] **14.3. Revisar segurança:** nenhuma senha, token, chave JWT ou credencial real no repositório; `.env.example` apenas com nomes de variáveis.
 
-### FASE 15 — Demonstração e banca (Entrega 6)
+### FASE 15 — Demonstração e banca (Entrega 10)
 
 Use o checklist do Enunciado, seção 9.
 
