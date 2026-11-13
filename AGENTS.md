@@ -205,6 +205,7 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
   `git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"`
 - **Nunca** use `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem autoria confirmada.
 - Trabalho em par: o colaborador escolhido é o autor e os demais entram como `Co-authored-by: Nome <email>` no rodapé.
+- **Branch e Pull Request:** o mantenedor **Matheus Levi (`Mathesu-veLi`)** commita direto na `main`. Para qualquer outro colaborador, o agente de commit leva o trabalho para uma **branch nova** (`tipo/escopo`, sem `--force`), decide o nome e a quantidade de branches (uma por assunto lógico), publica a branch e abre o **Pull Request** para `main` — usando `gh` quando disponível ou entregando o link de comparação com título e corpo prontos. O merge continua sendo da equipe, após revisão; o agente **nunca** mescla PR nem faz push na `main`.
 - Padrão **Conventional Commits** em português: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
 - Commits **atômicos**: uma única responsabilidade lógica por commit.
 - Nunca versione senhas, tokens, chaves JWT, arquivos `target/` ou configurações locais.
@@ -217,7 +218,7 @@ Disponíveis de forma sincronizada em `.agents/skills/` (Antigravity), `.opencod
 - [`skills/jwt-security/SKILL.md`](skills/jwt-security/SKILL.md): Spring Security, JWT, hash de senha, rotas públicas e proteção dos endpoints.
 - [`skills/database-operations/SKILL.md`](skills/database-operations/SKILL.md): entidades JPA, repositórios, transações, concorrência e inativação lógica.
 - [`skills/sorting-algorithms/SKILL.md`](skills/sorting-algorithms/SKILL.md): ordenação exigida pelo contrato e opções de implementação no banco ou em Java.
-- [`skills/git-commit/SKILL.md`](skills/git-commit/SKILL.md): commits atômicos com autoria escolhida.
+- [`skills/git-commit/SKILL.md`](skills/git-commit/SKILL.md): commits atômicos com autoria escolhida, branch de trabalho e Pull Request quando o autor não é o mantenedor.
 
 As skills são **material de consulta**. O agente pode usá-las para responder melhor, mas não deve sair implementando o projeto por causa delas.
 
