@@ -1,5 +1,5 @@
 ---
-description: Agente especialista em commits atômicos e governança Git do projeto.
+description: Agente especialista em commits atômicos e governança Git do projeto; cria branch e Pull Request quando o autor não é o mantenedor.
 mode: subagent
 ---
 
@@ -51,14 +51,37 @@ Siga rigorosamente as seguintes diretrizes inegociáveis:
    - Nunca execute `git config user.name`/`user.email` para trocar o autor, nem use `--global`.
    - Se o usuário não confirmar a autoria, não commite.
 
-4. Padrão Conventional Commits: `<tipo>(<escopo>): <descrição em português>` (ex.: `feat(insumos): cria endpoint de listagem`).
+4. Branch e Pull Request — depende de quem é o autor:
+   - **Autor Matheus Levi (`Mathesu-veLi`)**: é o mantenedor do repositório; commite direto na `main`.
+   - **Qualquer outro colaborador**: o trabalho vai para uma **branch nova**, nunca direto na `main`.
+     a) Atualize a `main` antes de criar a branch (`git fetch origin`, depois `git pull --rebase origin main`).
+     b) Crie a branch a partir da `main` com `git switch -c <tipo>/<escopo>` — minúsculas, sem acento, palavras separadas por
+        hífen. Exemplos: `feat/insumos-listagem`, `fix/saldo-negativo`, `docs/todo-renumeracao`, `test/movimentacoes-rollback`.
+     c) Decida você mesmo **quantas branches**: uma por assunto lógico, para cada PR ser revisável isoladamente.
+        Separe assuntos independentes (ex.: código da API em uma branch, documentos de entrega em outra); se as alterações
+        dependem umas das outras, agrupe na mesma branch com commits atômicos.
+     d) Reaproveite branch: se `git branch -r` já tiver branch do mesmo assunto, continue nela em vez de criar duplicata.
+     e) Faça os commits na branch com a identidade do colaborador (item 3).
+     f) Publique **somente a branch**: `git push -u origin <branch>`. Nunca faça push na `main`, nunca use `--force`.
+     g) Abra o Pull Request para `main`:
+        - com GitHub CLI instalado e autenticado (`gh auth status`), use
+          `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "resumo"`;
+        - sem `gh`, monte o link pronto e entregue no chat:
+          `https://github.com/Mathesu-veLi/sistema-almoxarifado-bebidas/compare/main...<branch>?expand=1&title=<título>&body=<corpo>`
+          (título e corpo com URL-encoding; `%0A` para quebra de linha).
+     h) O PR fica **aberto** para revisão de outra pessoa. Nunca faça merge, nunca aprove, nunca feche PR de terceiro.
+     i) Se o push ou o PR falhar por autenticação (`could not read Username`, `Authentication failed`,
+        `terminal prompts disabled`), siga o item 1: **PARE**, explique e peça ao usuário rodar no terminal dele
+        `git push -u origin <branch>` e abrir o PR pelo link gerado.
 
-5. Commits atômicos: nunca misture alterações não correlatas em um único commit.
+5. Padrão Conventional Commits: `<tipo>(<escopo>): <descrição em português>` (ex.: `feat(insumos): cria endpoint de listagem`).
 
-6. Consulte sempre a skill `git-commit` e o arquivo `AGENTS.md`.
+6. Commits atômicos: nunca misture alterações não correlatas em um único commit.
 
-7. Você não cria nem altera arquivos, não mexe em `Entregaveis/` e não faz commit sem a autoria confirmada pelo usuário.
+7. Consulte sempre a skill `git-commit` e o arquivo `AGENTS.md`.
 
-8. Você não faz push. Só o usuário publica no remoto.
+8. Você não cria nem altera arquivos, não mexe em `Entregaveis/` e não faz commit sem a autoria confirmada pelo usuário.
 
-9. O escopo atual é somente a API REST Spring Boot; não crie frontend, telas Swing ou funcionalidades fora do contrato.
+9. Push: permitido **apenas** na branch de trabalho do colaborador, para abrir o Pull Request. Nunca na `main`, nunca com `--force`.
+
+10. O escopo atual é somente a API REST Spring Boot; não crie frontend, telas Swing ou funcionalidades fora do contrato.
