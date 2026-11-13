@@ -153,7 +153,33 @@ O repositório já traz comandos próprios: `/commit` (salva suas alterações e
 
 **Combine com o agente:** ele explica, revisa e orienta, mas não decide o projeto por vocês. Peça em partes pequenas, leia a resposta e só aceite o que a equipe entende. Nunca cole senhas, chaves JWT ou dados pessoais no chat.
 
-### 6. Faça sua primeira contribuição
+### 6. Configure seu nome, e-mail e acesso ao GitHub
+
+Antes do primeiro commit, diga ao Git quem você é — esse nome e e-mail aparecem no histórico do projeto. Use os mesmos dados da sua linha em `docs/colaboradores.md`:
+
+```powershell
+git config --global user.name "Seu Nome"
+git config --global user.email "seu.email@exemplo.com"
+```
+
+O `--global` vale para todos os projetos da sua máquina. Para configurar só neste repositório, rode os mesmos comandos sem `--global`, dentro da pasta do projeto. Confira o que ficou gravado:
+
+```powershell
+git config user.name
+git config user.email
+```
+
+Com isso, o `/commit` registra a autoria certa sem perguntar nada. Se o Git estiver sem configuração — ou com um nome que não está na lista de colaboradores — o agente pergunta quem fez o trabalho.
+
+**Acesso ao GitHub.** O Git não usa a senha da sua conta. No Windows, o **Git Credential Manager** (instalado junto com o Git) abre o navegador na primeira vez que você fizer `git push` ou `git pull`: entre com a conta usada no projeto e o acesso fica guardado. A alternativa é um **Personal Access Token** (GitHub → Settings → Developer settings → Personal access tokens), colado no lugar da senha quando o terminal pedir.
+
+Cuidados:
+
+- Nunca coloque senha ou token em arquivo do projeto (`application.properties`, `.env`, README) nem no chat: isso fica no histórico do Git.
+- Nunca escreva o token na URL do remoto (`https://usuario:token@github.com/...`).
+- Usou a máquina de outra pessoa? Confira `git config user.email` antes de commitar: a autoria vem dessa configuração, não da conta logada no GitHub.
+
+### 7. Faça sua primeira contribuição
 
 Antes de mexer no projeto, entenda as palavras que vão aparecer:
 
@@ -188,7 +214,7 @@ Passo a passo:
 
    O `git status` lista os arquivos alterados; o `git diff` mostra as linhas que entraram e saíram. Vale a pena conferir antes de salvar, para não enviar coisa por engano.
 
-4. **Salve com um commit.** No OpenCode, rode `/commit` e informe qual colaborador de `docs/colaboradores.md` fez o trabalho. O agente escreve a mensagem e registra o nome de quem fez.
+4. **Salve com um commit.** No OpenCode, rode `/commit`. O agente usa o nome e o e-mail que você configurou no Git (seção 6) e só pergunta quem fez o trabalho quando não houver configuração válida. A mensagem do commit é escrita pelo agente.
 
 5. **Envie a branch para o GitHub:**
 
@@ -274,7 +300,7 @@ Dica para a banca: não colem código que vocês não sabem explicar. Se o agent
 - O projeto é colaborativo: cada commit registra quem fez a alteração (lista em `docs/colaboradores.md`).
 - Padrão: `tipo(escopo): descrição em português`. O **tipo** diz a natureza da mudança (`feat` = funcionalidade nova, `fix` = correção, `docs` = documentação) e o **escopo**, a parte do projeto — por exemplo, `feat(insumos): cria endpoint de listagem`.
 - Um commit por assunto. Não misture banco, API e documentação no mesmo commit.
-- Se usarem o comando `/commit`, informem qual colaborador fez as alterações. Sem essa confirmação, o commit não deve ser feito.
+- Se usarem o comando `/commit`, o agente verifica o nome e o e-mail configurados no Git e só pergunta quem fez a alteração quando não houver configuração válida (seção 6). Não se commita sem autoria definida.
 - Nunca versione senhas, tokens, chaves JWT, arquivos `target/` ou configurações locais.
 
 ## Agentes de IA gratuitos
