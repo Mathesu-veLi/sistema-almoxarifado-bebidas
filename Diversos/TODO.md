@@ -414,51 +414,7 @@ Execute todos com o backend e o MySQL rodando. Guarde a evidência (print, log o
 
 ---
 
-## 6. Comandos úteis
-
-### MySQL
-
-```bash
-mysql -u root -p
-
-CREATE DATABASE nome_do_banco
-  DEFAULT CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE nome_do_banco;
-
-SOURCE db/schema.sql;
-SOURCE db/seed.sql;
-
-SHOW TABLES;
-DESCRIBE insumos;
-SELECT COUNT(*) FROM usuarios;
-SELECT * FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;
-```
-
-### Maven / Spring Boot
-
-```bash
-cd backend
-
-mvn clean package -DskipTests   # compilar sem testes
-mvn spring-boot:run             # rodar a API
-mvn test                        # rodar os testes
-```
-
-### Git
-
-```bash
-git status
-git diff
-git switch -c feat/minha-contribuicao
-```
-
-> Commits: usar o fluxo de `docs/colaboradores.md` e a skill `git-commit`. A identidade é aplicada somente no commit, com `git -c user.name=... -c user.email=... commit`.
-
----
-
-## 7. Perguntas prováveis da banca
+## 6. Perguntas prováveis da banca
 
 1. **Por que a API segue o contrato?** Porque o front-end é de outra empresa e já consome as rotas, os campos e os status definidos. Alterar o contrato quebraria a integração.
 2. **Como o JWT funciona?** O login valida `login` + senha (BCrypt) e gera um token assinado com expiração de 3600 segundos; o front-end envia o token em `Authorization: Bearer`; o filtro valida assinatura e expiração antes de liberar a rota.
@@ -475,7 +431,7 @@ git switch -c feat/minha-contribuicao
 
 ---
 
-## 8. Critérios de avaliação
+## 7. Critérios de avaliação
 
 | Critério | Peso |
 | --- | --- |
@@ -490,7 +446,7 @@ git switch -c feat/minha-contribuicao
 
 ---
 
-## 9. O que não faz parte do escopo
+## 8. O que não faz parte do escopo
 
 - Front-end, interfaces desktop, tela de login, HTML, CSS, JavaScript.
 - Notificações por e-mail ou push.
@@ -502,10 +458,9 @@ git switch -c feat/minha-contribuicao
 
 ---
 
-## 10. Observações sobre os documentos antigos
+## 9. Observações sobre os documentos antigos
 
 - `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` — PDF antigo, **obsoleto**.
-- `Diversos/TODO.docx` — versão antiga deste roteiro, **histórica**.
 - `Entregaveis/` — SQL, DER e requisitos da versão desktop. **Não são a fonte de verdade** do escopo atual e não devem ser alterados sem autorização dos autores.
 - Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco. O contrato continua sendo a fonte de verdade da API.
 
