@@ -22,7 +22,7 @@ O projeto é colaborativo: **o commit pertence a quem fez a alteração**, não 
 git -c user.name="Matheus Levi" -c user.email="matheuslevit@gmail.com" commit -m "feat(insumos): cria controller da tela de insumos"
 ```
 
-3. Proibido usar `git config user.name` / `git config user.email` para trocar o autor, e proibido `--global`.
+3. Proibido ao **agente** usar `git config user.name` / `git config user.email` para trocar o autor, e proibido `--global` nos comandos que ele executa. Quem configura a própria identidade é o **colaborador**, uma vez, na sua máquina (`README.md`, seção 6): isso é preparação do ambiente, não troca de autoria de commit.
 4. Trabalho em par: o colaborador principal é o autor e os demais entram no rodapé da mensagem:
 
 ```text
