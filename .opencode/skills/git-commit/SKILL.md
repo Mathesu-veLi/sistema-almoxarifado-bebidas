@@ -39,10 +39,12 @@ Para qualquer outro colaborador, o fluxo é branch + Pull Request:
    separadas; assuntos dependentes ficam juntos, com commits atômicos. Reaproveite a branch remota do mesmo assunto.
 3. Faça os commits dentro da branch, com a identidade do colaborador (seção acima).
 4. Publique apenas a branch: `git push -u origin <branch>`. Nunca `main`, nunca `--force`.
-5. Abra o PR para `main` com `gh pr create --base main --head <branch> --title "..." --body "..."` quando o `gh` estiver
-   autenticado; sem `gh`, entregue o link
-   `https://github.com/Mathesu-veLi/sistema-almoxarifado-bebidas/compare/main...<branch>?expand=1&title=<título>&body=<corpo>`
-   com título e corpo prontos (URL-encoding, `%0A` para quebra de linha).
+5. Abra o PR para `main`:
+   - `gh --version` e `gh auth status` dizem se o GitHub CLI está disponível;
+   - com `gh` autenticado: `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "resumo"`;
+   - sem `gh`: entregue o link `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1&title=<título>&body=<corpo>`
+     (owner/repo via `gh repo view --json nameWithOwner` ou `git remote get-url origin`; URL-encoding, `%0A` para quebra);
+   - nunca instale o `gh` por conta própria: a instalação é do usuário (README, "Instale o GitHub CLI").
 6. O merge é da equipe, após revisão: o agente **nunca** mescla, aprova ou fecha PR.
 7. Se o push falhar por autenticação, pare e peça ao usuário rodar o comando no terminal dele.
 

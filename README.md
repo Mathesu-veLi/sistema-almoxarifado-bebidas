@@ -179,7 +179,39 @@ Cuidados:
 - Nunca escreva o token na URL do remoto (`https://usuario:token@github.com/...`).
 - Usou a máquina de outra pessoa? Confira `git config user.email` antes de commitar: a autoria vem dessa configuração, não da conta logada no GitHub.
 
-### 7. Faça sua primeira contribuição
+### 7. (Opcional) Instale o GitHub CLI para abrir Pull Requests pelo terminal
+
+O `/commit` já cria a branch e faz o commit por você. Para ele também **abrir o Pull Request** sozinho, instale o **GitHub CLI** (`gh`). Sem ele nada quebra: o agente entrega o link pronto e você clica em **Create pull request** no navegador.
+
+No PowerShell:
+
+```powershell
+winget install --id GitHub.cli
+```
+
+Se o `winget` não existir na sua máquina, baixe o instalador em [cli.github.com](https://cli.github.com) e execute. Depois **feche e abra o terminal** (o programa novo só aparece em terminais abertos depois da instalação) e confira:
+
+```powershell
+gh --version
+```
+
+Entre na sua conta do GitHub — o comando abre o navegador e pede um código de confirmação:
+
+```powershell
+gh auth login
+```
+
+Escolha **GitHub.com** → **HTTPS** → **Login with a web browser**. Ao final, confirme:
+
+```powershell
+gh auth status
+```
+
+Com isso, o agente de commit pode rodar `gh pr create` e devolver o link do PR aberto. O `gh` guarda a própria credencial; o Git continua usando o Git Credential Manager. Em nenhum dos dois casos cole token ou senha em arquivo do projeto ou no chat.
+
+> O `gh` é opcional e cada colaborador instala por conta própria. Se você não quiser instalar, continue no fluxo manual da seção seguinte — o resultado é o mesmo, só com um clique a mais.
+
+### 8. Faça sua primeira contribuição
 
 Antes de mexer no projeto, entenda as palavras que vão aparecer:
 
@@ -224,7 +256,7 @@ Passo a passo:
 
    Na primeira vez, o Git pode abrir uma janela do navegador para você entrar na sua conta do GitHub. Entre com a conta que usa no projeto.
 
-6. **Abra o Pull Request.** Depois do push, entre na página do repositório no GitHub. Vai aparecer uma faixa amarela com o botão **Compare & pull request**; clique nele. Escreva um título curto (ex.: "Endpoint de insumos"), confira se a branch de destino é a `main` e clique em **Create pull request**.
+6. **Abra o Pull Request.** Se você instalou o `gh` (seção 7) e usou o `/commit`, o agente já abre o PR e te devolve o link — pule para o passo 7. Sem `gh`, entre na página do repositório no GitHub: vai aparecer uma faixa amarela com o botão **Compare & pull request**; clique nele, escreva um título curto (ex.: "Endpoint de insumos"), confira se a branch de destino é a `main` e clique em **Create pull request**.
 
    Se a faixa não aparecer, clique em **Pull requests** → **New pull request** e escolha a sua branch.
 

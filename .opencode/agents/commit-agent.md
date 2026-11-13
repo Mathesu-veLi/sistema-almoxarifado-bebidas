@@ -74,11 +74,17 @@ Siga rigorosamente as seguintes diretrizes inegociáveis:
      e) Faça os commits na branch com a identidade do colaborador (item 3).
      f) Publique **somente a branch**: `git push -u origin <branch>`. Nunca faça push na `main`, nunca use `--force`.
      g) Abra o Pull Request para `main`:
-        - com GitHub CLI instalado e autenticado (`gh auth status`), use
-          `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "resumo"`;
-        - sem `gh`, monte o link pronto e entregue no chat:
-          `https://github.com/Mathesu-veLi/sistema-almoxarifado-bebidas/compare/main...<branch>?expand=1&title=<título>&body=<corpo>`
+        - Verifique o GitHub CLI: `gh --version` (instalado?) e `gh auth status` (autenticado?).
+        - Se estiver instalado e autenticado, crie o PR direto, sem modo interativo:
+          `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "resumo do que mudou"`
+          (o resumo lista os commits do assunto; nunca inclua token, senha ou caminho local da máquina).
+        - Sem `gh` instalado ou autenticado, monte o link pronto e entregue no chat, obtendo owner/repo com
+          `gh repo view --json nameWithOwner` ou, na falta dele, com `git remote get-url origin`:
+          `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1&title=<título>&body=<corpo>`
           (título e corpo com URL-encoding; `%0A` para quebra de linha).
+        - Nos dois casos, informe o link do PR na resposta e lembre que o merge é da equipe.
+        - **Nunca instale o `gh`** (`winget`, `choco`, instalador) por conta própria: instalação de programa depende
+          de pedido explícito do usuário. Se faltar, indique a seção 7 do `README.md`.
      h) O PR fica **aberto** para revisão de outra pessoa. Nunca faça merge, nunca aprove, nunca feche PR de terceiro.
      i) Se o push ou o PR falhar por autenticação (`could not read Username`, `Authentication failed`,
         `terminal prompts disabled`), siga o item 1: **PARE**, explique e peça ao usuário rodar no terminal dele
