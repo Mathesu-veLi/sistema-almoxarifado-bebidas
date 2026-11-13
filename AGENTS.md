@@ -40,7 +40,7 @@ O agente deve lembrar a equipe de que:
 | `Diversos/*.docx` | Documentos-base atuais do projeto. **Somente leitura.** |
 | `Diversos/*.pdf.OLD`, `Diversos/TODO.docx` | Material histórico da versão anterior. Não usar como requisito nem como roteiro atual. |
 | `Diversos/TODO.md` | Roteiro operacional **atual** da equipe (API REST + MySQL). Pode ser atualizado pela equipe; não substitui o Contrato nem o Enunciado. |
-| `AGENTS.md`, `opencode.json`, `skills/`, `.agents/`, `.opencode/` | Configuração do agente. Alterar apenas quando o usuário pedir mudança de comportamento do agente. |
+| `AGENTS.md`, `opencode.json`, `.opencode/` | Configuração do agente. Alterar apenas quando o usuário pedir mudança de comportamento do agente. |
 
 Regras adicionais:
 
@@ -212,13 +212,13 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 
 ## 9. Habilidades de apoio
 
-Disponíveis de forma sincronizada em `.agents/skills/` (Antigravity), `.opencode/skills/` (OpenCode) e `skills/`:
+Disponíveis em `.opencode/skills/`:
 
-- [`skills/api-rest/SKILL.md`](skills/api-rest/SKILL.md): fidelidade ao contrato, camadas, DTOs, validação, status HTTP, erros e Postman.
-- [`skills/jwt-security/SKILL.md`](skills/jwt-security/SKILL.md): Spring Security, JWT, hash de senha, rotas públicas e proteção dos endpoints.
-- [`skills/database-operations/SKILL.md`](skills/database-operations/SKILL.md): entidades JPA, repositórios, transações, concorrência e inativação lógica.
-- [`skills/sorting-algorithms/SKILL.md`](skills/sorting-algorithms/SKILL.md): ordenação exigida pelo contrato e opções de implementação no banco ou em Java.
-- [`skills/git-commit/SKILL.md`](skills/git-commit/SKILL.md): commits atômicos com autoria escolhida, branch de trabalho e Pull Request quando o autor não é o mantenedor.
+- [`.opencode/skills/api-rest/SKILL.md`](.opencode/skills/api-rest/SKILL.md): fidelidade ao contrato, camadas, DTOs, validação, status HTTP, erros e Postman.
+- [`.opencode/skills/jwt-security/SKILL.md`](.opencode/skills/jwt-security/SKILL.md): Spring Security, JWT, hash de senha, rotas públicas e proteção dos endpoints.
+- [`.opencode/skills/database-operations/SKILL.md`](.opencode/skills/database-operations/SKILL.md): entidades JPA, repositórios, transações, concorrência e inativação lógica.
+- [`.opencode/skills/sorting-algorithms/SKILL.md`](.opencode/skills/sorting-algorithms/SKILL.md): ordenação exigida pelo contrato e opções de implementação no banco ou em Java.
+- [`.opencode/skills/git-commit/SKILL.md`](.opencode/skills/git-commit/SKILL.md): commits atômicos com autoria escolhida, branch de trabalho e Pull Request quando o autor não é o mantenedor.
 
 As skills são **material de consulta**. O agente pode usá-las para responder melhor, mas não deve sair implementando o projeto por causa delas.
 
@@ -308,28 +308,17 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 - **22/10/2026 — Reformulação da estrutura de IA.** O agente passa a atuar como assistente dos autores. Ficam protegidos `Entregaveis/` (somente leitura) e os documentos da equipe. Documentos de entrega e a modelagem do sistema voltam a ser produzidos pelos autores.
 - **03/11/2026 — Mudança de escopo para API REST.** O projeto deixa de ser desktop (Swing) e passa a ser somente backend Spring Boot, com JWT e o contrato de 26 operações. O PDF antigo vira `.OLD` e os dois `.docx` passam a ser a fonte de verdade. O agente continua como apoio, sem construir o projeto nem produzir as entregas.
 - **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 10 entregáveis (6 do Enunciado + 4 de modelagem/requisitos). A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. O `Diversos/TODO.docx` passa a ser histórico.
+- **13/11/2026 — Antigravity descontinuado.** Todos os colaboradores usam o OpenCode. As cópias de skills em `skills/` e `.agents/skills/` e as regras de `.agents/rules/` foram removidas; as skills ficam somente em `.opencode/skills/`, sem duplicação.
 
-## 16. Ambientes suportados: Antigravity e OpenCode
+## 16. Ambiente suportado: OpenCode
 
-O repositório funciona nos dois ambientes com as mesmas regras de papel e de proteção do material dos autores.
+O repositório é usado somente pelo **OpenCode**. O Antigravity foi descontinuado para este projeto, junto com as cópias duplicadas de skills.
 
-### Antigravity
-- Lê automaticamente este `AGENTS.md`.
-- Descobre as skills em `.agents/skills/`.
-- Aplica as regras complementares de `.agents/rules/senai-rules.md`, que apenas reforçam o escopo e o contrato atuais.
-
-### OpenCode
 - `opencode.json` registra este arquivo em `instructions`.
 - A permissão de edição de `Entregaveis/` está configurada como **perguntar**: o agente depende da sua autorização.
-- Skills reconhecidas em `.opencode/skills/`.
+- Skills reconhecidas em `.opencode/skills/` — **uma única cópia** de cada skill, sem duplicação em outras pastas.
 - Comandos disponíveis: `/commit`, `/banca` e `/testes`.
-- Subagente `commit-agent` dedicado apenas a commits, sempre com autoria confirmada.
-
-### Regras complementares
-As regras de `.agents/rules/senai-rules.md` descrevem exigências do contrato e do enunciado atuais. Elas **não** autorizam o agente a construir o projeto: servem para lembrar a equipe do que precisa ser feito.
-
-### Onde ficam as skills
-As mesmas skills estão replicadas em `skills/`, `.agents/skills/` e `.opencode/skills/` para que qualquer ambiente encontre o material. Ao editar uma skill, mantenha as três cópias iguais.
+- Subagente `commit-agent` dedicado apenas a commits, sempre com autoria definida.
 
 ### Fluxo recomendado
 1. A equipe decide o que fazer, consultando os dois `.docx`.

@@ -33,16 +33,16 @@ As **fases** (0 a 16) são as etapas de trabalho que produzem cada entrega.
 | **0** | Ler os documentos-base e preparar o ambiente | `README.md`, `AGENTS.md` | — |
 | **1** | Documento de regras de negócio, RF e RNF | Contrato + Enunciado | **Entrega 1** |
 | **2** | Documento e diagrama de casos de uso | Contrato | **Entrega 2** |
-| **3** | Diagrama de banco de dados (MySQL) | `skills/database-operations` | **Entrega 3** |
-| **4** | Diagrama de classes (UML) | `skills/database-operations` | **Entrega 4** |
-| **5** | Script SQL (`schema.sql` + `seed.sql`) e validação | `skills/database-operations` | **Entrega 5** |
-| **6** | Esqueleto do backend Spring Boot | `skills/api-rest` | **Entrega 6** |
-| **7** | Entidades JPA, enums, DTOs e repositórios | `skills/database-operations` | **Entrega 6** |
-| **8** | JWT, BCrypt e rotas protegidas | `skills/jwt-security` | **Entrega 6** |
-| **9** | Usuários, setores e fornecedores | `skills/api-rest` | **Entrega 6** |
-| **10** | Insumos e alertas de estoque | `skills/api-rest` | **Entrega 6** |
-| **11** | Movimentações, transação e concorrência | `skills/database-operations` | **Entrega 6** |
-| **12** | Validações e erros padronizados | `skills/api-rest` | **Entrega 6** |
+| **3** | Diagrama de banco de dados (MySQL) | `.opencode/skills/database-operations` | **Entrega 3** |
+| **4** | Diagrama de classes (UML) | `.opencode/skills/database-operations` | **Entrega 4** |
+| **5** | Script SQL (`schema.sql` + `seed.sql`) e validação | `.opencode/skills/database-operations` | **Entrega 5** |
+| **6** | Esqueleto do backend Spring Boot | `.opencode/skills/api-rest` | **Entrega 6** |
+| **7** | Entidades JPA, enums, DTOs e repositórios | `.opencode/skills/database-operations` | **Entrega 6** |
+| **8** | JWT, BCrypt e rotas protegidas | `.opencode/skills/jwt-security` | **Entrega 6** |
+| **9** | Usuários, setores e fornecedores | `.opencode/skills/api-rest` | **Entrega 6** |
+| **10** | Insumos e alertas de estoque | `.opencode/skills/api-rest` | **Entrega 6** |
+| **11** | Movimentações, transação e concorrência | `.opencode/skills/database-operations` | **Entrega 6** |
+| **12** | Validações e erros padronizados | `.opencode/skills/api-rest` | **Entrega 6** |
 | **13** | Testes, coleção Postman e evidências | Postman + Maven | **Entregas 7 e 8** |
 | **14** | Documento técnico e instruções de execução | `README.md` | **Entrega 9** |
 | **15** | Ensaio da demonstração e da banca | Enunciado, seção 9 | **Entrega 10** |
