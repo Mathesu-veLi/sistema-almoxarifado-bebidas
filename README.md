@@ -406,6 +406,8 @@ A documentação oficial em [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) 
 | `Entregaveis/` | Material da versão anterior (SQL, DER e requisitos desktop). **Somente leitura** e não é fonte de verdade do escopo atual. |
 | `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
 | `.opencode/skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |
+| `.opencode/plugins/entregaveis-todo/` | Gatilho que confere, junto com o agente, se um arquivo gravado em `Entregaveis/` conclui alguma entrega. |
+| `.opencode/entregaveis.json` | Critérios de conferência das 10 entregas, lidos pelo plugin. |
 | `AGENTS.md` | Regras de comportamento do agente neste repositório. |
 
 > **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.
