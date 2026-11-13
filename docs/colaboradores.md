@@ -15,7 +15,7 @@ Fonte única de verdade para a autoria dos commits do Projeto Integrador (Indús
 
 O projeto é colaborativo: **o commit pertence a quem fez a alteração**, não a uma identidade fixa.
 
-1. Antes de commitar, o agente **pergunta ao usuário** qual colaborador realizou as alterações, oferecendo a lista acima como opções.
+1. Antes de commitar, o agente verifica `git config user.name` e `git config user.email`. Se o par já corresponder a um colaborador da lista acima, ele é o autor e não há pergunta; caso contrário, o agente **pergunta ao usuário** qual colaborador realizou as alterações, oferecendo a lista acima como opções.
 2. A identidade escolhida é aplicada **somente naquele commit**, sem alterar a configuração do repositório:
 
 ```bash
