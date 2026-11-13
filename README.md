@@ -47,7 +47,7 @@ O front-end é externo. A equipe **não** desenvolve telas, HTML, CSS, JavaScrip
 9. **Diagrama de banco de dados (MySQL)**: tabelas, colunas, tipos, PKs, FKs, unicidade, nulabilidade, índices e cardinalidades, compatível com o script SQL.
 10. **Diagrama de classes (UML)**: classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades, compatível com o diagrama de banco e com o contrato.
 
-> As entregas 7 a 10 são **adicionais** às 6 do Enunciado. A ordem de produção é: documento de RN/RF/RNF → documento e diagrama de casos de uso → diagrama de banco → diagrama de classes → código. Confirmem com o professor o formato e o local de entrega.
+> As entregas **7 a 10** são **adicionais** às 6 do Enunciado — é a numeração oficial usada neste README e nos documentos de entrega. O `Diversos/TODO.md` numera as mesmas 10 entregas na **ordem de execução**: 1 = RN/RF/RNF, 2 = casos de uso, 3 = diagrama de banco, 4 = diagrama de classes, 5 = banco MySQL, 6 = código, 7 = Postman, 8 = relatório de testes, 9 = documento técnico, 10 = demonstração. A ordem de produção segue o TODO: modelagem → banco → código. Confirmem com o professor o formato e o local de entrega.
 
 ## Como começar a contribuir
 

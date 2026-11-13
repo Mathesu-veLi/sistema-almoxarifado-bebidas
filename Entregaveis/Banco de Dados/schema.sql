@@ -3,7 +3,7 @@
 -- Script de estrutura (schema.sql) do banco de dados
 --
 -- Fonte deste schema: Entregaveis/Banco de Dados/bebidas_db_diagram.dbml
---   (diagrama de banco de dados produzido pela equipe — Entrega 9)
+--   (diagrama de banco de dados produzido pela equipe — Entrega 3)
 -- Fonte das regras: Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx
 --                   Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx
 --
