@@ -10,8 +10,8 @@
   ],
   "commands": {
     "commit": {
-      "description": "Executa commits atômicos padronizados seguindo Conventional Commits com autoria escolhida entre os colaboradores",
-      "template": "Pergunte ao usuário qual colaborador de docs/colaboradores.md fez as alterações, valide os arquivos modificados e execute commits atômicos com a identidade escolhida apenas no commit (git -c user.name=... -c user.email=... commit), sem sobrescrever a configuração local e seguindo as instruções de AGENTS.md e da skill git-commit. Escopo/detalhes: $ARGUMENTS"
+      "description": "Executa commits atômicos com Conventional Commits, usa a identidade configurada no Git e abre Pull Request quando o autor não é o mantenedor",
+      "template": "Verifique a identidade configurada no Git (git config user.name e git config user.email): se já for de um colaborador de docs/colaboradores.md, use-a sem perguntar — só pergunte quando não houver configuração válida. Valide os arquivos modificados e execute commits atômicos com a identidade aplicada apenas no commit (git -c user.name=... -c user.email=... commit), sem sobrescrever a configuração local e seguindo as instruções de AGENTS.md e da skill git-commit. Se o autor não for Mathesu-veLi, crie a branch de trabalho, publique-a e abra o Pull Request para main. Escopo/detalhes: $ARGUMENTS"
     },
     "banca": {
       "description": "Ajuda a equipe a se preparar para a arguição oral da banca SENAI",
@@ -24,7 +24,7 @@
   },
   "agents": {
     "commit-agent": {
-      "description": "Agente responsável por auditar alterações e realizar commits atômicos padronizados",
+      "description": "Agente responsável por auditar alterações, realizar commits atômicos e abrir Pull Request quando o autor não é o mantenedor",
       "mode": "subagent"
     }
   }

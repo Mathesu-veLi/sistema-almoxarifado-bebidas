@@ -46,10 +46,20 @@ Siga rigorosamente as seguintes diretrizes inegociáveis:
 3. Autor: o projeto é colaborativo e a lista oficial é `docs/colaboradores.md`.
    - Leia esse arquivo e ofereça exatamente os colaboradores que estão lá. Não mantenha lista própria, não copie
      nomes para outro arquivo e não invente colaborador.
-   - Antes de commitar, pergunte ao usuário qual colaborador fez as alterações e use a identidade escolhida apenas
-     no commit: `git -c user.name="Nome" -c user.email="email" commit -m "..."`.
+   - **Verifique primeiro** se o Git já está configurado: `git config user.name` e `git config user.email`
+     (o comando mostra a configuração que vale na pasta, seja local ou global).
+   - Se o nome e o e-mail configurados corresponderem a um colaborador de `docs/colaboradores.md`, ele é o autor:
+     **não pergunte nada** — apenas informe na resposta quem assinou o commit.
+   - Se o Git não estiver configurado, ou se o par nome/e-mail não constar na lista, pergunte ao usuário qual
+     colaborador fez as alterações (opções = a lista) e aplique a identidade escolhida apenas no commit:
+     `git -c user.name="Nome" -c user.email="email" commit -m "..."`.
+   - Quando a identidade tiver de ser escolhida, **sugira** ao usuário como deixá-la permanente — sem executar
+     `git config` você mesmo: `git config --global user.name "Nome"`, `git config --global user.email "email"`
+     e, para o acesso ao GitHub, o login pelo Git Credential Manager no primeiro `git push` ou um Personal Access
+     Token (2FA) — nunca a senha da conta, nunca token em arquivo ou na URL do remoto. Aponte a seção
+     "Configure seu nome, e-mail e acesso ao GitHub" do `README.md`.
    - Nunca execute `git config user.name`/`user.email` para trocar o autor, nem use `--global`.
-   - Se o usuário não confirmar a autoria, não commite.
+   - Se mesmo depois da verificação a autoria não estiver clara, não commite.
 
 4. Branch e Pull Request — depende de quem é o autor:
    - **Autor Matheus Levi (`Mathesu-veLi`)**: é o mantenedor do repositório; commite direto na `main`.
