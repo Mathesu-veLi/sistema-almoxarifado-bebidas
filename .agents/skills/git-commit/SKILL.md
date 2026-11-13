@@ -15,15 +15,18 @@ O projeto é colaborativo e a lista oficial de autores fica em `docs/colaborador
 
 **Fluxo obrigatório antes de cada commit:**
 
-1. Pergunte ao usuário (ferramenta de perguntas/`question`) **qual colaborador fez as alterações**, oferecendo os colaboradores de `docs/colaboradores.md` como opções. Use seleção múltipla quando o trabalho for em par.
-2. Aplique a identidade escolhida **somente naquele commit**, sem alterar a configuração do repositório:
+1. Verifique se o Git já está configurado com nome e e-mail: `git config user.name` e `git config user.email`.
+2. Se o par configurado for de um colaborador de `docs/colaboradores.md`, ele é o autor — **não pergunte**; apenas informe na resposta quem assinou.
+3. Se não estiver configurado, ou se o nome/e-mail não constar na lista, pergunte ao usuário (ferramenta de perguntas/`question`) **qual colaborador fez as alterações**, oferecendo os colaboradores de `docs/colaboradores.md` como opções. Use seleção múltipla quando o trabalho for em par.
+4. Aplique a identidade escolhida **somente naquele commit**, sem alterar a configuração do repositório:
 
 ```bash
 git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"
 ```
 
-3. Se houver mais de um colaborador, o principal é o autor e os demais entram no rodapé: `Co-authored-by: Nome <email>`.
-4. Nunca rode `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem a autoria confirmada pelo usuário.
+5. Se houver mais de um colaborador, o principal é o autor e os demais entram no rodapé: `Co-authored-by: Nome <email>`.
+6. Quando a identidade tiver de ser escolhida, **sugira** ao usuário como configurá-la de forma permanente (`git config --global user.name "Nome"` e `git config --global user.email "email"`) e como resolver o acesso ao GitHub (login pelo Git Credential Manager no primeiro `git push`, ou Personal Access Token — nunca a senha da conta, nunca token em arquivo ou na URL). Quem executa é o usuário: não rode `git config` por conta própria.
+7. Nunca rode `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem autoria definida.
 
 ## Branch e Pull Request (quando o autor não é o mantenedor)
 
