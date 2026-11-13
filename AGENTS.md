@@ -201,9 +201,9 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 ## 8. Git (governança)
 
 - O projeto é colaborativo e a lista oficial de autores está em [`docs/colaboradores.md`](docs/colaboradores.md).
-- Antes de cada commit, o agente **pergunta ao usuário qual colaborador fez as alterações** e aplica a identidade **somente naquele commit**:
+- Antes de cada commit, o agente verifica `git config user.name` e `git config user.email`. Se o nome e o e-mail configurados forem de um colaborador de `docs/colaboradores.md`, ele é o autor: **não é preciso perguntar**, basta informar quem assinou. Só quando o Git não estiver configurado (ou o par não constar na lista) o agente **pergunta qual colaborador fez as alterações** e aplica a identidade **somente naquele commit**:
   `git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"`
-- **Nunca** use `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem autoria confirmada.
+- **Nunca** use `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem autoria definida. Quando a identidade precisar ser escolhida, o agente **sugere** como configurar nome, e-mail e acesso ao GitHub (Git Credential Manager ou token — nunca a senha da conta em arquivo ou na URL) e indica o passo correspondente no `README.md`; quem executa é o usuário.
 - Trabalho em par: o colaborador escolhido é o autor e os demais entram como `Co-authored-by: Nome <email>` no rodapé.
 - **Branch e Pull Request:** o mantenedor **Matheus Levi (`Mathesu-veLi`)** commita direto na `main`. Para qualquer outro colaborador, o agente de commit leva o trabalho para uma **branch nova** (`tipo/escopo`, sem `--force`), decide o nome e a quantidade de branches (uma por assunto lógico), publica a branch e abre o **Pull Request** para `main` — usando `gh` quando disponível ou entregando o link de comparação com título e corpo prontos. O merge continua sendo da equipe, após revisão; o agente **nunca** mescla PR nem faz push na `main`.
 - Padrão **Conventional Commits** em português: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
