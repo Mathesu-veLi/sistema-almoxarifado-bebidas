@@ -320,6 +320,25 @@ O repositório é usado somente pelo **OpenCode**. O Antigravity foi descontinua
 - Comandos disponíveis: `/commit`, `/banca` e `/testes`.
 - Subagente `commit-agent` dedicado apenas a commits, sempre com autoria definida.
 
+### Gatilho da pasta `Entregaveis/`
+
+O plugin `.opencode/plugins/entregaveis-todo/` observa as gravações que o agente faz dentro de `Entregaveis/`. Quando um arquivo dessa pasta é criado ou editado por `write`/`edit`, ele injeta no próximo contexto do modelo um lembrete com a entrega correspondente e os critérios de conferência lidos de [`.opencode/entregaveis.json`](.opencode/entregaveis.json).
+
+O que o plugin **faz**:
+
+- identifica o arquivo gravado e localiza a entrega pelo mapa `fontes` (globs) do `entregaveis.json`;
+- entrega ao agente a lista de critérios daquela entrega, o caminho do `TODO.md` e a seção `1.2`;
+- vale só para o que o agente grava dentro do OpenCode; edição feita em outra ferramenta não dispara nada.
+
+O que o plugin **não faz**:
+
+- não marca `[X]` sozinho, não escreve no `TODO.md` e não chama outro modelo;
+- não decide que uma entrega está pronta: quem lê o arquivo, compara com os critérios e decide é o agente da sessão, explicando o motivo no chat;
+- se o arquivo não permitir verificação (por exemplo, contendo apenas um link para Lucidchart/Lucidspark), o agente é instruído a **não marcar** e dizer o que falta;
+- não autoriza produzir a entrega no lugar da equipe — a verificação é só de conferência.
+
+Os critérios vivem em `.opencode/entregaveis.json`. Ao mudar a convenção de pastas de `Entregaveis/` ou o texto das entregas, atualize esse arquivo; o plugin relê o JSON a cada gravação, sem precisar reiniciar o OpenCode.
+
 ### Fluxo recomendado
 1. A equipe decide o que fazer, consultando os dois `.docx`.
 2. A equipe faz ou pede ao agente um apoio pontual.
