@@ -1,0 +1,155 @@
+{
+  "descricao": "Critérios de conferência das 10 entregas da seção 1.2 do Diversos/TODO.md. É lido pelo plugin .opencode/plugins/entregaveis-todo sempre que um arquivo da pasta Entregaveis/ é gravado. O plugin NÃO marca nada sozinho: ele avisa o agente, que compara o arquivo com os critérios, diz o que falta e só marca [X] quando a entrega está completa e revisada.",
+  "como_editar": "Cada item de 'entregas' aceita: 'entrega' (número da linha em 1.2), 'titulo', 'fontes' (caminhos com * e **, sem diferenciar maiúsculas), 'criterios' (o que precisa existir para a entrega valer) e 'observacao'. Depois de editar, não é preciso reiniciar o OpenCode: o plugin relê o arquivo a cada gravação.",
+  "todo": "Diversos/TODO.md",
+  "secao": "1.2 As 10 entregas",
+  "entregas": [
+    {
+      "entrega": 1,
+      "titulo": "Documento de RN-01 a RN-16 + RF (26 operações) + RNF + matriz de rastreabilidade",
+      "fontes": [
+        "Entregaveis/Requisitos/**",
+        "Entregaveis/Modelagem/*requisito*",
+        "Entregaveis/Modelagem/**/*requisito*"
+      ],
+      "criterios": [
+        "As 16 regras RN-01 a RN-16 estão descritas, cada uma com o impacto na API e a forma de verificação.",
+        "Existe um RF por operação, cobrindo as 26 do contrato, com identificador, descrição, ator, endpoint, entrada, saída e status HTTP.",
+        "Os RNF são verificáveis (segurança com JWT e hash, desempenho, portabilidade, manutenibilidade, tratamento de erros e consistência transacional).",
+        "A matriz de rastreabilidade liga RF -> endpoint -> CT01 a CT22, sem requisito órfão.",
+        "O documento tem introdução, escopo e atores, e não descreve funcionalidade fora do contrato (sem front-end, sem perfis, sem estorno, sem relatórios)."
+      ],
+      "observacao": "Só vale como concluída quando o documento estiver escrito de verdade dentro do arquivo, não apenas apontando para um editor externo."
+    },
+    {
+      "entrega": 2,
+      "titulo": "Documento e diagrama de casos de uso",
+      "fontes": [
+        "Entregaveis/Modelagem/*casos-de-uso*",
+        "Entregaveis/Modelagem/*caso-de-uso*"
+      ],
+      "criterios": [
+        "Os atores estão identificados: visitante (cadastro e login) e usuário autenticado (demais operações).",
+        "Cada caso de uso tem objetivo, ator, pré-condições, fluxo principal e fluxos alternativos/exceções com a resposta esperada.",
+        "O diagrama UML mostra atores, casos de uso, associações e `<<include>>`/`<<extend>>` quando fizer sentido.",
+        "Cada caso de uso está rastreado para os RF e os endpoints, sem funcionalidade fora do contrato.",
+        "O diagrama é verificável no próprio arquivo: imagem, PDF ou fonte do diagrama. Um link para Lucidchart/Lucidspark NÃO conta como entrega."
+      ],
+      "observacao": "Hoje Entregaveis/Modelagem/diagrama-casos-de-uso.md tem só um link para o Lucidchart. Enquanto isso não mudar, a entrega é 'não verificável'."
+    },
+    {
+      "entrega": 3,
+      "titulo": "Diagrama de banco de dados (MySQL)",
+      "fontes": [
+        "Entregaveis/Banco de Dados/*diagram*",
+        "Entregaveis/Banco de Dados/*der*"
+      ],
+      "criterios": [
+        "As tabelas usuário, setor, fornecedor, insumo e movimentação estão presentes.",
+        "Cada tabela tem PK, e as FKs apontam para as tabelas certas.",
+        "Tipos, nulabilidade, unicidade, restrições e índices estão definidos.",
+        "As cardinalidades estão explícitas (1:1, 1:N, N:N quando houver).",
+        "O diagrama é compatível com o documento de RN/RF/RNF e com o script MySQL."
+      ],
+      "observacao": "Já está marcada como [X] no TODO.md; o plugin só deve avisar se o diagrama mudar."
+    },
+    {
+      "entrega": 4,
+      "titulo": "Diagrama de classes (UML)",
+      "fontes": [
+        "Entregaveis/Modelagem/*classes*"
+      ],
+      "criterios": [
+        "As classes do domínio aparecem: Usuario, Setor, Fornecedor, Insumo e Movimentacao.",
+        "Os enums estão representados: TipoMovimentacao (ENTRADA/SAIDA) e UnidadeMedida (UN/KG/L).",
+        "Cada classe tem atributos e métodos coerentes com o contrato (por exemplo, quantidadeAtual, estoqueMinimo, ativo).",
+        "Os relacionamentos e multiplicidades estão indicados e batem com o diagrama de banco.",
+        "Não há classe de front-end, tela ou controller inexistente no contrato.",
+        "O diagrama é verificável no próprio arquivo: imagem, PDF ou fonte do diagrama. Um link para Lucidspark NÃO conta como entrega."
+      ],
+      "observacao": "Hoje Entregaveis/Modelagem/diagrama-classes.md tem só um link para o Lucidspark. Enquanto isso não mudar, a entrega é 'não verificável'."
+    },
+    {
+      "entrega": 5,
+      "titulo": "Banco MySQL integrado, com script de criação/carga e dados de demonstração",
+      "fontes": [
+        "Entregaveis/Banco de Dados/*.sql"
+      ],
+      "criterios": [
+        "Existe um script de estrutura que cria o banco do zero (schema.sql).",
+        "Existe um script de dados de demonstração (seed.sql) com registros suficientes para testar as 26 operações.",
+        "Os tipos e restrições do script batem com o diagrama de banco (PKs, FKs, unique, not null).",
+        "Não há `ON DELETE CASCADE` no histórico de movimentações; o insumo com histórico é inativado, não apagado.",
+        "O script foi executado em banco limpo e a API sobe sem erro apontando para ele.",
+        "Nenhuma senha, token ou chave real aparece no script."
+      ]
+    },
+    {
+      "entrega": 6,
+      "titulo": "Código-fonte completo do Spring Boot",
+      "fontes": [],
+      "criterios": [
+        "Projeto Maven com pom.xml, Java 17+ e as dependências do contrato.",
+        "Camadas controller, service, repository, model, dto, exception, security e config.",
+        "As 26 operações implementadas, com JWT e hash BCrypt.",
+        "README do backend com instruções reproduzíveis de execução e teste."
+      ],
+      "observacao": "Não é disparada pela pasta Entregaveis/: o código fica em backend/. Confira pela seção 1.2 do TODO.md e pelos itens da seção 6 em diante."
+    },
+    {
+      "entrega": 7,
+      "titulo": "Coleção Postman com as 26 operações",
+      "fontes": [
+        "Entregaveis/Postman/**",
+        "Entregaveis/**/*postman*"
+      ],
+      "criterios": [
+        "Uma pasta por grupo: usuários/auth, setores, fornecedores, insumos, movimentações e alertas.",
+        "As 26 requisições do contrato estão presentes, com método, rota, corpo e exemplos.",
+        "Os dois endpoints públicos e os protegidos por Bearer estão separados.",
+        "A coleção foi executada com sucesso contra a API local."
+      ]
+    },
+    {
+      "entrega": 8,
+      "titulo": "Relatório curto de testes (CT01 a CT22)",
+      "fontes": [
+        "Entregaveis/Testes/**",
+        "Entregaveis/**/*relatorio*",
+        "Entregaveis/**/*teste*"
+      ],
+      "criterios": [
+        "Os 22 casos mínimos CT01 a CT22 aparecem com resultado esperado, resultado observado e evidência.",
+        "As evidências são verificáveis (print, log ou trecho de resposta), não apenas afirmações.",
+        "Os casos de erro (400, 401, 404, 409) têm pelo menos um exemplo real.",
+        "Concorrência (CT20) e rollback (CT19) foram executados e registrados."
+      ]
+    },
+    {
+      "entrega": 9,
+      "titulo": "Documento técnico",
+      "fontes": [
+        "Entregaveis/Documentacao/**",
+        "Entregaveis/**/*tecnico*"
+      ],
+      "criterios": [
+        "Ferramentas e versões usadas (Java, Spring Boot, MySQL, Maven, Postman).",
+        "Modelo do banco e como criar/carregar pelo script.",
+        "Configurações necessárias descritas sem senhas reais (nomes de variáveis apenas).",
+        "Arquitetura resumida em camadas e decisões técnicas: JWT, transação, concorrência, inativação lógica e ordenação.",
+        "Instruções reproduzíveis para subir a API e rodar os testes."
+      ]
+    },
+    {
+      "entrega": 10,
+      "titulo": "Demonstração prática",
+      "fontes": [],
+      "criterios": [
+        "Roteiro com os fluxos: cadastro e login, bloqueio sem token, cadastros, entrada, saída, histórico e alertas.",
+        "Divisão de quem apresenta cada parte e tempo cronometrado.",
+        "Cada decisão técnica tem explicação pronta (JWT, hash, transação, lock, inativação, ordenação)."
+      ],
+      "observacao": "Não é disparada por arquivo: é apresentação oral. Confira pela seção 15 do TODO.md."
+    }
+  ]
+}
