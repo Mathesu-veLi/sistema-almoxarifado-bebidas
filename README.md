@@ -14,7 +14,6 @@ O front-end vai consumir exatamente as URLs, os métodos HTTP e os formatos JSON
   - `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` — contexto, tecnologias, módulos, regras de negócio e entregáveis.
   - `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` — contrato de integração com as **26 operações**, JSON, status HTTP, filtros e erros.
 - `Diversos/TODO.md` é o **roteiro operacional atual** da equipe (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os **10 entregáveis** (6 do Enunciado + 4 de modelagem/requisitos). Ele organiza a execução, mas **não é fonte de verdade**: em caso de dúvida, valem o Contrato e o Enunciado.
-- `Diversos/TODO.docx` e o material de `Entregaveis/` foram produzidos para o escopo antigo (desktop). Eles são **históricos** e não devem ser usados como roteiro ou contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco.
 
 ## O que o projeto é
 
@@ -335,41 +334,6 @@ Dica para a banca: não colem código que vocês não sabem explicar. Se o agent
 - Se usarem o comando `/commit`, o agente verifica o nome e o e-mail configurados no Git e só pergunta quem fez a alteração quando não houver configuração válida (seção 6). Não se commita sem autoria definida.
 - Nunca versione senhas, tokens, chaves JWT, arquivos `target/` ou configurações locais.
 
-## Agentes de IA gratuitos
-
-O agente não substitui o estudo da equipe, mas ajuda a tirar dúvidas, revisar código e destravar erros. Para este projeto, a recomendação é o **OpenCode**.
-
-### Por que o OpenCode
-
-- **Gratuito e de código aberto** ([opencode.ai](https://opencode.ai/), versão em português em [opencode.ai/br](https://opencode.ai/br)) — dá para usar e estudar de graça.
-- **Já vem com IAs (LLMs) gratuitas** e também aceita modelos de vários provedores (as empresas ou serviços que oferecem IA, como Gemini, Groq, OpenRouter ou Ollama no próprio computador).
-- Funciona no **terminal, no editor de código (IDE) ou como aplicativo no desktop**, sem prender a equipe a um programa só.
-- É o ambiente que já está configurado neste repositório (as regras do `AGENTS.md`, a configuração do `opencode.json` e os comandos da pasta `.opencode/`).
-
-> Modelos gratuitos costumam ter **limite de uso, fila e qualidade menor** que os pagos, e alguns provedores podem usar o que você envia para treinar a IA. Não colem senhas, chaves de acesso, dados de clientes ou informações pessoais no chat.
-
-### Outras opções gratuitas
-
-| Ferramenta | Onde roda | Observação |
-| --- | --- | --- |
-| [Cline](https://cline.bot) | VS Code | Complemento (extensão) gratuito; usa uma chave de acesso própria ou um modelo no seu computador. |
-| [Roo Code](https://roocode.com) | VS Code | Baseado no Cline, com modos de agente e suporte a vários provedores. |
-| [Aider](https://aider.chat) | Terminal | Agente gratuito que altera os arquivos do projeto e registra as mudanças pelo Git; aceita modelos no próprio computador. |
-| [Continue](https://continue.dev) | VS Code e JetBrains | Sugestões enquanto você digita (autocomplete) e chat gratuitos, com modelos no computador ou na nuvem. |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | Terminal | Agente do Google com limite gratuito usando a conta Google. |
-| [Qwen Code](https://github.com/QwenLM/qwen-code) | Terminal | Agente gratuito com modelos Qwen sem custo. |
-
-Para usar uma IA **sem internet**, dá para rodar o [Ollama](https://ollama.com) junto do OpenCode ou do Aider — o custo passa a ser só o do computador.
-
-### Material de apoio em vídeo
-
-- **O que é um agente de IA:** [O que são AGENTES de IA: APRENDA do ZERO!](https://www.youtube.com/watch?v=xSHqm8JsqkI)
-- **Instalar e usar o OpenCode (em português):** [Curso OpenCode Completo — Use IAs GRATUITAMENTE!](https://www.youtube.com/watch?v=Q9bH393Bq64)
-- **OpenCode Desktop do zero (em português):** [OpenCode Desktop: Tutorial Completo do Zero](https://www.youtube.com/watch?v=Ato5qq80XtM)
-- **Instalação no Windows (em inglês, com legendas):** [OpenCode: Free AI Coding Agent Setup Guide](https://www.youtube.com/watch?v=20vcJmqAr4M)
-
-A documentação oficial em [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) é a fonte mais confiável quando o vídeo estiver desatualizado.
-
 ## Glossário rápido
 
 | Palavra | O que significa na prática |
@@ -402,7 +366,6 @@ A documentação oficial em [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) 
 | `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` | Contrato atual: as 26 operações, JSON, status HTTP, filtros, ordenação e erros. |
 | `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` | PDF antigo, **obsoleto**. Não usar. |
 | `Diversos/TODO.md` | Roteiro **atual** da equipe: fases, 26 operações, CT01 a CT22, MySQL e entregáveis. |
-| `Diversos/TODO.docx` | Roteiro da versão anterior (desktop). **Histórico**. |
 | `Entregaveis/` | Material da versão anterior (SQL, DER e requisitos desktop). **Somente leitura** e não é fonte de verdade do escopo atual. |
 | `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
 | `.opencode/skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |
