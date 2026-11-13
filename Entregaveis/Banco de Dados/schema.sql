@@ -19,7 +19,7 @@ CREATE TABLE usuarios (
     ativo       TINYINT(1)    NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     CONSTRAINT uk_usuarios_login UNIQUE (login)
-)
+);
 
 CREATE TABLE setores (
     id         BIGINT        NOT NULL AUTO_INCREMENT,
@@ -28,7 +28,7 @@ CREATE TABLE setores (
     ativo      TINYINT(1)    NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     KEY idx_setores_nome (nome)
-)
+);
 
 CREATE TABLE fornecedores (
     id        BIGINT        NOT NULL AUTO_INCREMENT,
@@ -39,7 +39,7 @@ CREATE TABLE fornecedores (
     PRIMARY KEY (id),
     CONSTRAINT uk_fornecedores_cnpj UNIQUE (cnpj),
     KEY idx_fornecedores_nome (nome)
-)
+);
 
 CREATE TABLE insumos (
     id               BIGINT        NOT NULL AUTO_INCREMENT,
@@ -56,7 +56,7 @@ CREATE TABLE insumos (
         FOREIGN KEY (fornecedor_id) REFERENCES fornecedores (id)
         ON DELETE RESTRICT
         ON UPDATE RESTRICT
-)
+);
 
 CREATE TABLE movimentacoes (
     id                BIGINT        NOT NULL AUTO_INCREMENT,
@@ -89,4 +89,4 @@ CREATE TABLE movimentacoes (
         FOREIGN KEY (setor_id) REFERENCES setores (id)
         ON DELETE RESTRICT
         ON UPDATE RESTRICT
-)
+);
