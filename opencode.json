@@ -8,6 +8,14 @@
     { "action": "edit", "resource": "Entregaveis/*", "effect": "ask" },
     { "action": "shell", "resource": "*Entregaveis*", "effect": "ask" }
   ],
+  "mcp": {
+    "servers": {
+      "lucid": {
+        "type": "remote",
+        "url": "https://mcp.lucid.app/mcp"
+      }
+    }
+  },
   "commands": {
     "commit": {
       "description": "Executa commits atômicos com Conventional Commits, usa a identidade configurada no Git e abre Pull Request quando o autor não é o mantenedor",
