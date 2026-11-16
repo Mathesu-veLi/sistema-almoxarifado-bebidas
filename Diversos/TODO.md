@@ -137,7 +137,7 @@ Só começar depois do diagrama de banco aprovado.
 Só começar depois dos diagramas de banco e de classes aprovados.
 
 - [ ] **5.1. Escrever o script de estrutura** em arquivo **novo** (`db/schema.sql`); não sobrescrever o `BancodoProjeto.sql` antigo sem autorização dos autores.
-  - O arquivo de estrutura é só `db/schema.sql`; os dados de demonstração ficam em `db/seed.sql`, criado na **FASE 13** (depois do código). Usar `InnoDB` e `utf8mb4`.
+  - O arquivo de estrutura é só `db/schema.sql`; os dados de demonstração ficam em `db/seed.sql`, criado na **FASE 13** (depois do código). Usar `utf8mb4` (o InnoDB já é o engine padrão do MySQL 8, sem obrigação de declarar `ENGINE` no script).
 - [ ] **5.2. Modelo mínimo esperado**
 
 | Tabela | Campos mínimos | Observações para MySQL |
@@ -146,10 +146,10 @@ Só começar depois dos diagramas de banco e de classes aprovados.
 | `setores` | `id`, `nome`, `descricao`, `ativo` | nome único entre ativos (validar no service; MySQL não tem índice parcial simples) |
 | `fornecedores` | `id`, `nome`, `cnpj`, `telefone`, `ativo` | `cnpj CHAR(14)` único, somente dígitos; `telefone` opcional |
 | `insumos` | `id`, `nome`, `unidade_medida`, `quantidade_atual`, `estoque_minimo`, `fornecedor_id`, `ativo` | quantidades em `DECIMAL(15,3)`; `unidade_medida` em `UN`/`KG`/`L`; FK para fornecedor |
-| `movimentacoes` | `id`, `insumo_id`, `tipo`, `quantidade`, `setor_id`, `usuario_id`, `data_movimentacao`, `data_registro`, `lote`, `validade`, `saldo_anterior`, `saldo_atual` | `tipo` `ENTRADA`/`SAIDA`; `setor_id`, `lote` e `validade` NULL permitidos; `data_movimentacao DATE`; `data_registro DATETIME(6)`; FKs sem cascade no histórico |
+| `movimentacoes` | `id`, `insumo_id`, `tipo`, `quantidade`, `setor_id`, `usuario_id`, `data_movimentacao`, `data_registro`, `lote`, `validade`, `saldo_anterior`, `saldo_atual` | `tipo` `ENTRADA`/`SAIDA`; `setor_id` opcional, `lote` e `validade` NULL permitidos; `data_movimentacao DATE`; `data_registro TIMESTAMP(6)`; FKs sem cascade no histórico |
 
 - [ ] **5.3. Definir tipos e restrições**
-  - `DECIMAL(15,3)` para quantidades; `DATE` para `data_movimentacao`; `DATETIME(6)` ou `TIMESTAMP` para `data_registro`; `TINYINT(1)`/`BOOLEAN` para `ativo`.
+  - `DECIMAL(15,3)` para quantidades; `DATE` para `data_movimentacao`; `TIMESTAMP(6)` para `data_registro`; `TINYINT(1)`/`BOOLEAN` para `ativo`.
   - `ENUM('ENTRADA','SAIDA')` ou `VARCHAR(7)` validado para `tipo`; `ENUM('UN','KG','L')` ou `VARCHAR(2)` validado para `unidade_medida`.
   - Unicidade em `login` e `cnpj`; FKs de `insumos.fornecedor_id` e de `movimentacoes.insumo_id`/`usuario_id`/`setor_id`.
   - **Não** usar `ON DELETE CASCADE` em movimentações: o histórico deve ser preservado.
