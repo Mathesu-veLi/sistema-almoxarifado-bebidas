@@ -1,75 +1,110 @@
+// Diagrama de banco de dados - Industria de Bebidas (MySQL 8.0.16+)
+// Tipos, nomes de constraints e acoes referenciais iguais aos do schema.sql.
+
 Table usuarios {
-  id integer [primary key, increment]
+  id bigint [primary key, increment]
   nome varchar(150) [not null]
   login varchar(50) [not null, unique, note: "username"]
-  senha_hash varchar(255) [not null]
-  ativo boolean [not null, default: true]
+  senha_hash varchar(255) [not null, note: "BCrypt - nunca senha em texto puro"]
+  ativo tinyint(1) [not null, default: 1]
+
+  checks {
+    `ativo IN (0,1)` [name: 'ck_usuarios_ativo']
+  }
 }
 
 Table setores {
-  id integer [primary key, increment]
-  nome varchar(150) [not null]
+  id bigint [primary key, increment]
+  nome varchar(150) [not null, note: 'unico apenas entre setores ATIVOS: validado no Service, sem restricao no banco']
   descricao varchar(255)
-  ativo boolean [not null, default: true]
+  ativo tinyint(1) [not null, default: 1]
 
   indexes {
-    nome [name: 'idx_setores_nome']
+    (nome, ativo) [name: 'idx_setores_nome_ativo']
+  }
+
+  checks {
+    `ativo IN (0,1)` [name: 'ck_setores_ativo']
   }
 }
 
 Table fornecedores {
-  id integer [primary key, increment]
+  id bigint [primary key, increment]
   nome varchar(150) [not null]
-  cnpj char(14) [not null, unique]
+  cnpj char(14) [not null, unique, note: '14 digitos, sem mascara']
   telefone varchar(20)
-  ativo boolean [not null, default: true]
+  ativo tinyint(1) [not null, default: 1]
 
   indexes {
     nome [name: 'idx_fornecedores_nome']
   }
+
+  checks {
+    `cnpj REGEXP '^[0-9]{14}$'` [name: 'ck_fornecedores_cnpj_digitos']
+    `ativo IN (0,1)` [name: 'ck_fornecedores_ativo']
+  }
 }
 
 Table insumos {
-  id integer [primary key, increment]
+  id bigint [primary key, increment]
   nome varchar(150) [not null]
-  unidade_medida enum("UN", "KG", "L") [not null]
-  quantidade_atual decimal(15,3) [not null, default: 0]
+  unidade_medida enum("UN", "KG", "L") [not null, note: 'UN -> quantidades inteiras; KG/L -> ate 3 casas decimais']
+  quantidade_atual decimal(15,3) [not null, default: 0, note: 'alterada somente por movimentacao (RN-01)']
   estoque_minimo decimal(15,3) [not null, note: 'alerta quando quantidade_atual <= estoque_minimo (e insumo ativo).']
-  fornecedor_id integer [not null]
-  ativo boolean [not null, default: true]
+  fornecedor_id bigint [not null]
+  ativo tinyint(1) [not null, default: 1]
 
   indexes {
-    (nome, ativo) [name: 'idx_insumos_nome_ativo']
+    (ativo, nome) [name: 'idx_insumos_nome_ativo']
     fornecedor_id [name: 'idx_insumos_fornecedor']
+  }
+
+  checks {
+    `ativo IN (0,1)` [name: 'ck_insumos_ativo']
+    `quantidade_atual >= 0` [name: 'ck_insumos_saldo']
+    `estoque_minimo >= 0` [name: 'ck_insumos_minimo']
+    `unidade_medida <> 'UN' OR quantidade_atual = FLOOR(quantidade_atual)` [name: 'ck_insumos_un_inteira']
   }
 }
 
 Table movimentacoes {
-  id integer [primary key, increment]
-  insumo_id integer [not null]
-  tipo enum("ENTRADA", "SAIDA") [not null, note: 'SAIDA exige setor_id de setor ativo e não recebe lote/validade equanto ENTRADA tem lote/validade como opcional']
+  id bigint [primary key, increment]
+  insumo_id bigint [not null]
+  tipo enum("ENTRADA", "SAIDA") [not null, note: 'SAIDA exige setor_id de setor ativo e nao recebe lote/validade enquanto ENTRADA tem lote/validade como opcional']
   quantidade decimal(15,3) [not null]
-  setor_id integer [note: 'obrigatorio em SAIDA e nulo em ENTRADA.']
-  usuario_id integer [not null]
-  data_movimentacao date [not null, note: 'data operacional informada pelo cliente']
-  data_registro timestamp [not null, note: 'gerado pelo servidor']
+  setor_id bigint [note: 'obrigatorio em SAIDA e nulo em ENTRADA.']
+  usuario_id bigint [not null, note: 'vem do JWT, nunca do corpo']
+  data_movimentacao date [not null, note: 'data operacional informada pelo cliente; nao pode ser futura (validado no Service)']
+  data_registro timestamp(6) [not null, default: `CURRENT_TIMESTAMP(6)`, note: 'gerado pelo servidor; guardado em UTC e convertido pelo fuso da sessao']
   lote varchar(50)
-  validade date
+  validade date [note: 'apenas em ENTRADA; nao anterior a data_movimentacao']
   saldo_anterior decimal(15,3) [not null]
   saldo_atual decimal(15,3) [not null, note: 'saldo_anterior +- quantidade']
 
-  Note: 'sem edição ou exclusão'
+  Note: 'sem edicao ou exclusao (RN-07); FKs com ON DELETE/UPDATE RESTRICT'
 
   indexes {
     (insumo_id, data_registro) [name: 'idx_mov_insumo_registro']
+    (data_registro [desc], id [desc]) [name: 'idx_mov_registro_id']
     data_movimentacao [name: 'idx_mov_data']
     setor_id [name: 'idx_mov_setor']
     usuario_id [name: 'idx_mov_usuario']
-    tipo [name: 'idx_mov_tipo']
+    (tipo, data_registro) [name: 'idx_mov_tipo_data']
+  }
+
+  checks {
+    `quantidade > 0` [name: 'ck_mov_quantidade']
+    `saldo_anterior >= 0` [name: 'ck_mov_saldo_anterior']
+    `saldo_atual >= 0` [name: 'ck_mov_saldo_atual']
+    `tipo = 'ENTRADA' OR setor_id IS NOT NULL` [name: 'ck_mov_setor_saida']
+    `tipo = 'SAIDA' OR setor_id IS NULL` [name: 'ck_mov_entrada_sem_setor']
+    `tipo = 'ENTRADA' OR (lote IS NULL AND validade IS NULL)` [name: 'ck_mov_sem_lote_saida']
+    `validade IS NULL OR validade >= data_movimentacao` [name: 'ck_mov_validade']
+    `(tipo = 'ENTRADA' AND saldo_atual = saldo_anterior + quantidade) OR (tipo = 'SAIDA' AND saldo_atual = saldo_anterior - quantidade)` [name: 'ck_mov_saldo_calc']
   }
 }
 
-Ref: insumos.fornecedor_id > fornecedores.id // N insumos : 1 fornecedor
-Ref: movimentacoes.insumo_id > insumos.id // N movimentações : 1 insumo
-Ref: movimentacoes.usuario_id > usuarios.id // N movimentações : 1 usuário
-Ref: movimentacoes.setor_id >? setores.id // N movimentações : 0..1 setor (obrigatório em SAIDA)
+Ref: insumos.fornecedor_id > fornecedores.id [delete: restrict, update: restrict] // N insumos : 1 fornecedor
+Ref: movimentacoes.insumo_id > insumos.id [delete: restrict, update: restrict] // N movimentacoes : 1 insumo
+Ref: movimentacoes.usuario_id > usuarios.id [delete: restrict, update: restrict] // N movimentacoes : 1 usuario
+Ref: movimentacoes.setor_id >? setores.id [delete: restrict, update: restrict] // N movimentacoes : 0..1 setor (obrigatorio em SAIDA)
