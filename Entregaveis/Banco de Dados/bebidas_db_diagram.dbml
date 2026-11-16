@@ -15,7 +15,7 @@ Table usuarios {
 
 Table setores {
   id bigint [primary key, increment]
-  nome varchar(150) [not null, note: 'unico apenas entre setores ATIVOS: validado no Service, sem restricao no banco']
+  nome varchar(150) [not null, note: 'unico apenas entre setores ATIVOS: garantido pelo Service (decisao da equipe); sem indice unico no banco']
   descricao varchar(255)
   ativo tinyint(1) [not null, default: 1]
 
@@ -63,7 +63,7 @@ Table insumos {
     `ativo IN (0,1)` [name: 'ck_insumos_ativo']
     `quantidade_atual >= 0` [name: 'ck_insumos_saldo']
     `estoque_minimo >= 0` [name: 'ck_insumos_minimo']
-    `unidade_medida <> 'UN' OR quantidade_atual = FLOOR(quantidade_atual)` [name: 'ck_insumos_un_inteira']
+    `unidade_medida <> 'UN' OR (quantidade_atual = FLOOR(quantidade_atual) AND estoque_minimo = FLOOR(estoque_minimo))` [name: 'ck_insumos_un_inteira']
   }
 }
 
@@ -72,7 +72,7 @@ Table movimentacoes {
   insumo_id bigint [not null]
   tipo enum("ENTRADA", "SAIDA") [not null, note: 'SAIDA exige setor_id de setor ativo e nao recebe lote/validade enquanto ENTRADA tem lote/validade como opcional']
   quantidade decimal(15,3) [not null]
-  setor_id bigint [note: 'obrigatorio em SAIDA e nulo em ENTRADA.']
+  setor_id bigint [note: 'obrigatorio em SAIDA (setor ativo); opcional em ENTRADA.']
   usuario_id bigint [not null, note: 'vem do JWT, nunca do corpo']
   data_movimentacao date [not null, note: 'data operacional informada pelo cliente; nao pode ser futura (validado no Service)']
   data_registro timestamp(6) [not null, default: `CURRENT_TIMESTAMP(6)`, note: 'gerado pelo servidor; guardado em UTC e convertido pelo fuso da sessao']
@@ -97,7 +97,6 @@ Table movimentacoes {
     `saldo_anterior >= 0` [name: 'ck_mov_saldo_anterior']
     `saldo_atual >= 0` [name: 'ck_mov_saldo_atual']
     `tipo = 'ENTRADA' OR setor_id IS NOT NULL` [name: 'ck_mov_setor_saida']
-    `tipo = 'SAIDA' OR setor_id IS NULL` [name: 'ck_mov_entrada_sem_setor']
     `tipo = 'ENTRADA' OR (lote IS NULL AND validade IS NULL)` [name: 'ck_mov_sem_lote_saida']
     `validade IS NULL OR validade >= data_movimentacao` [name: 'ck_mov_validade']
     `(tipo = 'ENTRADA' AND saldo_atual = saldo_anterior + quantidade) OR (tipo = 'SAIDA' AND saldo_atual = saldo_anterior - quantidade)` [name: 'ck_mov_saldo_calc']

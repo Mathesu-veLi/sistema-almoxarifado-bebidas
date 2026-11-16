@@ -25,8 +25,8 @@ CREATE TABLE usuarios (
 
 CREATE TABLE setores (
     id         BIGINT        NOT NULL AUTO_INCREMENT,
-    nome       VARCHAR(150)  NOT NULL, -- Nome unico APENAS entre os setores ativos: validado no Service,
-                                       -- nao ha restricao possivel no banco (unicidade condicional).
+    nome       VARCHAR(150)  NOT NULL, -- Nome unico APENAS entre os setores ativos: garantido pelo Service
+                                       -- (decisao da equipe); o banco nao tem indice unico para isso.
     descricao  VARCHAR(255)  NULL,
     ativo      TINYINT(1)    NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
@@ -65,8 +65,9 @@ CREATE TABLE insumos (
     CONSTRAINT ck_insumos_ativo      CHECK (ativo IN (0,1)),
     CONSTRAINT ck_insumos_saldo      CHECK (quantidade_atual >= 0),   -- RN-01/RN-03
     CONSTRAINT ck_insumos_minimo     CHECK (estoque_minimo >= 0),
-    CONSTRAINT ck_insumos_un_inteira CHECK (unidade_medida <> 'UN'    -- RN-02: UN = quantidade inteira
-                                        OR quantidade_atual = FLOOR(quantidade_atual))
+    CONSTRAINT ck_insumos_un_inteira CHECK (unidade_medida <> 'UN'    -- RN-02: UN = quantidades inteiras
+                                        OR (quantidade_atual = FLOOR(quantidade_atual)
+                                            AND estoque_minimo = FLOOR(estoque_minimo)))
 );
 
 CREATE TABLE movimentacoes (
@@ -74,7 +75,7 @@ CREATE TABLE movimentacoes (
     insumo_id         BIGINT        NOT NULL,
     tipo              ENUM('ENTRADA','SAIDA') NOT NULL,
     quantidade        DECIMAL(15,3) NOT NULL,
-    setor_id          BIGINT        NULL, -- obrigatorio em SAIDA (setor ativo) e nulo em ENTRADA;
+    setor_id          BIGINT        NULL, -- obrigatorio em SAIDA (setor ativo); opcional em ENTRADA;
     usuario_id        BIGINT        NOT NULL,         -- vem do JWT, nunca do corpo
     data_movimentacao DATE          NOT NULL,
     -- TIMESTAMP(6) guarda o instante em UTC e e convertido pelo fuso da sessao (usar -03:00 na conexao).
@@ -107,9 +108,7 @@ CREATE TABLE movimentacoes (
     CONSTRAINT ck_mov_saldo_anterior    CHECK (saldo_anterior >= 0),             -- RN-03
     CONSTRAINT ck_mov_saldo_atual       CHECK (saldo_atual >= 0),                -- RN-03
     CONSTRAINT ck_mov_setor_saida       CHECK (tipo = 'ENTRADA'
-                                        OR setor_id IS NOT NULL),                -- RN-06
-    CONSTRAINT ck_mov_entrada_sem_setor CHECK (tipo = 'SAIDA'
-                                        OR setor_id IS NULL),                    -- RN-06
+                                        OR setor_id IS NOT NULL),                -- RN-06: SAIDA exige setor
     CONSTRAINT ck_mov_sem_lote_saida    CHECK (tipo = 'ENTRADA'
                                         OR (lote IS NULL AND validade IS NULL)), -- RN-06
     CONSTRAINT ck_mov_validade          CHECK (validade IS NULL
