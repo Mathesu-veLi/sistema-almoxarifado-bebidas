@@ -210,6 +210,14 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 - Commits **atômicos**: uma única responsabilidade lógica por commit.
 - Nunca versione senhas, tokens, chaves JWT, arquivos `target/` ou configurações locais.
 
+### 8.1 Pull no início da sessão
+
+- O plugin `.opencode/plugins/pull-inicio-sessao/` roda na primeira chamada ao modelo de cada sessão nova: verifica o repositório, faz `git fetch` e, se a árvore de trabalho estiver limpa, executa **`git pull --ff-only`** — só avanço rápido, nunca commit de merge. O resultado chega ao agente pelo contexto, junto com a instrução do que fazer.
+- Se houver alterações não commitadas, o pull **não** é executado: o agente chama o subagente `commit-agent` para commitar o trabalho pendente e, **depois** que ele terminar, roda `git pull --ff-only`. Se o commit não puder ser feito (autoria indefinida, alteração que não é de um colaborador), o agente para esse passo, avisa o usuário e só então atende ao pedido.
+- Se a branch divergiu do remoto, se o pull falhar ou se não houver upstream, o agente **não** improvisa: informa o usuário em uma frase e pergunta como resolver. É proibido usar `git stash`, `git reset`, `git checkout --`, `git rebase` ou `--force` para contornar.
+- O pull automático não substitui o fluxo de commit: ele nunca commita, nunca faz push e nunca abre ou mescla Pull Request. Commit continua sendo ato isolado, com autoria definida (seções 8 e 5).
+- Fora do Git, `commit-agent` ou repositório sem upstream, o plugin fica em silêncio e a sessão segue normal.
+
 ## 9. Habilidades de apoio
 
 Disponíveis em `.opencode/skills/`:
@@ -309,6 +317,7 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 - **03/11/2026 — Mudança de escopo para API REST.** O projeto deixa de ser desktop (Swing) e passa a ser somente backend Spring Boot, com JWT e o contrato de 26 operações. O PDF antigo vira `.OLD` e os dois `.docx` passam a ser a fonte de verdade. O agente continua como apoio, sem construir o projeto nem produzir as entregas.
 - **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 10 entregáveis (6 do Enunciado + 4 de modelagem/requisitos). A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. O `Diversos/TODO.docx` passa a ser histórico.
 - **13/11/2026 — Antigravity descontinuado.** Todos os colaboradores usam o OpenCode. As cópias de skills em `skills/` e `.agents/skills/` e as regras de `.agents/rules/` foram removidas; as skills ficam somente em `.opencode/skills/`, sem duplicação.
+- **16/11/2026 — Pull no início da sessão.** O plugin `.opencode/plugins/pull-inicio-sessao/` passa a verificar o repositório na primeira chamada ao modelo de cada sessão e a rodar `git pull --ff-only` (sem commit de merge) quando a árvore estiver limpa. Com alterações não commitadas, o agente aciona antes o subagente `commit-agent` e só depois puxa. Ver seção 8.1.
 
 ## 16. Ambiente suportado: OpenCode
 
@@ -319,6 +328,7 @@ O repositório é usado somente pelo **OpenCode**. O Antigravity foi descontinua
 - Skills reconhecidas em `.opencode/skills/` — **uma única cópia** de cada skill, sem duplicação em outras pastas.
 - Comandos disponíveis: `/commit`, `/banca` e `/testes`.
 - Subagente `commit-agent` dedicado apenas a commits, sempre com autoria definida.
+- Plugin `.opencode/plugins/pull-inicio-sessao/` faz `git fetch` + `git pull --ff-only` na primeira chamada ao modelo de cada sessão (ver seção 8.1).
 
 ### Gatilho da pasta `Entregaveis/`
 
