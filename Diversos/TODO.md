@@ -24,7 +24,7 @@ As entregas estão numeradas **na ordem em que devem ser executadas**:
 
 Quatro entregas (1 a 4) são **adicionais** de modelagem; as outras seis correspondem aos itens do Enunciado — a coluna “Item do Enunciado” da tabela 1.2 mostra a correspondência.
 
-As **fases** (0 a 16) são as etapas de trabalho que produzem cada entrega.
+As **fases** (0 a 17) são as etapas de trabalho que produzem cada entrega.
 
 ### 1.1 Ordem de execução
 
@@ -35,7 +35,7 @@ As **fases** (0 a 16) são as etapas de trabalho que produzem cada entrega.
 | **2** | Documento e diagrama de casos de uso | Contrato | **Entrega 2** |
 | **3** | Diagrama de banco de dados (MySQL) | `.opencode/skills/database-operations` | **Entrega 3** |
 | **4** | Diagrama de classes (UML) | `.opencode/skills/database-operations` | **Entrega 4** |
-| **5** | Script SQL (`schema.sql` + `seed.sql`) e validação | `.opencode/skills/database-operations` | **Entrega 5** |
+| **5** | Script SQL de estrutura (`schema.sql`) e validação | `.opencode/skills/database-operations` | **Entrega 5** |
 | **6** | Esqueleto do backend Spring Boot | `.opencode/skills/api-rest` | **Entrega 6** |
 | **7** | Entidades JPA, enums, DTOs e repositórios | `.opencode/skills/database-operations` | **Entrega 6** |
 | **8** | JWT, BCrypt e rotas protegidas | `.opencode/skills/jwt-security` | **Entrega 6** |
@@ -43,10 +43,11 @@ As **fases** (0 a 16) são as etapas de trabalho que produzem cada entrega.
 | **10** | Insumos e alertas de estoque | `.opencode/skills/api-rest` | **Entrega 6** |
 | **11** | Movimentações, transação e concorrência | `.opencode/skills/database-operations` | **Entrega 6** |
 | **12** | Validações e erros padronizados | `.opencode/skills/api-rest` | **Entrega 6** |
-| **13** | Testes, coleção Postman e evidências | Postman + Maven | **Entregas 7 e 8** |
-| **14** | Documento técnico e instruções de execução | `README.md` | **Entrega 9** |
-| **15** | Ensaio da demonstração e da banca | Enunciado, seção 9 | **Entrega 10** |
-| **16** | Conferência final e envio | Este TODO | fecha **Entregas 5 e 6** |
+| **13** | Dados de demonstração (`seed.sql`) e carga no MySQL | `.opencode/skills/database-operations` | fecha **Entrega 5** |
+| **14** | Testes, coleção Postman e evidências | Postman + Maven | **Entregas 7 e 8** |
+| **15** | Documento técnico e instruções de execução | `README.md` | **Entrega 9** |
+| **16** | Ensaio da demonstração e da banca | Enunciado, seção 9 | **Entrega 10** |
+| **17** | Conferência final e envio | Este TODO | confere **Entregas 5 e 6** |
 
 ### 1.2 As 10 entregas
 
@@ -58,12 +59,12 @@ Marque cada entrega somente quando estiver completa e revisada.
 | **2** | Documento e diagrama de **casos de uso** (atores, fluxos, rastreabilidade) | 2 | adicional | [ ] |
 | **3** | Diagrama de **banco de dados (MySQL)** — tabelas, tipos, PKs, FKs, restrições, índices, cardinalidades | 3 | adicional | [X] |
 | **4** | Diagrama de **classes (UML)** — classes, enums, atributos, métodos, relacionamentos | 4 | adicional | [ ] |
-| **5** | **Banco MySQL integrado**, com script de criação/carga e dados de demonstração | 5 | item 2 | [ ] |
+| **5** | **Banco MySQL integrado**, com script de criação/carga e dados de demonstração | 5 e 13 | item 2 | [ ] |
 | **6** | **Código-fonte completo** do Spring Boot (`pom.xml`, camadas, configuração, instruções de execução) | 6–12 | item 1 | [ ] |
-| **7** | **Coleção Postman** com as **26 operações** do contrato | 13 | item 3 | [ ] |
-| **8** | **Relatório curto de testes** (esperado × observado × evidência, CT01 a CT22) | 13 | item 4 | [ ] |
-| **9** | **Documento técnico** (ferramentas, versões, banco, configurações sem senhas reais, arquitetura) | 14 | item 5 | [ ] |
-| **10** | **Demonstração prática**, com decisões técnicas e regras de negócio | 15 | item 6 | [ ] |
+| **7** | **Coleção Postman** com as **26 operações** do contrato | 14 | item 3 | [ ] |
+| **8** | **Relatório curto de testes** (esperado × observado × evidência, CT01 a CT22) | 14 | item 4 | [ ] |
+| **9** | **Documento técnico** (ferramentas, versões, banco, configurações sem senhas reais, arquitetura) | 15 | item 5 | [ ] |
+| **10** | **Demonstração prática**, com decisões técnicas e regras de negócio | 16 | item 6 | [ ] |
 
 > As entregas 1 a 4 são **adicionais** de modelagem e requisitos, criadas pela equipe. As entregas 5 a 10 correspondem aos seis itens do Enunciado, na ordem em que são executados. Confirmem com o professor o formato (PDF, imagem ou editável) e o local de entrega. Todas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
 
@@ -100,7 +101,7 @@ Esta fase é **dos autores**. O agente pode explicar e revisar, mas **não produ
 - [ ] **1.1. Revisar os objetos do contrato:** usuário, setor, fornecedor, insumo, movimentação e alerta (campos de cada JSON, seção 3 do contrato).
 - [ ] **1.2. Levantar os requisitos funcionais (RF):** um RF por operação, com identificador, descrição, ator, endpoint, entrada, saída e status HTTP. → 26 endpoints cobertos.
 - [ ] **1.3. Levantar os requisitos não funcionais (RNF):** segurança (JWT e hash), desempenho, portabilidade, manutenibilidade, tratamento de erros e consistência transacional. Cada RNF deve ser verificável.
-- [ ] **1.4. Documentar as RN-01 a RN-16:** descrição, impacto na API e forma de verificação (usar a tabela da seção 4 como conferência).
+- [ ] **1.4. Registrar as RN-01 a RN-16 no documento:** listar cada regra como está no Enunciado (o documento **não** pede descrição própria das regras) e apontar o impacto na API (usar a tabela da seção 4 como conferência).
 - [ ] **1.5. Montar e revisar o documento:** introdução, escopo, atores, RF, RNF, RN e matriz de rastreabilidade RF → endpoint → CT01 a CT22.
 
 ### FASE 2 — Documento e diagrama de casos de uso (Entrega 2)
@@ -136,7 +137,7 @@ Só começar depois do diagrama de banco aprovado.
 Só começar depois dos diagramas de banco e de classes aprovados.
 
 - [ ] **5.1. Escrever o script de estrutura** em arquivo **novo** (`db/schema.sql`); não sobrescrever o `BancodoProjeto.sql` antigo sem autorização dos autores.
-  - Separar `db/schema.sql` (estrutura) e `db/seed.sql` (dados de demonstração). Usar `InnoDB` e `utf8mb4`.
+  - O arquivo de estrutura é só `db/schema.sql`; os dados de demonstração ficam em `db/seed.sql`, criado na **FASE 13** (depois do código). Usar `InnoDB` e `utf8mb4`.
 - [ ] **5.2. Modelo mínimo esperado**
 
 | Tabela | Campos mínimos | Observações para MySQL |
@@ -152,13 +153,9 @@ Só começar depois dos diagramas de banco e de classes aprovados.
   - `ENUM('ENTRADA','SAIDA')` ou `VARCHAR(7)` validado para `tipo`; `ENUM('UN','KG','L')` ou `VARCHAR(2)` validado para `unidade_medida`.
   - Unicidade em `login` e `cnpj`; FKs de `insumos.fornecedor_id` e de `movimentacoes.insumo_id`/`usuario_id`/`setor_id`.
   - **Não** usar `ON DELETE CASCADE` em movimentações: o histórico deve ser preservado.
-- [ ] **5.4. Preparar os dados de demonstração (`seed.sql`)**
-  - Usuários com senha em **hash BCrypt**; setores, fornecedores e insumos ativos.
-  - Insumos começam com saldo zero; criar entradas e saídas para gerar saldo e histórico.
-  - Pelo menos um insumo abaixo ou no estoque mínimo para demonstrar o alerta. Sem credenciais reais.
-- [ ] **5.5. Executar e validar do zero** em banco limpo: `SHOW TABLES;`, `DESCRIBE tabela;`, `SELECT COUNT(*) FROM tabela;`, testar unicidade e FKs e a consulta de alerta:
-  `SELECT ... FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;`
-- [ ] **5.6. Revisar os artefatos com a equipe:** documento de RN/RF/RNF, casos de uso, diagrama de banco, diagrama de classes e script contam a mesma história.
+- [ ] **5.4. Executar e validar do zero** em banco limpo (sem dados): `SHOW TABLES;`, `DESCRIBE tabela;`, `SELECT COUNT(*) FROM tabela;` e testar unicidade e FKs.
+  - A validação com dados de demonstração (saldos, histórico e consulta de alerta) acontece na **FASE 13**.
+- [ ] **5.5. Revisar os artefatos com a equipe:** documento de RN/RF/RNF, casos de uso, diagrama de banco, diagrama de classes e script contam a mesma história.
   - Todos entendem as regras, as tabelas e por que não há saldo por lote.
 
 ### FASE 6 — Esqueleto do backend Spring Boot
@@ -276,50 +273,62 @@ Fase de maior peso nas regras de negócio. Não pule os testes de concorrência.
 - [ ] **12.3. Padronizar o JSON:** `{ "status": ..., "mensagem": "...", "timestamp": "..." }`, com timestamp real da falha; nunca devolver stack trace, SQL ou detalhes internos.
 - [ ] **12.4. Testar os erros:** cada status com pelo menos um caso positivo e um negativo.
 
-### FASE 13 — Testes e coleção Postman
+### FASE 13 — Dados de demonstração e carga no MySQL
 
-- [ ] **13.1. Montar a coleção Postman:** uma pasta por grupo (usuários/auth, setores, fornecedores, insumos, movimentações, alertas), 26 requisições no total.
+Só começar **depois do código** (fases 6 a 12) e **antes da coleção Postman** (fase 14): a carga precisa refletir as regras já implementadas e serve de base para os testes.
+
+- [ ] **13.1. Escrever o `db/seed.sql`** com os dados de demonstração.
+  - Usuários com senha em **hash BCrypt**; setores, fornecedores e insumos ativos.
+  - Insumos começam com saldo zero; criar entradas e saídas para gerar saldo e histórico.
+  - Pelo menos um insumo abaixo ou no estoque mínimo para demonstrar o alerta. Sem credenciais reais.
+- [ ] **13.2. Carregar e validar** em banco limpo, na ordem `schema.sql` → `seed.sql`: conferir contagens, saldos, histórico e a consulta de alerta:
+  `SELECT ... FROM insumos WHERE ativo = 1 AND quantidade_atual <= estoque_minimo;`
+- [ ] **13.3. Conferir a coerência com a API:** `GET /api/alertas/estoque`, `GET /api/movimentacoes` e login com um usuário da carga respondem como o esperado. → **Entrega 5 fechada.**
+
+### FASE 14 — Testes e coleção Postman
+
+- [ ] **14.1. Montar a coleção Postman:** uma pasta por grupo (usuários/auth, setores, fornecedores, insumos, movimentações, alertas), 26 requisições no total.
   - Ambiente com `baseUrl` e `token`; no login, salvar o token na variável; nas rotas protegidas, usar `Bearer {{token}}`.
-- [ ] **13.2. Executar os casos CT01 a CT22**, registrando resultado esperado, observado e evidência.
+- [ ] **14.2. Executar os casos CT01 a CT22**, registrando resultado esperado, observado e evidência.
   - Incluir os testes de erro: sem token, token inválido, estoque insuficiente, data futura, duplicidade e insumo inativo.
-- [ ] **13.3. Testes automatizados:** service e controller, `@DataJpaTest` para repositórios, `@SpringBootTest` + `MockMvc` para endpoints; `mvn test` com `BUILD SUCCESS`.
-- [ ] **13.4. Testar o banco do zero:** apagar o schema de teste, rodar o script, subir a API e repetir os fluxos principais.
-- [ ] **13.5. Exportar as evidências:** coleção Postman e prints/logs do relatório → **Entregas 7 e 8 prontas.**
+- [ ] **14.3. Testes automatizados:** service e controller, `@DataJpaTest` para repositórios, `@SpringBootTest` + `MockMvc` para endpoints; `mvn test` com `BUILD SUCCESS`.
+- [ ] **14.4. Testar o banco do zero:** apagar o schema de teste, rodar `schema.sql` + `seed.sql`, subir a API e repetir os fluxos principais.
+- [ ] **14.5. Exportar as evidências:** coleção Postman e prints/logs do relatório → **Entregas 7 e 8 prontas.**
 
-### FASE 14 — Documento técnico e instruções (Entrega 9)
+### FASE 15 — Documento técnico e instruções (Entrega 9)
 
-- [ ] **14.1. Escrever o documento técnico**
+- [ ] **15.1. Escrever o documento técnico**
   - Ferramentas e versões (Java, Spring Boot, Maven, MySQL, Postman, IDE), banco e schema, como criar/carregar.
   - Configurações necessárias, sem senhas reais; arquitetura resumida (Controller → Service → Repository, JWT, tratamento de erros).
   - Decisões: inativação lógica, transação/concorrência, ordenação, data operacional × data de registro.
   - **Não confundir** com o documento de RN/RF/RNF (Entrega 1): lá ficam requisitos e regras; aqui ficam ferramentas, banco, configuração e arquitetura.
-- [ ] **14.2. Revisar o `README` do backend:** pré-requisitos, banco, script, variáveis, `mvn spring-boot:run`, Postman e `mvn test`.
-- [ ] **14.3. Revisar segurança:** nenhuma senha, token, chave JWT ou credencial real no repositório; `.env.example` apenas com nomes de variáveis.
+- [ ] **15.2. Revisar o `README` do backend:** pré-requisitos, banco, script, variáveis, `mvn spring-boot:run`, Postman e `mvn test`.
+- [ ] **15.3. Revisar segurança:** nenhuma senha, token, chave JWT ou credencial real no repositório; `.env.example` apenas com nomes de variáveis.
 
-### FASE 15 — Demonstração e banca (Entrega 10)
+### FASE 16 — Demonstração e banca (Entrega 10)
 
 Use o checklist do Enunciado, seção 9.
 
-- [ ] **15.1.** Cadastro de usuário e login retornando JWT.
-- [ ] **15.2.** Bloqueio de endpoint sem autenticação.
-- [ ] **15.3.** Cadastros e consultas de setores, fornecedores e insumos.
-- [ ] **15.4.** Pesquisa ordenada e consulta de registros inativos.
-- [ ] **15.5.** Entrada, saída e conferência do saldo após cada operação.
-- [ ] **15.6.** Rejeição de retirada superior ao estoque e de entrada inválida.
-- [ ] **15.7.** Consulta do histórico e dos alertas de estoque.
-- [ ] **15.8.** Preservação do histórico após inativação e teste de consistência.
-- [ ] **15.9.** Ensaiar a explicação de cada decisão técnica.
-- [ ] **15.10.** Dividir quem apresenta cada parte e cronometrar a demonstração.
+- [ ] **16.1.** Cadastro de usuário e login retornando JWT.
+- [ ] **16.2.** Bloqueio de endpoint sem autenticação.
+- [ ] **16.3.** Cadastros e consultas de setores, fornecedores e insumos.
+- [ ] **16.4.** Pesquisa ordenada e consulta de registros inativos.
+- [ ] **16.5.** Entrada, saída e conferência do saldo após cada operação.
+- [ ] **16.6.** Rejeição de retirada superior ao estoque e de entrada inválida.
+- [ ] **16.7.** Consulta do histórico e dos alertas de estoque.
+- [ ] **16.8.** Preservação do histórico após inativação e teste de consistência.
+- [ ] **16.9.** Ensaiar a explicação de cada decisão técnica.
+- [ ] **16.10.** Dividir quem apresenta cada parte e cronometrar a demonstração.
 
-### FASE 16 — Conferência final e entrega
+### FASE 17 — Conferência final e entrega
 
-- [ ] **16.1.** Conferir as 10 entregas da seção 1.2.
-- [ ] **16.2.** Conferir documento de RN/RF/RNF, casos de uso, diagrama de banco e diagrama de classes.
-- [ ] **16.3.** Conferir as 26 operações e os 22 casos CT01 a CT22.
-- [ ] **16.4.** Rodar `mvn clean test` e subir a API em uma máquina limpa.
-- [ ] **16.5.** Conferir `git status`, remover `target/` e confirmar que não há segredos.
-- [ ] **16.6.** Confirmar com o professor o formato final de envio.
-- [ ] **16.7.** Fazer o commit/tag final e avisar a equipe.
+- [ ] **17.1.** Conferir as 10 entregas da seção 1.2.
+- [ ] **17.2.** Conferir documento de RN/RF/RNF, casos de uso, diagrama de banco e diagrama de classes.
+- [ ] **17.3.** Conferir as 26 operações e os 22 casos CT01 a CT22.
+- [ ] **17.4.** Rodar `mvn clean test` e subir a API em uma máquina limpa.
+- [ ] **17.5.** Conferir `git status`, remover `target/` e confirmar que não há segredos.
+- [ ] **17.6.** Confirmar com o professor o formato final de envio.
+- [ ] **17.7.** Fazer o commit/tag final e avisar a equipe.
 
 ---
 
