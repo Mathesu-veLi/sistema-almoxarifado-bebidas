@@ -2,7 +2,7 @@
 
 - **RNF-01:** “O Sistema deve suportar pelo menos 200 Pedidos Simultâneos sem risco de perder performance, com tempo de resposta inferior a 1 segundo por tela especialmente durante nos horários de pico. Sendo eles: (Sexta feira a noite, vésperas de feriado e dias mais quentes)”
 - **RNF-02:** ”O Sistema deverá ser web e responsivo, deverá adaptando-se corretamente as telas de celular, computadores e tablets”
-- **RNF-03:** ”O Sistema deverá ser compatível corretamente com navegadores mais utilizados no mercado (Chrome, Firefox, Edge e mozilla)”
+- **RNF-03:** ”O Sistema deverá ser compatível corretamente com navegadores mais utilizados no mercado (Chrome, Firefox e Edge )”
 - **RNF-04:** ”O Sistema deverá ter um backup automático de segurança de 30 em 30 minutos.”
 - **RNF-05:** “O sistema deverá funcionar somente em território Brasileiro.”
 - **RNF-06:** “Os dados deverão ser criptografados em trânsito e em repouso ao acessar diretamente ao banco de dados para consultas.”
