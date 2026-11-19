@@ -272,7 +272,7 @@ Quando a equipe criar a pasta `backend/`, o fluxo esperado é:
 
 1. **Crie o banco** com o script SQL novo, produzido pela equipe na disciplina de Modelagem e Banco de Dados. Não use o script antigo de `Entregaveis/` como se fosse o modelo atual.
 2. **Configure a conexão** em `backend/src/main/resources/application.properties` ou por variáveis de ambiente. Não versione senha real.
-3. **Confira as dependências** no `pom.xml`: Spring Web, Spring Data JPA, Validation, driver do banco, Spring Security e a biblioteca JWT escolhida pela equipe.
+3. **Confira as dependências** no `pom.xml`: Spring Web, Spring Data JPA, Validation, driver do banco, **Spring Security** (autenticação JWT), **Lombok** e a biblioteca JWT escolhida pela equipe.
 4. **Suba a aplicação:**
 
    ```bash
@@ -356,6 +356,8 @@ Dica para a banca: não colem código que vocês não sabem explicar. Se o agent
 | **Data de registro** | `dataRegistro` gerada pelo servidor no momento do lançamento. |
 | **Alerta crítico** | Insumo ativo com `quantidadeAtual <= estoqueMinimo`. |
 | **Postman** | Ferramenta para enviar requisições à API e guardar as evidências de teste. |
+| **Spring Security** | Framework que aplica os filtros de autenticação: libera as rotas públicas, exige o JWT nas demais e padroniza o 401. |
+| **Lombok** | Biblioteca que gera getters, setters e construtores em tempo de compilação, evitando código repetitivo. |
 | **Contrato** | O documento `Contrato_Tecnico_API_Industria_Bebidas.docx`, que define as 26 operações. |
 
 ## Arquivos e documentos do projeto
@@ -383,11 +385,49 @@ Dica para a banca: não colem código que vocês não sabem explicar. Se o agent
 | Camada HTTP | Spring Web; endpoints REST; JSON |
 | Persistência | Spring Data JPA + Hibernate; banco relacional |
 | Organização | Camadas Controller, Service e Repository |
-| Segurança | Autenticação JWT; senha armazenada com hash seguro |
+| Segurança | Autenticação **JWT** implementada com **Spring Security**; senha armazenada com hash **BCrypt** |
 | Validação | Regras de negócio e tratamento padronizado de erros |
+| Produtividade | **Lombok** para reduzir código repetitivo nas entidades, DTOs e classes de domínio |
 | Verificação | Postman ou ferramenta equivalente; evidências de testes |
 
 Ferramentas sugeridas: **IntelliJ IDEA** (ou outra IDE Java), **MySQL** (ou o banco relacional definido na disciplina de Modelagem), **Maven** e **Postman**.
+
+> **Decisões da equipe sobre bibliotecas de apoio:** **Spring Security** (segurança) e **Lombok** (produtividade) foram adotados. O schema continua sendo criado pelo **script SQL da equipe**, produzido na disciplina de Modelagem e Banco de Dados.
+
+### Segurança: Spring Security + JWT
+
+A autenticação é feita com **Spring Security**, e não com filtro e validações escritos à mão. O motivo é simples: o framework já entrega o que a RN-14 e a RN-15 exigem — cadeia de filtros, contexto de autenticação, criptografia de senha e respostas 401 padronizadas.
+
+O que a configuração precisa garantir:
+
+- `SecurityFilterChain` (Spring Security 6) liberando **somente** `POST /api/usuarios` e `POST /api/auth/login`; todas as outras rotas exigem `Authorization: Bearer <JWT>`.
+- Filtro JWT registrado **antes** do `UsernamePasswordAuthenticationFilter`: lê o header, valida assinatura e expiração (3600 segundos), carrega o usuário e preenche o `SecurityContext`.
+- `BCryptPasswordEncoder` para gravar a senha em hash; a API **nunca** devolve senha nem hash.
+- Token ausente, inválido ou expirado → **401** com `{ "status": 401, "mensagem": "...", "timestamp": "..." }` (via `AuthenticationEntryPoint`), nunca o HTML de login do Spring Security.
+- Sessão sem estado (`SessionCreationPolicy.STATELESS`) e `csrf` desabilitado, porque a API é consumida por outro sistema via token.
+
+O passo a passo de implementação está em [`.opencode/skills/jwt-security/SKILL.md`](.opencode/skills/jwt-security/SKILL.md).
+
+### Lombok
+
+O **Lombok** gera em tempo de compilação o código repetitivo das classes: getters/setters, construtores, `equals`/`hashCode`, `toString` e builders. Ele **não** tem custo em tempo de execução e não aparece no JSON da API — só deixa o código-fonte menor e mais fácil de revisar.
+
+Anotações mais úteis neste projeto:
+
+| Anotação | Uso aqui |
+| --- | --- |
+| `@Getter` / `@Setter` | Entidades JPA, quando não há regra no acesso ao atributo. |
+| `@NoArgsConstructor` | **Obrigatório** na entidade JPA: o Hibernate precisa do construtor sem argumentos. |
+| `@AllArgsConstructor` | Classes de domínio e testes. |
+| `@Builder` | Montagem de objetos nos testes e nos services. |
+| `@RequiredArgsConstructor` | Injeção de dependência por construtor em controllers e services (`private final`), sem `@Autowired`. |
+| `@Data` | **Evitar em entidade JPA.** Gera `equals`/`hashCode`/`toString` sobre todos os campos, o que quebra com relacionamentos `@ManyToOne` (lazy) e pode disparar consultas inesperadas. |
+
+Cuidados que evitam dor de cabeça:
+
+- A entidade continua precisando de `@NoArgsConstructor`; `@Builder` sozinho remove o construtor padrão e o Hibernate falha ao instanciar.
+- Na IDE, habilite o processamento de anotações (no IntelliJ: plugin **Lombok** + *Settings → Build → Compiler → Annotation Processors → Enable annotation processing*). Sem isso a IDE mostra erro em código que compila no Maven.
+- A dependência entra com escopo de compilação apenas (`<optional>true</optional>`), para não ir junto no artefato final.
 
 ## Arquitetura esperada
 
@@ -406,7 +446,7 @@ Controller  →  Service  →  Repository  →  Banco relacional
 - **Repository:** consulta e grava no banco com Spring Data JPA.
 - **DTO:** objeto de entrada/saída; nunca devolva a entidade com senha ou hash.
 - **Exception Handler:** centraliza os erros no formato `{status, mensagem, timestamp}`.
-- **Security:** valida o JWT antes de liberar os endpoints protegidos.
+- **Security:** `SecurityFilterChain` e o filtro JWT do **Spring Security** validam o token antes de liberar os endpoints protegidos; apenas cadastro de usuário e login são públicos.
 
 ## As 26 operações (mapa rápido)
 
