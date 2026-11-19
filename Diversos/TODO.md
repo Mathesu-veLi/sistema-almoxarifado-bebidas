@@ -32,7 +32,7 @@ As **fases** (0 a 17) são as etapas de trabalho que produzem cada entrega.
 | --- | --- | --- | --- |
 | **0** | Ler os documentos-base e preparar o ambiente | `README.md`, `AGENTS.md` | — |
 | **1** | Documento de regras de negócio, RF e RNF | Contrato + Enunciado | **Entrega 1** |
-| **2** | Documento e diagrama de casos de uso | Contrato | **Entrega 2** |
+| **2** | Diagrama de casos de uso + **descrição textual de cada elipse** | Contrato | **Entrega 2** |
 | **3** | Diagrama de banco de dados (MySQL) | `.opencode/skills/database-operations` | **Entrega 3** |
 | **4** | Diagrama de classes (UML) | `.opencode/skills/database-operations` | **Entrega 4** |
 | **5** | Script SQL de estrutura (`schema.sql`) e validação | `.opencode/skills/database-operations` | **Entrega 5** |
@@ -56,7 +56,7 @@ Marque cada entrega somente quando estiver completa e revisada.
 | Entrega | Nome | Fase | Item do Enunciado | Feito? |
 | --- | --- | --- | --- | --- |
 | **1** | Documento de **RN-01 a RN-16 + RF (26 operações) + RNF + matriz de rastreabilidade** | 1 | adicional | [ ] |
-| **2** | Documento e diagrama de **casos de uso** (atores, fluxos, rastreabilidade) | 2 | adicional | [ ] |
+| **2** | Diagrama de **casos de uso** + **descrição textual de cada elipse** (ator, fluxo principal, fluxos alternativos, exceções, rastreabilidade) | 2 | adicional | [ ] |
 | **3** | Diagrama de **banco de dados (MySQL)** — tabelas, tipos, PKs, FKs, restrições, índices, cardinalidades | 3 | adicional | [X] |
 | **4** | Diagrama de **classes (UML)** — classes, enums, atributos, métodos, relacionamentos | 4 | adicional | [ ] |
 | **5** | **Banco MySQL integrado**, com script de criação/carga e dados de demonstração | 5 e 13 | item 2 | [ ] |
@@ -109,9 +109,28 @@ Esta fase é **dos autores**. O agente pode explicar e revisar, mas **não produ
 Só começar depois que o documento de RN/RF/RNF estiver aprovado.
 
 - [ ] **2.1. Identificar atores e casos de uso:** visitante (cadastro e login), usuário autenticado (demais operações) e, se a equipe preferir, o front-end como ator externo.
-- [ ] **2.2. Detalhar cada caso de uso:** objetivo, ator, pré-condições, fluxo principal, fluxos alternativos/exceções e resposta esperada.
-- [ ] **2.3. Desenhar o diagrama UML:** atores, casos de uso, associações e `<<include>>`/`<<extend>>` quando fizer sentido.
-- [ ] **2.4. Rastrear e revisar:** cada caso de uso ligado aos RF e endpoints; nenhuma funcionalidade fora do contrato.
+- [ ] **2.2. Desenhar o diagrama UML:** atores, casos de uso (elipses), associações e `<<include>>`/`<<extend>>` quando fizer sentido.
+- [ ] **2.3. Escrever a descrição textual de cada caso de uso:** uma descrição para **cada elipse** do diagrama, do início ao resultado, mostrando **o que o usuário faz** e **como o sistema responde**.
+
+  Cada descrição deve seguir o mesmo modelo:
+
+  | Campo | O que preencher |
+  | --- | --- |
+  | **Nome** | O mesmo texto da elipse no diagrama (ex.: `Registrar entrada de insumo`) |
+  | **Objetivo** | O que se pretende realizar com o caso de uso |
+  | **Ator principal** | Quem inicia a ação (visitante ou usuário autenticado) |
+  | **Atores secundários** | Outros envolvidos, se houver (ex.: front-end externo) |
+  | **Pré-condições** | O que precisa ser verdadeiro antes (ex.: usuário autenticado, insumo ativo) |
+  | **Pós-condições** | O que deve estar verdadeiro ao final (ex.: saldo atualizado e histórico gravado) |
+  | **Fluxo principal** | Caminho normal, numerado, alternando ação do usuário e resposta do sistema |
+  | **Fluxos alternativos** | Caminhos diferentes ainda tratados (ex.: insumo inativo, filtro sem resultado) |
+  | **Exceções** | Situações que impedem a conclusão (ex.: estoque insuficiente, data futura) |
+
+  - No **fluxo principal**, cada passo deve ter sujeito explícito: `O usuário informa ...` / `O sistema valida ...` / `O sistema retorna 201 ...`. Não use passos vagos como “o sistema processa”.
+  - Nos **fluxos alternativos** e **exceções**, numerar (FA01, FA02, EX01...) e dizer se o fluxo **retorna** ao passo do fluxo principal ou **encerra** o caso de uso.
+  - Amarrar cada descrição ao contrato: endpoint(s), RF correspondente, RN aplicadas e status HTTP esperado (200/201/204/400/401/404/409).
+- [ ] **2.4. Conferir a cobertura e revisar:** toda elipse do diagrama tem descrição textual; nenhuma descrição cria funcionalidade fora das 26 operações; os fluxos alternativos e exceções batem com o tratamento de erros do contrato.
+  - Nenhum caso de uso de front-end, tela ou relatório: o escopo é a API.
 
 ### FASE 3 — Diagrama de banco de dados (Entrega 3)
 
@@ -323,7 +342,7 @@ Use o checklist do Enunciado, seção 9.
 ### FASE 17 — Conferência final e entrega
 
 - [ ] **17.1.** Conferir as 10 entregas da seção 1.2.
-- [ ] **17.2.** Conferir documento de RN/RF/RNF, casos de uso, diagrama de banco e diagrama de classes.
+- [ ] **17.2.** Conferir documento de RN/RF/RNF, casos de uso (diagrama **e** descrição textual de cada elipse), diagrama de banco e diagrama de classes.
 - [ ] **17.3.** Conferir as 26 operações e os 22 casos CT01 a CT22.
 - [ ] **17.4.** Rodar `mvn clean test` e subir a API em uma máquina limpa.
 - [ ] **17.5.** Conferir `git status`, remover `target/` e confirmar que não há segredos.
