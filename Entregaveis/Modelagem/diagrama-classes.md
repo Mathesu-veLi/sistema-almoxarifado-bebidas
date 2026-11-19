@@ -2,4 +2,4 @@
 
 ## Acessar o diagrama
 
-[Clique aqui para abrir o diagrama no Lucidspark](https://lucid.app/lucidspark/f4e68959-cf48-4873-86c0-fd1fbc208b4f/edit?viewport_loc=-322%2C-1267%2C2618%2C2607%2C0_0&invitationId=inv_f6699216-0cf4-4e93-894f-10230cafe78f)
+[Clique aqui para abrir o diagrama no Lucidspark](https://lucid.app/lucidchart/a72cec79-8bc4-4aea-8e44-db469343e3a3/edit?viewport_loc=-669%2C-365%2C2908%2C1576%2CFJNNcSaL8Rvl&invitationId=inv_f169d6be-86dd-4b88-b17b-342f0377b75a)
