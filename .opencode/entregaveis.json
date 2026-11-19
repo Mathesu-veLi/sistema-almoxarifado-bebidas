@@ -1,44 +1,92 @@
 {
-  "descricao": "Critérios de conferência das 10 entregas da seção 1.2 do Diversos/TODO.md. É lido pelo plugin .opencode/plugins/entregaveis-todo sempre que um arquivo da pasta Entregaveis/ é gravado. O plugin NÃO marca nada sozinho: ele avisa o agente, que compara o arquivo com os critérios, diz o que falta e só marca [X] quando a entrega está completa e revisada.",
-  "como_editar": "Cada item de 'entregas' aceita: 'entrega' (número da linha em 1.2), 'titulo', 'fontes' (caminhos com * e **, sem diferenciar maiúsculas), 'criterios' (o que precisa existir para a entrega valer) e 'observacao'. Depois de editar, não é preciso reiniciar o OpenCode: o plugin relê o arquivo a cada gravação.",
+  "descricao": "Critérios de conferência das 15 entregas da seção 1.2 do Diversos/TODO.md. É lido pelo plugin .opencode/plugins/entregaveis-todo sempre que um arquivo da pasta Entregaveis/ é gravado. O plugin NÃO marca nada sozinho: ele avisa o agente, que compara o arquivo com os critérios, diz o que falta e só marca [X] quando a entrega está completa e revisada.",
+  "como_editar": "Cada item de 'entregas' aceita: 'entrega' (número da linha em 1.2), 'titulo', 'fontes' (caminhos com * e **, sem diferenciar maiúsculas), 'criterios' (o que precisa existir para a entrega valer) e 'observacao'. A ordem do array importa: o plugin usa o primeiro padrão que casar, então entregas mais específicas vêm antes das genéricas (a 12 antes da 14). Depois de editar, não é preciso reiniciar o OpenCode: o plugin relê o arquivo a cada gravação.",
   "todo": "Diversos/TODO.md",
-  "secao": "1.2 As 10 entregas",
+  "secao": "1.2 As 15 entregas",
   "entregas": [
     {
       "entrega": 1,
-      "titulo": "Documento de RN-01 a RN-16 + RF (26 operações) + RNF + matriz de rastreabilidade",
+      "titulo": "Documento de regras de negócio (RN-01 a RN-16)",
       "fontes": [
-        "Entregaveis/Requisitos/**",
-        "Entregaveis/Modelagem/*requisito*",
-        "Entregaveis/Modelagem/**/*requisito*"
+        "Entregaveis/Requisitos/rn.md",
+        "Entregaveis/Requisitos/*regras*",
+        "Entregaveis/Requisitos/*rn-*",
+        "Entregaveis/**/*regras-de-negocio*"
       ],
       "criterios": [
-        "As 16 regras RN-01 a RN-16 estão descritas, cada uma com o impacto na API e a forma de verificação.",
-        "Existe um RF por operação, cobrindo as 26 do contrato, com identificador, descrição, ator, endpoint, entrada, saída e status HTTP.",
-        "Os RNF são verificáveis (segurança com JWT e hash, desempenho, portabilidade, manutenibilidade, tratamento de erros e consistência transacional).",
-        "A matriz de rastreabilidade liga RF -> endpoint -> CT01 a CT22, sem requisito órfão.",
-        "O documento tem introdução, escopo e atores, e não descreve funcionalidade fora do contrato (sem front-end, sem perfis, sem estorno, sem relatórios)."
+        "As 16 regras RN-01 a RN-16 estão presentes com o mesmo identificador e o mesmo sentido do Enunciado, sem regra inventada nem regra faltando.",
+        "Cada RN tem o impacto na API (endpoint e validação), onde ela é validada no código e como ela é comprovada (caso CT ou teste).",
+        "Nenhuma regra está órfã: toda RN aponta para pelo menos um endpoint e uma forma de verificação.",
+        "O documento não descreve funcionalidade fora do contrato (sem front-end, sem perfis, sem estorno, sem saldo por lote, sem relatórios)."
       ],
-      "observacao": "Só vale como concluída quando o documento estiver escrito de verdade dentro do arquivo, não apenas apontando para um editor externo."
+      "observacao": "Este documento é só das regras. RF e RNF ficam nas entregas 2 e 3; não misture os três no mesmo arquivo."
     },
     {
       "entrega": 2,
-      "titulo": "Documento e diagrama de casos de uso",
+      "titulo": "Documento de requisitos funcionais (26 operações)",
       "fontes": [
-        "Entregaveis/Modelagem/*casos-de-uso*",
-        "Entregaveis/Modelagem/*caso-de-uso*"
+        "Entregaveis/Requisitos/rf.md",
+        "Entregaveis/Requisitos/*rf-*",
+        "Entregaveis/Requisitos/*funcionais*",
+        "Entregaveis/**/*requisitos-funcionais*"
+      ],
+      "criterios": [
+        "Existe um RF por operação, cobrindo as 26 do contrato, com identificador estável (RF-01 a RF-26).",
+        "Cada RF tem descrição, ator, método e rota, entrada com campos obrigatórios, saída de sucesso, status HTTP de sucesso, erros previstos e RN relacionadas.",
+        "Rotas, nomes de campos JSON e códigos HTTP são idênticos ao Contrato Técnico.",
+        "Nenhum RF descreve funcionalidade fora das 26 operações."
+      ]
+    },
+    {
+      "entrega": 3,
+      "titulo": "Documento de requisitos não funcionais (RNF) + matriz de rastreabilidade",
+      "fontes": [
+        "Entregaveis/Requisitos/*rnf*",
+        "Entregaveis/Requisitos/*rastreabilidade*",
+        "Entregaveis/**/*nao-funcionais*"
+      ],
+      "criterios": [
+        "Os RNF cobrem segurança (JWT e hash BCrypt), desempenho, portabilidade, manutenibilidade, tratamento padronizado de erros e consistência transacional.",
+        "Cada RNF tem critério de aceitação mensurável e forma de verificação (teste, inspeção ou evidência).",
+        "A matriz de rastreabilidade liga RN -> RF -> endpoint -> CT01 a CT22, sem requisito órfão e sem caso de teste sem requisito.",
+        "Os três documentos (RN, RF e RNF) são coerentes entre si e com os diagramas."
+      ]
+    },
+    {
+      "entrega": 4,
+      "titulo": "Diagrama de casos de uso",
+      "fontes": [
+        "Entregaveis/Modelagem/*diagrama*casos*",
+        "Entregaveis/Modelagem/*diagrama*uso*",
+        "Entregaveis/**/*diagrama-casos-de-uso*"
       ],
       "criterios": [
         "Os atores estão identificados: visitante (cadastro e login) e usuário autenticado (demais operações).",
-        "Cada caso de uso tem objetivo, ator, pré-condições, fluxo principal e fluxos alternativos/exceções com a resposta esperada.",
-        "O diagrama UML mostra atores, casos de uso, associações e `<<include>>`/`<<extend>>` quando fizer sentido.",
-        "Cada caso de uso está rastreado para os RF e os endpoints, sem funcionalidade fora do contrato.",
-        "O diagrama é verificável no próprio arquivo: imagem, PDF ou fonte do diagrama. Um link para Lucidchart/Lucidspark NÃO conta como entrega."
+        "O diagrama UML mostra atores, casos de uso (elipses), associações e `<<include>>`/`<<extend>>` quando fizer sentido.",
+        "Cada elipse está rastreada para o RF e o endpoint correspondente, sem funcionalidade fora do contrato.",
+        "O diagrama é verificável no próprio arquivo: imagem, PDF ou fonte do diagrama. Um link para Lucidchart/Lucidspark NÃO conta como entrega.",
+        "Nenhum caso de uso de front-end, tela ou relatório."
       ],
       "observacao": "Hoje Entregaveis/Modelagem/diagrama-casos-de-uso.md tem só um link para o Lucidchart. Enquanto isso não mudar, a entrega é 'não verificável'."
     },
     {
-      "entrega": 3,
+      "entrega": 5,
+      "titulo": "Documento de casos de uso (descrição textual de cada elipse)",
+      "fontes": [
+        "Entregaveis/Casos de Uso/**",
+        "Entregaveis/Requisitos/*casos-de-uso*",
+        "Entregaveis/Modelagem/*descricao*casos*"
+      ],
+      "criterios": [
+        "Existe uma descrição para CADA elipse do diagrama da entrega 4, com o mesmo nome usado no diagrama.",
+        "Cada descrição tem nome, objetivo, ator principal, atores secundários, pré-condições, pós-condições, fluxo principal, fluxos alternativos e exceções.",
+        "No fluxo principal cada passo tem sujeito explícito ('O usuário informa...', 'O sistema retorna 201...'), sem passos vagos.",
+        "Fluxos alternativos e exceções estão numerados (FA01, EX01...) e dizem se retornam ao fluxo principal ou encerram o caso de uso.",
+        "Cada descrição aponta endpoint, RF, RN aplicadas e status HTTP esperado (200/201/204/400/401/404/409)."
+      ]
+    },
+    {
+      "entrega": 6,
       "titulo": "Diagrama de banco de dados (MySQL)",
       "fontes": [
         "Entregaveis/Banco de Dados/*diagram*",
@@ -49,12 +97,12 @@
         "Cada tabela tem PK, e as FKs apontam para as tabelas certas.",
         "Tipos, nulabilidade, unicidade, restrições e índices estão definidos.",
         "As cardinalidades estão explícitas (1:1, 1:N, N:N quando houver).",
-        "O diagrama é compatível com o documento de RN/RF/RNF e com o script MySQL."
+        "O diagrama é compatível com os documentos de RN/RF/RNF e com o `schema.sql`."
       ],
       "observacao": "Já está marcada como [X] no TODO.md; o plugin só deve avisar se o diagrama mudar."
     },
     {
-      "entrega": 4,
+      "entrega": 7,
       "titulo": "Diagrama de classes (UML)",
       "fontes": [
         "Entregaveis/Modelagem/*classes*"
@@ -70,34 +118,53 @@
       "observacao": "Hoje Entregaveis/Modelagem/diagrama-classes.md tem só um link para o Lucidspark. Enquanto isso não mudar, a entrega é 'não verificável'."
     },
     {
-      "entrega": 5,
-      "titulo": "Banco MySQL integrado, com script de criação/carga e dados de demonstração",
+      "entrega": 8,
+      "titulo": "schema.sql (script de estrutura)",
       "fontes": [
-        "Entregaveis/Banco de Dados/*.sql"
+        "Entregaveis/Banco de Dados/schema.sql",
+        "Entregaveis/**/schema.sql"
       ],
       "criterios": [
-        "Existe um script de estrutura que cria o banco do zero (schema.sql).",
-        "Existe um script de dados de demonstração (seed.sql) com registros suficientes para testar as 26 operações.",
-        "Os tipos e restrições do script batem com o diagrama de banco (PKs, FKs, unique, not null).",
-        "Não há `ON DELETE CASCADE` no histórico de movimentações; o insumo com histórico é inativado, não apagado.",
-        "O script foi executado em banco limpo e a API sobe sem erro apontando para ele.",
+        "O script cria o banco do zero em MySQL 8 limpo, com utf8mb4.",
+        "As cinco tabelas existem com PK, FKs, unicidade (login, cnpj) e nulabilidade coerentes com o diagrama de banco.",
+        "Quantidades em DECIMAL(15,3), data_movimentacao DATE, data_registro TIMESTAMP(6), ativo TINYINT(1).",
+        "Não há ON DELETE CASCADE no histórico de movimentações.",
+        "O script foi executado em banco limpo e a API sobe com ddl-auto=validate sem erro.",
         "Nenhuma senha, token ou chave real aparece no script."
+      ],
+      "observacao": "Os dados de demonstração ficam na entrega 9 (seed.sql), não neste arquivo."
+    },
+    {
+      "entrega": 9,
+      "titulo": "seed.sql (dados de demonstração)",
+      "fontes": [
+        "Entregaveis/Banco de Dados/seed.sql",
+        "Entregaveis/**/seed.sql"
+      ],
+      "criterios": [
+        "O script carrega usuários com senha em hash BCrypt, setores, fornecedores e insumos ativos.",
+        "Os insumos nascem com saldo zero e o próprio seed cria entradas e saídas que geram saldo e histórico coerentes.",
+        "Pelo menos um insumo ativo fica abaixo ou no estoque mínimo, para demonstrar o alerta.",
+        "A ordem dos INSERT respeita as FKs e o script roda depois do schema.sql em banco limpo.",
+        "A API responde com os dados carregados (login, GET /api/movimentacoes e GET /api/alertas/estoque).",
+        "Nenhuma credencial real aparece no arquivo."
       ]
     },
     {
-      "entrega": 6,
+      "entrega": 10,
       "titulo": "Código-fonte completo do Spring Boot",
       "fontes": [],
       "criterios": [
         "Projeto Maven com pom.xml, Java 17+ e as dependências do contrato.",
         "Camadas controller, service, repository, model, dto, exception, security e config.",
-        "As 26 operações implementadas, com JWT e hash BCrypt.",
-        "README do backend com instruções reproduzíveis de execução e teste."
+        "As 26 operações implementadas, com JWT, BCrypt e o JSON de erro padronizado.",
+        "README do backend com instruções reproduzíveis de execução e teste.",
+        "mvn test termina com BUILD SUCCESS."
       ],
-      "observacao": "Não é disparada pela pasta Entregaveis/: o código fica em backend/. Confira pela seção 1.2 do TODO.md e pelos itens da seção 6 em diante."
+      "observacao": "Não é disparada pela pasta Entregaveis/: o código fica em backend/. Confira pela seção 1.2 do TODO.md e pelas fases 9 a 15."
     },
     {
-      "entrega": 7,
+      "entrega": 11,
       "titulo": "Coleção Postman com as 26 operações",
       "fontes": [
         "Entregaveis/Postman/**",
@@ -106,12 +173,29 @@
       "criterios": [
         "Uma pasta por grupo: usuários/auth, setores, fornecedores, insumos, movimentações e alertas.",
         "As 26 requisições do contrato estão presentes, com método, rota, corpo e exemplos.",
-        "Os dois endpoints públicos e os protegidos por Bearer estão separados.",
+        "Os dois endpoints públicos e os protegidos por Bearer estão separados, com o token vindo do login.",
         "A coleção foi executada com sucesso contra a API local."
       ]
     },
     {
-      "entrega": 8,
+      "entrega": 12,
+      "titulo": "Pasta de documentos de explicação (schema, seed e classes)",
+      "fontes": [
+        "Entregaveis/Documentacao/Explicacoes/**",
+        "Entregaveis/**/Explicacoes/**"
+      ],
+      "criterios": [
+        "Existe um arquivo explicando o schema.sql: uma seção por tabela, uma explicação por coluna e por restrição, e o motivo de não haver CASCADE nem tabela de lote.",
+        "Existe um arquivo explicando o seed.sql: uma seção por bloco de INSERT, o cenário que cada registro habilita, a ordem das FKs e o hash BCrypt dos usuários.",
+        "Existe um arquivo .md por classe do backend/, em subpasta por entidade (ex.: Insumos/InsumoService.md), incluindo enums, DTOs, exceções, segurança e configuração.",
+        "Cada arquivo de classe tem: onde fica (caminho, pacote e camada), para que serve, explicação linha a linha, quem depende dela, o que quebra se mudar e como alterar ao vivo na banca.",
+        "Existe um README com índice, ordem de leitura e mapa entidade -> tabela -> classes.",
+        "Toda tabela do schema, todo bloco do seed e toda classe do backend/ têm seu arquivo, sem trecho desatualizado em relação ao código."
+      ],
+      "observacao": "Se a pasta mudar de nome ou lugar, atualize 'fontes' aqui para o plugin continuar encontrando os arquivos."
+    },
+    {
+      "entrega": 13,
       "titulo": "Relatório curto de testes (CT01 a CT22)",
       "fontes": [
         "Entregaveis/Testes/**",
@@ -126,7 +210,7 @@
       ]
     },
     {
-      "entrega": 9,
+      "entrega": 14,
       "titulo": "Documento técnico",
       "fontes": [
         "Entregaveis/Documentacao/**",
@@ -138,18 +222,20 @@
         "Configurações necessárias descritas sem senhas reais (nomes de variáveis apenas).",
         "Arquitetura resumida em camadas e decisões técnicas: JWT, transação, concorrência, inativação lógica e ordenação.",
         "Instruções reproduzíveis para subir a API e rodar os testes."
-      ]
+      ],
+      "observacao": "Não confundir com os documentos de RN, RF e RNF (entregas 1 a 3) nem com a pasta de explicações (entrega 12)."
     },
     {
-      "entrega": 10,
+      "entrega": 15,
       "titulo": "Demonstração prática",
       "fontes": [],
       "criterios": [
         "Roteiro com os fluxos: cadastro e login, bloqueio sem token, cadastros, entrada, saída, histórico e alertas.",
         "Divisão de quem apresenta cada parte e tempo cronometrado.",
-        "Cada decisão técnica tem explicação pronta (JWT, hash, transação, lock, inativação, ordenação)."
+        "Cada decisão técnica tem explicação pronta (JWT, hash, transação, lock, inativação, ordenação).",
+        "Ensaio de uma alteração ao vivo no código usando a entrega 12 como apoio, com reversão segura."
       ],
-      "observacao": "Não é disparada por arquivo: é apresentação oral. Confira pela seção 15 do TODO.md."
+      "observacao": "Não é disparada por arquivo: é apresentação oral. Confira pela fase 20 do TODO.md."
     }
   ]
 }

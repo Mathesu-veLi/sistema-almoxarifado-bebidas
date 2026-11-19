@@ -64,7 +64,7 @@ export function montarLembrete(arquivos: string[], mapa: Mapa | undefined): stri
   }
 
   const alvo = mapa?.todo ?? "Diversos/TODO.md"
-  const secao = mapa?.secao ?? "1.2 As 10 entregas"
+  const secao = mapa?.secao ?? "1.2 As 15 entregas"
   const numeros = arquivos
     .map((arquivo) => acharEntrega(mapa, arquivo)?.entrega)
     .filter((numero): numero is number => typeof numero === "number")

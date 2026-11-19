@@ -13,7 +13,7 @@ O front-end vai consumir exatamente as URLs, os métodos HTTP e os formatos JSON
 - As fontes de verdade atuais são os dois arquivos `.docx` da pasta `Diversos/`:
   - `Diversos/Enunciado_Projeto_Integrador_Industria_Bebidas.docx` — contexto, tecnologias, módulos, regras de negócio e entregáveis.
   - `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` — contrato de integração com as **26 operações**, JSON, status HTTP, filtros e erros.
-- `Diversos/TODO.md` é o **roteiro operacional atual** da equipe (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os **10 entregáveis** (6 do Enunciado + 4 de modelagem/requisitos). Ele organiza a execução, mas **não é fonte de verdade**: em caso de dúvida, valem o Contrato e o Enunciado.
+- `Diversos/TODO.md` é o **roteiro operacional atual** da equipe (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e as **15 entregas** (8 adicionais de modelagem, documentação e estudo + 7 que cobrem os 6 itens do Enunciado). Ele organiza a execução, mas **não é fonte de verdade**: em caso de dúvida, valem o Contrato e o Enunciado.
 
 ## O que o projeto é
 
@@ -39,14 +39,29 @@ O front-end é externo. A equipe **não** desenvolve telas, HTML, CSS, JavaScrip
 5. Documento técnico: ferramentas, versões, banco utilizado, configurações necessárias (sem senhas reais) e arquitetura resumida.
 6. Demonstração prática, com explicação das decisões técnicas e das principais regras de negócio.
 
-### Entregáveis adicionais de modelagem e requisitos (4)
+### As 15 entregas, na ordem de execução
 
-7. **Documento de regras de negócio, requisitos funcionais e não funcionais**: RF rastreáveis às 26 operações, RNF e RN-01 a RN-16, com matriz de rastreabilidade.
-8. **Documento e diagrama de casos de uso**: atores, casos de uso, pré-condições, fluxos principal/alternativos e rastreabilidade para os RF e endpoints.
-9. **Diagrama de banco de dados (MySQL)**: tabelas, colunas, tipos, PKs, FKs, unicidade, nulabilidade, índices e cardinalidades, compatível com o script SQL.
-10. **Diagrama de classes (UML)**: classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades, compatível com o diagrama de banco e com o contrato.
+A numeração abaixo é a **ordem de execução** e é a mesma usada no `Diversos/TODO.md` e nos documentos de entrega. Oito entregas são adicionais de modelagem, documentação e estudo; as outras sete cobrem os seis itens do Enunciado.
 
-> As entregas **7 a 10** são **adicionais** às 6 do Enunciado — é a numeração oficial usada neste README e nos documentos de entrega. O `Diversos/TODO.md` numera as mesmas 10 entregas na **ordem de execução**: 1 = RN/RF/RNF, 2 = casos de uso, 3 = diagrama de banco, 4 = diagrama de classes, 5 = banco MySQL, 6 = código, 7 = Postman, 8 = relatório de testes, 9 = documento técnico, 10 = demonstração. A ordem de produção segue o TODO: modelagem → banco → código. Confirmem com o professor o formato e o local de entrega.
+| # | Entrega | Item do Enunciado |
+| --- | --- | --- |
+| 1 | Documento de regras de negócio (RN-01 a RN-16) | adicional |
+| 2 | Documento de requisitos funcionais (um RF por operação, 26 no total) | adicional |
+| 3 | Documento de requisitos não funcionais + matriz de rastreabilidade | adicional |
+| 4 | Diagrama de casos de uso | adicional |
+| 5 | Documento de casos de uso (descrição textual de cada elipse) | adicional |
+| 6 | Diagrama de banco de dados (MySQL) | adicional |
+| 7 | Diagrama de classes (UML) | adicional |
+| 8 | `schema.sql` — script de estrutura | item 2 |
+| 9 | `seed.sql` — dados de demonstração | item 2 |
+| 10 | Código-fonte completo do Spring Boot | item 1 |
+| 11 | Coleção Postman com as 26 operações | item 3 |
+| 12 | Pasta de documentos de explicação (schema, seed e uma por classe do código) | adicional |
+| 13 | Relatório curto de testes (CT01 a CT22) | item 4 |
+| 14 | Documento técnico | item 5 |
+| 15 | Demonstração prática | item 6 |
+
+> O item 2 do Enunciado se desdobra em `schema.sql`, `seed.sql` e código. A entrega 12 existe para a banca: explica cada tabela, cada bloco do seed e cada classe, com o efeito de cada alteração. Confirmem com o professor o formato e o local de entrega.
 
 ## Como começar a contribuir
 
@@ -372,7 +387,7 @@ Dica para a banca: não colem código que vocês não sabem explicar. Se o agent
 | `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
 | `.opencode/skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |
 | `.opencode/plugins/entregaveis-todo/` | Gatilho que confere, junto com o agente, se um arquivo gravado em `Entregaveis/` conclui alguma entrega. |
-| `.opencode/entregaveis.json` | Critérios de conferência das 10 entregas, lidos pelo plugin. |
+| `.opencode/entregaveis.json` | Critérios de conferência das 15 entregas, lidos pelo plugin. |
 | `AGENTS.md` | Regras de comportamento do agente neste repositório. |
 
 > **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.

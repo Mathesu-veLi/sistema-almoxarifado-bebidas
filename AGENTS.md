@@ -189,14 +189,32 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 5. Documento técnico: ferramentas, versões, banco, configurações necessárias (sem senhas reais) e arquitetura resumida.
 6. Demonstração prática com explicação das decisões técnicas e das principais regras de negócio.
 
-**Adicionais de modelagem e requisitos (4):**
+**Adicionais de modelagem, documentação e estudo (8):**
 
-7. Documento com regras de negócio (RN-01 a RN-16), requisitos funcionais (RF) rastreáveis às 26 operações e requisitos não funcionais (RNF), incluindo matriz de rastreabilidade.
-8. Documento e diagrama de casos de uso, com atores, pré-condições, fluxos principal/alternativos e rastreabilidade para os RF e endpoints.
-9. Diagrama de banco de dados (MySQL), com PKs, FKs, tipos, restrições, índices e cardinalidades.
-10. Diagrama de classes UML, com classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades.
+| # | Entrega | Fase |
+| --- | --- | --- |
+| 1 | Documento de regras de negócio (RN-01 a RN-16), com impacto na API e forma de verificação | 1 |
+| 2 | Documento de requisitos funcionais (um RF por operação, 26 no total) | 2 |
+| 3 | Documento de requisitos não funcionais (RNF) + matriz de rastreabilidade RN → RF → endpoint → CT01 a CT22 | 3 |
+| 4 | Diagrama de casos de uso | 4 |
+| 5 | Documento de casos de uso (descrição textual de cada elipse) | 5 |
+| 6 | Diagrama de banco de dados (MySQL), com PKs, FKs, tipos, restrições, índices e cardinalidades | 6 |
+| 7 | Diagrama de classes UML, com classes do domínio, enums, atributos, métodos, relacionamentos e multiplicidades | 7 |
+| 12 | Pasta de documentos de explicação: um arquivo para o `schema.sql`, um para o `seed.sql` e um arquivo por classe do `backend/`, em subpastas por entidade | 17 |
 
-> Os entregáveis 7 a 10 são adicionais aos 6 do Enunciado. A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. A equipe deve confirmar o formato e o local de entrega com o professor.
+**Do roteiro de execução (as 7 que cobrem o Enunciado):**
+
+| # | Entrega | Item do Enunciado | Fase |
+| --- | --- | --- | --- |
+| 8 | `schema.sql` — script de estrutura | item 2 | 8 |
+| 9 | `seed.sql` — dados de demonstração | item 2 | 16 |
+| 10 | Código-fonte completo do Spring Boot | item 1 | 9–15 |
+| 11 | Coleção Postman com as 26 operações | item 3 | 18 |
+| 13 | Relatório curto de testes (CT01 a CT22) | item 4 | 18 |
+| 14 | Documento técnico | item 5 | 19 |
+| 15 | Demonstração prática | item 6 | 20 |
+
+> A numeração é a **ordem de execução** e é a mesma no `Diversos/TODO.md` (seção 1.2), no `README.md` e em `.opencode/entregaveis.json`. O item 2 do Enunciado se desdobra em `schema.sql`, `seed.sql` e código. A ordem de produção é: RN → RF → RNF → casos de uso (diagrama e descrições) → diagrama de banco → diagrama de classes → `schema.sql` → código → `seed.sql` → documentos de explicação → testes/Postman → documento técnico → demonstração. A entrega 12 é obrigatória para a banca: cada classe precisa ter sua explicação linha a linha e o efeito de cada alteração. A equipe deve confirmar o formato e o local de entrega com o professor.
 
 ## 8. Git (governança)
 
@@ -318,6 +336,7 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 - **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 10 entregáveis (6 do Enunciado + 4 de modelagem/requisitos). A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. O `Diversos/TODO.docx` passa a ser histórico.
 - **13/11/2026 — Antigravity descontinuado.** Todos os colaboradores usam o OpenCode. As cópias de skills em `skills/` e `.agents/skills/` e as regras de `.agents/rules/` foram removidas; as skills ficam somente em `.opencode/skills/`, sem duplicação.
 - **16/11/2026 — Pull no início da sessão.** O plugin `.opencode/plugins/pull-inicio-sessao/` passa a verificar o repositório na primeira chamada ao modelo de cada sessão e a rodar `git pull --ff-only` (sem commit de merge) quando a árvore estiver limpa. Com alterações não commitadas, o agente aciona antes o subagente `commit-agent` e só depois puxa. Ver seção 8.1.
+- **19/11/2026 — Roteiro em 15 entregas.** `Diversos/TODO.md` desmembra a entrega de RN/RF/RNF em três documentos, separa o diagrama do documento de casos de uso, separa `schema.sql` e `seed.sql`, cria a entrega 12 (documentos de explicação do projeto: schema, seed e uma explicação por classe do código) e renumera as fases de 0 a 21. `README.md`, `AGENTS.md` e `.opencode/entregaveis.json` passam a usar a mesma numeração de execução (1 a 15).
 
 ## 16. Ambiente suportado: OpenCode
 
