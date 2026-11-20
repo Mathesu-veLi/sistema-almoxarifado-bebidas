@@ -8,9 +8,9 @@
       "entrega": 1,
       "titulo": "Documento de regras de negócio (RN-01 a RN-16)",
       "fontes": [
-        "Entregaveis/Requisitos/rn.md",
-        "Entregaveis/Requisitos/*regras*",
-        "Entregaveis/Requisitos/*rn-*",
+        "Entregaveis/Modelagem/rn.md",
+        "Entregaveis/Modelagem/*regras*",
+        "Entregaveis/Modelagem/*rn-*",
         "Entregaveis/**/*regras-de-negocio*"
       ],
       "criterios": [
@@ -25,9 +25,9 @@
       "entrega": 2,
       "titulo": "Documento de requisitos funcionais (26 operações)",
       "fontes": [
-        "Entregaveis/Requisitos/rf.md",
-        "Entregaveis/Requisitos/*rf-*",
-        "Entregaveis/Requisitos/*funcionais*",
+        "Entregaveis/Modelagem/rf.md",
+        "Entregaveis/Modelagem/*rf-*",
+        "Entregaveis/Modelagem/*requisitos-funcionais*",
         "Entregaveis/**/*requisitos-funcionais*"
       ],
       "criterios": [
@@ -35,14 +35,15 @@
         "Cada RF tem descrição, ator, método e rota, entrada com campos obrigatórios, saída de sucesso, status HTTP de sucesso, erros previstos e RN relacionadas.",
         "Rotas, nomes de campos JSON e códigos HTTP são idênticos ao Contrato Técnico.",
         "Nenhum RF descreve funcionalidade fora das 26 operações."
-      ]
+      ],
+      "observacao": "Mantenha o padrão *requisitos-funcionais*; um padrão genérico como *funcionais* também casaria com requisitos-nao-funcionais e classificaria o arquivo errado."
     },
     {
       "entrega": 3,
       "titulo": "Documento de requisitos não funcionais (RNF) + matriz de rastreabilidade",
       "fontes": [
-        "Entregaveis/Requisitos/*rnf*",
-        "Entregaveis/Requisitos/*rastreabilidade*",
+        "Entregaveis/Modelagem/*rnf*",
+        "Entregaveis/Modelagem/*rastreabilidade*",
         "Entregaveis/**/*nao-funcionais*"
       ],
       "criterios": [
@@ -73,9 +74,9 @@
       "entrega": 5,
       "titulo": "Documento de casos de uso (descrição textual de cada elipse)",
       "fontes": [
-        "Entregaveis/Casos de Uso/**",
-        "Entregaveis/Requisitos/*casos-de-uso*",
-        "Entregaveis/Modelagem/*descricao*casos*"
+        "Entregaveis/Modelagem/*descricao*casos*",
+        "Entregaveis/Modelagem/*casos*uso*",
+        "Entregaveis/**/*descricao*casos*"
       ],
       "criterios": [
         "Existe uma descrição para CADA elipse do diagrama da entrega 4, com o mesmo nome usado no diagrama.",
@@ -167,7 +168,6 @@
       "entrega": 11,
       "titulo": "Coleção Postman com as 26 operações",
       "fontes": [
-        "Entregaveis/Postman/**",
         "Entregaveis/**/*postman*"
       ],
       "criterios": [
@@ -181,7 +181,6 @@
       "entrega": 12,
       "titulo": "Pasta de documentos de explicação (schema, seed e classes)",
       "fontes": [
-        "Entregaveis/Documentacao/Explicacoes/**",
         "Entregaveis/**/Explicacoes/**"
       ],
       "criterios": [
@@ -198,7 +197,6 @@
       "entrega": 13,
       "titulo": "Relatório curto de testes (CT01 a CT22)",
       "fontes": [
-        "Entregaveis/Testes/**",
         "Entregaveis/**/*relatorio*",
         "Entregaveis/**/*teste*"
       ],
@@ -213,7 +211,6 @@
       "entrega": 14,
       "titulo": "Documento técnico",
       "fontes": [
-        "Entregaveis/Documentacao/**",
         "Entregaveis/**/*tecnico*"
       ],
       "criterios": [
