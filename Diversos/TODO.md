@@ -10,7 +10,7 @@
 
 > **Regra de ouro:** o front-end externo já espera as rotas, os campos JSON e os códigos HTTP do contrato. Não altere o contrato para “facilitar” a implementação.
 
-> **Este arquivo substitui o roteiro antigo.** `*.pdf.OLD`, `Diversos/TODO.docx` e `Entregaveis/` são material do escopo anterior (desktop) e ficam apenas como histórico.
+> **Este arquivo substitui o roteiro antigo.** O `Diversos/TODO.docx` foi removido (commit `6d9eb9b`) e o `*.pdf.OLD` é material do escopo anterior (desktop). `Entregaveis/` é a pasta oficial de entrega atual, separada por matéria.
 
 ---
 
@@ -39,7 +39,7 @@ As **fases** (0 a 21) são as etapas de trabalho que produzem cada entrega.
 | **5** | Descrição textual de cada elipse do diagrama | Contrato | **Entrega 5** |
 | **6** | Diagrama de banco de dados (MySQL) | `.opencode/skills/database-operations` | **Entrega 6** |
 | **7** | Diagrama de classes (UML) | `.opencode/skills/database-operations` | **Entrega 7** |
-| **8** | Script SQL de estrutura (`db/schema.sql`) e validação | `.opencode/skills/database-operations` | **Entrega 8** |
+| **8** | Script SQL de estrutura (`Entregaveis/Banco de Dados/schema.sql`) e validação | `.opencode/skills/database-operations` | **Entrega 8** |
 | **9** | Esqueleto do backend Spring Boot | `.opencode/skills/api-rest` | **Entrega 10** |
 | **10** | Entidades JPA, enums, DTOs e repositórios | `.opencode/skills/database-operations` | **Entrega 10** |
 | **11** | JWT, BCrypt e rotas protegidas | `.opencode/skills/jwt-security` | **Entrega 10** |
@@ -47,7 +47,7 @@ As **fases** (0 a 21) são as etapas de trabalho que produzem cada entrega.
 | **13** | Insumos e alertas de estoque | `.opencode/skills/api-rest` | **Entrega 10** |
 | **14** | Movimentações, transação e concorrência | `.opencode/skills/database-operations` | **Entrega 10** |
 | **15** | Validações e erros padronizados | `.opencode/skills/api-rest` | **Entrega 10** |
-| **16** | Dados de demonstração (`db/seed.sql`) e carga no MySQL | `.opencode/skills/database-operations` | **Entrega 9** |
+| **16** | Dados de demonstração (`Entregaveis/Banco de Dados/seed.sql`) e carga no MySQL | `.opencode/skills/database-operations` | **Entrega 9** |
 | **17** | Documentos de explicação do projeto (schema, seed e classes) | Código + scripts | **Entrega 12** |
 | **18** | Testes, coleção Postman e evidências | Postman + Maven | **Entregas 11 e 13** |
 | **19** | Documento técnico e instruções de execução | `README.md` | **Entrega 14** |
@@ -76,7 +76,7 @@ Marque cada entrega somente quando estiver completa e revisada.
 | **14** | **Documento técnico** (ferramentas, versões, banco, configurações sem senhas reais, arquitetura) | 19 | item 5 | [ ] |
 | **15** | **Demonstração prática**, com decisões técnicas e regras de negócio | 20 | item 6 | [ ] |
 
-> As entregas 1 a 7 e 12 são **adicionais** de modelagem, documentação e estudo, criadas pela equipe. As entregas 8 a 11 e 13 a 15 correspondem aos seis itens do Enunciado (o item 2 se desdobra em `schema.sql`, `seed.sql` e código). Confirmem com o professor o formato (PDF, imagem ou editável) e o local de entrega. Todas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
+> As entregas 1 a 7 e 12 são **adicionais** de modelagem, documentação e estudo, criadas pela equipe. As entregas 8 a 11 e 13 a 15 correspondem aos seis itens do Enunciado (o item 2 se desdobra em `schema.sql`, `seed.sql` e código). Confirmem com o professor o formato (PDF, imagem ou editável); no repositório, cada entrega fica em `Entregaveis/`, na subpasta da matéria. Todas devem ser produzidas e revisadas pela equipe; o agente apenas orienta.
 
 ### 1.3 Definição de pronto
 
@@ -175,7 +175,7 @@ Só começar depois do diagrama de casos de uso aprovado: a descrição textual 
 Só começar depois dos casos de uso (diagrama e descrições) aprovados.
 
 - [ ] **6.1. Revisar entidades e relacionamentos:** usuário, setor, fornecedor, insumo e movimentação.
-  - Não reaproveitar o DER antigo de `Entregaveis/` sem revisar: ele é do escopo desktop e usa estoque por lote.
+  - O DER e o `schema.sql` de `Entregaveis/Banco de Dados/` são do escopo atual; revise-os junto com os documentos de RN/RF/RNF antes de codificar.
 - [ ] **6.2. Definir tabelas, colunas, tipos e restrições:** PKs, FKs, unicidade, nulabilidade, índices e cardinalidades.
 - [ ] **6.3. Desenhar o diagrama** (MySQL Workbench ou Draw.io), legível e exportável.
 - [ ] **6.4. Revisar:** compatível com os documentos de RN/RF/RNF e de casos de uso e com o futuro script MySQL. → **Entrega 6 aprovada.**
@@ -193,8 +193,8 @@ Só começar depois do diagrama de banco aprovado.
 
 Só começar depois dos diagramas de banco e de classes aprovados.
 
-- [ ] **8.1. Escrever o script de estrutura** em arquivo **novo** (`db/schema.sql`); não sobrescrever o `BancodoProjeto.sql` antigo sem autorização dos autores.
-  - O arquivo de estrutura é só `db/schema.sql`; os dados de demonstração ficam em `db/seed.sql`, criado na **FASE 16** (depois do código). Usar `utf8mb4` (o InnoDB já é o engine padrão do MySQL 8, sem obrigação de declarar `ENGINE` no script).
+- [ ] **8.1. Escrever o script de estrutura** em `Entregaveis/Banco de Dados/schema.sql` (entrega oficial); se já existir versão em andamento, revise em vez de criar outra.
+  - O arquivo de estrutura é só `Entregaveis/Banco de Dados/schema.sql`; os dados de demonstração ficam em `Entregaveis/Banco de Dados/seed.sql`, criado na **FASE 16** (depois do código). Usar `utf8mb4` (o InnoDB já é o engine padrão do MySQL 8, sem obrigação de declarar `ENGINE` no script).
 - [ ] **8.2. Modelo mínimo esperado**
 
 | Tabela | Campos mínimos | Observações para MySQL |
@@ -334,7 +334,7 @@ Fase de maior peso nas regras de negócio. Não pule os testes de concorrência.
 
 Só começar **depois do código** (fases 9 a 15) e **antes da coleção Postman** (fase 18): a carga precisa refletir as regras já implementadas e serve de base para os testes.
 
-- [ ] **16.1. Escrever o `db/seed.sql`** com os dados de demonstração.
+- [ ] **16.1. Escrever o `Entregaveis/Banco de Dados/seed.sql`** com os dados de demonstração.
   - Usuários com senha em **hash BCrypt**; setores, fornecedores e insumos ativos.
   - Insumos começam com saldo zero; criar entradas e saídas para gerar saldo e histórico.
   - Pelo menos um insumo abaixo ou no estoque mínimo para demonstrar o alerta. Sem credenciais reais.
@@ -349,7 +349,7 @@ Esta entrega existe para a **banca**: cada integrante precisa entender cada linh
 - [ ] **17.1. Definir a pasta e a estrutura.** Sugestão (o caminho exato é decisão da equipe; se mudar, o mapa do plugin `.opencode/entregaveis.json` precisa ser atualizado):
 
   ```
-  Entregaveis/Documentacao/Explicacoes/
+  Entregaveis/Programação de Aplicativos/Explicacoes/
   ├── README.md              (índice geral e ordem de leitura)
   ├── schema.sql.md          (um arquivo explicando o script de estrutura)
   ├── seed.sql.md            (um arquivo explicando o script de carga)
@@ -579,7 +579,7 @@ Execute todos com o backend e o MySQL rodando. Guarde a evidência (print, log o
 ## 9. Observações sobre os documentos antigos
 
 - `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` — PDF antigo, **obsoleto**.
-- `Entregaveis/` — SQL, DER e requisitos da versão desktop. **Não são a fonte de verdade** do escopo atual e não devem ser alterados sem autorização dos autores.
+- `Entregaveis/` — pasta oficial de entrega, separada por matéria. O `schema.sql` e o DER de `Entregaveis/Banco de Dados/` são do escopo atual; só altere com autorização dos autores.
 - Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco. O contrato continua sendo a fonte de verdade da API.
 
 > Em caso de dúvida, vale o **Contrato Técnico** para rotas, campos, JSON, status, filtros e ordenação; e o **Enunciado** para regras de negócio, tecnologias e escopo. Se os dois não resolverem, perguntem ao professor.

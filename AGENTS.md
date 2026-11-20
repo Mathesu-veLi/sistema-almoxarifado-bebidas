@@ -34,11 +34,11 @@ O agente deve lembrar a equipe de que:
 
 | Caminho | Regra |
 | --- | --- |
-| `Entregaveis/` | **Somente leitura.** Contém material produzido pelos autores na versão anterior (escopo desktop). Não é a fonte de verdade do escopo atual. Nunca editar, mover, renomear ou apagar sem **permissão direta e explícita do usuário** na conversa. |
-| `docs/` | Documentos da equipe. Não alterar sem pedido explícito. |
+| `Entregaveis/` | **Pasta oficial de entrega aos professores**, separada por matéria: `Banco de Dados/`, `Modelagem/` (Modelagem de Sistemas) e a pasta de Programação de Aplicativos. O agente pode ler e revisar, mas só cria ou edita com **pedido explícito e delimitado**; mostre o diff do que será alterado. Nunca apagar, mover ou renomear sem autorização. |
+| `docs/` | Documentos internos da equipe (por exemplo, autoria dos commits). **Não é a pasta de entrega.** Não alterar sem pedido explícito. |
 | `backend/` | Código escrito pelos autores. Alterar apenas no escopo exato que foi solicitado. |
 | `Diversos/*.docx` | Documentos-base atuais do projeto. **Somente leitura.** |
-| `Diversos/*.pdf.OLD`, `Diversos/TODO.docx` | Material histórico da versão anterior. Não usar como requisito nem como roteiro atual. |
+| `Diversos/*.pdf.OLD` | Material histórico da versão anterior. Não usar como requisito. |
 | `Diversos/TODO.md` | Roteiro operacional **atual** da equipe (API REST + MySQL). Pode ser atualizado pela equipe; não substitui o Contrato nem o Enunciado. |
 | `AGENTS.md`, `opencode.json`, `.opencode/` | Configuração do agente. Alterar apenas quando o usuário pedir mudança de comportamento do agente. |
 
@@ -48,6 +48,7 @@ Regras adicionais:
 - Nunca executar comando destrutivo (`git reset`, `git checkout --`, `git restore`, `Remove-Item`, `rm`, `del`) sobre material dos autores.
 - Se uma alteração parecer necessária em área protegida, **pergunte antes** e explique o motivo.
 - Se o usuário autorizar uma alteração em `Entregaveis/`, limite-se ao arquivo e ao trecho autorizados e mostre o diff do que será mudado.
+- Em `Entregaveis/`, cada arquivo de entrega deve ficar na subpasta da matéria correspondente: `Banco de Dados/`, `Modelagem/` (Modelagem de Sistemas) ou `Programação de Aplicativos/`.
 
 ## 4. O que o agente pode fazer
 
@@ -85,7 +86,9 @@ Em caso de conflito:
 - **Enunciado** prevalece em regras de negócio, tecnologias e escopo.
 - Se os dois documentos não resolverem, **pergunte à equipe/professor**; não invente requisito.
 
-> `Entregaveis/` e `Diversos/TODO.docx` são material da versão anterior (desktop). Não use o SQL, o DER ou os requisitos antigos como contrato atual. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco — sempre com autorização dos autores.
+> `Diversos/*.pdf.OLD` é material histórico da versão anterior (desktop). Não use o SQL, o DER ou os requisitos antigos como contrato atual.
+>
+> `Entregaveis/` é a pasta oficial de entrega atual, separada por matéria: `Banco de Dados/`, `Modelagem/` (Modelagem de Sistemas) e a pasta de Programação de Aplicativos. As entregas novas vão nas subpastas correspondentes. Se a equipe produzir um novo DER/SQL, ele passa a ser a referência do banco — sempre com autorização dos autores.
 >
 > `Diversos/TODO.md` é o roteiro operacional **atual** (API REST + MySQL). Ele organiza a execução e os checklists da equipe, mas **não substitui** o Contrato Técnico nem o Enunciado.
 >
@@ -214,7 +217,7 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
 | 14 | Documento técnico | item 5 | 19 |
 | 15 | Demonstração prática | item 6 | 20 |
 
-> A numeração é a **ordem de execução** e é a mesma no `Diversos/TODO.md` (seção 1.2), no `README.md` e em `.opencode/entregaveis.json`. O item 2 do Enunciado se desdobra em `schema.sql`, `seed.sql` e código. A ordem de produção é: RN → RF → RNF → casos de uso (diagrama e descrições) → diagrama de banco → diagrama de classes → `schema.sql` → código → `seed.sql` → documentos de explicação → testes/Postman → documento técnico → demonstração. A entrega 12 é obrigatória para a banca: cada classe precisa ter sua explicação linha a linha e o efeito de cada alteração. A equipe deve confirmar o formato e o local de entrega com o professor.
+> A numeração é a **ordem de execução** e é a mesma no `Diversos/TODO.md` (seção 1.2), no `README.md` e em `.opencode/entregaveis.json`. O item 2 do Enunciado se desdobra em `schema.sql`, `seed.sql` e código. A ordem de produção é: RN → RF → RNF → casos de uso (diagrama e descrições) → diagrama de banco → diagrama de classes → `schema.sql` → código → `seed.sql` → documentos de explicação → testes/Postman → documento técnico → demonstração. A entrega 12 é obrigatória para a banca: cada classe precisa ter sua explicação linha a linha e o efeito de cada alteração. A equipe deve confirmar o formato com o professor; no repositório, as entregas ficam em `Entregaveis/`, separadas por matéria.
 
 ## 8. Git (governança)
 
@@ -331,19 +334,20 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 
 ## 15. Registro desta política
 
-- **22/10/2026 — Reformulação da estrutura de IA.** O agente passa a atuar como assistente dos autores. Ficam protegidos `Entregaveis/` (somente leitura) e os documentos da equipe. Documentos de entrega e a modelagem do sistema voltam a ser produzidos pelos autores.
+- **22/10/2026 — Reformulação da estrutura de IA.** O agente passa a atuar como assistente dos autores. Ficam protegidos `Entregaveis/` e os documentos da equipe; a edição depende de pedido explícito. Documentos de entrega e a modelagem do sistema voltam a ser produzidos pelos autores.
 - **03/11/2026 — Mudança de escopo para API REST.** O projeto deixa de ser desktop (Swing) e passa a ser somente backend Spring Boot, com JWT e o contrato de 26 operações. O PDF antigo vira `.OLD` e os dois `.docx` passam a ser a fonte de verdade. O agente continua como apoio, sem construir o projeto nem produzir as entregas.
-- **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 10 entregáveis (6 do Enunciado + 4 de modelagem/requisitos). A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. O `Diversos/TODO.docx` passa a ser histórico.
+- **03/11/2026 — Novo roteiro de execução.** `Diversos/TODO.md` é reescrito para o escopo atual (API REST + MySQL), com as 26 operações, os casos CT01 a CT22, as fases e os 10 entregáveis (6 do Enunciado + 4 de modelagem/requisitos). A ordem é: documento de RN/RF/RNF → casos de uso → diagrama de banco → diagrama de classes → código. O antigo `Diversos/TODO.docx` é removido no mesmo dia (commit `6d9eb9b`); `Diversos/TODO.md` passa a ser o roteiro atual.
 - **13/11/2026 — Antigravity descontinuado.** Todos os colaboradores usam o OpenCode. As cópias de skills em `skills/` e `.agents/skills/` e as regras de `.agents/rules/` foram removidas; as skills ficam somente em `.opencode/skills/`, sem duplicação.
 - **16/11/2026 — Pull no início da sessão.** O plugin `.opencode/plugins/pull-inicio-sessao/` passa a verificar o repositório na primeira chamada ao modelo de cada sessão e a rodar `git pull --ff-only` (sem commit de merge) quando a árvore estiver limpa. Com alterações não commitadas, o agente aciona antes o subagente `commit-agent` e só depois puxa. Ver seção 8.1.
 - **19/11/2026 — Roteiro em 15 entregas.** `Diversos/TODO.md` desmembra a entrega de RN/RF/RNF em três documentos, separa o diagrama do documento de casos de uso, separa `schema.sql` e `seed.sql`, cria a entrega 12 (documentos de explicação do projeto: schema, seed e uma explicação por classe do código) e renumera as fases de 0 a 21. `README.md`, `AGENTS.md` e `.opencode/entregaveis.json` passam a usar a mesma numeração de execução (1 a 15).
+- **19/11/2026 — Pasta oficial de entrega.** `Entregaveis/` passa a ser reconhecida como a pasta oficial de entrega aos professores, organizada por matéria: `Banco de Dados/`, `Modelagem/` (Modelagem de Sistemas) e a pasta de Programação de Aplicativos. A regra de "somente leitura" é substituída por "edição apenas com pedido explícito e delimitado". `docs/` continua como documentação interna da equipe, não como pasta de entrega.
 
 ## 16. Ambiente suportado: OpenCode
 
 O repositório é usado somente pelo **OpenCode**. O Antigravity foi descontinuado para este projeto, junto com as cópias duplicadas de skills.
 
 - `opencode.json` registra este arquivo em `instructions`.
-- A permissão de edição de `Entregaveis/` está configurada como **perguntar**: o agente depende da sua autorização.
+- A edição de `Entregaveis/` está configurada como **perguntar** (`ask`): o agente só altera com pedido explícito e mostra o diff do que será mudado.
 - Skills reconhecidas em `.opencode/skills/` — **uma única cópia** de cada skill, sem duplicação em outras pastas.
 - Comandos disponíveis: `/commit`, `/banca` e `/testes`.
 - Subagente `commit-agent` dedicado apenas a commits, sempre com autoria definida.

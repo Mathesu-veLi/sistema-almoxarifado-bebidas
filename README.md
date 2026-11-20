@@ -61,7 +61,7 @@ A numeração abaixo é a **ordem de execução** e é a mesma usada no `Diverso
 | 14 | Documento técnico | item 5 |
 | 15 | Demonstração prática | item 6 |
 
-> O item 2 do Enunciado se desdobra em `schema.sql`, `seed.sql` e código. A entrega 12 existe para a banca: explica cada tabela, cada bloco do seed e cada classe, com o efeito de cada alteração. Confirmem com o professor o formato e o local de entrega.
+> O item 2 do Enunciado se desdobra em `schema.sql`, `seed.sql` e código. A entrega 12 existe para a banca: explica cada tabela, cada bloco do seed e cada classe, com o efeito de cada alteração. Confirmem com o professor o formato de entrega; no repositório, as entregas ficam em `Entregaveis/`, separadas por matéria.
 
 ## Como começar a contribuir
 
@@ -285,7 +285,7 @@ Passo a passo:
 
 Quando a equipe criar a pasta `backend/`, o fluxo esperado é:
 
-1. **Crie o banco** com o script SQL novo, produzido pela equipe na disciplina de Modelagem e Banco de Dados. Não use o script antigo de `Entregaveis/` como se fosse o modelo atual.
+1. **Crie o banco** com o `schema.sql` da equipe, em `Entregaveis/Banco de Dados/` (produzido na disciplina de Modelagem e Banco de Dados). Ele é o modelo atual; confira se está alinhado ao Contrato antes de usar.
 2. **Configure a conexão** em `backend/src/main/resources/application.properties` ou por variáveis de ambiente. Não versione senha real.
 3. **Confira as dependências** no `pom.xml`: Spring Web, Spring Data JPA, Validation, driver do banco, **Spring Security** (autenticação JWT), **Lombok** e a biblioteca JWT escolhida pela equipe.
 4. **Suba a aplicação:**
@@ -383,14 +383,17 @@ Dica para a banca: não colem código que vocês não sabem explicar. Se o agent
 | `Diversos/Contrato_Tecnico_API_Industria_Bebidas.docx` | Contrato atual: as 26 operações, JSON, status HTTP, filtros, ordenação e erros. |
 | `Diversos/Projeto Integrador Módulo 2 - Industria_Bebidas.pdf.OLD` | PDF antigo, **obsoleto**. Não usar. |
 | `Diversos/TODO.md` | Roteiro **atual** da equipe: fases, 26 operações, CT01 a CT22, MySQL e entregáveis. |
-| `Entregaveis/` | Material da versão anterior (SQL, DER e requisitos desktop). **Somente leitura** e não é fonte de verdade do escopo atual. |
+| `Entregaveis/` | Pasta oficial de entrega aos professores, separada por matéria: `Banco de Dados/`, `Modelagem/` (Modelagem de Sistemas) e a pasta de Programação de Aplicativos. |
+| `docs/` | Documentos internos da equipe. **Não é a pasta de entrega.** |
 | `docs/colaboradores.md` | Lista oficial de quem participa do projeto, usada para registrar quem fez cada commit. |
 | `.opencode/skills/` | Material de consulta do agente (API REST, JWT, banco, ordenação e commits). |
 | `.opencode/plugins/entregaveis-todo/` | Gatilho que confere, junto com o agente, se um arquivo gravado em `Entregaveis/` conclui alguma entrega. |
 | `.opencode/entregaveis.json` | Critérios de conferência das 15 entregas, lidos pelo plugin. |
 | `AGENTS.md` | Regras de comportamento do agente neste repositório. |
 
-> **`Entregaveis/` é o material da equipe.** O agente só lê esses arquivos. Qualquer alteração no SQL, no DER ou nos requisitos precisa ser feita e autorizada por vocês.
+> **`Entregaveis/` é a pasta oficial de entrega.** Ela vai para os professores separada por matéria: `Banco de Dados/`, `Modelagem/` (Modelagem de Sistemas) e a pasta de Programação de Aplicativos. Requisitos funcionais e não funcionais, diagramas de casos de uso e de classes ficam em `Entregaveis/Modelagem/`; scripts SQL e DER ficam em `Entregaveis/Banco de Dados/`.
+>
+> O agente pode ler e revisar; para criar ou alterar qualquer arquivo, precisa de pedido explícito e mostra o diff. O material histórico é o PDF `.OLD` de `Diversos/`, não esta pasta.
 
 ## Tecnologias obrigatórias
 
