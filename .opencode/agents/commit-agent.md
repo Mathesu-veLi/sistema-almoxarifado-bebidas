@@ -73,18 +73,36 @@ Siga rigorosamente as seguintes diretrizes inegociáveis:
      d) Reaproveite branch: se `git branch -r` já tiver branch do mesmo assunto, continue nela em vez de criar duplicata.
      e) Faça os commits na branch com a identidade do colaborador (item 3).
      f) Publique **somente a branch**: `git push -u origin <branch>`. Nunca faça push na `main`, nunca use `--force`.
-     g) Abra o Pull Request para `main`:
+     g) O corpo do PR segue o modelo `.github/PULL_REQUEST_TEMPLATE.md` (seções "O que muda", "Tipo",
+        "Como testar" e "Checklist"). Abra o Pull Request para `main`:
         - Verifique o GitHub CLI: `gh --version` (instalado?) e `gh auth status` (autenticado?).
-        - Se estiver instalado e autenticado, crie o PR direto, sem modo interativo:
-          `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "resumo do que mudou"`
-          (o resumo lista os commits do assunto; nunca inclua token, senha ou caminho local da máquina).
+        - Se estiver instalado e autenticado, crie o PR direto, sem modo interativo, passando o corpo **preenchido**
+          no formato do modelo:
+          `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "<corpo>"`
+          Regras do corpo:
+            * leia o modelo antes de montar o texto e **mantenha as quatro seções**;
+            * "O que muda": resumo curto dos commits do assunto;
+            * "Tipo": marque `[x]` apenas no tipo que corresponde aos commits;
+            * "Como testar": o passo, endpoint ou comando que comprova a alteração;
+            * "Checklist": marque `[x]` só no que você verificou de fato; deixe `[ ]` no que não deu para conferir
+              (ex.: `mvn test` não executado) e diga isso na resposta;
+            * preencha o `RN-__` com a regra de negócio afetada, ou apague a linha se não houver;
+            * nunca inclua token, senha ou caminho local da máquina.
+          Não use `--template` sozinho: ele copia o modelo com os marcadores de exemplo sem preencher o conteúdo.
+          Se o corpo ficar grande demais para a linha de comando, use `--body-file -` com heredoc.
         - Sem `gh` instalado ou autenticado, monte o link pronto e entregue no chat, obtendo owner/repo com
           `gh repo view --json nameWithOwner` ou, na falta dele, com `git remote get-url origin`:
-          `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1&title=<título>&body=<corpo>`
-          (título e corpo com URL-encoding; `%0A` para quebra de linha).
+          `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1&title=<título>`
+          Nesse caminho **não** inclua `&body=`: assim o GitHub abre o PR com o modelo do repositório já carregado
+          e o colaborador só preenche no navegador. Título com URL-encoding (`%20` para espaço).
         - Nos dois casos, informe o link do PR na resposta e lembre que o merge é da equipe.
-        - **Nunca instale o `gh`** (`winget`, `choco`, instalador) por conta própria: instalação de programa depende
-          de pedido explícito do usuário. Se faltar, indique a seção 7 do `README.md`.
+        - **Instalar o `gh` é permitido, com aviso**: se ele faltar e o PR precisar ser aberto, avise em uma frase
+          que o GitHub CLI será baixado e instalado na máquina do usuário, mostre o comando exato
+          (`winget install --id GitHub.cli` no Windows, `brew install gh`, `apt`/`dnf` etc.) e só então execute.
+          Instale **somente** o `gh`; qualquer outro programa continua dependendo de pedido explícito.
+          Depois, peça ao usuário para reabrir o terminal (`gh` novo não aparece em terminal já aberto) e informe
+          que `gh auth login` é ele quem roda, porque abre o navegador e pede o código de confirmação dele.
+          Detalhes em README, seção 7.
      h) O PR fica **aberto** para revisão de outra pessoa. Nunca faça merge, nunca aprove, nunca feche PR de terceiro.
      i) Se o push ou o PR falhar por autenticação (`could not read Username`, `Authentication failed`,
         `terminal prompts disabled`), siga o item 1: **PARE**, explique e peça ao usuário rodar no terminal dele

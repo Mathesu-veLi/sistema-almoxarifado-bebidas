@@ -226,7 +226,8 @@ Front-end, interfaces desktop, tela de login, notificações por e-mail/push, co
   `git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"`
 - **Nunca** use `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem autoria definida. Quando a identidade precisar ser escolhida, o agente **sugere** como configurar nome, e-mail e acesso ao GitHub (Git Credential Manager ou token — nunca a senha da conta em arquivo ou na URL) e indica o passo correspondente no `README.md`; quem executa é o usuário.
 - Trabalho em par: o colaborador escolhido é o autor e os demais entram como `Co-authored-by: Nome <email>` no rodapé.
-- **Branch e Pull Request:** o mantenedor **Matheus Levi (`Mathesu-veLi`)** commita direto na `main`. Para qualquer outro colaborador, o agente de commit leva o trabalho para uma **branch nova** (`tipo/escopo`, sem `--force`), decide o nome e a quantidade de branches (uma por assunto lógico), publica a branch e abre o **Pull Request** para `main` — usando `gh` quando disponível ou entregando o link de comparação com título e corpo prontos. O merge continua sendo da equipe, após revisão; o agente **nunca** mescla PR nem faz push na `main`.
+- **Branch e Pull Request:** o mantenedor **Matheus Levi (`Mathesu-veLi`)** commita direto na `main`. Para qualquer outro colaborador, o agente de commit leva o trabalho para uma **branch nova** (`tipo/escopo`, sem `--force`), decide o nome e a quantidade de branches (uma por assunto lógico), publica a branch e abre o **Pull Request** para `main` — usando `gh` quando disponível ou entregando o link de comparação com título pronto e o modelo `.github/PULL_REQUEST_TEMPLATE.md` já carregado no navegador. O corpo do PR segue esse modelo (`O que muda`, `Tipo`, `Como testar`, `Checklist`): as caixas só são marcadas no que foi verificado de fato. O merge continua sendo da equipe, após revisão; o agente **nunca** mescla PR nem faz push na `main`.
+- **Instalação do `gh`:** pode ser feita pelo agente quando faltar para abrir o PR, **desde que ele avise antes, em uma frase, que o GitHub CLI está sendo baixado e instalado na máquina do usuário**, mostrando o comando exato (`winget install --id GitHub.cli`, `brew install gh`, `apt`/`dnf`). O `gh auth login` continua sendo do usuário, porque abre o navegador e depende do código de confirmação dele. Instalar qualquer outro programa segue exigindo pedido explícito.
 - Padrão **Conventional Commits** em português: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
 - Commits **atômicos**: uma única responsabilidade lógica por commit.
 - Nunca versione senhas, tokens, chaves JWT, arquivos `target/` ou configurações locais.
@@ -292,12 +293,12 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 ## 12. Perguntas frequentes
 
 - **Posso rodar o projeto e testar?** Sim, para diagnóstico e verificação. Rodar não altera o material dos autores.
-- **Posso instalar dependências?** Só com pedido explícito, informando o que será instalado e por quê.
+- **Posso instalar dependências?** Só com pedido explícito, informando o que será instalado e por quê. Exceção: o GitHub CLI (`gh`), que o agente pode instalar quando faltar para abrir o PR, avisando antes que o download e a instalação estão sendo feitos na máquina do usuário (seção 8).
 - **E se o autor pedir "faz tudo"?** Peça para dividir em passos e confirme cada um antes de executar.
 - **Posso sugerir melhoria de arquitetura?** Sim, como sugestão. A decisão continua sendo da equipe.
 - **Posso usar as skills?** Sim, como consulta para responder melhor.
 - **Posso commitar?** Apenas pelo fluxo de commit, com a autoria confirmada pelo usuário.
-- **Posso ler `Entregaveis/`?** Sim, mas é material da versão anterior. A fonte de verdade atual são os dois `.docx`.
+- **Posso ler `Entregaveis/`?** Sim. É a pasta oficial de entrega; leia e revise à vontade. Só não crie nem altere arquivos sem pedido explícito. O PDF `.OLD` de `Diversos/` é que é material histórico, não a pasta `Entregaveis/`.
 - **Posso criar o frontend?** Não. O front-end é fornecido por outra empresa e está fora do escopo.
 - **Preciso implementar Quicksort?** Não. O contrato atual permite ordenar com o banco ou com Java; a equipe decide.
 - **Posso mudar uma rota ou um campo do contrato?** Não. O contrato é a fonte de verdade; dúvidas devem ser levadas à equipe/professor.
@@ -341,6 +342,7 @@ Se qualquer resposta for "não", pare e pergunte antes de tocar no arquivo.
 - **16/11/2026 — Pull no início da sessão.** O plugin `.opencode/plugins/pull-inicio-sessao/` passa a verificar o repositório na primeira chamada ao modelo de cada sessão e a rodar `git pull --ff-only` (sem commit de merge) quando a árvore estiver limpa. Com alterações não commitadas, o agente aciona antes o subagente `commit-agent` e só depois puxa. Ver seção 8.1.
 - **19/11/2026 — Roteiro em 15 entregas.** `Diversos/TODO.md` desmembra a entrega de RN/RF/RNF em três documentos, separa o diagrama do documento de casos de uso, separa `schema.sql` e `seed.sql`, cria a entrega 12 (documentos de explicação do projeto: schema, seed e uma explicação por classe do código) e renumera as fases de 0 a 21. `README.md`, `AGENTS.md` e `.opencode/entregaveis.json` passam a usar a mesma numeração de execução (1 a 15).
 - **19/11/2026 — Pasta oficial de entrega.** `Entregaveis/` passa a ser reconhecida como a pasta oficial de entrega aos professores, organizada por matéria: `Banco de Dados/`, `Modelagem/` (Modelagem de Sistemas) e a pasta de Programação de Aplicativos. A regra de "somente leitura" é substituída por "edição apenas com pedido explícito e delimitado". `docs/` continua como documentação interna da equipe, não como pasta de entrega.
+- **19/11/2026 — Modelo de Pull Request e instalação do `gh`.** O PR passa a seguir `.github/PULL_REQUEST_TEMPLATE.md` (`O que muda`, `Tipo`, `Como testar`, `Checklist`), preenchido pelo agente com `gh` ou carregado automaticamente no navegador pelo link de comparação sem `&body=`. O agente deixa de ser proibido de instalar o GitHub CLI: pode instalá-lo quando faltar para abrir o PR, avisando antes que o download e a instalação estão sendo feitos na máquina do usuário; o `gh auth login` continua sendo do usuário.
 
 ## 16. Ambiente suportado: OpenCode
 

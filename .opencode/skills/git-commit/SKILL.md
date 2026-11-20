@@ -39,14 +39,27 @@ Para qualquer outro colaborador, o fluxo é branch + Pull Request:
    separadas; assuntos dependentes ficam juntos, com commits atômicos. Reaproveite a branch remota do mesmo assunto.
 3. Faça os commits dentro da branch, com a identidade do colaborador (seção acima).
 4. Publique apenas a branch: `git push -u origin <branch>`. Nunca `main`, nunca `--force`.
-5. Abra o PR para `main`:
+5. Abra o PR para `main` com o corpo no formato de `.github/PULL_REQUEST_TEMPLATE.md`:
    - `gh --version` e `gh auth status` dizem se o GitHub CLI está disponível;
-   - com `gh` autenticado: `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "resumo"`;
-   - sem `gh`: entregue o link `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1&title=<título>&body=<corpo>`
-     (owner/repo via `gh repo view --json nameWithOwner` ou `git remote get-url origin`; URL-encoding, `%0A` para quebra);
-   - nunca instale o `gh` por conta própria: a instalação é do usuário (README, "Instale o GitHub CLI").
-6. O merge é da equipe, após revisão: o agente **nunca** mescla, aprova ou fecha PR.
-7. Se o push falhar por autenticação, pare e peça ao usuário rodar o comando no terminal dele.
+   - com `gh` autenticado: `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "<corpo>"`.
+     Leia o modelo antes de montar o texto e mantenha as quatro seções: "O que muda" (resumo dos commits),
+     "Tipo" (marque `[x]` no tipo correto), "Como testar" (passo, endpoint ou comando) e "Checklist"
+     (marque `[x]` só no que foi verificado de fato; caixa vazia quando não deu para conferir, avisando na resposta).
+     Preencha o `RN-__` com a regra afetada ou apague a linha. Nunca inclua token, senha ou caminho local.
+     **Não** use `--template` sozinho: ele copia o modelo com os exemplos sem preenchê-lo. Corpo muito longo vai por
+     `--body-file -` com heredoc;
+   - sem `gh`: entregue o link
+     `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1&title=<título>`
+     (owner/repo via `gh repo view --json nameWithOwner` ou `git remote get-url origin`; título com URL-encoding).
+     **Não** inclua `&body=`: assim o GitHub abre o formulário com o modelo do repositório já carregado.
+6. Instalar o `gh`: **pode**, quando fizer falta para abrir o PR. Antes de rodar o comando de instalação
+   (`winget install --id GitHub.cli` no Windows, `brew install gh`, `apt`/`dnf` etc.), **avise em uma frase** que o
+   GitHub CLI está sendo baixado e instalado na máquina do usuário, com o comando exato que será executado. Instale
+   somente o `gh`; qualquer outro programa continua dependendo de pedido explícito. Depois da instalação, peça ao
+   usuário para reabrir o terminal (`gh` novo não aparece em terminal já aberto) e rode `gh auth status`: o
+   `gh auth login` é do usuário, porque abre o navegador e exige o código de confirmação dele.
+7. O merge é da equipe, após revisão: o agente **nunca** mescla, aprova ou fecha PR.
+8. Se o push falhar por autenticação, pare e peça ao usuário rodar o comando no terminal dele.
 
 ## Formato do Commit (Conventional Commits)
 
