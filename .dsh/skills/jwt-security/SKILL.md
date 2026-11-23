@@ -1,15 +1,10 @@
 ---
 name: jwt-security
-description: Skill adaptada para DeepSeek Harness (DSH). Conteúdo baseado no .opencode/skills/jwt-security/SKILL.md do OpenCode.
----
-
-> **Nota para usuários do DSH:** Esta skill é uma referência de consulta, igual à versão do OpenCode. No DSH, use o comando `skill` para carregar skills do catálogo disponível, ou leia este arquivo diretamente como documento de referência. O conteúdo técnico (Spring Boot, JWT, JPA, Conventional Commits, etc.) é idêntico ao da versão OpenCode.
-
----
-
----
-name: jwt-security
 description: Autenticação JWT no Spring Boot 3 com Spring Security, BCrypt, rotas públicas, filtro de token, expiração de 3600 segundos e respostas 401 padronizadas.
+whenToUse: Quando o time for configurar segurança, JWT, hash de senha, rotas públicas e proteção de endpoints da API.
+invocation:
+  disable-model-invocation: false
+  user-invocable: true
 ---
 
 # JWT Security Skill (Spring Boot 3 + Spring Security)

@@ -1,15 +1,10 @@
 ---
 name: git-commit
-description: Skill adaptada para DeepSeek Harness (DSH). Conteúdo baseado no .opencode/skills/git-commit/SKILL.md do OpenCode.
----
-
-> **Nota para usuários do DSH:** Esta skill é uma referência de consulta, igual à versão do OpenCode. No DSH, use o comando `skill` para carregar skills do catálogo disponível, ou leia este arquivo diretamente como documento de referência. O conteúdo técnico (Spring Boot, JWT, JPA, Conventional Commits, etc.) é idêntico ao da versão OpenCode.
-
----
-
----
-name: git-commit
 description: Executa commits atômicos padronizados seguindo Conventional Commits, com autoria escolhida entre os colaboradores do projeto.
+whenToUse: Sempre que qualquer arquivo for criado, modificado ou removido no projeto e precisar ser commitado.
+invocation:
+  disable-model-invocation: false
+  user-invocable: true
 ---
 
 # Git Commit Skill

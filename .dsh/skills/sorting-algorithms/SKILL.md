@@ -1,15 +1,10 @@
 ---
 name: sorting-algorithms
-description: Skill adaptada para DeepSeek Harness (DSH). Conteúdo baseado no .opencode/skills/sorting-algorithms/SKILL.md do OpenCode.
----
-
-> **Nota para usuários do DSH:** Esta skill é uma referência de consulta, igual à versão do OpenCode. No DSH, use o comando `skill` para carregar skills do catálogo disponível, ou leia este arquivo diretamente como documento de referência. O conteúdo técnico (Spring Boot, JWT, JPA, Conventional Commits, etc.) é idêntico ao da versão OpenCode.
-
----
-
----
-name: sorting-algorithms
 description: Ordenação e consultas exigidas pelo Contrato Técnico da API, com opções de implementação no banco (ORDER BY) ou em Java, incluindo Quicksort opcional e fundamentação para a banca.
+whenToUse: Quando o time precisar implementar ou revisar ordenação de listagens e consultas da API REST.
+invocation:
+  disable-model-invocation: false
+  user-invocable: true
 ---
 
 # Sorting Algorithms Skill (ordenação e consultas)

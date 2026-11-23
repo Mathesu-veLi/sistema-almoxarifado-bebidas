@@ -1,15 +1,10 @@
 ---
 name: api-rest
-description: Skill adaptada para DeepSeek Harness (DSH). Conteúdo baseado no .opencode/skills/api-rest/SKILL.md do OpenCode.
----
-
-> **Nota para usuários do DSH:** Esta skill é uma referência de consulta, igual à versão do OpenCode. No DSH, use o comando `skill` para carregar skills do catálogo disponível, ou leia este arquivo diretamente como documento de referência. O conteúdo técnico (Spring Boot, JWT, JPA, Conventional Commits, etc.) é idêntico ao da versão OpenCode.
-
----
-
----
-name: api-rest
 description: Como implementar a API REST Spring Boot fiel ao Contrato Técnico da Indústria de Bebidas, com as 26 operações, DTOs, validação, status HTTP, erros e Postman.
+whenToUse: Quando o time for implementar, revisar ou testar qualquer um dos 26 endpoints do contrato da API REST de almoxarifado.
+invocation:
+  disable-model-invocation: false
+  user-invocable: true
 ---
 
 # API REST Skill (Spring Boot)
@@ -169,7 +164,7 @@ Cuidados:
 - `SAIDA` exige `setorId` de setor ativo e **não** recebe lote/validade.
 - `ENTRADA` pode omitir lote/validade; se validade vier, não pode ser anterior à `dataMovimentacao`.
 - `dataMovimentacao` não pode ser futura.
-- `UN` usa quantidade inteira; `KG` e `L` aceitam até 3 casas decimais. Use `BigDecimal` para dinheiro/quantidade fracionária.
+- `UN` usa quantidade inteira; `KG` e `L` aceitam até 3 casas decimais. Use `BigDecimal` para quantidade fracionária.
 - Nos `PUT` de cadastros, `ativo` é obrigatório.
 - CNPJ deve ter 14 dígitos e ser único.
 - Login deve ser único e a senha nunca é devolvida.
