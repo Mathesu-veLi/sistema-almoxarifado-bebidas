@@ -1,0 +1,31 @@
+{
+  "$schema": "https://deepseek-harness.com/config.json",
+  "instructions": [
+    "AGENTS.md"
+  ],
+  "permissions": [
+    {
+      "action": "read",
+      "resource": "Entregaveis/*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "Entregaveis/*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*Entregaveis*",
+      "effect": "ask"
+    }
+  ],
+  "agents": {
+    "commit-agent": {
+      "description": "Agente responsável por auditar alterações, realizar commits atômicos e abrir Pull Request quando o autor não é o mantenedor (adaptado para DSH)",
+      "mode": "subagent"
+    }
+  },
+  "nota": "Este arquivo é a configuração do agente no DeepSeek Harness (DSH). É o equivalente ao opencode.json do OpenCode. As skills, agentes e comandos estão em .dsh/ em vez de .opencode/.",
+  "origem": "Adaptado de .opencode/opencode.json para funcionar no DeepSeek Harness"
+}
