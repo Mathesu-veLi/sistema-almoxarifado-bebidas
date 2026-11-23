@@ -394,3 +394,35 @@ Se qualquer um desses sinais aparecer, pare o trabalho, avise o usuário e propo
 
 ### Observação sobre permissões
 Bloqueios técnicos ajudam, mas não substituem a regra combinada. Mesmo que uma ferramenta permita escrever em `Entregaveis/`, o agente deve perguntar antes. Se algo for alterado por engano, avise imediatamente e ajude a restaurar a versão anterior.
+
+## 17. Suporte ao DeepSeek Harness (DSH)
+
+O projeto agora funciona tanto no **OpenCode** quanto no **DeepSeek Harness (DSH)**. Alguns colaboradores continuarão usando o OpenCode, então todas as configurações originais em `.opencode/` são mantidas intactas. Para o DSH, foram criadas versões adaptadas em `.dsh/`.
+
+### Estrutura `.dsh/`
+
+| Caminho | Equivalente OpenCode | Propósito |
+|---------|---------------------|-----------|
+| `.dsh/` | `.opencode/` | Raiz da configuração do agente DSH |
+| `.dsh/dsh.json` | `opencode.json` | Configuração do agente (instruções, permissões, agentes) |
+| `.dsh/entregaveis.json` | `.opencode/entregaveis.json` | Critérios de conferência das 15 entregas |
+| `.dsh/skills/*/SKILL.md` | `.opencode/skills/*/SKILL.md` | Skills de consulta |
+| `.dsh/agents/commit-agent.md` | `.opencode/agents/commit-agent.md` | Agente de commits atômicos |
+| `.dsh/commands/*.md` | `.opencode/commands/*.md` | Documentação de comandos |
+| `.dsh/plugins/*/` | `.opencode/plugins/*/` | Documentação dos plugins |
+
+### Regras para usuários do DSH
+
+1. **Não apagar nem modificar `.opencode/`** — os colaboradores do OpenCode continuam usando ele.
+2. **As skills `.dsh/` são cópias adaptadas** — o conteúdo técnico é idêntico ao de `.opencode/skills/`.
+3. **O commit-agent do DSH** segue as mesmas regras do OpenCode: Conventional Commits, autoria de `docs/colaboradores.md`, branch + PR quando o autor não é o mantenedor.
+4. **Não há sistema de plugins no DSH** — os arquivos em `.dsh/plugins/` documentam o comportamento que no OpenCode é feito pelos plugins.
+5. **Commits devem usar a autoria de Mathesu-veLi (`matheuslevit@gmail.com`)** conforme definido pelo usuário.
+
+### Como o agente DSH opera
+
+- Lê `AGENTS.md` e `dsh.json` como instruções de sistema.
+- Usa as skills em `.dsh/skills/` como material de consulta.
+- Para commits, ativa o subagente `.dsh/agents/commit-agent.md`.
+- Para revisão de banca e testes, segue o conteúdo de `.dsh/commands/banca.md` e `.dsh/commands/testes.md`.
+- Para conferência de entregas, consulta `.dsh/entregaveis.json`.
