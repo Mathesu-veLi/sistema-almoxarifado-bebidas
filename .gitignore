@@ -53,5 +53,8 @@ Thumbs.db
 [Dd]esktop.ini
 .DS_Store
 
+# Pasta de operacoes do DSH
+.dsh-ops/
+
 # Local temporary helper scripts
 push_privado.bat
