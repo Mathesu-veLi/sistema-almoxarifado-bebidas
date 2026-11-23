@@ -1,9 +1,7 @@
 -- Criação do banco
 -- Requer MySQL 8.0.16+ (antes disso o banco aceita a sintaxe CHECK mas NAO a aplica).
 CREATE DATABASE IF NOT EXISTS bebidas_db
-    DEFAULT CHARACTER SET utf8mb4
-    DEFAULT COLLATE utf8mb4_0900_ai_ci;
-
+    DEFAULT CHARACTER SET utf8mb4;
 USE bebidas_db;
 
 -- DROP TABLE IF EXISTS movimentacoes;
@@ -117,3 +115,116 @@ CREATE TABLE movimentacoes (
         (tipo = 'ENTRADA' AND saldo_atual = saldo_anterior + quantidade) OR
         (tipo = 'SAIDA'   AND saldo_atual = saldo_anterior - quantidade))
 );
+
+-- ============================================================================
+-- Funções auxiliares para validações cruzadas (usadas pelos triggers abaixo)
+-- ============================================================================
+
+DELIMITER //
+
+-- RN-02: insumo UN não aceita quantidade fracionária na movimentação
+CREATE FUNCTION fn_insumo_un_inteira(p_insumo_id BIGINT, p_quantidade DECIMAL(15,3))
+RETURNS INT DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE v_unidade ENUM('UN','KG','L');
+    SELECT unidade_medida INTO v_unidade FROM insumos WHERE id = p_insumo_id;
+    IF v_unidade = 'UN' AND p_quantidade <> FLOOR(p_quantidade) THEN
+        RETURN 0;
+    END IF;
+    RETURN 1;
+END //
+
+-- RN-13: data operacional não pode ser futura
+CREATE FUNCTION fn_data_nao_futura(p_data DATE)
+RETURNS INT DETERMINISTIC
+READS SQL DATA
+BEGIN
+    IF p_data > CURRENT_DATE THEN
+        RETURN 0;
+    END IF;
+    RETURN 1;
+END //
+
+-- RN-06: setor deve estar ativo para SAIDA
+CREATE FUNCTION fn_setor_ativo(p_setor_id BIGINT)
+RETURNS INT DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE v_ativo TINYINT(1);
+    SELECT ativo INTO v_ativo FROM setores WHERE id = p_setor_id;
+    RETURN v_ativo;
+END //
+
+-- RN-11: fornecedor deve estar ativo ao vincular a um insumo
+CREATE FUNCTION fn_fornecedor_ativo(p_fornecedor_id BIGINT)
+RETURNS INT DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE v_ativo TINYINT(1);
+    SELECT ativo INTO v_ativo FROM fornecedores WHERE id = p_fornecedor_id;
+    RETURN v_ativo;
+END //
+
+-- ============================================================================
+-- Triggers de validação no banco (blindagem extra além do Service)
+-- ============================================================================
+
+-- RN-02 / RN-06 / RN-13: validações cruzadas antes de inserir movimentação
+CREATE TRIGGER trg_movimentacoes_before_insert
+BEFORE INSERT ON movimentacoes
+FOR EACH ROW
+BEGIN
+    DECLARE v_un_ok INT;
+
+    -- data operacional não futura
+    IF fn_data_nao_futura(NEW.data_movimentacao) = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Data operacional não pode ser futura (RN-13).';
+    END IF;
+
+    -- SAIDA exige setor ativo
+    IF NEW.tipo = 'SAIDA' THEN
+        IF NEW.setor_id IS NULL THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'SAIDA exige setor (RN-06).';
+        END IF;
+        IF fn_setor_ativo(NEW.setor_id) = 0 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Setor inativo não permitido para SAIDA (RN-06).';
+        END IF;
+    END IF;
+
+    -- UN não aceita quantidade fracionária
+    SET v_un_ok = fn_insumo_un_inteira(NEW.insumo_id, NEW.quantidade);
+    IF v_un_ok = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insumo UN não aceita quantidade fracionária (RN-02).';
+    END IF;
+END //
+
+-- RN-07: blindagem — impedir alterações no histórico
+CREATE TRIGGER trg_movimentacoes_before_update
+BEFORE UPDATE ON movimentacoes
+FOR EACH ROW
+BEGIN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Movimentações são imutáveis (RN-07).';
+END //
+
+-- RN-11: fornecedor deve estar ativo ao criar/alterar insumo
+CREATE TRIGGER trg_insumos_before_insert
+BEFORE INSERT ON insumos
+FOR EACH ROW
+BEGIN
+    IF fn_fornecedor_ativo(NEW.fornecedor_id) = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Fornecedor inativo não pode ser vinculado ao insumo (RN-11).';
+    END IF;
+END //
+
+CREATE TRIGGER trg_insumos_before_update
+BEFORE UPDATE ON insumos
+FOR EACH ROW
+BEGIN
+    IF NEW.fornecedor_id <> OLD.fornecedor_id AND fn_fornecedor_ativo(NEW.fornecedor_id) = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Fornecedor inativo não pode ser vinculado ao insumo (RN-11).';
+    END IF;
+END //
+
+DELIMITER ;
+

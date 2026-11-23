@@ -1,5 +1,9 @@
 // Diagrama de banco de dados - Industria de Bebidas (MySQL 8.0.16+)
 // Tipos, nomes de constraints e acoes referenciais iguais aos do schema.sql.
+// Funcoes auxiliares e triggers de validacao cruzada estao no schema.sql (nao sao representaveis no DBML):
+//   - fn_insumo_un_inteira, fn_data_nao_futura, fn_setor_ativo, fn_fornecedor_ativo
+//   - trg_movimentacoes_before_insert, trg_movimentacoes_before_update
+//   - trg_insumos_before_insert, trg_insumos_before_update
 
 Table usuarios {
   id bigint [primary key, increment]
@@ -51,7 +55,7 @@ Table insumos {
   unidade_medida enum("UN", "KG", "L") [not null, note: 'UN -> quantidades inteiras; KG/L -> ate 3 casas decimais']
   quantidade_atual decimal(15,3) [not null, default: 0, note: 'alterada somente por movimentacao (RN-01)']
   estoque_minimo decimal(15,3) [not null, note: 'alerta quando quantidade_atual <= estoque_minimo (e insumo ativo).']
-  fornecedor_id bigint [not null]
+  fornecedor_id bigint [not null, note: 'FK para fornecedores; trigger exige fornecedor ativo (RN-11)']
   ativo tinyint(1) [not null, default: 1]
 
   indexes {
@@ -107,3 +111,8 @@ Ref: insumos.fornecedor_id > fornecedores.id [delete: restrict, update: restrict
 Ref: movimentacoes.insumo_id > insumos.id [delete: restrict, update: restrict] // N movimentacoes : 1 insumo
 Ref: movimentacoes.usuario_id > usuarios.id [delete: restrict, update: restrict] // N movimentacoes : 1 usuario
 Ref: movimentacoes.setor_id >? setores.id [delete: restrict, update: restrict] // N movimentacoes : 0..1 setor (obrigatorio em SAIDA)
+
+// Funcoes auxiliares e triggers de validacao estao definidos no schema.sql:
+// fn_insumo_un_inteira, fn_data_nao_futura, fn_setor_ativo, fn_fornecedor_ativo
+// trg_movimentacoes_before_insert, trg_movimentacoes_before_update
+// trg_insumos_before_insert, trg_insumos_before_update
