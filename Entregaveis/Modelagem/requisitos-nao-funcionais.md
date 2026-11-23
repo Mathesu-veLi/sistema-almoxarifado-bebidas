@@ -14,5 +14,4 @@
 - **RNF-12:** “O back-end deve oferecer uma rota de monitoramento contínuo (/health) verificando a conexão com o banco de dados e ainda possuir política de reinicialização automática em caso de falha inesperada do processo“
 - **RNF-13:** O ambiente da aplicação deve ser containerizado (Docker) ou gerenciado por monitor de processos (PM2), garantindo reinicialização automática em menos de 30 segundos após falhas.”
 - **RNF-14** “O sistema deve estar em conformidade com a LGPD, permitindo a anonimização de dados pessoais mediante solicitação”
-- **RNF-15:** O fluxo de fechamento de pedido deve ser concluído em no máximo 4 cliques e Seguir diretrizes básicas de contraste e legibilidade (WCAG).
-- **RNF-16:** “O sistema deve possuir monitoramento ativo de erros e alertas automáticos em caso de falhas críticas ou lentidão acima do esperado”
+- **RNF-15:** “O sistema deve possuir monitoramento ativo de erros e alertas automáticos em caso de falhas críticas ou lentidão acima do esperado”
