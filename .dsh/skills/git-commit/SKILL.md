@@ -1,0 +1,129 @@
+---
+name: git-commit
+description: Skill adaptada para DeepSeek Harness (DSH). Conteúdo baseado no .opencode/skills/git-commit/SKILL.md do OpenCode.
+---
+
+> **Nota para usuários do DSH:** Esta skill é uma referência de consulta, igual à versão do OpenCode. No DSH, use o comando `skill` para carregar skills do catálogo disponível, ou leia este arquivo diretamente como documento de referência. O conteúdo técnico (Spring Boot, JWT, JPA, Conventional Commits, etc.) é idêntico ao da versão OpenCode.
+
+---
+
+---
+name: git-commit
+description: Executa commits atômicos padronizados seguindo Conventional Commits, com autoria escolhida entre os colaboradores do projeto.
+---
+
+# Git Commit Skill
+
+Use esta skill sempre que qualquer arquivo for criado, modificado ou removido no projeto.
+
+## Identidade do Autor (escolhida por commit)
+
+O projeto é colaborativo e a lista oficial de autores fica em `docs/colaboradores.md`.
+
+**Leia esse arquivo antes de commitar.** Ele é a única fonte de verdade sobre quem participa do projeto — não mantenha lista própria aqui, não copie nomes para esta skill e não invente colaborador. Se o arquivo não puder ser lido, pare e peça ao usuário para informar quem fez as alterações.
+
+**Fluxo obrigatório antes de cada commit:**
+
+1. Verifique se o Git já está configurado com nome e e-mail: `git config user.name` e `git config user.email`.
+2. Se o par configurado for de um colaborador de `docs/colaboradores.md`, ele é o autor — **não pergunte**; apenas informe na resposta quem assinou.
+3. Se não estiver configurado, ou se o nome/e-mail não constar na lista, pergunte ao usuário (ferramenta de perguntas/`question`) **qual colaborador fez as alterações**, oferecendo os colaboradores de `docs/colaboradores.md` como opções. Use seleção múltipla quando o trabalho for em par.
+4. Aplique a identidade escolhida **somente naquele commit**, sem alterar a configuração do repositório:
+
+```bash
+git -c user.name="Nome" -c user.email="email" commit -m "tipo(escopo): descrição"
+```
+
+5. Se houver mais de um colaborador, o principal é o autor e os demais entram no rodapé: `Co-authored-by: Nome <email>`.
+6. Quando a identidade tiver de ser escolhida, **sugira** ao usuário como configurá-la de forma permanente (`git config --global user.name "Nome"` e `git config --global user.email "email"`) e como resolver o acesso ao GitHub (login pelo Git Credential Manager no primeiro `git push`, ou Personal Access Token — nunca a senha da conta, nunca token em arquivo ou na URL). Quem executa é o usuário: não rode `git config` por conta própria.
+7. Nunca rode `git config user.name`/`user.email` para trocar o autor, nunca use `--global` e nunca commite sem autoria definida.
+
+## Branch e Pull Request (quando o autor não é o mantenedor)
+
+O mantenedor é **Matheus Levi (`Mathesu-veLi`)**. Os commits dele vão direto para a `main`.
+Para qualquer outro colaborador, o fluxo é branch + Pull Request:
+
+1. Atualize a `main` (`git fetch origin` + `git pull --rebase origin main`) e crie a branch:
+   `git switch -c <tipo>/<escopo>` — minúsculas, sem acento, hífens (ex.: `feat/insumos-listagem`, `docs/todo-renumeracao`).
+2. A quantidade de branches é decisão do agente: **uma por assunto lógico**. Assuntos independentes vão em branches
+   separadas; assuntos dependentes ficam juntos, com commits atômicos. Reaproveite a branch remota do mesmo assunto.
+3. Faça os commits dentro da branch, com a identidade do colaborador (seção acima).
+4. Publique apenas a branch: `git push -u origin <branch>`. Nunca `main`, nunca `--force`.
+5. Abra o PR para `main` com o corpo no formato de `.github/PULL_REQUEST_TEMPLATE.md`:
+   - `gh --version` e `gh auth status` dizem se o GitHub CLI está disponível;
+   - com `gh` autenticado: `gh pr create --base main --head <branch> --title "tipo(escopo): descrição" --body "<corpo>"`.
+     Leia o modelo antes de montar o texto e mantenha as quatro seções: "O que muda" (resumo dos commits),
+     "Tipo" (marque `[x]` no tipo correto), "Como testar" (passo, endpoint ou comando) e "Checklist"
+     (marque `[x]` só no que foi verificado de fato; caixa vazia quando não deu para conferir, avisando na resposta).
+     Preencha o `RN-__` com a regra afetada ou apague a linha. Nunca inclua token, senha ou caminho local.
+     **Não** use `--template` sozinho: ele copia o modelo com os exemplos sem preenchê-lo. Corpo muito longo vai por
+     `--body-file -` com heredoc;
+   - sem `gh`: entregue o link
+     `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1&title=<título>`
+     (owner/repo via `gh repo view --json nameWithOwner` ou `git remote get-url origin`; título com URL-encoding).
+     **Não** inclua `&body=`: assim o GitHub abre o formulário com o modelo do repositório já carregado.
+6. Instalar o `gh`: **pode**, quando fizer falta para abrir o PR. Antes de rodar o comando de instalação
+   (`winget install --id GitHub.cli` no Windows, `brew install gh`, `apt`/`dnf` etc.), **avise em uma frase** que o
+   GitHub CLI está sendo baixado e instalado na máquina do usuário, com o comando exato que será executado. Instale
+   somente o `gh`; qualquer outro programa continua dependendo de pedido explícito. Depois da instalação, peça ao
+   usuário para reabrir o terminal (`gh` novo não aparece em terminal já aberto) e rode `gh auth status`: o
+   `gh auth login` é do usuário, porque abre o navegador e exige o código de confirmação dele.
+7. O merge é da equipe, após revisão: o agente **nunca** mescla, aprova ou fecha PR.
+8. Se o push falhar por autenticação, pare e peça ao usuário rodar o comando no terminal dele.
+
+## Formato do Commit (Conventional Commits)
+
+Siga estritamente a convenção:
+
+```text
+<tipo>(<escopo>): <descrição em português>
+```
+
+### Tipos Permitidos
+
+- `feat`: nova funcionalidade (endpoint, entidade, service, filtro JWT, regra de negócio).
+- `fix`: correção de bug em código, consulta SQL ou regra de negócio.
+- `docs`: documentação (`docs/`, `AGENTS.md`, `README.md`, skills, coleção Postman).
+- `style`: formatação/identação sem alteração lógica.
+- `refactor`: refatoração sem alterar comportamento.
+- `test`: testes automatizados (JUnit, MockMvc, `@DataJpaTest`).
+- `chore`: configuração de ambiente, Maven `pom.xml`, `.gitignore`, rotinas auxiliares.
+
+### Exemplos adequados ao escopo atual
+
+```text
+feat(usuarios): implementa cadastro e login com JWT
+feat(security): adiciona filtro de autenticação Bearer
+feat(insumos): cria listagem com pesquisa e ordenação
+feat(movimentacoes): registra entrada e saída com transação
+feat(alertas): consulta insumos no estoque mínimo
+fix(movimentacoes): impede saldo negativo em retiradas concorrentes
+test(movimentacoes): cobre estoque insuficiente e rollback
+docs(api): registra instruções de execução local
+chore(maven): adiciona dependências do Spring Security
+```
+
+### Regras de Atomicidade
+
+1. Nunca faça um único commit gigante misturando documentação, banco de dados, segurança e endpoints.
+2. Faça commits pequenos e bem delimitados: primeiro a entidade/repositório, depois o service, depois o controller, depois o teste.
+3. Sempre execute `git status` e selecione apenas os arquivos pertinentes com `git add <caminho>`.
+4. A mensagem deve ser clara, em português brasileiro e em minúsculas (ex.: `feat(insumos): cria endpoint de listagem`).
+5. Não commite `target/`, senhas, tokens, chaves JWT, arquivos locais de IDE ou configurações com credenciais.
+6. Se o commit for de documentação, não inclua código; se for de código, não inclua documentos de entrega não relacionados.
+
+## Antes de Commitar
+
+```bash
+git status
+git diff
+git diff --staged
+```
+
+Confirme:
+
+- os arquivos são os esperados;
+- não há segredo/credencial;
+- o contrato REST não foi alterado sem autorização;
+- o projeto compila/testa (`mvn test`) quando houver código;
+- a autoria foi confirmada pelo usuário;
+- se o autor não for o mantenedor, você está em uma branch de trabalho (nunca na `main`), com o PR aberto ou o link pronto.
