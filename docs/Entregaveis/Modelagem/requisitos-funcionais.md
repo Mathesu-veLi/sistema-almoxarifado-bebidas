@@ -540,7 +540,10 @@
 
 * **Sucesso:** 200 com dados atualizados; quantidadeAtual inalterada
 
-* **Erros:** 400; 404 (“Insumo não encontrado”; se inativo, ativo=false.) ; 409 unidade imutável após movimentação ou fornecedor inativo; 401 (“Autenticação necessária” se o token estiver ausente, inválido ou expirado.)
+* **Erros:*** 400 para campo obrigatório ausente, estoqueMinimo negativo ou
+  unidade inválida; 404 "Insumo não encontrado" somente se o id não existir;
+  409 unidade imutável após movimentação ou fornecedor inativo;
+  401 "Autenticação necessária" se o token estiver ausente, inválido ou expirado.
 
 * **Ligações:**  
   * **RN-01** (saldo só muda por movimentação)  
@@ -550,7 +553,9 @@
   * **Critérios do Contrato:** unidade imutável após movimentação; campos obrigatórios.  
   * **CT:** CT17, CT05 \+ testes unidade/fornecedor
 
-* **Informações importantes:** ativo=true reativa o insumo” e “400 para estoqueMinimo negativo ou campo obrigatório ausente
+* **Informações importantes:** o PUT pode reativar o insumo com ativo=true (RN-10);
+  quantidadeAtual permanece inalterada; 400 para estoqueMinimo negativo ou
+  campo obrigatório ausente.
 
 **RF 22 \-** Excluir ou inativar insumo
 
@@ -558,9 +563,10 @@
 
 * **Entrada:** id na URL
 
-* **Sucesso:** 204 sem corpo; físico se sem movimentações, lógico se com histórico
+* **Sucesso:** 204 sem corpo; físico se sem movimentações, lógico se com histórico; se o id existir, responde 204 mesmo que o insumo já esteja inativo.
 
-* **Erros:** 404 (“Insumo não encontrado”; se inativo, ativo=false.) ; 401 (“Autenticação necessária” se o token estiver ausente, inválido ou expirado.)
+* **Erros:** 404 "Insumo não encontrado" somente se o id não existir;
+  401 "Autenticação necessária" se o token estiver ausente, inválido ou expirado.
 
 * **Ligações:** RN-08, RN-14
 
@@ -583,8 +589,10 @@
   * usuarioId NÃO vai no corpo: vem do JWT.
 
 * **Dados de saída:**  
-  * 201 com {id, insumoId, tipo, quantidade, setorId, usuarioId, dataMovimentacao, dataRegistro, lote, validade, saldoAnterior, saldoAtual}.  
-  * 400: campo obrigatório ausente; quantidade \<= 0; quantidade fora da unidade; data futura; validade anterior à dataMovimentacao; SAIDA com lote/validade.  
+  * 201 com {id, insumoId, tipo, quantidade, setorId, usuarioId, dataMovimentacao, dataRegistro, lote, validade, saldoAnterior, saldoAtual}.
+    
+  * 400: 400: campo obrigatório ausente; tipo diferente de ENTRADA ou SAIDA; quantidade menor ou igual a zero; quantidade não inteira quando a unidade for UN ou com mais de 3 casas decimais quando for KG ou L; dataMovimentacao fora do formato YYYY-MM-DD; validade fora de YYYY-MM-DD quando enviada; data futura;
+validade anterior à dataMovimentacao; SAIDA com lote/validade.
       
   * 404: insumoId ou setorId inexistente.  
       
@@ -600,7 +608,8 @@
       
   * **CA 03:** SAIDA maior que o saldo exibe HTTP 409 "Quantidade solicitada superior ao estoque disponível"; nada é gravado e o saldo não muda.  
       
-  * **CA 04:** Quantidade zero, negativa ou fora da unidade exibe HTTP 400; nada é gravado.  
+  * **CA 04:** quantidade zero ou negativa → 400. Com UN, quantidade não inteira → 400.
+Com KG ou L, mais de 3 casas decimais → 400. Nada é gravado.
       
   * **CA 05:** Data futura exibe HTTP 400 "A data da movimentação não pode ser futura".  
       
@@ -618,7 +627,10 @@
       
   * **CA 12:** SAIDA sem setorId exibe HTTP 400\. ENTRADA retorna setorId: null.  
       
-  * **CA 13:** ENTRADA com dataMovimentacao retroativa exibe HTTP 201; saldoAnterior é o saldo no instante do registro e saldoAtual \= saldoAnterior \+ quantidade. Nenhuma movimentação anterior é recalculada e a ordem do histórico não muda (RN-13).  
+  * **CA 13:** ENTRADA com dataMovimentacao retroativa exibe HTTP 201; saldoAnterior é o saldo no instante do registro e saldoAtual \= saldoAnterior \+ quantidade. Nenhuma movimentação anterior é recalculada e a ordem do histórico não muda (RN-13).
+    
+  * **CA 14:** tipo diferente de ENTRADA/SAIDA = HTTP 400. dataMovimentacao ou validade
+fora do formato YYYY-MM-DD = HTTP 400.
       
       
 * **Ligações:**  
