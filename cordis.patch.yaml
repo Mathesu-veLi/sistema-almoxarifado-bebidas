@@ -1,0 +1,9 @@
+- insert:
+    - id: mcp-postman
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: postman
+        transport: streamable-http
+        url: https://mcp.postman.com/minimal
+        headers:
+          Authorization: Bearer ${POSTMAN_API_KEY}
