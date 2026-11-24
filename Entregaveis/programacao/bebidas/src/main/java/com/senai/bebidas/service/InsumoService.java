@@ -48,7 +48,7 @@ public class InsumoService {
     }
 
     @Transactional(readOnly = true)
-    public List<InsumoDTO> listar(String nome, Boolean ativo) {
+    public Listc<InsumoDTO> listar(String nome, Boolean ativo) {
         List<Insumo> lista = insumoRepository.findByNomeAndAtivo(nome, ativo);
         return lista.stream().map(this::toDTO).toList();
     }
