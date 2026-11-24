@@ -4,9 +4,6 @@ import com.senai.bebidas.dto.AlertaDTO;
 import com.senai.bebidas.entity.Insumo;
 import com.senai.bebidas.repository.InsumoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +20,9 @@ public class AlertaService {
 
     @Transactional(readOnly = true)
     public List<AlertaDTO> estoqueCritico() {
-        Pageable pageable = PageRequest.of(0, 1000, Sort.by("nome").ascending());
-        Page<Insumo> pagina = insumoRepository.findByNomeAndAtivo(null, true, pageable);
+        List<Insumo> lista = insumoRepository.findAll(Sort.by("nome").ascending());
         List<AlertaDTO> alertas = new ArrayList<>();
-        for (Insumo i : pagina.getContent()) {
+        for (Insumo i : lista) {
             if (i.getQuantidadeAtual().compareTo(i.getEstoqueMinimo()) <= 0) {
                 alertas.add(new AlertaDTO(
                         i.getId(),

@@ -9,12 +9,11 @@ import com.senai.bebidas.exception.BusinessException;
 import com.senai.bebidas.repository.FornecedorRepository;
 import com.senai.bebidas.repository.InsumoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -49,9 +48,9 @@ public class InsumoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<InsumoDTO> listar(String nome, Boolean ativo, Pageable pageable) {
-        Page<Insumo> pagina = insumoRepository.findByNomeAndAtivo(nome, ativo, pageable);
-        return pagina.map(this::toDTO);
+    public List<InsumoDTO> listar(String nome, Boolean ativo) {
+        List<Insumo> lista = insumoRepository.findByNomeAndAtivo(nome, ativo);
+        return lista.stream().map(this::toDTO).toList();
     }
 
     @Transactional

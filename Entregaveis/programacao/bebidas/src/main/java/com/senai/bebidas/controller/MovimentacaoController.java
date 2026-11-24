@@ -7,14 +7,11 @@ import com.senai.bebidas.service.MovimentacaoService;
 import com.senai.bebidas.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/movimentacoes")
@@ -36,18 +33,15 @@ public class MovimentacaoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<MovimentacaoDTO>> listar(
+    public ResponseEntity<List<MovimentacaoDTO>> listar(
             @RequestParam(required = false) Long insumoId,
             @RequestParam(required = false) Long setorId,
             @RequestParam(required = false) Long usuarioId,
             @RequestParam(required = false) String tipo,
             @RequestParam(required = false) LocalDate dataInicio,
-            @RequestParam(required = false) LocalDate dataFim,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("dataRegistro").descending().and(Sort.by("id").descending()));
-        Page<MovimentacaoDTO> pagina = movimentacaoService.listar(insumoId, setorId, usuarioId, tipo, dataInicio, dataFim, pageable);
-        return ResponseEntity.ok(pagina);
+            @RequestParam(required = false) LocalDate dataFim) {
+        List<MovimentacaoDTO> lista = movimentacaoService.listar(insumoId, setorId, usuarioId, tipo, dataInicio, dataFim);
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping("/{id}")

@@ -5,13 +5,11 @@ import com.senai.bebidas.dto.InsumoRequest;
 import com.senai.bebidas.service.InsumoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/insumos")
@@ -27,14 +25,11 @@ public class InsumoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<InsumoDTO>> listar(
+    public ResponseEntity<List<InsumoDTO>> listar(
             @RequestParam(required = false) String nome,
-            @RequestParam(required = false) Boolean ativo,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("nome").ascending());
-        Page<InsumoDTO> pagina = insumoService.listar(nome, ativo, pageable);
-        return ResponseEntity.ok(pagina);
+            @RequestParam(required = false) Boolean ativo) {
+        List<InsumoDTO> lista = insumoService.listar(nome, ativo);
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping("/{id}")

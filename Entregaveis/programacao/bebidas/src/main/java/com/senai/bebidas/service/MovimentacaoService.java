@@ -13,14 +13,13 @@ import com.senai.bebidas.repository.MovimentacaoRepository;
 import com.senai.bebidas.repository.SetorRepository;
 import com.senai.bebidas.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -114,10 +113,10 @@ public class MovimentacaoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<MovimentacaoDTO> listar(Long insumoId, Long setorId, Long usuarioId, String tipo,
-                                        LocalDate dataInicio, LocalDate dataFim, Pageable pageable) {
-        Page<Movimentacao> pagina = movimentacaoRepository.findAll(pageable);
-        return pagina.map(this::toDTO);
+    public List<MovimentacaoDTO> listar(Long insumoId, Long setorId, Long usuarioId, String tipo,
+                                        LocalDate dataInicio, LocalDate dataFim) {
+        List<Movimentacao> lista = movimentacaoRepository.findAll();
+        return lista.stream().map(this::toDTO).toList();
     }
 
     @Transactional(readOnly = true)
