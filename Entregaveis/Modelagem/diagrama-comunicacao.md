@@ -1,10 +1,12 @@
-# Diagrama de comunicação (UML) — Lucidchart
+# Diagrama de comunicação — draw.io
 
 ## Acessar o diagrama
 
-[Clique aqui para abrir o diagrama no Lucidchart](https://lucid.app/lucidchart/6133a783-94af-4ca9-9712-564482dfa21d/edit)
+[Clique aqui para abrir o diagrama no draw.io](https://drive.google.com/file/d/1yWzm9rGzrLx3RttTT_vXSHionrNT4NVT/view?usp=sharing)
 
-O documento tem duas páginas:
+## Observações
 
-1. **Exemplo teórico** — emitir pedido de venda, para apresentar a notação (objetos, links e mensagens numeradas).
-2. **Aplicação no Projeto Integrador** — `POST /api/movimentacoes` com `tipo: SAIDA`, mostrando a colaboração entre `:FrontEndWeb`, `:MovimentacaoController`, `:MovimentacaoService`, `:SetorRepository`, `:InsumoRepository`, `:MovimentacaoRepository` e `:BancoMySQL`.
+- Cenário representado: `POST /api/movimentacoes`, com mensagens numeradas de 1 a 10 (token JWT até a resposta `201`).
+- Objetos: `:Postman`, `:JwtFilter`, `:MovimentacaoController`, `:MovimentacaoService`, `:MovimentacaoRepository`, `:BancoMySQL`.
+- Regras ilustradas: RN-03 (lock antes da conferência de saldo), RN-04 (saldo e histórico na mesma transação) e RN-06 (`SAIDA` exige setor ativo).
+- Ferramenta: draw.io, com o arquivo fonte no Google Drive.
