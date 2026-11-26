@@ -20,6 +20,22 @@
       "effect": "ask"
     }
   ],
+  "mcp": {
+    "servers": {
+      "intellij": {
+        "type": "remote",
+        "url": "http://127.0.0.1:64342/sse"
+      },
+      "postman": {
+        "type": "remote",
+        "transport": "streamable-http",
+        "url": "https://mcp.postman.com/minimal",
+        "headers": {
+          "Authorization": "Bearer ${POSTMAN_API_KEY}"
+        }
+      }
+    }
+  },
   "agents": {
     "commit-agent": {
       "description": "Agente responsável por auditar alterações, realizar commits atômicos e abrir Pull Request quando o autor não é o mantenedor (adaptado para DSH)",

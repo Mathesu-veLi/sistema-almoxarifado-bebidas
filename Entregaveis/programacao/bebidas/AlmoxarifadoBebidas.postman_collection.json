@@ -1,0 +1,1241 @@
+{
+  "info": {
+    "name": "Almoxarifado Bebidas - API REST (26 operações)",
+    "_postman_id": "almoxarifado-bebidas-api-rest",
+    "description": "Coleção Postman com as 26 operações do Contrato Técnico da API REST do Projeto Integrador Módulo 2 (SENAI/FIEB) — Almoxarifado e controle de estoque para indústria de bebidas.\n\nBase URL: http://localhost:8080/api\nAutenticação: JWT (Bearer token). Rotas públicas: POST /api/usuarios e POST /api/auth/login.\nToken expira em 3600 segundos.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string",
+      "description": "URL base da API (Spring Boot na porta 8080)"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string",
+      "description": "JWT obtido após login (preenchido automaticamente pelo teste do login)"
+    },
+    {
+      "key": "usuarioId",
+      "value": "",
+      "type": "string",
+      "description": "ID do usuário criado/cadastrado"
+    },
+    {
+      "key": "setorId",
+      "value": "",
+      "type": "string",
+      "description": "ID do setor"
+    },
+    {
+      "key": "fornecedorId",
+      "value": "",
+      "type": "string",
+      "description": "ID do fornecedor"
+    },
+    {
+      "key": "insumoId",
+      "value": "",
+      "type": "string",
+      "description": "ID do insumo"
+    },
+    {
+      "key": "movimentacaoId",
+      "value": "",
+      "type": "string",
+      "description": "ID da movimentação"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 Usuários e Autenticação",
+      "item": [
+        {
+          "name": "POST /api/usuarios (cadastro público)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao@empresa.com\",\n  \"senha\": \"Senha@123\",\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            },
+            "description": "Cadastro de usuário (público, sem JWT). RN-14."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201 ou 200', function () { pm.response.to.have.status(201); });",
+                  "pm.test('Retorna usuario sem senha', function () {",
+                  "  var json = pm.response.json();",
+                  "  pm.expect(json).to.not.have.property('senha');",
+                  "  pm.expect(json).to.have.property('id');",
+                  "});",
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "  pm.collectionVariables.set('usuarioId', String(pm.response.json().id));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/auth/login (login público)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"joao@empresa.com\",\n  \"senha\": \"Senha@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login de usuário (público, sem JWT). Retorna token JWT com expiração 3600s."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Retorna token JWT', function () {",
+                  "  var json = pm.response.json();",
+                  "  pm.expect(json).to.have.property('token');",
+                  "});",
+                  "if (pm.response.code === 200) { pm.collectionVariables.set('token', json.token); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/usuarios/me (perfil autenticado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "me"
+              ]
+            },
+            "description": "Retorna dados do usuário autenticado pelo token JWT. RN-15."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Nao retorna senha', function () {",
+                  "  var json = pm.response.json();",
+                  "  pm.expect(json).to.not.have.property('senha');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/usuarios (listar ativos)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            },
+            "description": "Listagem de usuários ativos por padrão (ordenados por id crescente)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "pm.expect(pm.response.json()).to.be.an('array');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/usuarios/{id} (por id, inclui inativo)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
+            },
+            "description": "Retorna usuário por ID, incluindo inativos (ativo=false). RN-09."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/usuarios/{id} (atualizar/reativar)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Silva Atualizado\",\n  \"email\": \"joao@empresa.com\",\n  \"senha\": \"NovaSenha@123\",\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
+            },
+            "description": "Atualização de cadastro. Campo ativo é obrigatório e permite reativação. RN-10."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 ou 204', function () { pm.expect(pm.response.code).to.be.oneOf([200, 204]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /api/usuarios/{id} (inativação lógica)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
+            },
+            "description": "Sempre inativação lógica (ativo=false). Responde 204 sem corpo."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 204', function () { pm.response.to.have.status(204); });",
+                  "pm.test('Sem corpo na resposta', function () { pm.expect(pm.response.text()).to.equal(''); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🏢 Setores",
+      "item": [
+        {
+          "name": "POST /api/setores",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Setor Estoque\",\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/setores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "setores"
+              ]
+            },
+            "description": "Cadastro de setor. Exige JWT."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201 ou 200', function () { pm.expect(pm.response.code).to.be.oneOf([200, 201]); });",
+                  "if (pm.response.code === 201 || pm.response.code === 200) { pm.collectionVariables.set('setorId', String(pm.response.json().id)); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/setores (listar ativos)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/setores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "setores"
+              ]
+            },
+            "description": "Listagem de setores ativos por padrão (ordenados por id crescente)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "pm.expect(pm.response.json()).to.be.an('array');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/setores/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/setores/{{setorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "setores",
+                "{{setorId}}"
+              ]
+            },
+            "description": "Retorna setor por ID, incluindo inativos."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/setores/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Setor Estoque Atualizado\",\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/setores/{{setorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "setores",
+                "{{setorId}}"
+              ]
+            },
+            "description": "Atualização de setor. Campo ativo obrigatório, permite reativação."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.expect(pm.response.code).to.be.oneOf([200, 204]);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /api/setores/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/setores/{{setorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "setores",
+                "{{setorId}}"
+              ]
+            },
+            "description": "Exclusão definitiva se não houver vínculos; caso contrário inativação lógica. Responde 204."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(204);",
+                  "pm.expect(pm.response.text()).to.equal('');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🚚 Fornecedores",
+      "item": [
+        {
+          "name": "POST /api/fornecedores",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Fornecedor Bebidas Ltda\",\n  \"cnpj\": \"12345678000190\",\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/fornecedores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fornecedores"
+              ]
+            },
+            "description": "Cadastro de fornecedor. Exige JWT."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "if (pm.response.code === 201 || pm.response.code === 200) { pm.collectionVariables.set('fornecedorId', String(pm.response.json().id)); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/fornecedores (listar ativos)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fornecedores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fornecedores"
+              ]
+            },
+            "description": "Listagem de fornecedores ativos por padrão."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(200);",
+                  "pm.expect(pm.response.json()).to.be.an('array');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/fornecedores/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fornecedores/{{fornecedorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fornecedores",
+                "{{fornecedorId}}"
+              ]
+            },
+            "description": "Retorna fornecedor por ID, incluindo inativos."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(200);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/fornecedores/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Fornecedor Bebidas Atualizado\",\n  \"cnpj\": \"12345678000190\",\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/fornecedores/{{fornecedorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fornecedores",
+                "{{fornecedorId}}"
+              ]
+            },
+            "description": "Atualização de fornecedor. Campo ativo obrigatório."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.expect(pm.response.code).to.be.oneOf([200, 204]);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /api/fornecedores/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fornecedores/{{fornecedorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fornecedores",
+                "{{fornecedorId}}"
+              ]
+            },
+            "description": "Exclusão definitiva sem vínculos ou inativação lógica. Responde 204."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(204);",
+                  "pm.expect(pm.response.text()).to.equal('');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📦 Insumos",
+      "item": [
+        {
+          "name": "POST /api/insumos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Cerveja Pilsen 600ml\",\n  \"quantidadeAtual\": 0,\n  \"estoqueMinimo\": 10,\n  \"unidadeMedida\": \"UN\",\n  \"fornecedorId\": {{fornecedorId}},\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/insumos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "insumos"
+              ]
+            },
+            "description": "Cadastro de insumo com fornecedor principal. Exige JWT. RN-11."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "if (pm.response.code === 201 || pm.response.code === 200) { pm.collectionVariables.set('insumoId', String(pm.response.json().id)); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/insumos (listar ativos, nome crescente)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/insumos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "insumos"
+              ]
+            },
+            "description": "Listagem de insumos ativos ordenados por nome crescente. RN-16."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(200);",
+                  "pm.expect(pm.response.json()).to.be.an('array');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/insumos/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/insumos/{{insumoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "insumos",
+                "{{insumoId}}"
+              ]
+            },
+            "description": "Retorna insumo por ID, incluindo inativos."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(200);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/insumos/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Cerveja Pilsen 600ml Atualizado\",\n  \"quantidadeAtual\": 50,\n  \"estoqueMinimo\": 10,\n  \"unidadeMedida\": \"UN\",\n  \"fornecedorId\": {{fornecedorId}},\n  \"ativo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/insumos/{{insumoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "insumos",
+                "{{insumoId}}"
+              ]
+            },
+            "description": "Atualização de insumo. Campo ativo obrigatório, permite reativação."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.expect(pm.response.code).to.be.oneOf([200, 204]);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /api/insumos/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/insumos/{{insumoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "insumos",
+                "{{insumoId}}"
+              ]
+            },
+            "description": "Exclusão definitiva sem histórico/vínculos ou inativação lógica. Responde 204. RN-08."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(204);",
+                  "pm.expect(pm.response.text()).to.equal('');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🔄 Movimentações",
+      "item": [
+        {
+          "name": "POST /api/movimentacoes (entrada ou saída)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insumoId\": {{insumoId}},\n  \"tipo\": \"ENTRADA\",\n  \"quantidade\": 100,\n  \"dataMovimentacao\": \"2026-11-24\",\n  \"setorId\": {{setorId}},\n  \"lote\": \"LOTE-001\",\n  \"validade\": \"2027-11-24\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movimentacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "movimentacoes"
+              ]
+            },
+            "description": "Lançamento de movimentação (ENTRADA ou SAIDA). Transacional: saldo + histórico. RN-04, RN-05, RN-06."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "if (pm.response.code === 200 || pm.response.code === 201) { pm.collectionVariables.set('movimentacaoId', String(pm.response.json().id)); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/movimentacoes (histórico)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/movimentacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "movimentacoes"
+              ]
+            },
+            "description": "Histórico de movimentações ordenado por dataRegistro decrescente, id decrescente."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(200);",
+                  "pm.expect(pm.response.json()).to.be.an('array');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/movimentacoes/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/movimentacoes/{{movimentacaoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "movimentacoes",
+                "{{movimentacaoId}}"
+              ]
+            },
+            "description": "Retorna movimentação por ID. Imutável (sem edição/exclusão). RN-07."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(200);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "⚠️ Alertas",
+      "item": [
+        {
+          "name": "GET /api/alertas/estoque (estoque mínimo)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/alertas/estoque",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "alertas",
+                "estoque"
+              ]
+            },
+            "description": "Lista insumos ativos com quantidadeAtual <= estoqueMinimo, ordenados por nome crescente. RN-12."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.response.to.have.status(200);",
+                  "pm.expect(pm.response.json()).to.be.an('array');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
