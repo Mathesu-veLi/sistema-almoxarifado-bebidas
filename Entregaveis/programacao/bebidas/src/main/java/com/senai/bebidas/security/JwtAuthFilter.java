@@ -1,10 +1,12 @@
 package com.senai.bebidas.security;
 
+import com.senai.bebidas.dto.MensagemErroDTO;
+import com.senai.bebidas.service.UsuarioService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,46 +16,76 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Filtro JWT.
+ * Intercepta requisicoes com cabecalho Authorization: Bearer <token>,
+ * valida o token e define o usuario autenticado no contexto de seguranca.
+ * Se o token estiver presente mas for invalido, responde 401 com corpo padronizado.
+ */
 @Component
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final JwtUtil jwtUtil;
+    private final UsuarioService usuarioService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
             throws ServletException, IOException {
-        try {
-            String jwt = parseJwt(request);
-            if (jwt != null && jwtUtil.isTokenValid(jwt, getUserDetails(jwt))) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUtil.extractUsername(jwt));
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String header = request.getHeader("Authorization");
+
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring("Bearer ".length());
+
+            try {
+                String login = jwtUtil.extractUsername(token);
+
+                if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    var usuarioDTO = usuarioService.buscarPorLogin(login);
+
+                    if (!usuarioDTO.isAtivo()) {
+                        // Usuario inativo nao pode acessar rotas protegidas nem com token valido.
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        response.setContentType("application/json");
+                        MensagemErroDTO erro = new MensagemErroDTO(
+                                401,
+                                "Autenticacao necessaria",
+                                java.time.OffsetDateTime.now().toString());
+                        response.getWriter().write(new com.fasterxml.jackson.databind.ObjectMapper()
+                                .writeValueAsString(erro));
+                        return;
+                    }
+
+                    UserDetails userDetails = org.springframework.security.core.userdetails.User
+                            .builder()
+                            .username(usuarioDTO.getLogin())
+                            .password("")
+                            .roles("USUARIO")
+                            .build();
+
+                    UsernamePasswordAuthenticationToken auth =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails, null, userDetails.getAuthorities());
+                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                }
+            } catch (Exception e) {
+                // Token invalido ou expirado: resposta 401 com corpo padronizado.
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+                MensagemErroDTO erro = new MensagemErroDTO(
+                        401,
+                        "Autenticacao necessaria",
+                        java.time.OffsetDateTime.now().toString());
+                response.getWriter().write(new com.fasterxml.jackson.databind.ObjectMapper()
+                        .writeValueAsString(erro));
+                return;
             }
-        } catch (Exception e) {
-            SecurityContextHolder.clearContext();
         }
-        chain.doFilter(request, response);
-    }
 
-    private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
-        }
-        return null;
-    }
-
-    private UserDetails getUserDetails(String token) {
-        return org.springframework.security.core.userdetails.User
-                .withUsername(jwtUtil.extractUsername(token))
-                .password("")
-                .authorities("ROLE_USUARIO")
-                .build();
+        filterChain.doFilter(request, response);
     }
 }
