@@ -8,6 +8,7 @@ import com.senai.bebidas.entity.Setor;
 import com.senai.bebidas.entity.Usuario;
 import com.senai.bebidas.exception.BusinessException;
 import com.senai.bebidas.exception.EntityNotFoundException;
+import com.senai.bebidas.exception.ValidationException;
 import com.senai.bebidas.repository.InsumoRepository;
 import com.senai.bebidas.repository.MovimentacaoRepository;
 import com.senai.bebidas.repository.SetorRepository;
@@ -58,7 +59,7 @@ public class MovimentacaoService {
         // 3. Valida a data operacional (nao pode ser futura) - RN-13.
         LocalDate dataMov = request.getDataMovimentacao();
         if (dataMov != null && dataMov.isAfter(LocalDate.now())) {
-            throw new BusinessException("Data operacional nao pode ser futura (RN-13)");
+            throw new ValidationException("Data operacional nao pode ser futura (RN-13)");
         }
 
         // 4. A quantidade e validada pelo @Positive no request (deve ser estritamente positiva - RN-02).
