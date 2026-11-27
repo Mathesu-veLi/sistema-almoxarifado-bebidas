@@ -73,7 +73,10 @@ public class InsumoService {
      */
     @Transactional(readOnly = true)
     public List<InsumoDTO> listar(String nome, Boolean ativo) {
-        List<Insumo> lista = insumoRepository.buscarPorNomeEFiltroAtivo(nome, ativo);
+        // Por padrao (parametro nao informado) lista apenas insumos ativos.
+        // aceita ativo=true (ativos), ativo=false (inativos).
+        Boolean filtroAtivo = (ativo == null) ? Boolean.TRUE : ativo;
+        List<Insumo> lista = insumoRepository.buscarPorNomeEFiltroAtivo(nome, filtroAtivo);
         return lista.stream().map(this::toDTO).toList();
     }
 
