@@ -1,8 +1,9 @@
 package com.senai.bebidas.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,10 @@ public class MovimentacaoDTO {
     private Long setorId;
     private Long usuarioId;
     private LocalDate dataMovimentacao;
-    private LocalDateTime dataRegistro;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime dataRegistro;
+    
     private String lote;
     private LocalDate validade;
     private BigDecimal saldoAnterior;

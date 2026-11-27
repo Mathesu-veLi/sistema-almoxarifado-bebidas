@@ -13,12 +13,15 @@ import com.senai.bebidas.repository.MovimentacaoRepository;
 import com.senai.bebidas.repository.SetorRepository;
 import com.senai.bebidas.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -37,6 +40,11 @@ public class MovimentacaoService {
             throw new EntityNotFoundException("Insumo não encontrado");
         }
 
+        // CT13: insumo inativo não pode ser movimentado
+        if (!insumo.isAtivo()) {
+            throw new BusinessException("Insumo inativo não pode ser movimentado");
+        }
+
         String tipo = request.getTipo();
         if (!"ENTRADA".equals(tipo) && !"SAIDA".equals(tipo)) {
             throw new BusinessException("Tipo deve ser ENTRADA ou SAIDA");
@@ -52,10 +60,10 @@ public class MovimentacaoService {
             throw new BusinessException("Quantidade deve ser estritamente positiva (RN-02)");
         }
 
-        // RN-02: UN nao aceita quantidade fracionaria
+        // RN-02: UN não aceita quantidade fracionária
         if (insumo.getUnidadeMedida() == Insumo.UnidadeMedida.UN
                 && quantidade.stripTrailingZeros().scale() > 0) {
-            throw new BusinessException("Insumo UN nao aceita quantidade fracionaria (RN-02)");
+            throw new BusinessException("Insumo UN não aceita quantidade fracionária (RN-02)");
         }
 
         Setor setor = null;
@@ -66,16 +74,16 @@ public class MovimentacaoService {
             setor = setorRepository.findById(request.getSetorId())
                     .orElseThrow(() -> new EntityNotFoundException("Setor não encontrado"));
             if (!setor.isAtivo()) {
-                throw new BusinessException("Setor inativo nao permitido para SAIDA (RN-06)");
+                throw new BusinessException("Setor inativo não permitido para SAIDA (RN-06)");
             }
             if (request.getLote() != null || request.getValidade() != null) {
-                throw new BusinessException("SAIDA nao recebe lote/validade (RN-06)");
+                throw new BusinessException("SAIDA não recebe lote/validade (RN-06)");
             }
         }
 
         if (request.getValidade() != null && dataMov != null
                 && request.getValidade().isBefore(dataMov)) {
-            throw new BusinessException("Validade nao pode ser anterior à data da movimentação");
+            throw new BusinessException("Validade não pode ser anterior à data da movimentação");
         }
 
         BigDecimal saldoAnterior = insumo.getQuantidadeAtual();
@@ -102,7 +110,7 @@ public class MovimentacaoService {
         mov.setSetor(setor);
         mov.setUsuario(usuario);
         mov.setDataMovimentacao(dataMov);
-        mov.setDataRegistro(LocalDateTime.now());
+        mov.setDataRegistro(OffsetDateTime.now(ZoneId.of("America/Sao_Paulo")));
         mov.setLote(request.getLote());
         mov.setValidade(request.getValidade());
         mov.setSaldoAnterior(saldoAnterior);
@@ -115,7 +123,33 @@ public class MovimentacaoService {
     @Transactional(readOnly = true)
     public List<MovimentacaoDTO> listar(Long insumoId, Long setorId, Long usuarioId, String tipo,
                                         LocalDate dataInicio, LocalDate dataFim) {
-        List<Movimentacao> lista = movimentacaoRepository.findAll();
+        Specification<Movimentacao> spec = (root, query, cb) -> cb.conjunction();
+
+        if (insumoId != null) {
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("insumo").get("id"), insumoId));
+        }
+        if (setorId != null) {
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("setor").get("id"), setorId));
+        }
+        if (usuarioId != null) {
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("usuario").get("id"), usuarioId));
+        }
+        if (tipo != null && !tipo.isBlank()) {
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("tipo"), Movimentacao.Tipo.valueOf(tipo)));
+        }
+        if (dataInicio != null) {
+            spec = spec.and((root, query, cb) -> cb.greaterThanOrEqualTo(root.get("dataMovimentacao"), dataInicio));
+        }
+        if (dataFim != null) {
+            spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(root.get("dataMovimentacao"), dataFim));
+        }
+
+        // Ordenação: dataRegistro decrescente, id decrescente (contrato)
+        List<Movimentacao> lista = movimentacaoRepository.findAll(spec,
+                org.springframework.data.domain.Sort.by(
+                        org.springframework.data.domain.Sort.Order.desc("dataRegistro"),
+                        org.springframework.data.domain.Sort.Order.desc("id")
+                ));
         return lista.stream().map(this::toDTO).toList();
     }
 

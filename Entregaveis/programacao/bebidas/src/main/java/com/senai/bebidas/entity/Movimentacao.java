@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "movimentacoes")
@@ -55,8 +55,8 @@ public class Movimentacao {
     @Column(name = "data_movimentacao", nullable = false)
     private LocalDate dataMovimentacao;
 
-    @Column(name = "data_registro", nullable = false)
-    private LocalDateTime dataRegistro;
+    @Column(name = "data_registro", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private OffsetDateTime dataRegistro;
 
     @Column(name = "lote", length = 50)
     private String lote;
