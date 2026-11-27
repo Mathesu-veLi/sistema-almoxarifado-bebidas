@@ -8,6 +8,7 @@ import com.senai.bebidas.entity.Setor;
 import com.senai.bebidas.entity.Usuario;
 import com.senai.bebidas.exception.EntityNotFoundException;
 import com.senai.bebidas.exception.BusinessException;
+import com.senai.bebidas.exception.ValidationException;
 import com.senai.bebidas.repository.InsumoRepository;
 import com.senai.bebidas.repository.MovimentacaoRepository;
 import com.senai.bebidas.repository.SetorRepository;
@@ -52,12 +53,12 @@ public class MovimentacaoService {
 
         LocalDate dataMov = request.getDataMovimentacao();
         if (dataMov != null && dataMov.isAfter(LocalDate.now())) {
-            throw new BusinessException("Data operacional não pode ser futura (RN-13)");
+            throw new ValidationException("Data operacional não pode ser futura (RN-13)");
         }
 
         BigDecimal quantidade = request.getQuantidade();
         if (quantidade == null || quantidade.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new BusinessException("Quantidade deve ser estritamente positiva (RN-02)");
+            throw new ValidationException("Quantidade deve ser estritamente positiva (RN-02)");
         }
 
         // RN-02: UN não aceita quantidade fracionária

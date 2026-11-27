@@ -1,15 +1,10 @@
 ---
 name: database-operations
-description: Skill adaptada para DeepSeek Harness (DSH). Conteúdo baseado no .opencode/skills/database-operations/SKILL.md do OpenCode.
----
-
-> **Nota para usuários do DSH:** Esta skill é uma referência de consulta, igual à versão do OpenCode. No DSH, use o comando `skill` para carregar skills do catálogo disponível, ou leia este arquivo diretamente como documento de referência. O conteúdo técnico (Spring Boot, JWT, JPA, Conventional Commits, etc.) é idêntico ao da versão OpenCode.
-
----
-
----
-name: database-operations
 description: Entidades JPA, repositórios Spring Data, transações, concorrência e inativação lógica para a API REST de almoxarifado da indústria de bebidas.
+whenToUse: Quando o time for mapear entidades JPA, criar repositórios, implementar transações, concorrência ou inativação lógica.
+invocation:
+  disable-model-invocation: false
+  user-invocable: true
 ---
 
 # Database Operations Skill (Spring Boot + JPA)
