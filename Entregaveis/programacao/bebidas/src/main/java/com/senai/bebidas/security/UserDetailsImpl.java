@@ -20,6 +20,7 @@ public class UserDetailsImpl implements UserDetails {
     private String login;
     private String senha;
     private Collection<? extends GrantedAuthority> authorities;
+    private boolean ativo;
 
     public static UserDetailsImpl build(Usuario usuario) {
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
@@ -27,7 +28,8 @@ public class UserDetailsImpl implements UserDetails {
                 usuario.getId(),
                 usuario.getLogin(),
                 usuario.getSenhaHash(),
-                authorities);
+                authorities,
+                usuario.isAtivo());
     }
 
     @Override
@@ -57,6 +59,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return ativo;
     }
 }
