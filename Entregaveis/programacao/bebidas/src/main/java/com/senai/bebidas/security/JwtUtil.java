@@ -6,6 +6,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.DecodingException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.WeakKeyException;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,19 @@ public class JwtUtil {
 
     @Value("${app.jwt.expiration:3600000}")
     private Long expiration;
+
+    /**
+     * A chave nao fica no repositorio: vem da variavel de ambiente APP_JWT_SECRET.
+     * Sem ela a aplicacao nao sobe, para nao gerar token com chave improvisada.
+     */
+    @PostConstruct
+    void validarChaveConfigurada() {
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalStateException(
+                    "Defina a variavel de ambiente APP_JWT_SECRET com uma chave Base64 de no minimo 32 bytes "
+                            + "(ex.: openssl rand -base64 48) antes de executar a aplicacao.");
+        }
+    }
 
     /**
      * A chave configurada pode estar em Base64 (recomendado) ou em texto puro.

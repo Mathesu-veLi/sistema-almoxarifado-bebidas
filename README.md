@@ -425,6 +425,17 @@ O que a configuração precisa garantir:
 - `BCryptPasswordEncoder` para gravar a senha em hash; a API **nunca** devolve senha nem hash.
 - Token ausente, inválido ou expirado → **401** com `{ "status": 401, "mensagem": "...", "timestamp": "..." }` (via `AuthenticationEntryPoint`), nunca o HTML de login do Spring Security.
 - Sessão sem estado (`SessionCreationPolicy.STATELESS`) e `csrf` desabilitado, porque a API é consumida por outro sistema via token.
+- **Chave de assinatura fora do repositório:** `app.jwt.secret` lê a variável de ambiente `APP_JWT_SECRET`, e a aplicação **não sobe** se ela estiver vazia. Gere uma chave Base64 com 48 bytes e exporte antes de executar:
+
+  ```bash
+  # Git Bash / Linux / macOS
+  export APP_JWT_SECRET="$(openssl rand -base64 48)"
+
+  # PowerShell
+  $env:APP_JWT_SECRET = [Convert]::ToBase64String((1..48 | ForEach-Object { Get-Random -Max 256 }))
+  ```
+
+  Nunca versione esse valor: `application.properties` guarda apenas o placeholder `${APP_JWT_SECRET:}`.
 
 O passo a passo de implementação está em [`.opencode/skills/jwt-security/SKILL.md`](.opencode/skills/jwt-security/SKILL.md).
 
