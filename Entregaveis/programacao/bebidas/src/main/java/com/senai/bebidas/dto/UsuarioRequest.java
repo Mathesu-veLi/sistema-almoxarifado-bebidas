@@ -21,5 +21,6 @@ public class UsuarioRequest {
     @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
     private String senha;
 
-    private boolean ativo = true;
+    /** Ignorado no cadastro: o contrato cria o usuario sempre ativo. */
+    private Boolean ativo;
 }

@@ -1,6 +1,7 @@
 package com.senai.bebidas.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,5 +17,7 @@ public class UsuarioUpdateRequest {
     @NotBlank(message = "O campo login é obrigatório")
     private String login;
 
-    private boolean ativo = true;
+    /** Obrigatório no PUT (contrato); permite reativação quando true. */
+    @NotNull(message = "O campo ativo é obrigatório")
+    private Boolean ativo;
 }

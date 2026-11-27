@@ -20,7 +20,8 @@ public class AlertaService {
 
     @Transactional(readOnly = true)
     public List<AlertaDTO> estoqueCritico() {
-        List<Insumo> lista = insumoRepository.findAll(Sort.by("nome").ascending());
+        // RN-12: considerar somente insumos ativos
+        List<Insumo> lista = insumoRepository.findByAtivoTrue(Sort.by("nome").ascending());
         List<AlertaDTO> alertas = new ArrayList<>();
         for (Insumo i : lista) {
             if (i.getQuantidadeAtual().compareTo(i.getEstoqueMinimo()) <= 0) {

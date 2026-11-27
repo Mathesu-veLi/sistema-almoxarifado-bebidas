@@ -5,11 +5,15 @@ import com.senai.bebidas.dto.FornecedorRequest;
 import com.senai.bebidas.entity.Fornecedor;
 import com.senai.bebidas.exception.EntityNotFoundException;
 import com.senai.bebidas.exception.BusinessException;
+import com.senai.bebidas.exception.ValidationException;
 import com.senai.bebidas.repository.FornecedorRepository;
+import com.senai.bebidas.repository.InsumoRepository;
+import com.senai.bebidas.util.FiltroAtivo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,6 +21,7 @@ import java.util.List;
 public class FornecedorService {
 
     private final FornecedorRepository fornecedorRepository;
+    private final InsumoRepository insumoRepository;
 
     @Transactional
     public FornecedorDTO cadastrar(FornecedorRequest request) {
@@ -41,15 +46,16 @@ public class FornecedorService {
 
     @Transactional(readOnly = true)
     public List<FornecedorDTO> listar(String ativo) {
+        Boolean filtro = FiltroAtivo.interpretar(ativo);
         List<Fornecedor> fornecedores;
-        if ("todos".equalsIgnoreCase(ativo)) {
+        if (filtro == null) {
             fornecedores = fornecedorRepository.findAll();
-        } else if ("false".equalsIgnoreCase(ativo)) {
-            fornecedores = fornecedorRepository.findByAtivoFalse();
-        } else {
+        } else if (filtro) {
             fornecedores = fornecedorRepository.findByAtivoTrue();
+        } else {
+            fornecedores = fornecedorRepository.findByAtivoFalse();
         }
-        fornecedores.sort((a, b) -> a.getId().compareTo(b.getId()));
+        fornecedores.sort(Comparator.comparing(Fornecedor::getId));
         return fornecedores.stream().map(this::toDTO).toList();
     }
 
@@ -60,10 +66,13 @@ public class FornecedorService {
         if (!fornecedor.getCnpj().equals(request.getCnpj()) && fornecedorRepository.existsByCnpj(request.getCnpj())) {
             throw new BusinessException("CNPJ já cadastrado");
         }
+        if (request.getAtivo() == null) {
+            throw new ValidationException("O campo ativo é obrigatório");
+        }
         fornecedor.setNome(request.getNome());
         fornecedor.setCnpj(request.getCnpj());
         fornecedor.setTelefone(request.getTelefone());
-        fornecedor.setAtivo(request.isAtivo());
+        fornecedor.setAtivo(request.getAtivo());
         fornecedor = fornecedorRepository.save(fornecedor);
         return toDTO(fornecedor);
     }
@@ -72,7 +81,9 @@ public class FornecedorService {
     public void excluirOuInativar(Long id) {
         Fornecedor fornecedor = fornecedorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado"));
-        boolean temVinculos = false;
+        
+        boolean temVinculos = insumoRepository.existsByFornecedorId(id);
+        
         if (temVinculos) {
             fornecedor.setAtivo(false);
             fornecedorRepository.save(fornecedor);

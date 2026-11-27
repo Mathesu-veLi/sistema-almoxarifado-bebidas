@@ -1,6 +1,7 @@
 package com.senai.bebidas.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,5 +16,7 @@ public class SetorRequest {
 
     private String descricao;
 
-    private boolean ativo = true;
+    /** Obrigatório no PUT; validado no Service. */
+    @NotNull(message = "O campo ativo é obrigatório")
+    private Boolean ativo;
 }

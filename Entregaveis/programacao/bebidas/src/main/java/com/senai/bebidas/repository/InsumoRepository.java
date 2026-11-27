@@ -1,6 +1,7 @@
 package com.senai.bebidas.repository;
 
 import com.senai.bebidas.entity.Insumo;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Lock;
@@ -19,4 +20,9 @@ public interface InsumoRepository extends JpaRepository<Insumo, Long>, JpaSpecif
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT i FROM Insumo i WHERE i.id = :id")
     Insumo findByIdForUpdate(@Param("id") Long id);
+
+    @Query("SELECT i FROM Insumo i WHERE i.ativo = true")
+    List<Insumo> findByAtivoTrue(Sort sort);
+
+    boolean existsByFornecedorId(Long fornecedorId);
 }

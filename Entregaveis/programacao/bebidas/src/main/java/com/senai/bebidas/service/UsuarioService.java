@@ -6,7 +6,9 @@ import com.senai.bebidas.dto.UsuarioUpdateRequest;
 import com.senai.bebidas.entity.Usuario;
 import com.senai.bebidas.exception.EntityNotFoundException;
 import com.senai.bebidas.exception.BusinessException;
+import com.senai.bebidas.exception.ValidationException;
 import com.senai.bebidas.repository.UsuarioRepository;
+import com.senai.bebidas.util.FiltroAtivo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,13 +53,15 @@ public class UsuarioService {
 
     @Transactional(readOnly = true)
     public List<UsuarioDTO> listar(String ativo) {
+        FiltroAtivo.interpretar(ativo); // valida
+        Boolean filtro = FiltroAtivo.interpretar(ativo);
         List<Usuario> usuarios;
-        if ("todos".equalsIgnoreCase(ativo)) {
+        if (filtro == null) {
             usuarios = usuarioRepository.findAll();
-        } else if ("false".equalsIgnoreCase(ativo)) {
-            usuarios = usuarioRepository.findByAtivoFalse();
-        } else {
+        } else if (filtro) {
             usuarios = usuarioRepository.findByAtivoTrue();
+        } else {
+            usuarios = usuarioRepository.findByAtivoFalse();
         }
         return usuarios.stream().map(this::toDTO).toList();
     }
@@ -69,9 +73,12 @@ public class UsuarioService {
         if (!usuario.getLogin().equals(request.getLogin()) && usuarioRepository.existsByLogin(request.getLogin())) {
             throw new BusinessException("Login já cadastrado");
         }
+        if (request.getAtivo() == null) {
+            throw new ValidationException("O campo ativo é obrigatório");
+        }
         usuario.setNome(request.getNome());
         usuario.setLogin(request.getLogin());
-        usuario.setAtivo(request.isAtivo());
+        usuario.setAtivo(request.getAtivo());
         usuario = usuarioRepository.save(usuario);
         return toDTO(usuario);
     }
@@ -93,7 +100,7 @@ public class UsuarioService {
         }
         usuario.setNome(request.getNome());
         usuario.setLogin(request.getLogin());
-        usuario.setAtivo(request.isAtivo());
+        usuario.setAtivo(request.getAtivo());
         usuario = usuarioRepository.save(usuario);
         return toDTO(usuario);
     }

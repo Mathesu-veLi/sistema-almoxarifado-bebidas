@@ -2,12 +2,15 @@ package com.senai.bebidas.controller;
 
 import com.senai.bebidas.dto.SetorDTO;
 import com.senai.bebidas.dto.SetorRequest;
+import com.senai.bebidas.exception.ValidationException;
 import com.senai.bebidas.service.SetorService;
+import com.senai.bebidas.util.FiltroAtivo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -25,6 +28,7 @@ public class SetorController {
 
     @GetMapping
     public ResponseEntity<List<SetorDTO>> listar(@RequestParam(required = false) String ativo) {
+        FiltroAtivo.interpretar(ativo); // valida ou lança ValidationException
         List<SetorDTO> lista = setorService.listar(ativo);
         return ResponseEntity.ok(lista);
     }

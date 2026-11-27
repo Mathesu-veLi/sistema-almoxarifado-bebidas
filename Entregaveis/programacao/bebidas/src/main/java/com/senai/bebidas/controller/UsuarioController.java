@@ -3,13 +3,16 @@ package com.senai.bebidas.controller;
 import com.senai.bebidas.dto.UsuarioDTO;
 import com.senai.bebidas.dto.UsuarioRequest;
 import com.senai.bebidas.dto.UsuarioUpdateRequest;
+import com.senai.bebidas.exception.ValidationException;
 import com.senai.bebidas.security.JwtUtil;
 import com.senai.bebidas.service.UsuarioService;
+import com.senai.bebidas.util.FiltroAtivo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -36,6 +39,7 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> listar(@RequestParam(required = false) String ativo) {
+        FiltroAtivo.interpretar(ativo); // valida ou lança ValidationException
         List<UsuarioDTO> lista = usuarioService.listar(ativo);
         return ResponseEntity.ok(lista);
     }

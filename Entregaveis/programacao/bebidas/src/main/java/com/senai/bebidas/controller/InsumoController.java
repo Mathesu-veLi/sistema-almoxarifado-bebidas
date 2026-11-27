@@ -2,6 +2,7 @@ package com.senai.bebidas.controller;
 
 import com.senai.bebidas.dto.InsumoDTO;
 import com.senai.bebidas.dto.InsumoRequest;
+
 import com.senai.bebidas.service.InsumoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class InsumoController {
     @GetMapping
     public ResponseEntity<List<InsumoDTO>> listar(
             @RequestParam(required = false) String nome,
-            @RequestParam(required = false) Boolean ativo) {
+            @RequestParam(required = false) String ativo) {
         List<InsumoDTO> lista = insumoService.listar(nome, ativo);
         return ResponseEntity.ok(lista);
     }

@@ -1,7 +1,8 @@
 package com.senai.bebidas.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,10 +16,13 @@ public class FornecedorRequest {
     private String nome;
 
     @NotBlank(message = "O campo CNPJ é obrigatório")
-    @Size(min = 14, max = 14, message = "O CNPJ deve ter 14 dígitos")
+    @Pattern(regexp = "\\d{14}", message = "O CNPJ deve conter 14 dígitos numéricos")
     private String cnpj;
 
+    @Pattern(regexp = "\\d{10,11}", message = "O telefone deve conter 10 ou 11 dígitos numéricos")
     private String telefone;
 
-    private boolean ativo = true;
+    /** Obrigatório no PUT; validado no Service. */
+    @NotNull(message = "O campo ativo é obrigatório")
+    private Boolean ativo;
 }

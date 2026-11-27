@@ -9,4 +9,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long>, JpaSpecificationExecutor<Movimentacao> {
+
+    boolean existsByInsumoId(Long insumoId);
+    
+    boolean existsBySetorId(Long setorId);
 }
