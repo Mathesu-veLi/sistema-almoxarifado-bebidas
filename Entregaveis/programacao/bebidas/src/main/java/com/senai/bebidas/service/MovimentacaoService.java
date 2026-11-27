@@ -49,6 +49,9 @@ public class MovimentacaoService {
         if (insumo == null) {
             throw new EntityNotFoundException("Insumo nao encontrado");
         }
+        if (!insumo.isAtivo()) {
+            throw new BusinessException("Insumo inativo");
+        }
 
         // 2. Valida o tipo (somente ENTRADA ou SAIDA).
         String tipo = request.getTipo();
