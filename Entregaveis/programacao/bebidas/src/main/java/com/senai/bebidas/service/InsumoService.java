@@ -72,10 +72,17 @@ public class InsumoService {
      * Resultado ordenado por nome crescente.
      */
     @Transactional(readOnly = true)
-    public List<InsumoDTO> listar(String nome, Boolean ativo) {
+    public List<InsumoDTO> listar(String nome, String ativo) {
         // Por padrao (parametro nao informado) lista apenas insumos ativos.
-        // aceita ativo=true (ativos), ativo=false (inativos).
-        Boolean filtroAtivo = (ativo == null) ? Boolean.TRUE : ativo;
+        // aceita ativo=true (ativos), ativo=false (inativos), ativo=todos (todos).
+        Boolean filtroAtivo;
+        if (ativo == null || "true".equalsIgnoreCase(ativo)) {
+            filtroAtivo = Boolean.TRUE;
+        } else if ("false".equalsIgnoreCase(ativo)) {
+            filtroAtivo = Boolean.FALSE;
+        } else { // "todos"
+            filtroAtivo = null;
+        }
         List<Insumo> lista = insumoRepository.buscarPorNomeEFiltroAtivo(nome, filtroAtivo);
         return lista.stream().map(this::toDTO).toList();
     }
