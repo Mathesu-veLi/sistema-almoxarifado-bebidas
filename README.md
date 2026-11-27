@@ -559,3 +559,22 @@ Nunca devolva stack trace ou detalhes internos ao cliente.
 | Testes, documentação e demonstração | 5% |
 
 Na prática: comecem pelo contrato (as 26 operações), depois garantam as regras de negócio (saldo, transação, concorrência e inativação), e só então refinem testes e documentação. Um endpoint bonito que não respeita o contrato vale menos do que um endpoint simples que respeita.
+
+---
+
+## Dados de demonstração (seed.sql)
+
+Após executar o schema.sql, rode o seed.sql para popular o banco com dados de exemplo:
+
+Senhas de demonstração (hashes BCrypt reais no seed.sql):
+- admin / admin123
+- operador / operador123
+
+O seed cria:
+- 2 usuários (admin e operador)
+- 3 setores (Produção, Expedição, Estoque)
+- 2 fornecedores
+- 5 insumos com saldo inicial
+- 6 movimentações de exemplo (entradas e uma saída)
+
+As senhas estão armazenadas como hash BCrypt (custo 12), compatíveis com o BCryptPasswordEncoder do Spring Security.

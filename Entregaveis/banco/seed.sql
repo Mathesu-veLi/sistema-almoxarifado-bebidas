@@ -1,6 +1,6 @@
--- Dados de demostracao para o banco bebidas_db
--- Execute apos o schema.sql. Senhas sao apenas exemplos (hash BCrypt ficticio).
--- Substitua por hashes reais gerados com BCrypt antes de qualquer uso em homologacao/producao.
+-- Dados de demonstração para o banco bebidas_db
+-- Execute após o schema.sql. Senhas: admin/admin123, operador/operador123
+-- Hashes BCrypt reais gerados com custo 12 (compatíveis com BCryptPasswordEncoder).
 
 USE bebidas_db;
 
@@ -8,8 +8,8 @@ USE bebidas_db;
 -- Usuarios (id 1 = admin, id 2 = operador)
 -- ============================================================================
 INSERT INTO usuarios (id, nome, login, senha_hash, ativo) VALUES
-(1, 'Administrador', 'admin', '$2a$10$EXEMPLOHASHBCRYPTADMINEXEMPLOHASHBCRYPTADMIN', 1),
-(2, 'Operador de Almoxarifado', 'operador', '$2a$10$EXEMPLOHASHBCRYPTADMINEXEMPLOHASHBCRYPTADMIN', 1);
+(1, 'Administrador', 'admin', '$2b$12$YbMMEaDHCXPe8BKBml1vTefsdqZ1ZWcdJoGeEmobgWd.0VTuqpcfS', 1),
+(2, 'Operador de Almoxarifado', 'operador', '$2b$12$joxa3I5fiOUxXuY5tv3kM.QS1wpjLwsCEdje/wvD/pICsvEFZnPRq', 1);
 
 -- ============================================================================
 -- Setores
@@ -28,7 +28,7 @@ INSERT INTO fornecedores (id, nome, cnpj, telefone, ativo) VALUES
 
 -- ============================================================================
 -- Insumos
--- quantidade_atual reflete o saldo apos as movimentacoes abaixo
+-- quantidade_atual reflete o saldo após as movimentações abaixo
 -- ============================================================================
 INSERT INTO insumos (id, nome, unidade_medida, quantidade_atual, estoque_minimo, fornecedor_id, ativo) VALUES
 (1, 'Garrafa PET 600ml', 'UN', 70, 20, 1, 1),
@@ -38,9 +38,9 @@ INSERT INTO insumos (id, nome, unidade_medida, quantidade_atual, estoque_minimo,
 (5, 'Tampinha Plastica', 'UN', 1000, 200, 2, 1);
 
 -- ============================================================================
--- Movimentacoes (saldo_anterior e saldo_atual conferem com a quantidade_atual)
+-- Movimentações (saldo_anterior e saldo_atual conferem com a quantidade_atual)
 -- ============================================================================
--- Garrafa PET 600ml: entrada de 100, saida de 30 -> saldo 70
+-- Garrafa PET 600ml: entrada de 100, saída de 30 -> saldo 70
 INSERT INTO movimentacoes (id, insumo_id, tipo, quantidade, setor_id, usuario_id, data_movimentacao, data_registro, lote, validade, saldo_anterior, saldo_atual) VALUES
 (1, 1, 'ENTRADA', 100, NULL, 1, '2026-01-10', '2026-01-10 08:00:00', 'LOTE-202601-A', '2027-01-10', 0, 100),
 (2, 1, 'SAIDA', 30, 1, 2, '2026-01-15', '2026-01-15 09:30:00', NULL, NULL, 100, 70);
