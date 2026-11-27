@@ -3,12 +3,14 @@ package com.senai.bebidas.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.io.DecodingException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.WeakKeyException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
 import javax.crypto.SecretKey;
@@ -22,9 +24,16 @@ public class JwtUtil {
     @Value("${app.jwt.expiration:3600000}")
     private Long expiration;
 
+    /**
+     * A chave configurada pode estar em Base64 (recomendado) ou em texto puro.
+     * Se nao for Base64 valido, usa os bytes UTF-8 para nao derrubar o login.
+     */
     private SecretKey getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
-        return Keys.hmacShaKeyFor(keyBytes);
+        try {
+            return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+        } catch (DecodingException | WeakKeyException ex) {
+            return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        }
     }
 
     public String generateToken(UserDetails userDetails) {

@@ -19,6 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String login;
     private String senha;
+    private boolean ativo;
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl build(Usuario usuario) {
@@ -27,6 +28,7 @@ public class UserDetailsImpl implements UserDetails {
                 usuario.getId(),
                 usuario.getLogin(),
                 usuario.getSenhaHash(),
+                usuario.isAtivo(),
                 authorities);
     }
 
@@ -55,8 +57,9 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+    /** RN-14 / contrato: usuario inativo nao pode autenticar. */
     @Override
     public boolean isEnabled() {
-        return true;
+        return ativo;
     }
 }
